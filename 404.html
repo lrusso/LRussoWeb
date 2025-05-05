@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script>
+      const redirects = {
+        "/llama": "/Llama",
+        "/spider": "/Spider",
+        "/taipei": "/Taipei",
+        "/tetris": "/Tetris",
+      }
+
+      const requestedURL = window.location.href.toLowerCase().trim()
+      const currentDomain = window.location.origin.toLowerCase()
+      let mustRedirectToHome = true
+
+      for (const path in redirects) {
+        if (
+          requestedURL.endsWith(currentDomain + path) ||
+          requestedURL.endsWith(currentDomain + path + "/")
+        ) {
+          mustRedirectToHome = false
+          window.location.href = currentDomain + redirects[path] + "/"
+        }
+      }
+
+      if (mustRedirectToHome) {
+        window.location.href = currentDomain
+      }
+    </script>
+  </body>
+</html>
