@@ -7,10 +7,10 @@ This project is a comprehensive web application demonstrating a variety of moder
 ## Table of Contents
 
 * [Features](#features)
+    * [Lightweight Responsive Portfolio](#lightweight-responsive-portfolio)
     * [404 Error Redirection Workaround](#404-error-redirection-workaround)
     * [Automated Daily Bot (Cron Job)](#automated-daily-bot-cron-job)
     * [Intelligent Web Scraping Bot](#intelligent-web-scraping-bot)
-    * [Lightweight Responsive Portfolio](#lightweight-responsive-portfolio)
     * [MP4 Video Player with Subtitles](#mp4-video-player-with-subtitles)
     * [Cross-Platform Tetris Game](#cross-platform-tetris-game)
     * [Cross-Platform Taipei Game](#cross-platform-taipei-game)
@@ -22,6 +22,10 @@ This project is a comprehensive web application demonstrating a variety of moder
 ## Features
 
 This project integrates several distinct features, each designed to highlight specific web development skills and provide practical solutions.
+
+### Lightweight Responsive Portfolio
+
+The project features a **lightweight and highly responsive web portfolio**. Designed with performance and aesthetics in mind, it utilizes modern CSS and HTML practices to ensure fast loading times and a beautiful display on any device. This portfolio section serves as an excellent template for developers or creatives to present their projects and skills effectively.
 
 ### 404 Error Redirection Workaround
 
@@ -39,10 +43,6 @@ At the heart of the automation is an **advanced web scraping bot**. This bot is 
 * **Content Verification:** The bot **verifies the content** of scraped pages, ensuring data integrity and relevance.
 * **Date Checking:** It intelligently **checks dates** on content, allowing for the retrieval of fresh information or the tracking of changes over time.
 * **Email Reporting:** Upon completion, the bot **sends comprehensive reports via email**, providing timely updates on its findings and any issues encountered. This is invaluable for monitoring dynamic web content.
-
-### Lightweight Responsive Portfolio
-
-The project features a **lightweight and highly responsive web portfolio**. Designed with performance and aesthetics in mind, it utilizes modern CSS and HTML practices to ensure fast loading times and a beautiful display on any device. This portfolio section serves as an excellent template for developers or creatives to present their projects and skills effectively.
 
 ### MP4 Video Player with Subtitles
 
