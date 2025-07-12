@@ -66,7 +66,7 @@ For card game enthusiasts, a **fully responsive Spider Solitaire game** has been
 
 ### Automated Daily Bot
 
-This is a GitHub Actions workflow designed to run a scheduled job. It runs a Node.js script that uses an optional GitHub secret named `GOOGLE_API_KEY` in your repository settings. You can change the time or frequency by modifying the `on:` line in the `.github/workflows/cronjob.yml` file.
+This is a GitHub Actions workflow designed to run a scheduled job. The scheduled job runs a Node.js script that uses an optional GitHub secret named `GOOGLE_API_KEY` in your repository settings. You can change the time or frequency by modifying the `on:` line in the `.github/workflows/cronjob.yml` file.
 
 * To run every hour:
 
