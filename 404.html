@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script>
+      const redirects = {
+        // "/example1": "https://www.otherdomain.com/Example1",
+        // "/example2": "https://www.otherdomain.com",
+        // "/example3": "/Example3",
+        "/spider": "/Spider",
+        "/taipei": "/Taipei",
+        "/tetris": "/Tetris",
+        "/videoplayer": "/VideoPlayer",
+      }
+
+      const requestedURL = window.location.href.toLowerCase().trim()
+      const currentDomain = window.location.origin.toLowerCase()
+      let mustRedirectToHome = true
+
+      for (const path in redirects) {
+        if (
+          requestedURL.endsWith(currentDomain + path) ||
+          requestedURL.endsWith(currentDomain + path + "/")
+        ) {
+          mustRedirectToHome = false
+          if (redirects[path].startsWith("/")) {
+            window.location.href = currentDomain + redirects[path] + "/"
+          } else {
+            window.location.href = redirects[path]
+          }
+        }
+      }
+
+      if (mustRedirectToHome) {
+        window.location.href = currentDomain
+      }
+    </script>
+  </body>
+</html>
