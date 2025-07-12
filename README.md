@@ -1,6 +1,6 @@
 # LRusso.com Website
 
-This lightweight, responsive portfolio is a comprehensive web application demonstrating a wide array of modern web development techniques and functionalities. It features robust error handling with a 404 error redirection workaround, and highlights automation through an automated daily bot (cron job) and an intelligent web scraping bot. For engagement, it includes an MP4 video player with subtitles, and a suite of cross-platform games: Tetris, Taipei, and Spider Solitaire. This application truly serves as a powerful and practical demonstration of diverse web capabilities.
+This lightweight, responsive portfolio is a comprehensive web application demonstrating a wide array of modern web development techniques and functionalities. It features robust error handling with a 404 error redirection workaround, and highlights automation through an automated daily bot (cron job) and an intelligent web scraping bot. For engagement, it includes an MP4 video player with subtitles, and a suite of cross-platform games: Tetris, Taipei, and Spider Solitaire.
 
 ---
 
