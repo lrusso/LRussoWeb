@@ -16,26 +16,3 @@ jobs:
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: node .github/workflows/cronjob.js
-#
-# -----------------------------------------------------------
-# FOR RUNNING THE CRON JOB AS A MANUAL JOB
-# -----------------------------------------------------------
-#
-# on: workflow_dispatch
-#
-# -----------------------------------------------------------
-# FOR RUNNING THE CRON JOB EVERY 1 HOUR
-# -----------------------------------------------------------
-#
-# on:
-#   schedule:
-#     - cron: "*/60 * * * *"
-#
-# -----------------------------------------------------------
-# FOR RUNNING THE CRON JOB EVERY DAY AT 11 O'CLOCK (UTC)
-# -----------------------------------------------------------
-#
-# on:
-#   schedule:
-#     - cron: "*/60 11 * * *"
-#
