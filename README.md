@@ -103,6 +103,50 @@ on:
 on: workflow_dispatch
 ```
 
+### How to get a Google API Key?
+
+* Browse to https://script.google.com
+* Click on "New project".
+* Paste the following code:
+
+```javascript
+function doPost(e) {
+    const emailAddress = "YOUR_EMAIL_ADDRESS_HERE";
+    const subject = e.parameter.subject;
+    const message = e.parameter.message;
+
+    try {
+        MailApp.sendEmail({
+            to: emailAddress,
+            subject: subject,
+            htmlBody: message
+        });
+        return ContentService.createTextOutput(true);
+    } catch (error) {
+        return ContentService.createTextOutput(error.message);
+    };
+};
+```
+
+* Click on "Deploy".
+* Click on "New deployment".
+* Where it says "Select type", select "Web app".
+* Where it says "Who has access", select "Anyone".
+* Click on "Deploy".
+* If it's the first time you deploy the App:
+    * Click on "Authorize Access".
+    * Select your Google Account.
+    * Your App is not verified, so click on "Advanced".
+    * Click on "Go to <your_app_name>(unsafe)".
+    * Click on "Allow".
+* Finally, there you will get your Deployment ID that it will be your GOOGLE_API_KEY.
+* Go to your GitHub repository.
+* Click on "Settings".
+* Click on "Secrets and variables".
+* Click on "Actions".
+* Click on "New repository secret".
+* There you can create the GOOGLE_API_KEY variable with your Deployment ID value.
+
 ---
 
 ## License
