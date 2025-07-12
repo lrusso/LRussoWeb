@@ -28,7 +28,7 @@ This project implements a clever **workaround for 404 (Not Found) errors**, ensu
 
 ### MP4 Video Player with Subtitles
 
-A custom-built **MP4 video player** is integrated into the project. This player goes beyond basic video playback by offering **full support for embedded or external subtitles** (e.g., in VTT or SRT formats). It provides a clean, user-friendly interface with standard playback controls, making it ideal for presenting video content with accessibility in mind.
+A custom-built **MP4 video player** is integrated into the project. This player goes beyond basic video playback by offering **full support for embedded or external subtitles** (in SRT format). It provides a clean, user-friendly interface with standard playback controls, making it ideal for presenting video content with accessibility in mind.
 
 ### Automated Daily Bot (Cron Job)
 
@@ -53,7 +53,7 @@ This project includes a fully functional **Tetris game** meticulously designed f
 
 ### Cross-Platform Taipei Game
 
-Another beloved classic, the **Taipei (Mahjong Solitaire) game**, is also part of this project. Like Tetris, it's built with **responsive design principles**, ensuring an optimal and enjoyable experience on **desktops, phones, and tablets**. The intuitive touch controls and adaptive layout make it a pleasure to play on any device.
+Another beloved classic, the **Taipei (Mahjong Solitaire) game**, is also part of this project. Like Tetris, it's built with **responsive design principles**, ensuring an optimal and enjoyable experience on **desktops, phones and tablets**. The intuitive touch controls and adaptive layout make it a pleasure to play on any device.
 
 ---
 
