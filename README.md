@@ -8,10 +8,10 @@ This project is a comprehensive web application demonstrating a variety of moder
 
 * [Features](#features)
     * [404 Error Redirection Workaround](#404-error-redirection-workaround)
-    * [MP4 Video Player with Subtitles](#mp4-video-player-with-subtitles)
     * [Automated Daily Bot (Cron Job)](#automated-daily-bot-cron-job)
     * [Intelligent Web Scraping Bot](#intelligent-web-scraping-bot)
     * [Lightweight Responsive Portfolio](#lightweight-responsive-portfolio)
+    * [MP4 Video Player with Subtitles](#mp4-video-player-with-subtitles)
     * [Cross-Platform Tetris Game](#cross-platform-tetris-game)
     * [Cross-Platform Taipei Game](#cross-platform-taipei-game)
     * [Cross-Platform Spider Solitaire Game](#cross-platform-spider-solitaire-game)
@@ -26,10 +26,6 @@ This project integrates several distinct features, each designed to highlight sp
 ### 404 Error Redirection Workaround
 
 This project implements a clever **workaround for 404 (Not Found) errors**, ensuring a smoother user experience. Instead of simply displaying a generic error page, the system attempts to intelligently redirect users to relevant content or a well-designed custom error page, minimizing user frustration and improving navigation. This is achieved through a combination of server-side configurations and client-side scripting to detect 404 conditions and initiate appropriate redirection logic.
-
-### MP4 Video Player with Subtitles
-
-A custom-built **MP4 video player** is integrated into the project. This player goes beyond basic video playback by offering **full support for embedded or external subtitles** (in SRT format). It provides a clean, user-friendly interface with standard playback controls, making it ideal for presenting video content with accessibility in mind.
 
 ### Automated Daily Bot (Cron Job)
 
@@ -47,6 +43,10 @@ At the heart of the automation is an **advanced web scraping bot**. This bot is 
 ### Lightweight Responsive Portfolio
 
 The project features a **lightweight and highly responsive web portfolio**. Designed with performance and aesthetics in mind, it utilizes modern CSS and HTML practices to ensure fast loading times and a beautiful display on any device. This portfolio section serves as an excellent template for developers or creatives to present their projects and skills effectively.
+
+### MP4 Video Player with Subtitles
+
+A custom-built **MP4 video player** is integrated into the project. This player goes beyond basic video playback by offering **full support for embedded or external subtitles** (in SRT format). It provides a clean, user-friendly interface with standard playback controls, making it ideal for presenting video content with accessibility in mind.
 
 ### Cross-Platform Tetris Game
 
