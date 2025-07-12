@@ -6,6 +6,7 @@ This project integrates several distinct features, each designed to highlight sp
 
 ## Table of Contents
 
+* [Table of Contents](#table-of-contents)
 * [Features](#features)
     * [Lightweight Responsive Portfolio](#lightweight-responsive-portfolio)
     * [404 Error Redirection Workaround](#404-error-redirection-workaround)
