@@ -1,6 +1,6 @@
 # LRusso.com Website
 
-This project is a comprehensive web application demonstrating a variety of modern web development techniques and functionalities. From robust error handling to interactive games and automated tasks, it serves as a powerful showcase for a range of web capabilities.
+This project is a comprehensive web application demonstrating a variety of modern web development techniques and functionalities. From robust error handling to automated tasks and interactive games, it serves as a powerful showcase for a range of web capabilities.
 
 ---
 
