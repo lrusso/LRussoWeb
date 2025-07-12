@@ -18,6 +18,7 @@ This project integrates several distinct features, each designed to highlight sp
 * [Usage](#usage)
     * [404 Error Redirections](#404-error-redirections)
     * [Automated Daily Bot](#automated-daily-bot)
+    * [How to get the Google API Key?](#how-to-get-the-google-api-key)
 * [License](#license)
 
 ---
