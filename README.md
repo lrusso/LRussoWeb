@@ -16,6 +16,7 @@ This project integrates several distinct features, each designed to highlight sp
     * [Cross-Platform Taipei Game](#cross-platform-taipei-game)
     * [Cross-Platform Spider Solitaire Game](#cross-platform-spider-solitaire-game)
 * [Usage](#usage)
+    * [404 Error Redirections](#404-error-redirections)
     * [Automated Daily Bot](#automated-daily-bot)
 * [License](#license)
 
@@ -63,6 +64,18 @@ For card game enthusiasts, a **fully responsive Spider Solitaire game** has been
 ---
 
 ## Usage
+
+### 404 Error Redirections
+
+The `404.html` file acts as a client-side redirector. If someone tries to access a page on your site that no longer exists or if the web server is not case insensitive (a 404 error), this file checks if that old address is in its list. If it is, the user gets sent to the new, correct page. If the address isn't in the list, everyone gets sent to your website's homepage. It uses a small piece of JavaScript code to do all the work. Below you will find examples of how to use it.
+
+```javascript
+const redirects = {
+  "/example1": "/Example1",
+  "/example2": "https://www.otherdomain.com",
+  "/example3": "https://www.otherdomain.com/Example3",
+}
+```
 
 ### Automated Daily Bot
 
