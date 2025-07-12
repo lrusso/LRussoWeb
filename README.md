@@ -1,1 +1,64 @@
 # LRusso.com Website
+
+This project is a comprehensive web application demonstrating a variety of modern web development techniques and functionalities. From robust error handling to interactive games and automated tasks, it serves as a powerful showcase for a range of web capabilities.
+
+---
+
+## Table of Contents
+
+* [Features](#features)
+    * [404 Error Redirection Workaround](#404-error-redirection-workaround)
+    * [MP4 Video Player with Subtitles](#mp4-video-player-with-subtitles)
+    * [Cross-Platform Tetris Game](#cross-platform-tetris-game)
+    * [Cross-Platform Taipei Game](#cross-platform-taipei-game)
+    * [Automated Daily Bot (Cron Job)](#automated-daily-bot-cron-job)
+    * [Intelligent Web Scraping Bot](#intelligent-web-scraping-bot)
+    * [Lightweight Responsive Portfolio](#lightweight-responsive-portfolio)
+* [License](#license)
+
+---
+
+## Features
+
+This project integrates several distinct features, each designed to highlight specific web development skills and provide practical solutions.
+
+### 404 Error Redirection Workaround
+
+This project implements a clever **workaround for 404 (Not Found) errors**, ensuring a smoother user experience. Instead of simply displaying a generic error page, the system attempts to intelligently redirect users to relevant content or a well-designed custom error page, minimizing user frustration and improving navigation. This is achieved through a combination of server-side configurations and client-side scripting to detect 404 conditions and initiate appropriate redirection logic.
+
+### MP4 Video Player with Subtitles
+
+A custom-built **MP4 video player** is integrated into the project. This player goes beyond basic video playback by offering **full support for embedded or external subtitles** (e.g., in VTT or SRT formats). It provides a clean, user-friendly interface with standard playback controls, making it ideal for presenting video content with accessibility in mind.
+
+### Cross-Platform Tetris Game
+
+Enjoy a classic with a modern twist! This project includes a fully functional **Tetris game** meticulously designed for **cross-platform compatibility**. Whether you're on a desktop computer, a smartphone, or a tablet, the game adapts seamlessly to your screen size and input method, offering an engaging and responsive gaming experience across all devices.
+
+### Cross-Platform Taipei Game
+
+Another beloved classic, the **Taipei (Mahjong Solitaire) game**, is also part of this project. Like Tetris, it's built with **responsive design principles**, ensuring an optimal and enjoyable experience on **desktops, phones, and tablets**. The intuitive touch controls and adaptive layout make it a pleasure to play on any device.
+
+### Automated Daily Bot (Cron Job)
+
+A powerful **cron job** is set up to automate a crucial task: running a dedicated bot every day at **8:00 AM**. This demonstrates the ability to schedule and execute server-side processes reliably, which is fundamental for many web applications requiring automated maintenance, data processing, or reporting.
+
+### Intelligent Web Scraping Bot
+
+At the heart of the automation is an **advanced web scraping bot**. This bot is engineered to be robust and versatile:
+
+* **User-Agent Cycling:** It utilizes **different User-Agents** to mimic various browsers and devices, reducing the likelihood of being blocked by websites.
+* **Content Verification:** The bot **verifies the content** of scraped pages, ensuring data integrity and relevance.
+* **Date Checking:** It intelligently **checks dates** on content, allowing for the retrieval of fresh information or the tracking of changes over time.
+* **Email Reporting:** Upon completion, the bot **sends comprehensive reports via email**, providing timely updates on its findings and any issues encountered. This is invaluable for monitoring dynamic web content.
+
+### Lightweight Responsive Portfolio
+
+The project features a **lightweight and highly responsive web portfolio**. Designed with performance and aesthetics in mind, it utilizes modern CSS and HTML practices to ensure fast loading times and a beautiful display on any device. This portfolio section serves as an excellent template for developers or creatives to present their projects and skills effectively.
+
+---
+
+## License
+
+Distributed under the GPL 3.0 License. See `license.txt` for more information.
+
+---
