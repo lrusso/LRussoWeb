@@ -76,7 +76,7 @@ on:
     - cron: "*/60 * * * *"
 ```
 
-* To run manually (you can running it directly from your repository's **Actions** tab):
+* To run manually (you can running it directly from your repository's Actions tab):
 
 ```
 on: workflow_dispatch
