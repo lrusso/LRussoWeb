@@ -14,6 +14,7 @@ This project is a comprehensive web application demonstrating a variety of moder
     * [Lightweight Responsive Portfolio](#lightweight-responsive-portfolio)
     * [Cross-Platform Tetris Game](#cross-platform-tetris-game)
     * [Cross-Platform Taipei Game](#cross-platform-taipei-game)
+    * [Cross-Platform Spider Solitaire Game](#cross-platform-spider-solitaire-game)
 * [License](#license)
 
 ---
@@ -54,6 +55,10 @@ This project includes a fully functional **Tetris game** meticulously designed f
 ### Cross-Platform Taipei Game
 
 Another beloved classic, the **Taipei (Mahjong Solitaire) game**, is also part of this project. Like Tetris, it's built with **responsive design principles**, ensuring an optimal and enjoyable experience on **desktops, phones and tablets**. The intuitive touch controls and adaptive layout make it a pleasure to play on any device.
+
+### Cross-Platform Spider Solitaire Game
+
+For card game enthusiasts, a **fully responsive Spider Solitaire game** has been added. Designed to be played effortlessly on a desktop computer, a smartphone, or a tablet, it adapts its layout and controls to provide an intuitive experience across all screen sizes.
 
 ---
 
