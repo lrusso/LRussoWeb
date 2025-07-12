@@ -15,6 +15,8 @@ This project integrates several distinct features, each designed to highlight sp
     * [Cross-Platform Tetris Game](#cross-platform-tetris-game)
     * [Cross-Platform Taipei Game](#cross-platform-taipei-game)
     * [Cross-Platform Spider Solitaire Game](#cross-platform-spider-solitaire-game)
+* [Usage](#usage)
+    * [Automated Daily Bot](#automated-daily-bot)
 * [License](#license)
 
 ---
@@ -57,6 +59,14 @@ Another beloved classic, the **Taipei (Mahjong Solitaire) game**, is also part o
 ### Cross-Platform Spider Solitaire Game
 
 For card game enthusiasts, a **fully responsive Spider Solitaire game** has been added. Designed to be played effortlessly on a desktop computer, a smartphone, or a tablet, it adapts its layout and controls to provide an intuitive experience across all screen sizes.
+
+---
+
+## Usage
+
+### Automated Daily Bot
+
+TODO.
 
 ---
 
