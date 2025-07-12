@@ -68,7 +68,7 @@ For card game enthusiasts, a **fully responsive Spider Solitaire game** has been
 
 ### 404 Error Redirections
 
-The `404.html` file acts as a client-side redirector. If someone tries to access a page on your site that no longer exists or if the web server is not case insensitive (a 404 error), this file checks if that address is in its list. If it is, the user gets sent to the correct page. If the address isn't in the list, everyone gets sent to your website's homepage. Below you will find examples of how to use it.
+The `404.html` file acts as a client-side redirector. If someone tries to access a page on your site that no longer exists or if the web server is not case insensitive (a 404 error), this file checks if that address is in the list. If it is, the user gets sent to the correct page. If the address isn't in the list, everyone gets sent to your website's homepage. Below you will find examples of how to use it.
 
 ```javascript
 const redirects = {
