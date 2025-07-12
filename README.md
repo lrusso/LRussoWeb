@@ -9,11 +9,11 @@ This project is a comprehensive web application demonstrating a variety of moder
 * [Features](#features)
     * [404 Error Redirection Workaround](#404-error-redirection-workaround)
     * [MP4 Video Player with Subtitles](#mp4-video-player-with-subtitles)
-    * [Cross-Platform Tetris Game](#cross-platform-tetris-game)
-    * [Cross-Platform Taipei Game](#cross-platform-taipei-game)
     * [Automated Daily Bot (Cron Job)](#automated-daily-bot-cron-job)
     * [Intelligent Web Scraping Bot](#intelligent-web-scraping-bot)
     * [Lightweight Responsive Portfolio](#lightweight-responsive-portfolio)
+    * [Cross-Platform Tetris Game](#cross-platform-tetris-game)
+    * [Cross-Platform Taipei Game](#cross-platform-taipei-game)
 * [License](#license)
 
 ---
@@ -29,14 +29,6 @@ This project implements a clever **workaround for 404 (Not Found) errors**, ensu
 ### MP4 Video Player with Subtitles
 
 A custom-built **MP4 video player** is integrated into the project. This player goes beyond basic video playback by offering **full support for embedded or external subtitles** (e.g., in VTT or SRT formats). It provides a clean, user-friendly interface with standard playback controls, making it ideal for presenting video content with accessibility in mind.
-
-### Cross-Platform Tetris Game
-
-Enjoy a classic with a modern twist! This project includes a fully functional **Tetris game** meticulously designed for **cross-platform compatibility**. Whether you're on a desktop computer, a smartphone, or a tablet, the game adapts seamlessly to your screen size and input method, offering an engaging and responsive gaming experience across all devices.
-
-### Cross-Platform Taipei Game
-
-Another beloved classic, the **Taipei (Mahjong Solitaire) game**, is also part of this project. Like Tetris, it's built with **responsive design principles**, ensuring an optimal and enjoyable experience on **desktops, phones, and tablets**. The intuitive touch controls and adaptive layout make it a pleasure to play on any device.
 
 ### Automated Daily Bot (Cron Job)
 
@@ -54,6 +46,14 @@ At the heart of the automation is an **advanced web scraping bot**. This bot is 
 ### Lightweight Responsive Portfolio
 
 The project features a **lightweight and highly responsive web portfolio**. Designed with performance and aesthetics in mind, it utilizes modern CSS and HTML practices to ensure fast loading times and a beautiful display on any device. This portfolio section serves as an excellent template for developers or creatives to present their projects and skills effectively.
+
+### Cross-Platform Tetris Game
+
+Enjoy a classic with a modern twist! This project includes a fully functional **Tetris game** meticulously designed for **cross-platform compatibility**. Whether you're on a desktop computer, a smartphone, or a tablet, the game adapts seamlessly to your screen size and input method, offering an engaging and responsive gaming experience across all devices.
+
+### Cross-Platform Taipei Game
+
+Another beloved classic, the **Taipei (Mahjong Solitaire) game**, is also part of this project. Like Tetris, it's built with **responsive design principles**, ensuring an optimal and enjoyable experience on **desktops, phones, and tablets**. The intuitive touch controls and adaptive layout make it a pleasure to play on any device.
 
 ---
 
