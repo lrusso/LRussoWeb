@@ -103,10 +103,10 @@ on:
 on: workflow_dispatch
 ```
 
-### How to get a Google API Key?
+### How to get the Google API Key?
 
 * Browse to https://script.google.com
-* Click on "New project".
+* Click on `New project`.
 * Paste the following code:
 
 ```javascript
@@ -128,11 +128,11 @@ function doPost(e) {
 };
 ```
 
-* Click on "Deploy".
-* Click on "New deployment".
-* Where it says "Select type", select "Web app".
-* Where it says "Who has access", select "Anyone".
-* Click on "Deploy".
+* Click on `Deploy`.
+* Click on `New deployment`.
+* Where it says `Select type`, select `Web app`.
+* Where it says `Who has access`, select `Anyone`.
+* Click on `Deploy`.
 * If it's the first time you deploy the App:
     * Click on "Authorize Access".
     * Select your Google Account.
