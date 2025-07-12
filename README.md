@@ -49,7 +49,7 @@ The project features a **lightweight and highly responsive web portfolio**. Desi
 
 ### Cross-Platform Tetris Game
 
-Enjoy a classic with a modern twist! This project includes a fully functional **Tetris game** meticulously designed for **cross-platform compatibility**. Whether you're on a desktop computer, a smartphone, or a tablet, the game adapts seamlessly to your screen size and input method, offering an engaging and responsive gaming experience across all devices.
+This project includes a fully functional **Tetris game** meticulously designed for **cross-platform compatibility**. Whether you're on a desktop computer, a smartphone, or a tablet, the game adapts seamlessly to your screen size and input method, offering an engaging and responsive gaming experience across all devices.
 
 ### Cross-Platform Taipei Game
 
