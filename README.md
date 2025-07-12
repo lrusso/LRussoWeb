@@ -84,7 +84,7 @@ This is a GitHub Actions workflow designed to run a scheduled job. The scheduled
 
 * To run every hour:
 
-```
+```yaml
 on:
   schedule:
     - cron: "*/60 * * * *"
@@ -92,7 +92,7 @@ on:
 
 * To run every day at 11:00 AM UTC:
 
-```
+```yaml
 on:
   schedule:
     - cron: "*/60 11 * * *"
@@ -100,7 +100,7 @@ on:
 
 * To run manually (you can running it directly from your repository's Actions tab):
 
-```
+```yaml
 on: workflow_dispatch
 ```
 
