@@ -134,18 +134,18 @@ function doPost(e) {
 * Where it says `Who has access`, select `Anyone`.
 * Click on `Deploy`.
 * If it's the first time you deploy the App:
-    * Click on "Authorize Access".
+    * Click on `Authorize Access`.
     * Select your Google Account.
-    * Your App is not verified, so click on "Advanced".
-    * Click on "Go to <your_app_name>(unsafe)".
-    * Click on "Allow".
-* Finally, there you will get your Deployment ID that it will be your GOOGLE_API_KEY.
+    * Your App is not verified, so click on `Advanced`.
+    * Click on `Go to <your_app_name>(unsafe)`.
+    * Click on `Allow`.
+* Finally, there you will get your `Deployment ID` that it will be your `GOOGLE_API_KEY`.
 * Go to your GitHub repository.
-* Click on "Settings".
-* Click on "Secrets and variables".
-* Click on "Actions".
-* Click on "New repository secret".
-* There you can create the GOOGLE_API_KEY variable with your Deployment ID value.
+* Click on `Settings`.
+* Click on `Secrets and variables`.
+* Click on `Actions`.
+* Click on `New repository secret`.
+* There you can create the `GOOGLE_API_KEY` variable with your `Deployment ID` value.
 
 ---
 
