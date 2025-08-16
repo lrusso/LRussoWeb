@@ -328,9 +328,9 @@ var SimpleGame = (function()
 
 window.addEventListener("load", function()
 	{
+	// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME FROM ANOTHER DOMAIN
 	if (window.top == window.self || (window.top !== window.self && window.top.location.hostname === window.self.location.hostname))
 		{
-		// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME
 		new SimpleGame();
 		}
 	});
