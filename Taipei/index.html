@@ -966,7 +966,7 @@ game.state.add("Taipei.Preloader", Taipei.Preloader);
 game.state.add("Taipei.Splash", Taipei.Splash);
 game.state.add("Taipei.Game", Taipei.Game);
 
-// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME
+// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME FROM ANOTHER DOMAIN
 if (window.top == window.self || (window.top !== window.self && window.top.location.hostname === window.self.location.hostname))
 	{
 	// STARTING THE GAME PRELOADER
