@@ -391,7 +391,8 @@
 			}
 
 			window.addEventListener("load", () => {
-				if (window.top === window.self) {
+				// CHECKING IF THE APP IS NOT RUNNING WITHIN AN IFRAME FROM ANOTHER DOMAIN
+				if (window.top == window.self || (window.top !== window.self && window.top.location.hostname === window.self.location.hostname)) {
 					mediaFileInput.value = null;
 					mediaFileInput.addEventListener("change", (event) => {
 						pleaseWait.style.display = "block";
