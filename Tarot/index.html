@@ -1125,7 +1125,7 @@ game.state.add("Tarot.Splash", Tarot.Splash);
 game.state.add("Tarot.Disclaimer", Tarot.Disclaimer);
 game.state.add("Tarot.Game", Tarot.Game);
 
-// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME
+// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME FROM ANOTHER DOMAIN
 if (window.top == window.self || (window.top !== window.self && window.top.location.hostname === window.self.location.hostname))
 	{
 	// STARTING THE GAME PRELOADER
