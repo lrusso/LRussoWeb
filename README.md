@@ -14,10 +14,10 @@ This project integrates several distinct features, each designed to highlight sp
   - [Intranet Virtual Desktop](#intranet-virtual-desktop)
   - [MP4 Video Player with Subtitles](#mp4-video-player-with-subtitles)
   - [Webcam Recorder](#webcam-recorder)
-  - [Cross-Platform Spider Solitaire Game](#cross-platform-spider-solitaire-game)
-  - [Cross-Platform Taipei Game](#cross-platform-taipei-game)
-  - [Cross-Platform Tarot Game](#cross-platform-tarot-game)
-  - [Cross-Platform Tetris Game](#cross-platform-tetris-game)
+  - [Spider Solitaire Game](#spider-solitaire-game)
+  - [Taipei Game](#taipei-game)
+  - [Tarot Game](#tarot-game)
+  - [Tetris Game](#tetris-game)
 - [Usage](#usage)
   - [404 Error Redirections](#404-error-redirections)
   - [Automated Daily Bot](#automated-daily-bot)
@@ -63,19 +63,19 @@ A custom-built MP4 video player is integrated into the project. This player goes
 
 Provides a webcam recorder capable of capturing high-quality video and audio directly from a user's device. Built with cross-platform compatibility in mind, it supports recording in both 720p and 1080p resolutions, allowing users to select their preferred quality. It's a versatile tool for various applications, from simple video messages to more professional content creation, all within the browser.
 
-### Cross-Platform Spider Solitaire Game
+### Spider Solitaire Game
 
 For card game enthusiasts, a fully responsive Spider Solitaire game has been added. Designed to be played effortlessly on a desktop computer, a smartphone, or a tablet, it adapts its layout and controls to provide an intuitive experience across all screen sizes.
 
-### Cross-Platform Taipei Game
+### Taipei Game
 
 Another beloved classic, the Taipei (Mahjong Solitaire) game, is also part of this project. It's built with responsive design principles, ensuring an optimal and enjoyable experience on desktops, phones and tablets. The intuitive touch controls and adaptive layout make it a pleasure to play on any device.
 
-### Cross-Platform Tarot Game
+### Tarot Game
 
 Also for card game enthusiasts, a Tarot card game is part of this project, that was reimagined for the modern age. It provides an immersive experience on desktop and mobile devices. The layout adjusts to fit your screen, and the user interface is optimized for both mouse and touch controls, allowing you to easily draw and play cards no matter where you are.
 
-### Cross-Platform Tetris Game
+### Tetris Game
 
 Lastly, this project includes a fully functional Tetris game meticulously designed for cross-platform compatibility. Whether you're on a desktop computer, a smartphone, or a tablet, the game adapts seamlessly to your screen size and input method, offering an engaging and responsive gaming experience across all devices.
 
