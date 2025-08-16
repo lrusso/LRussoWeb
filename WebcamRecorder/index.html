@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Webcam Recorder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      * {
+        font-family: Arial;
+      }
+      body {
+        background-color: #000;
+        margin: 0;
+        padding: 0;
+      }
+      .media-container {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        z-index: -1;
+      }
+      video {
+        width: 100%;
+        height: 100%;
+      }
+      .controls {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 20px;
+        justify-content: center;
+        display: flex;
+        gap: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        color: white;
+      }
+      #startBtn {
+        background-color: #4caf50;
+        width: 100px;
+      }
+      #startBtn.recording {
+        background-color: #f44336;
+      }
+      #qualityBtn {
+        background-color: #2196f3;
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="media-container">
+      <video id="liveVideo" autoplay muted playsinline></video>
+    </div>
+    <div class="controls">
+      <button id="startBtn"></button>
+      <button id="qualityBtn">720p</button>
+    </div>
+
+    <script>
+      const USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+
+      let startBtn
+      let qualityBtn
+      let liveVideo
+      let videoFormat = "webm"
+      let isHighQuality = false
+      let isRecording = false
+
+      let mediaStream
+      let mediaRecorder
+      let recordedChunks = []
+
+      let STRING_START_RECORDING
+      let STRING_STOP_RECORDING
+
+      if (USER_LANG === "es") {
+        STRING_START_RECORDING = "Filmar"
+        STRING_STOP_RECORDING = "Detener"
+      } else {
+        STRING_START_RECORDING = "Record"
+        STRING_STOP_RECORDING = "Stop"
+      }
+
+      const isUsingiOS = () => {
+        return !!(
+          window.navigator.userAgent.match(/iPhone/i) ||
+          window.navigator.userAgent.match(/iPad/i) ||
+          window.navigator.userAgent.match(/iPod/i)
+        )
+      }
+
+      const openCamera = async () => {
+        try {
+          if (mediaStream) {
+            mediaStream.getTracks().forEach((track) => track.stop())
+          }
+
+          mediaStream = null
+
+          let videoConstraints
+
+          if (isHighQuality) {
+            if (isUsingiOS()) {
+              videoConstraints = { width: 1920, height: 1080 }
+            } else {
+              videoConstraints = { width: { ideal: 1920 }, height: { ideal: 1080 } }
+            }
+            document.querySelector(".media-container").style.width = "1920px"
+            document.querySelector(".media-container").style.height = "1080px"
+            qualityBtn.innerText = "1080p"
+          } else {
+            if (isUsingiOS()) {
+              videoConstraints = { width: 1280, height: 720 }
+            } else {
+              videoConstraints = { width: { ideal: 1280 }, height: { ideal: 720 } }
+            }
+            document.querySelector(".media-container").style.width = "1280px"
+            document.querySelector(".media-container").style.height = "720px"
+            qualityBtn.innerText = "720p"
+          }
+
+          mediaStream = await navigator.mediaDevices.getUserMedia({
+            video: videoConstraints,
+            audio: true,
+          })
+
+          liveVideo.srcObject = mediaStream
+          liveVideo.play()
+
+          recordedChunks = []
+
+          if (MediaRecorder.isTypeSupported("video/mp4")) {
+            videoFormat = "mp4"
+          }
+
+          mediaRecorder = new MediaRecorder(mediaStream, {
+            mimeType: "video/" + videoFormat,
+          })
+
+          mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+              recordedChunks.push(event.data)
+            }
+          }
+          mediaRecorder.onstop = () => {
+            downloadVideo()
+          }
+        } catch (error) {}
+      }
+
+      const handleStartButton = () => {
+          if (!mediaStream) {
+            return
+          }
+
+          if (isRecording) {
+            startBtn.innerText = STRING_START_RECORDING
+            startBtn.classList.remove("recording")
+            stopRecording()
+          } else {
+            startBtn.innerText = STRING_STOP_RECORDING
+            startRecording()
+            startBtn.classList.add("recording")
+          }
+          isRecording = !isRecording
+      }
+
+      const startRecording = () => {
+        if (!mediaStream) {
+          return
+        }
+
+        mediaRecorder.start()
+      }
+
+      const stopRecording = () => {
+        if (mediaRecorder && mediaRecorder.state === "recording") {
+          mediaRecorder.stop()
+        }
+      }
+
+      const toggleQuality = () => {
+          if (!mediaStream || isRecording) {
+            return
+          }
+
+          isHighQuality = !isHighQuality
+          openCamera()
+      }
+
+      const downloadVideo = () => {
+        if (recordedChunks.length > 0) {
+          const blob = new Blob(recordedChunks, { type: "video/" + videoFormat })
+          const url = URL.createObjectURL(blob)
+          const a = document.createElement("a")
+          a.style.display = "none"
+          a.href = url
+          a.download = "video." + videoFormat
+          document.body.appendChild(a)
+          a.click()
+          window.URL.revokeObjectURL(url)
+          document.body.removeChild(a)
+          recordedChunks = []
+        }
+      }
+
+      window.addEventListener("load", () => {
+        // CHECKING IF THE APP IS NOT RUNNING WITHIN AN IFRAME
+        if (window.top == window.self || (window.top !== window.self && window.top.location.hostname === window.self.location.hostname)) {
+          startBtn = document.getElementById("startBtn")
+          qualityBtn = document.getElementById("qualityBtn")
+          liveVideo = document.getElementById("liveVideo")
+
+          startBtn.innerText = STRING_START_RECORDING
+          startBtn.addEventListener("click", handleStartButton)
+
+          qualityBtn.addEventListener("click", toggleQuality)
+
+          openCamera()
+        }
+      })
+    </script>
+  </body>
+</html>
