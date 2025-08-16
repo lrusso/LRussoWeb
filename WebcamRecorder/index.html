@@ -212,7 +212,7 @@
       }
 
       window.addEventListener("load", () => {
-        // CHECKING IF THE APP IS NOT RUNNING WITHIN AN IFRAME
+        // CHECKING IF THE APP IS NOT RUNNING WITHIN AN IFRAME FROM ANOTHER DOMAIN
         if (window.top == window.self || (window.top !== window.self && window.top.location.hostname === window.self.location.hostname)) {
           startBtn = document.getElementById("startBtn")
           qualityBtn = document.getElementById("qualityBtn")
