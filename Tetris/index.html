@@ -1571,7 +1571,7 @@ game.state.add("Tetris.Splash", Tetris.Splash);
 game.state.add("Tetris.Menu", Tetris.Menu);
 game.state.add("Tetris.Game", Tetris.Game);
 
-// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME
+// CHECKING IF THE GAME IS NOT RUNNING WITHIN AN IFRAME FROM ANOTHER DOMAIN
 if (window.top == window.self || (window.top !== window.self && window.top.location.hostname === window.self.location.hostname))
 	{
 	// STARTING THE GAME PRELOADER
