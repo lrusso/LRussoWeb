@@ -13,6 +13,7 @@ This project integrates several distinct features, each designed to highlight sp
   - [Intelligent Web Scraping Bot](#intelligent-web-scraping-bot)
   - [Intranet Virtual Desktop](#intranet-virtual-desktop)
   - [MP4 Video Player with Subtitles](#mp4-video-player-with-subtitles)
+  - [Webcam Recorder](#webcam-recorder)
   - [Cross-Platform Spider Solitaire Game](#cross-platform-spider-solitaire-game)
   - [Cross-Platform Taipei Game](#cross-platform-taipei-game)
   - [Cross-Platform Tarot Game](#cross-platform-tarot-game)
@@ -57,6 +58,10 @@ It's a customizable web template designed to provide a virtual desktop experienc
 ### MP4 Video Player with Subtitles
 
 A custom-built MP4 video player is integrated into the project. This player goes beyond basic video playback by offering full support for embedded or external subtitles (in SRT format). It provides a clean, user-friendly interface with standard playback controls, making it ideal for presenting video content with accessibility in mind.
+
+### Webcam Recorder
+
+Provides a webcam recorder capable of capturing high-quality video and audio directly from a user's device. Built with cross-platform compatibility in mind, it supports recording in both 720p and 1080p resolutions, allowing users to select their preferred quality. It's a versatile tool for various applications, from simple video messages to more professional content creation, all within the browser.
 
 ### Cross-Platform Spider Solitaire Game
 
