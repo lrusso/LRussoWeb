@@ -7739,7 +7739,7 @@
             }
 
             // Check for LinkedIn profile
-            if (text.includes("www.linkedin.com")) {
+            if (text.includes("https://www.linkedin.com/in/")) {
               result.found.push("LinkedIn")
               result.score += 2
               result.details.push({
@@ -7754,7 +7754,7 @@
                   item: "LinkedIn profile",
                   status: "missing",
                   message:
-                    'Adjust your LinkedIn URL to include "www". For example: www.linkedin.com/in/leonardojavierrusso',
+                    "Adjust your LinkedIn URL to be a standard URL. For example: https://www.linkedin.com/in/leonardojavierrusso",
                 })
               } else {
                 result.missing.push("LinkedIn")
