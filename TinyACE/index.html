@@ -35,13 +35,12 @@
         -webkit-tap-highlight-color: transparent;
         touch-action: none;
       }
-
-      .tinyace_menu_container {
+      .menu_container {
         height: 40px;
         border-bottom: thin solid #d3d3d3;
         overflow-y: hidden;
       }
-      .tinyace_menu {
+      .menu {
         border-bottom: thin solid #d3d3d3;
         background-color: #f2f2f2;
         left: 0;
@@ -55,26 +54,26 @@
         font-family: Arial;
         font-size: 13px;
       }
-      .tinyace_menu::-webkit-scrollbar {
+      .menu::-webkit-scrollbar {
         display: none;
       }
-      .tinyace_menu_size {
+      .menu_size {
         width: 550px;
       }
-      .tinyace_holder {
+      .holder {
         float: left;
         padding-top: 3px;
         padding-bottom: 3px;
         margin: 0;
       }
-      .tinyace_separator {
+      .separator {
         float: left;
         border-left: thin solid #d3d3d3;
         margin-left: 5px;
         height: 100px;
         width: 1px;
       }
-      .tinyace_button_new_enabled {
+      .button_new_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -92,11 +91,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .tinyace_button_new_enabled:hover {
+      .button_new_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .tinyace_button_open_enabled {
+      .button_open_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -114,11 +113,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .tinyace_button_open_enabled:hover {
+      .button_open_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .tinyace_button_save_enabled {
+      .button_save_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -136,11 +135,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .tinyace_button_save_enabled:hover {
+      .button_save_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .tinyace_button_undo_disabled {
+      .button_undo_disabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -158,7 +157,7 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .tinyace_button_undo_enabled {
+      .button_undo_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -176,11 +175,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .tinyace_button_undo_enabled:hover {
+      .button_undo_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .tinyace_button_redo_disabled {
+      .button_redo_disabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -198,7 +197,7 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .tinyace_button_redo_enabled {
+      .button_redo_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -216,11 +215,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .tinyace_button_redo_enabled:hover {
+      .button_redo_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .tinyace_button_search_enabled {
+      .button_search_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -238,11 +237,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .tinyace_button_search_enabled:hover {
+      .button_search_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .tinyace_button_insert_enabled {
+      .button_insert_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -260,14 +259,14 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .tinyace_button_insert_enabled:hover {
+      .button_insert_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .tinyace_buttonHidden {
+      .buttonHidden {
         display: none;
       }
-      .tinyace_splash_container {
+      .splash_container {
         position: fixed;
         left: 0;
         right: 0;
@@ -276,7 +275,7 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 9999;
       }
-      .tinyace_pleasewait {
+      .pleasewait {
         position: fixed;
         width: 64px;
         height: 64px;
@@ -287,18 +286,18 @@
         margin: auto auto;
         border: 0;
       }
-      .tinyace_spinner {
+      .spinner {
         color: white;
         display: inline-block;
         position: relative;
         width: 64px;
         height: 64px;
       }
-      .tinyace_spinner div {
+      .spinner div {
         transform-origin: 32px 32px;
-        animation: tinyace_spinner 1.2s linear infinite;
+        animation: spinner 1.2s linear infinite;
       }
-      .tinyace_spinner div:after {
+      .spinner div:after {
         content: " ";
         display: block;
         position: absolute;
@@ -309,55 +308,55 @@
         border-radius: 20%;
         background: white;
       }
-      .tinyace_spinner div:nth-child(1) {
+      .spinner div:nth-child(1) {
         transform: rotate(0deg);
         animation-delay: -1.1s;
       }
-      .tinyace_spinner div:nth-child(2) {
+      .spinner div:nth-child(2) {
         transform: rotate(30deg);
         animation-delay: -1s;
       }
-      .tinyace_spinner div:nth-child(3) {
+      .spinner div:nth-child(3) {
         transform: rotate(60deg);
         animation-delay: -0.9s;
       }
-      .tinyace_spinner div:nth-child(4) {
+      .spinner div:nth-child(4) {
         transform: rotate(90deg);
         animation-delay: -0.8s;
       }
-      .tinyace_spinner div:nth-child(5) {
+      .spinner div:nth-child(5) {
         transform: rotate(120deg);
         animation-delay: -0.7s;
       }
-      .tinyace_spinner div:nth-child(6) {
+      .spinner div:nth-child(6) {
         transform: rotate(150deg);
         animation-delay: -0.6s;
       }
-      .tinyace_spinner div:nth-child(7) {
+      .spinner div:nth-child(7) {
         transform: rotate(180deg);
         animation-delay: -0.5s;
       }
-      .tinyace_spinner div:nth-child(8) {
+      .spinner div:nth-child(8) {
         transform: rotate(210deg);
         animation-delay: -0.4s;
       }
-      .tinyace_spinner div:nth-child(9) {
+      .spinner div:nth-child(9) {
         transform: rotate(240deg);
         animation-delay: -0.3s;
       }
-      .tinyace_spinner div:nth-child(10) {
+      .spinner div:nth-child(10) {
         transform: rotate(270deg);
         animation-delay: -0.2s;
       }
-      .tinyace_spinner div:nth-child(11) {
+      .spinner div:nth-child(11) {
         transform: rotate(300deg);
         animation-delay: -0.1s;
       }
-      .tinyace_spinner div:nth-child(12) {
+      .spinner div:nth-child(12) {
         transform: rotate(330deg);
         animation-delay: 0s;
       }
-      @keyframes tinyace_spinner {
+      @keyframes spinner {
         0% {
           opacity: 1;
         }
@@ -366,7 +365,7 @@
         }
       }
 
-      #tinyace_filename {
+      #filename {
         float: left;
         font-family: Arial;
         font-size: 13px;
@@ -378,7 +377,7 @@
         -moz-user-select: none;
         user-select: none;
       }
-      #tinyace_textcode_container {
+      #textcode_container {
         position: fixed;
         padding: 0;
         margin: 0;
@@ -388,7 +387,7 @@
         right: 0;
         display: none;
       }
-      #tinyace_textcode {
+      #textcode {
         position: absolute;
         top: 0;
         right: 0;
@@ -397,31 +396,31 @@
       }
 
       @media (pointer: coarse) {
-        .tinyace_button_new_enabled:hover {
+        .button_new_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .tinyace_button_open_enabled:hover {
+        .button_open_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .tinyace_button_save_enabled:hover {
+        .button_save_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .tinyace_button_undo_enabled:hover {
+        .button_undo_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .tinyace_button_redo_enabled:hover {
+        .button_redo_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .tinyace_button_search_enabled:hover {
+        .button_search_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .tinyace_button_insert_enabled:hover {
+        .button_insert_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
@@ -470,9 +469,9 @@
         String.fromCharCode(9) +
         "</body>\n</html>"
     </script>
-    <div class="tinyace_splash_container">
-      <div class="tinyace_pleasewait">
-        <div class="tinyace_spinner">
+    <div class="splash_container">
+      <div class="pleasewait">
+        <div class="spinner">
           <div></div>
           <div></div>
           <div></div>
@@ -488,48 +487,48 @@
         </div>
       </div>
     </div>
-    <div class="tinyace_menu_container">
-      <div class="tinyace_menu">
-        <div class="tinyace_menu_size">
-          <div class="tinyace_holder">
-            <div class="tinyace_button_new_enabled" id="buttonNew"></div>
+    <div class="menu_container">
+      <div class="menu">
+        <div class="menu_size">
+          <div class="holder">
+            <div class="button_new_enabled" id="buttonNew"></div>
           </div>
-          <div class="tinyace_holder">
-            <div class="tinyace_button_open_enabled" id="buttonOpen"></div>
+          <div class="holder">
+            <div class="button_open_enabled" id="buttonOpen"></div>
             <input
               type="file"
-              class="tinyace_buttonHidden"
+              class="buttonHidden"
               id="fileOpener"
               onChange="menuOpenFileExecute(document.getElementById('fileOpener').files[0]);"
             >
           </div>
-          <div class="tinyace_holder">
-            <div class="tinyace_button_save_enabled" id="buttonSave"></div>
+          <div class="holder">
+            <div class="button_save_enabled" id="buttonSave"></div>
           </div>
-          <div class="tinyace_separator"></div>
-          <div class="tinyace_holder">
-            <div class="tinyace_button_undo_disabled" id="buttonUndo"></div>
+          <div class="separator"></div>
+          <div class="holder">
+            <div class="button_undo_disabled" id="buttonUndo"></div>
           </div>
-          <div class="tinyace_holder">
-            <div class="tinyace_button_redo_disabled" id="buttonRedo"></div>
+          <div class="holder">
+            <div class="button_redo_disabled" id="buttonRedo"></div>
           </div>
-          <div class="tinyace_separator"></div>
-          <div class="tinyace_holder">
-            <div class="tinyace_button_search_enabled" id="buttonSearch"></div>
+          <div class="separator"></div>
+          <div class="holder">
+            <div class="button_search_enabled" id="buttonSearch"></div>
           </div>
-          <div class="tinyace_separator"></div>
-          <div class="tinyace_holder">
-            <div class="tinyace_button_insert_enabled" id="buttonInsert"></div>
+          <div class="separator"></div>
+          <div class="holder">
+            <div class="button_insert_enabled" id="buttonInsert"></div>
             <input
               type="file"
-              class="tinyace_buttonHidden"
+              class="buttonHidden"
               id="fileInserter"
               onChange="menuInsert(document.getElementById('fileInserter').files[0]);"
             >
           </div>
-          <div class="tinyace_separator"></div>
-          <div class="tinyace_holder">
-            <div id="tinyace_filename">
+          <div class="separator"></div>
+          <div class="holder">
+            <div id="filename">
               <script>
                 document.write(STRING_FILENAME_EMPTY + ".htm")
               </script>
@@ -538,7 +537,7 @@
         </div>
       </div>
     </div>
-    <div id="tinyace_textcode_container"><div id="tinyace_textcode"></div></div>
+    <div id="textcode_container"><div id="textcode"></div></div>
 
     <script>
       // ace.js version 1.4.12 MODIFIED
@@ -687,13 +686,13 @@
 
       try {
         // SETTING THE DEFAULT FILE NAME IN THE LABEL
-        document.getElementById("tinyace_filename").innerHTML = STRING_FILENAME
+        document.getElementById("filename").innerHTML = STRING_FILENAME
 
         // SETTING THE PATH OF THE ACE CORE
         ace.config.set("basePath", ".")
 
         // CREATING THE ACE INSTANCE
-        var editor = ace.edit("tinyace_textcode")
+        var editor = ace.edit("textcode")
 
         // SETTING THE OPTIONS
         editor.setOptions({
@@ -742,10 +741,10 @@
           // THE UNDO BUTTON WILL BE ENABLED
           document
             .getElementById("buttonUndo")
-            .classList.add("tinyace_button_undo_enabled")
+            .classList.add("button_undo_enabled")
           document
             .getElementById("buttonUndo")
-            .classList.remove("tinyace_button_undo_disabled")
+            .classList.remove("button_undo_disabled")
         })
       } catch (err) {}
 
@@ -776,7 +775,7 @@
         try {
           // SETTING THE DEFAULT FILE NAME IN THE LABEL
           STRING_FILENAME = STRING_FILENAME_EMPTY + ".htm"
-          document.getElementById("tinyace_filename").innerHTML = STRING_FILENAME
+          document.getElementById("filename").innerHTML = STRING_FILENAME
 
           // SETTING THE DEFAULT PROGRAMMING LANGUAGE
           editor.session.setMode("ace/mode/html")
@@ -800,16 +799,16 @@
           // SETTING THE DEFAULT STATE FOR EACH BUTTON
           document
             .getElementById("buttonUndo")
-            .classList.add("tinyace_button_undo_disabled")
+            .classList.add("button_undo_disabled")
           document
             .getElementById("buttonUndo")
-            .classList.remove("tinyace_button_undo_enabled")
+            .classList.remove("button_undo_enabled")
           document
             .getElementById("buttonRedo")
-            .classList.add("tinyace_button_redo_disabled")
+            .classList.add("button_redo_disabled")
           document
             .getElementById("buttonRedo")
-            .classList.remove("tinyace_button_redo_enabled")
+            .classList.remove("button_redo_enabled")
 
           // HIDING THE SEARCH BOX (IF AVAILABLE)
           try {
@@ -870,7 +869,7 @@
 
           // SHOWING THE LOADING SPLASH
           document.getElementsByClassName(
-            "tinyace_splash_container"
+            "splash_container"
           )[0].style.display = "block"
 
           // CREATING THE FILEREADER
@@ -889,7 +888,7 @@
               var content = this.result
 
               // SETTING THE FILE NAME VALUE IN THE LABEL
-              document.getElementById("tinyace_filename").innerHTML = STRING_FILENAME
+              document.getElementById("filename").innerHTML = STRING_FILENAME
 
               // SETTING THE PROGRAMMING LANGUAGE
               var newLanguage
@@ -941,16 +940,16 @@
               // SETTING THE DEFAULT STATE FOR EACH BUTTON
               document
                 .getElementById("buttonUndo")
-                .classList.add("tinyace_button_undo_disabled")
+                .classList.add("button_undo_disabled")
               document
                 .getElementById("buttonUndo")
-                .classList.remove("tinyace_button_undo_enabled")
+                .classList.remove("button_undo_enabled")
               document
                 .getElementById("buttonRedo")
-                .classList.add("tinyace_button_redo_disabled")
+                .classList.add("button_redo_disabled")
               document
                 .getElementById("buttonRedo")
-                .classList.remove("tinyace_button_redo_enabled")
+                .classList.remove("button_redo_enabled")
 
               // HIDING THE SEARCH BOX (IF AVAILABLE)
               try {
@@ -972,7 +971,7 @@
 
               // HIDING THE LOADING SPLASH
               document.getElementsByClassName(
-                "tinyace_splash_container"
+                "splash_container"
               )[0].style.display = "none"
 
               // CLEARING THE SELECTED FILE VALUE
@@ -1011,16 +1010,16 @@
             // SETTING THE DEFAULT STATE FOR EACH BUTTON
             document
               .getElementById("buttonUndo")
-              .classList.add("tinyace_button_undo_disabled")
+              .classList.add("button_undo_disabled")
             document
               .getElementById("buttonUndo")
-              .classList.remove("tinyace_button_undo_enabled")
+              .classList.remove("button_undo_enabled")
             document
               .getElementById("buttonRedo")
-              .classList.add("tinyace_button_redo_disabled")
+              .classList.add("button_redo_disabled")
             document
               .getElementById("buttonRedo")
-              .classList.remove("tinyace_button_redo_enabled")
+              .classList.remove("button_redo_enabled")
 
             // HIDING THE SEARCH BOX (IF AVAILABLE)
             try {
@@ -1090,20 +1089,20 @@
           if (!editor.session.getUndoManager().hasUndo()) {
             document
               .getElementById("buttonUndo")
-              .classList.add("tinyace_button_undo_disabled")
+              .classList.add("button_undo_disabled")
             document
               .getElementById("buttonUndo")
-              .classList.remove("tinyace_button_undo_enabled")
+              .classList.remove("button_undo_enabled")
           }
 
           // IF THERE ARE ANY REDOS LEFT, THE REDO BUTTON WILL BE DISABLED
           if (editor.session.getUndoManager().hasRedo()) {
             document
               .getElementById("buttonRedo")
-              .classList.add("tinyace_button_redo_enabled")
+              .classList.add("button_redo_enabled")
             document
               .getElementById("buttonRedo")
-              .classList.remove("tinyace_button_redo_disabled")
+              .classList.remove("button_redo_disabled")
           }
         } catch (err) {}
       }
@@ -1123,20 +1122,20 @@
           if (!editor.session.getUndoManager().hasRedo()) {
             document
               .getElementById("buttonRedo")
-              .classList.add("tinyace_button_redo_disabled")
+              .classList.add("button_redo_disabled")
             document
               .getElementById("buttonRedo")
-              .classList.remove("tinyace_button_redo_enabled")
+              .classList.remove("button_redo_enabled")
           }
 
           // IF THERE ARE ANY REDOS LEFT, THE REDO BUTTON WILL BE DISABLED
           if (editor.session.getUndoManager().hasUndo()) {
             document
               .getElementById("buttonUndo")
-              .classList.add("tinyace_button_undo_enabled")
+              .classList.add("button_undo_enabled")
             document
               .getElementById("buttonUndo")
-              .classList.remove("tinyace_button_undo_disabled")
+              .classList.remove("button_undo_disabled")
           }
         } catch (err) {}
       }
@@ -1175,11 +1174,11 @@
         ) {
           // HIDING THE LOADING SPLASH
           document.getElementsByClassName(
-            "tinyace_splash_container"
+            "splash_container"
           )[0].style.display = "none"
 
           // SHOWING THE CODE EDITOR
-          document.getElementById("tinyace_textcode_container").style.display =
+          document.getElementById("textcode_container").style.display =
             "block"
 
           // RESIZING THE EDITOR
@@ -1223,7 +1222,7 @@
               document.getElementById("fileInserter").click()
             })
           document
-            .getElementById("tinyace_filename")
+            .getElementById("filename")
             .addEventListener("click", function (event) {
               editor.focus()
             })
