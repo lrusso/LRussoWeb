@@ -302,7 +302,7 @@ const runTasks = async () => {
     console.log(report.join("\n").toString())
 
     // SENDING AN EMAIL WITH THE SYSTEM REPORT
-    await sendEmail(settings.STRING_SYSTEM_REPORT, report.join("<br>").toString())
+    await sendEmail(settings.STRING_SYSTEM_REPORT, report.join("<br><br>").toString())
 
     // EXITING THE PROCESS WITH AN ERROR IN ORDER TO TRIGGER A GITHUB NOTIFICATION
     process.exit(1)
