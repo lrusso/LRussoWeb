@@ -739,9 +739,7 @@
           }
 
           // THE UNDO BUTTON WILL BE ENABLED
-          document
-            .getElementById("buttonUndo")
-            .classList.add("button_undo_enabled")
+          document.getElementById("buttonUndo").classList.add("button_undo_enabled")
           document
             .getElementById("buttonUndo")
             .classList.remove("button_undo_disabled")
@@ -797,15 +795,11 @@
           editor.renderer.$cursorLayer.element.style.display = "block"
 
           // SETTING THE DEFAULT STATE FOR EACH BUTTON
-          document
-            .getElementById("buttonUndo")
-            .classList.add("button_undo_disabled")
+          document.getElementById("buttonUndo").classList.add("button_undo_disabled")
           document
             .getElementById("buttonUndo")
             .classList.remove("button_undo_enabled")
-          document
-            .getElementById("buttonRedo")
-            .classList.add("button_redo_disabled")
+          document.getElementById("buttonRedo").classList.add("button_redo_disabled")
           document
             .getElementById("buttonRedo")
             .classList.remove("button_redo_enabled")
@@ -868,9 +862,8 @@
           editor.renderer.$cursorLayer.element.style.display = "none"
 
           // SHOWING THE LOADING SPLASH
-          document.getElementsByClassName(
-            "splash_container"
-          )[0].style.display = "block"
+          document.getElementsByClassName("splash_container")[0].style.display =
+            "block"
 
           // CREATING THE FILEREADER
           var filereader = new FileReader()
@@ -970,9 +963,8 @@
               editor.renderer.$cursorLayer.element.style.display = "block"
 
               // HIDING THE LOADING SPLASH
-              document.getElementsByClassName(
-                "splash_container"
-              )[0].style.display = "none"
+              document.getElementsByClassName("splash_container")[0].style.display =
+                "none"
 
               // CLEARING THE SELECTED FILE VALUE
               document.getElementById("fileOpener").value = null
@@ -1173,13 +1165,11 @@
           secLocalFile // RUNNING IN A LOCAL FILE
         ) {
           // HIDING THE LOADING SPLASH
-          document.getElementsByClassName(
-            "splash_container"
-          )[0].style.display = "none"
+          document.getElementsByClassName("splash_container")[0].style.display =
+            "none"
 
           // SHOWING THE CODE EDITOR
-          document.getElementById("textcode_container").style.display =
-            "block"
+          document.getElementById("textcode_container").style.display = "block"
 
           // RESIZING THE EDITOR
           resizeTinyACEEditor()
