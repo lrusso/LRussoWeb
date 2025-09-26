@@ -419,7 +419,7 @@
           />
         </svg>
       </div>
-      <input type="file" id="mediafile-input" accept=".mp4,.mp3,.srt" multiple>
+      <input type="file" id="mediafile-input" multiple>
     </div>
     <div id="media-container">
       <video id="mediaPlayer" playsinline></video>
@@ -630,7 +630,6 @@
           subtitlesDisplay.style.display = "block"
         }
 
-        mediaPlayer.src = mediaURL
         document.title = getFilenameWithoutExtension(mediaFile.name)
 
         const mediaFilename = getFilenameWithoutExtension(mediaFile.name)
@@ -648,16 +647,8 @@
           existingTracks.forEach((track) => track.remove())
         }
 
-        mediaPlayer.onloadeddata = () => {
-          pleaseWait.style.display = "none"
-          mediaContainer.style.display = "block"
-          mediaPlayer.play()
-        }
-
-        mediaPlayer.addEventListener("error", () => {
-          mediaFileInput.value = null
-          window.location.reload()
-        })
+        mediaPlayer.src = mediaURL
+        mediaPlayer.load()
       }
 
       const playPrevMedia = () => {
@@ -994,7 +985,7 @@
             mediaFiles = files
               .filter((file) => {
                 const extension = file.name.split(".").pop().toLowerCase()
-                return extension === "mp4" || extension === "mp3"
+                return extension === "mp4" || (extension === "mp3" && !isUsingiOS())
               })
               .sort(sortFiles)
 
@@ -1058,6 +1049,17 @@
             }
           })
 
+          mediaPlayer.addEventListener("loadeddata", () => {
+            pleaseWait.style.display = "none"
+            mediaContainer.style.display = "block"
+            mediaPlayer.play()
+          })
+
+          mediaPlayer.addEventListener("error", () => {
+            mediaFileInput.value = null
+            window.location.reload()
+          })
+
           if (isUsingiOS()) {
             mediaPlayer.setAttribute("playsinline", false)
             mediaPlayer.setAttribute("controls", true)
@@ -1065,6 +1067,9 @@
             controlsBackground.style.display = "none"
             controlsContainer.style.display = "none"
             return
+          } else {
+            // thank you iOS
+            mediaFileInput.accept = ".mp4,.mp3,.srt"
           }
 
           mediaPlayer.addEventListener("play", showControls)
