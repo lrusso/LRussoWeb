@@ -464,7 +464,7 @@
           </svg>
         </button>
         <button id="play-pause-btn">
-          <svg viewBox="0 0 24 24">
+          <svg width="24" height="24" viewBox="0 0 24 24">
             <path d="M8,5.14V19.14L19,12.14L8,5.14Z" />
           </svg>
         </button>
@@ -472,7 +472,7 @@
         <span id="time-display"></span>
         <div id="volume-controls">
           <button id="volume-btn">
-            <svg viewBox="0 0 24 24">
+            <svg width="24" height="24" viewBox="0 0 24 24">
               <path
                 d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
               />
@@ -484,14 +484,7 @@
             </div>
           </div>
         </div>
-        <button id="fullscreen-btn">
-          <svg viewBox="0 0 24 24">
-            <path
-              transform="translate(-2.4, -2.4),scale(1.2,1.2)"
-              d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"
-            />
-          </svg>
-        </button>
+        <button id="fullscreen-btn"></button>
       </div>
     </div>
     <script>
@@ -538,12 +531,14 @@
       const prevMediaBtn = document.getElementById("prev-media-btn")
       const nextMediaBtn = document.getElementById("next-media-btn")
 
-      const playIcon = `<svg viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>`
-      const pauseIcon = `<svg viewBox="0 0 24 24"><path d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>`
-      const volumeHighIcon = `<svg viewBox="0 0 24 24"><path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/></svg>`
-      const volumeMediumIcon = `<svg viewBox="0 0 24 24"><path d="M5,9V15H9L14,20V4L9,9H5M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12Z"/></svg>`
-      const volumeLowIcon = `<svg viewBox="0 0 24 24"><path d="M7,9V15H11L16,20V4L11,9H7Z"/></svg>`
-      const volumeMutedIcon = `<svg viewBox="0 0 24 24"><path d="M12,4L9.91,6.09L12,8.18V4M4,3.27L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L20.73,20L4,3.27M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,12.22 16.47,12.43 16.43,12.64L14,10.21V7.97C15.5,8.71 16.5,10.23 16.5,12Z"/></svg>`
+      const playIcon = `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>`
+      const pauseIcon = `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>`
+      const fullscreenIcon = `<svg width="24" height="24" viewBox="0 0 24 24"><path transform="translate(-2.4, -2.4),scale(1.2,1.2)" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" /></svg>`
+      const exitFullscreenIcon = `<svg width="24" height="24" viewBox="0 0 48 48"><path d="M0 0h48v48h-48z" fill="none" transform="translate(-7,-7) scale(1.3, 1.3)"/><path d="M10 32h6v6h4v-10h-10v4zm6-16h-6v4h10v-10h-4v6zm12 22h4v-6h6v-4h-10v10zm4-22v-6h-4v10h10v-4h-6z" transform="translate(-7,-7) scale(1.3, 1.3)"/></svg>`
+      const volumeHighIcon = `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/></svg>`
+      const volumeMediumIcon = `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M5,9V15H9L14,20V4L9,9H5M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12Z"/></svg>`
+      const volumeLowIcon = `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M7,9V15H11L16,20V4L11,9H7Z"/></svg>`
+      const volumeMutedIcon = `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M12,4L9.91,6.09L12,8.18V4M4,3.27L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L20.73,20L4,3.27M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,12.22 16.47,12.43 16.43,12.64L14,10.21V7.97C15.5,8.71 16.5,10.23 16.5,12Z"/></svg>`
 
       const isMobileDevice = () => {
         return !!(
@@ -586,8 +581,6 @@
           mediaPlayer.style.display = "none"
           audioInfoContainer.style.display = "flex"
           subtitlesDisplay.innerHTML = ""
-          fullscreenBtn.style.opacity = 0.5
-          fullscreenBtn.style.cursor = "default"
 
           ID3.loadTags(
             mediaFile.name,
@@ -901,15 +894,12 @@
 
       const toggleFullscreen = () => {
         showControls()
-        const mediaFile = mediaFiles[currentMediaIndex]
-        const fileExtension = mediaFile.name.split(".").pop().toLowerCase()
-        if (fileExtension === "mp3") {
-          return
-        }
 
         if (!document.fullscreenElement) {
           mediaContainer.requestFullscreen().catch((err) => {})
+          fullscreenBtn.innerHTML = exitFullscreenIcon
         } else {
+          fullscreenBtn.innerHTML = fullscreenIcon
           document.exitFullscreen()
         }
 
@@ -1094,6 +1084,7 @@
           subtitlesDisplay.addEventListener("click", togglePlayPause)
           playPauseBtn.addEventListener("click", togglePlayPause)
           fullscreenBtn.addEventListener("click", toggleFullscreen)
+          fullscreenBtn.innerHTML = fullscreenIcon
           volumeBtn.addEventListener("click", toggleMute)
           repeatMediaBtn.addEventListener("click", toggleRepeat)
           prevMediaBtn.addEventListener("click", playPrevMedia)
