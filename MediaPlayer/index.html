@@ -171,6 +171,7 @@
         position: fixed;
         left: 12px;
         bottom: 39px;
+        cursor: pointer;
       }
       #time-display {
         position: fixed;
@@ -227,6 +228,7 @@
         position: fixed;
         right: 12px;
         bottom: 39px;
+        cursor: pointer;
       }
       #repeat-media-btn,
       #prev-media-btn,
@@ -249,6 +251,9 @@
       }
       #next-media-btn {
         right: 85px;
+      }
+      #volume-btn {
+        cursor: pointer;
       }
       #audio-info-container {
         position: absolute;
@@ -631,8 +636,6 @@
           mediaPlayer.style.display = "block"
           audioInfoContainer.style.display = "none"
           subtitlesDisplay.style.display = "block"
-          fullscreenBtn.style.opacity = 1
-          fullscreenBtn.style.cursor = "pointer"
         }
 
         mediaPlayer.src = mediaURL
@@ -684,10 +687,8 @@
         isRepeating = !isRepeating
         if (isRepeating) {
           repeatMediaBtn.style.opacity = 1
-          repeatMediaBtn.style.cursor = "pointer"
         } else {
           repeatMediaBtn.style.opacity = 0.5
-          repeatMediaBtn.style.cursor = "default"
         }
         repeatMediaBtn.blur()
       }
