@@ -1538,9 +1538,9 @@
       }
 
       // CHECKING IF THE GAME IS LOADED PROPERLY
-      let secSameDomain = false
-      let secNotIframe = window.top === window.self
-      let secLocalFile = window.self.location.protocol === "file:"
+      var secSameDomain = false
+      var secNotIframe = window.top === window.self
+      var secLocalFile = window.self.location.protocol === "file:"
       try {
         secSameDomain =
           window.top !== window.self &&
