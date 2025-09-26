@@ -183,7 +183,20 @@
     </div>
 
     <script>
+      const APP_STRINGS = {
+        en: {
+          start_recording: "Record",
+          stop_recording: "Stop",
+        },
+        es: {
+          start_recording: "Filmar",
+          stop_recording: "Detener",
+        },
+      }
+
       const USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      const GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
+      const t = (stringName) => GET_APP_STRING[stringName] || ""
 
       let loadingIcon
       let mediaContainer
@@ -199,17 +212,6 @@
       let mediaStream
       let mediaRecorder
       let recordedChunks = []
-
-      let STRING_START_RECORDING
-      let STRING_STOP_RECORDING
-
-      if (USER_LANG === "es") {
-        STRING_START_RECORDING = "Filmar"
-        STRING_STOP_RECORDING = "Detener"
-      } else {
-        STRING_START_RECORDING = "Record"
-        STRING_STOP_RECORDING = "Stop"
-      }
 
       const isUsingiOS = () => {
         return !!(
@@ -288,11 +290,11 @@
         }
 
         if (isRecording) {
-          startBtn.innerText = STRING_START_RECORDING
+          startBtn.innerText = t("start_recording")
           startBtn.classList.remove("recording")
           stopRecording()
         } else {
-          startBtn.innerText = STRING_STOP_RECORDING
+          startBtn.innerText = t("stop_recording")
           startRecording()
           startBtn.classList.add("recording")
         }
@@ -367,7 +369,7 @@
           qualityBtn = document.getElementById("qualityBtn")
           liveVideo = document.getElementById("liveVideo")
 
-          startBtn.innerText = STRING_START_RECORDING
+          startBtn.innerText = t("start_recording")
           startBtn.addEventListener("click", handleStartButton)
 
           qualityBtn.addEventListener("click", toggleQuality)
