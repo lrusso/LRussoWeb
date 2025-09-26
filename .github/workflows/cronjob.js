@@ -1,12 +1,12 @@
 let settings = {
-  "W3C_CHECK": [],
-  "URLS_CHECK": [],
-  "DATES_CHECK": [],
-  "DOMAINS_CHECK": [],
-  "NEWSPAPERS_CHECK": [],
-  "USER_LANG": "en-US,en;q=0.9,es;q=0.1",
-  "STRING_SYSTEM_REPORT": "System report",
-  "STRING_NEWSPAPER_HEADLINES": "Newspaper headlines",
+  W3C_CHECK: [],
+  URLS_CHECK: [],
+  DATES_CHECK: [],
+  DOMAINS_CHECK: [],
+  NEWSPAPERS_CHECK: [],
+  USER_LANG: "en-US,en;q=0.9,es;q=0.1",
+  STRING_SYSTEM_REPORT: "System report",
+  STRING_NEWSPAPER_HEADLINES: "Newspaper headlines",
 }
 
 if (process.env.BOT_SETTINGS) {
@@ -302,7 +302,7 @@ const runTasks = async () => {
     console.log(report.join("\n").toString())
 
     // SENDING AN EMAIL WITH THE SYSTEM REPORT
-    await sendEmail(settings.STRING_SYSTEM_REPORT, report.join("\n").toString())
+    await sendEmail(settings.STRING_SYSTEM_REPORT, report.join("<br>").toString())
 
     // EXITING THE PROCESS WITH AN ERROR IN ORDER TO TRIGGER A GITHUB NOTIFICATION
     process.exit(1)
