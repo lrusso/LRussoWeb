@@ -420,55 +420,54 @@
       // INTERNATIONALIZATION
       // ---------------------------------------------------------------------------------------------------
 
-      const userLanguage = window.navigator.language.substring(0, 2).toLowerCase()
-
-      let STRING_ABOUT_TITLE = ""
-      let STRING_ABOUT_MESSAGE = ""
-      let STRING_TITLE = ""
-      let STRING_DAYS = ""
-      let STRING_MONTHS = ""
-
-      if (userLanguage === "es") {
-        STRING_ABOUT_TITLE = "Acerca de..."
-        STRING_ABOUT_MESSAGE = "Desarrollado por LRusso.com"
-        STRING_TITLE = "Intranet de LRusso.com"
-        STRING_DAYS = ["Lun", "Mar", "Mi\u00E9", "Jue", "Vie", "S\u00E1b", "Dom"]
-        STRING_MONTHS = [
-          "Enero",
-          "Febrero",
-          "Marzo",
-          "Abril",
-          "Mayo",
-          "Junio",
-          "Julio",
-          "Agosto",
-          "Septiembre",
-          "Octubre",
-          "Noviembre",
-          "Diciembre",
-        ]
-      } else {
-        STRING_ABOUT_TITLE = "About..."
-        STRING_ABOUT_MESSAGE = "Designed by LRusso.com"
-        STRING_TITLE = "LRusso.com Intranet"
-        STRING_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        STRING_MONTHS = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ]
+      const APP_STRINGS = {
+        en: {
+          title: "LRusso.com Intranet",
+          about_title: "About...",
+          about_message: "Designed by LRusso.com",
+          days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          months: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ],
+        },
+        es: {
+          title: "Intranet de LRusso.com",
+          about_title: "Acerca de...",
+          about_message: "Desarrollado por LRusso.com",
+          days: ["Lun", "Mar", "Mi\u00E9", "Jue", "Vie", "S\u00E1b", "Dom"],
+          months: [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+          ],
+        },
       }
 
-      document.title = STRING_TITLE
+      const USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      const GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
+      const t = (stringName) => GET_APP_STRING[stringName] || ""
+
+      document.title = t("title")
 
       // -----------------------------------------------------
       // STARTS SCREENSAVER.JS
@@ -1126,8 +1125,8 @@
               year: currentYear,
               month: currentMonth,
               day: currentDay,
-              days: STRING_DAYS,
-              months: STRING_MONTHS,
+              days: t("days"),
+              months: t("months"),
             })
           }
         })
@@ -1213,9 +1212,9 @@
 
           startButton.addEventListener("click", () => {
             createNewWindow(
-              STRING_ABOUT_TITLE,
+              t("about_title"),
               "<div style='margin:30px;text-align:center'>" +
-                STRING_ABOUT_MESSAGE +
+                t("about_message") +
                 "<br><br>" +
                 "Copyright &copy; 2005 - " +
                 new Date().getFullYear() +
