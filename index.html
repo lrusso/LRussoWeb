@@ -381,28 +381,28 @@
 
         // UPDATING LATEST PROJECTS
         getElement("h2")[0].innerHTML = t("latest_projects")
-        let latestProjectsCounter = 0
+        let counter1 = 0
         LATEST_PROJECTS.forEach((card) => {
-          getElement("card-title")[latestProjectsCounter].innerHTML = card.title
-          getElement("card-text")[latestProjectsCounter].innerHTML = card.description
-          getElement("img")[latestProjectsCounter + 1].src = card.image + "?" + Date.now()
-          getElement("btnWeb")[latestProjectsCounter + 1].innerHTML = card.buttonText
-          getElement("btnWeb")[latestProjectsCounter + 1].href = card.buttonLink
-          latestProjectsCounter++
+          getElement("card-title")[counter1].innerHTML = card.title
+          getElement("card-text")[counter1].innerHTML = card.description
+          getElement("img")[counter1 + 1].src = card.image + "?" + Date.now()
+          getElement("btnWeb")[counter1 + 1].innerHTML = card.buttonText
+          getElement("btnWeb")[counter1 + 1].href = card.buttonLink
+          counter1++
         })
 
         // UPDATING ARTICLES
         getElement("h2")[1].innerHTML = t("apps_press")
-        let articlesCounter = 3
-        let imageCounter = 1
+        let counter2 = 3
+        let imgCounter = 1
         LIST_ARTICLES.forEach((card) => {
-          getElement("card-title")[articlesCounter].innerHTML = card.title
-          getElement("card-text")[articlesCounter].innerHTML = card.description
-          getElement("img")[articlesCounter + 1].src = card.image + "?" + Date.now()
-          getElement("btnWeb")[articlesCounter + 1].innerHTML = card.buttonText
-          getElement("btnWeb")[articlesCounter + 1].href = card.buttonLink
-          articlesCounter++
-          imageCounter++
+          getElement("card-title")[counter2].innerHTML = card.title
+          getElement("card-text")[counter2].innerHTML = card.description
+          getElement("img")[counter2 + 1].src = card.image + "?" + Date.now()
+          getElement("btnWeb")[counter2 + 1].innerHTML = card.buttonText
+          getElement("btnWeb")[counter2 + 1].href = card.buttonLink
+          counter2++
+          imgCounter++
         })
 
         // UPDATING CONTACT INFORMATION
