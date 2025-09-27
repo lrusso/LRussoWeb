@@ -236,7 +236,7 @@
         },
       ]
 
-      const LIST_ARTICLES = [
+      const ARTICLES_LIST = [
         {
           title: "BBC",
           image: "img_Press_BBC_01.webp",
@@ -395,7 +395,7 @@
         getElement("h2")[1].innerHTML = t("apps_press")
         let counter2 = 3
         let imgCounter = 1
-        LIST_ARTICLES.forEach((card) => {
+        ARTICLES_LIST.forEach((card) => {
           getElement("card-title")[counter2].innerHTML = card.title
           getElement("card-text")[counter2].innerHTML = card.description
           getElement("img")[counter2 + 1].src = card.image + "?" + Date.now()
