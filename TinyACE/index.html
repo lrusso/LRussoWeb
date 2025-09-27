@@ -477,11 +477,11 @@
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="search_enabled" id="buttonSearch"></div>
+            <div class="search_enabled"></div>
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="insert_enabled" id="buttonInsert"></div>
+            <div class="insert_enabled"></div>
             <input
               type="file"
               class="buttonHidden"
@@ -536,6 +536,9 @@
       var newBtn = document.getElementsByClassName("new_enabled")[0]
       var openBtn = document.getElementsByClassName("open_enabled")[0]
       var saveBtn = document.getElementsByClassName("save_enabled")[0]
+      var searchBtn = document.getElementsByClassName("search_enabled")[0]
+      var insertBtn = document.getElementsByClassName("insert_enabled")[0]
+      var filenameBtn = document.getElementById("filename")
 
       function confirmCustom(title, message, yes, no, myCallback) {
         try {
@@ -1134,20 +1137,17 @@
             .addEventListener("click", function (event) {
               menuRedo()
             })
-          document
-            .getElementById("buttonSearch")
-            .addEventListener("click", function (event) {
+
+          searchBtn.addEventListener("click", function (event) {
               menuSearch()
             })
-          document
-            .getElementById("buttonInsert")
-            .addEventListener("click", function (event) {
+
+          insertBtn.addEventListener("click", function (event) {
               editor.focus()
               document.getElementById("fileInserter").click()
             })
-          document
-            .getElementById("filename")
-            .addEventListener("click", function (event) {
+
+          filenameBtn.addEventListener("click", function (event) {
               editor.focus()
             })
         }
