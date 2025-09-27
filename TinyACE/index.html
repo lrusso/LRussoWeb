@@ -122,11 +122,10 @@
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .undo_disabled {
-        display: block;
-        font-family: Arial;
-        font-size: 15px;
-        line-height: 32px;
+      .undo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 32px;
         width: 28px;
         background-color: #f2f2f2;
@@ -136,37 +135,15 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmklEQVQ4jaWQQQ3DMBAEDSFQCsEQCsEQCqEM7rHe/QZCIRhCIV0fVaTItevEWek+Ps3ovCF0QnLt7YYhuUryS/CUYA9LcgARQDSz5TRcD8k3yTQFV1N+LjopcJKvq1c4ydvhEkkmSaUSPId9NHZpKNhLWjtJNhRsktY7gCjJc86Pv4JeNkGzxCORdJdUpuAQvl8DEKdgM1vq8j5GU/qN1OD8ZgAAAABJRU5ErkJggg==");
-        background-repeat: no-repeat;
-        background-position: center;
       }
-      .undo_enabled {
-        display: block;
-        font-family: Arial;
-        font-size: 15px;
-        line-height: 32px;
-        height: 32px;
-        width: 28px;
-        background-color: #f2f2f2;
-        border: thin solid #f2f2f2;
-        margin-left: 3px;
-        cursor: default;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVR4XqWTQRHCMBREtx0E1AoOgoPigO8ACUgABakTkFApdVD28A97oCwNb+ZdOrPJ/vkpvlBhcOGVWvqN8AU/0ptwSQds0O24eaYPOkHoGmq/6JkuOcJuCq1+BM+Rztogcj7llEZWV0aKA1WCQppoaMrv9eMaTRM95A6De8qFrvTqthB2nY2M9Pnvj1bQyEBvEN4HjBvwG13/UAAAAABJRU5ErkJggg==");
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-      .undo_enabled:hover {
+      .undo:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .redo_disabled {
-        display: block;
-        font-family: Arial;
-        font-size: 15px;
-        line-height: 32px;
+      .redo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 32px;
         width: 28px;
         background-color: #f2f2f2;
@@ -176,29 +153,8 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAk0lEQVQ4jaXTwQ2DMAyFYUbIKIyQETpCRmEDH55+XztCR2CEjgSXIkUpEAOWcrLfd4jlYQgU8I7MHZa7L48Qd18uI2aWJGVJeQNCCFCAbx1q3y5iZqkXPEWATzT8BwDj7fAPmJqhGSjhT6wBoLT97gYqwPb63fVtgKR80O/ufjwDQuXus7u/bgOS8uOrAyYzS1cyK+E2+q0PazTXAAAAAElFTkSuQmCC");
-        background-repeat: no-repeat;
-        background-position: center;
       }
-      .redo_enabled {
-        display: block;
-        font-family: Arial;
-        font-size: 15px;
-        line-height: 32px;
-        height: 32px;
-        width: 28px;
-        background-color: #f2f2f2;
-        border: thin solid #f2f2f2;
-        margin-left: 3px;
-        cursor: default;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAjElEQVR4Xq2TXQ2EMBCElwYBSEEC5wAJoAALJwEHVAIoKA6QxE8yD80EJnvhvmTf+s022605mewl+1NIMD/dXUgphOqsmkPg9RzAh4ZcViEFdUwkKuIVEmjSkL3gBhA3CO7u+Su0JKw48EGRLIYIMarOag9Gj6wCFq/MAbNpIGsSDfNnmn/8ui820s0B6TsXTzSQVC8AAAAASUVORK5CYII=");
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-      .redo_enabled:hover {
+      .redo:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
@@ -382,11 +338,11 @@
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .undo_enabled:hover {
+        .undo:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .redo_enabled:hover {
+        .redo:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
@@ -450,10 +406,18 @@
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="undo_disabled" id="buttonUndo"></div>
+            <div class="undo">
+              <svg width="17" height="17" viewBox="0 0 1000 1000" fill="#A9A9A9">
+                <path transform="translate(0 930) scale(-1,1) rotate(180)" d="M762 -64q43 77 62 168t-9 168t-113.5 127.5t-253.5 46.5v-254l-384 384l384 384v-248q201 5 314.5 -73t148.5 -196t-4.5 -255.5t-144.5 -251.5z" />
+              </svg>
+            </div>
           </div>
           <div class="holder">
-            <div class="redo_disabled" id="buttonRedo"></div>
+            <div class="redo">
+              <svg width="17" height="17" viewBox="0 0 1000 1000" fill="#A9A9A9">
+                <path transform="translate(0 930) scale(-1,1) rotate(180)" d="M576 712v248l384 -384l-384 -384v254q-168 4 -253.5 -46.5t-113.5 -127.5t-9 -168t62 -168q-105 114 -144.5 251.5t-4.5 255.5t148.5 196t314.5 73v0z">
+              </svg>
+            </div>
           </div>
           <div class="separator"></div>
           <div class="holder">
@@ -529,8 +493,10 @@
       var newBtn = document.getElementsByClassName("new")[0]
       var openBtn = document.getElementsByClassName("open")[0]
       var saveBtn = document.getElementsByClassName("save")[0]
-      var undoBtn = document.getElementById("buttonUndo")
-      var redoBtn = document.getElementById("buttonRedo")
+      var undoBtn = document.getElementsByClassName("undo")[0]
+      var undoIcon = undoBtn.children[0]
+      var redoBtn = document.getElementsByClassName("redo")[0]
+      var redoIcon = redoBtn.children[0]
       var searchBtn = document.getElementsByClassName("search")[0]
       var insertBtn = document.getElementsByClassName("insert")[0]
       var filenameBtn = document.getElementsByClassName("filename")[0]
@@ -706,8 +672,7 @@
           }
 
           // THE UNDO BUTTON WILL BE ENABLED
-          undoBtn.classList.add("undo_enabled")
-          undoBtn.classList.remove("undo_disabled")
+          undoIcon.style.fill = "#000"
         })
       } catch (err) {}
 
@@ -760,10 +725,8 @@
           editor.renderer.$cursorLayer.element.style.display = "block"
 
           // SETTING THE DEFAULT STATE FOR EACH BUTTON
-          undoBtn.classList.add("undo_disabled")
-          undoBtn.classList.remove("undo_enabled")
-          redoBtn.classList.add("redo_disabled")
-          redoBtn.classList.remove("redo_enabled")
+          undoIcon.style.fill = "#A9A9A9"
+          redoIcon.style.fill = "#A9A9A9"
 
           // HIDING THE SEARCH BOX (IF AVAILABLE)
           try {
@@ -891,10 +854,8 @@
               editor.session.getUndoManager().reset()
 
               // SETTING THE DEFAULT STATE FOR EACH BUTTON
-              undoBtn.classList.add("undo_disabled")
-              undoBtn.classList.remove("undo_enabled")
-              redoBtn.classList.add("redo_disabled")
-              redoBtn.classList.remove("redo_enabled")
+              undoIcon.style.fill = "#A9A9A9"
+              redoIcon.style.fill = "#A9A9A9"
 
               // HIDING THE SEARCH BOX (IF AVAILABLE)
               try {
@@ -951,10 +912,8 @@
             editor.session.getUndoManager().reset()
 
             // SETTING THE DEFAULT STATE FOR EACH BUTTON
-            undoBtn.classList.add("undo_disabled")
-            undoBtn.classList.remove("undo_enabled")
-            redoBtn.classList.add("redo_disabled")
-            redoBtn.classList.remove("redo_enabled")
+            undoIcon.style.fill = "#A9A9A9"
+            redoIcon.style.fill = "#A9A9A9"
 
             // HIDING THE SEARCH BOX (IF AVAILABLE)
             try {
@@ -1022,14 +981,16 @@
 
           // IF THERE ARE ANY UNDOS LEFT, THE UNDO BUTTON WILL BE DISABLED
           if (!editor.session.getUndoManager().hasUndo()) {
-            undoBtn.classList.add("undo_disabled")
-            undoBtn.classList.remove("undo_enabled")
+            undoIcon.style.fill = "#A9A9A9"
+          } else {
+            undoIcon.style.fill = "#000"
           }
 
           // IF THERE ARE ANY REDOS LEFT, THE REDO BUTTON WILL BE DISABLED
           if (editor.session.getUndoManager().hasRedo()) {
-            redoBtn.classList.add("redo_enabled")
-            redoBtn.classList.remove("redo_disabled")
+            redoIcon.style.fill = "#000"
+          } else {
+            redoIcon.style.fill = "#A9A9A9" 
           }
         } catch (err) {}
       }
@@ -1047,14 +1008,16 @@
 
           // IF THERE ARE ANY UNDOS LEFT, THE UNDO BUTTON WILL BE DISABLED
           if (!editor.session.getUndoManager().hasRedo()) {
-            redoBtn.classList.add("redo_disabled")
-            redoBtn.classList.remove("redo_enabled")
+            redoIcon.style.fill = "#A9A9A9"
+          } else {
+            redoIcon.style.fill = "#000"
           }
 
           // IF THERE ARE ANY REDOS LEFT, THE REDO BUTTON WILL BE DISABLED
           if (editor.session.getUndoManager().hasUndo()) {
-            undoBtn.classList.add("undo_enabled")
-            undoBtn.classList.remove("undo_disabled")
+            undoIcon.style.fill = "#000"
+          } else {
+            undoIcon.style.fill = "#A9A9A9"
           }
         } catch (err) {}
       }
