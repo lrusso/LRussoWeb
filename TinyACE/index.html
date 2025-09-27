@@ -491,11 +491,7 @@
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div id="filename">
-              <script>
-                document.write(STRING_FILENAME_EMPTY + ".htm")
-              </script>
-            </div>
+            <div id="filename"></div>
           </div>
         </div>
       </div>
@@ -1151,6 +1147,8 @@
           filenameBtn.addEventListener("click", function (event) {
               editor.focus()
             })
+
+          filenameBtn.innerText = STRING_FILENAME_EMPTY + ".html"
         }
       })
     </script>
