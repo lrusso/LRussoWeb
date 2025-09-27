@@ -203,10 +203,9 @@
         border: thin solid #d3d3d3;
       }
       .search {
-        display: block;
-        font-family: Arial;
-        font-size: 15px;
-        line-height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 32px;
         width: 28px;
         background-color: #f2f2f2;
@@ -216,9 +215,6 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAO9JREFUOI2V0UFKA0EQheEPFZzEoHiA4GE0IASD19CFEgnuIp4tIAjGLNREPYYbjZuJiylxGHpGUlB0N6/e31Xd/EULI8ywjHzEEJl/4gALrGryBd06c6tknqOPNnZwgtfQnrGdAoxKt+wm9L0SZJgCzELsN4w4iJppSlyG2G4AdKLmsypsNJhSsZUCzGN/2GA8ivUtJV4p2lsoHqwa+3iPmpsUIFP8wC9koJi5g9OSeYWLuha7JUhT5jirg2QxzhRf+MYTxnFzXgJd1kGa4rzSzTVsrgF4wAeO49xDvg4A7hXj9eI8WRcAd4r3mOD2BwecTJsu11PmAAAAAElFTkSuQmCC");
-        background-repeat: no-repeat;
-        background-position: center;
       }
       .search:hover {
         background-color: #e3e3e3;
@@ -465,7 +461,12 @@
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="search"></div>
+            <div class="search">
+              <svg width="17" height="17" viewBox="0 0 92.96 92.961">
+                  <path d="M88.696,88.697L88.696,88.697c-3.97,3.97-10.058,3.654-13.6-0.701L50.607,59.508l8.9-8.898l28.488,24.488   C92.352,78.639,92.667,84.727,88.696,88.697z" />
+                  <path d="M35.271,69.061c-18.632,0-33.791-15.158-33.79-33.791C1.479,16.638,16.639,1.48,35.271,1.48    s33.79,15.158,33.79,33.79C69.06,53.902,53.903,69.061,35.271,69.061z M35.27,9.225C20.909,9.226,9.225,20.91,9.225,35.27    c0,14.362,11.684,26.044,26.045,26.044c14.36,0,26.045-11.684,26.045-26.044C61.315,20.91,49.63,9.226,35.27,9.225z" />
+              </svg>
+            </div>
           </div>
           <div class="separator"></div>
           <div class="holder">
