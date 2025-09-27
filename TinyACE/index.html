@@ -827,28 +827,28 @@
               // SETTING THE PROGRAMMING LANGUAGE
               var newLanguage
               var selectedLanguage
-              if (extension == "htm" || extension == "html") {
+              if (extension === "htm" || extension === "html") {
                 newLanguage = "HTML"
                 selectedLanguage = "html"
-              } else if (extension == "js") {
+              } else if (extension === "js") {
                 newLanguage = "JavaScript"
                 selectedLanguage = "javascript"
-              } else if (extension == "css") {
+              } else if (extension === "css") {
                 newLanguage = "CSS"
                 selectedLanguage = "css"
-              } else if (extension == "java") {
+              } else if (extension === "java") {
                 newLanguage = "Java"
                 selectedLanguage = "java"
-              } else if (extension == "php") {
+              } else if (extension === "php") {
                 newLanguage = "PHP"
                 selectedLanguage = "php"
-              } else if (extension == "xml") {
+              } else if (extension === "xml") {
                 newLanguage = "XML"
                 selectedLanguage = "xml"
-              } else if (extension == "c") {
+              } else if (extension === "c") {
                 newLanguage = "C"
                 selectedLanguage = "c_cpp"
-              } else if (extension == "ino") {
+              } else if (extension === "ino") {
                 newLanguage = "Arduino"
                 selectedLanguage = "c_cpp"
               } else {
@@ -924,6 +924,7 @@
           link.href = URL.createObjectURL(blobValue)
           link.download = filename || "data.json"
           link.click()
+          link.remove()
 
           try {
             // CLEARING THE UNDOMANAGER RECORDS
