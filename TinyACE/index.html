@@ -91,10 +91,9 @@
         border: thin solid #d3d3d3;
       }
       .open {
-        display: block;
-        font-family: Arial;
-        font-size: 15px;
-        line-height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 32px;
         width: 28px;
         background-color: #f2f2f2;
@@ -104,9 +103,6 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAALRJREFUOI290D1qQkEUxfGfxEZEq9RapHBTbsBdWNmkCoJdWjeg4joUUkULEQnYWvpZZKZQ3ovzUHLgNMP9nzn38gR94huL4C90igScc9xKgUthOEtjrG7edhhgndIgz0uUHwk44y3CV0lBx1B9n7MaHLIaHNHD6x9gpmJA2+/lp+H3lFX2MaCLBn4SwegPGKKOWUF4gheoYlQQnqMWb/BeEN6gGeEyKqHOPZ3Cmn1sE+b/SRdKpHdvAOJqtAAAAABJRU5ErkJggg==");
-        background-repeat: no-repeat;
-        background-position: center;
       }
       .open:hover {
         background-color: #e3e3e3;
@@ -443,7 +439,11 @@
             <div class="new"></div>
           </div>
           <div class="holder">
-            <div class="open"></div>
+            <div class="open">
+              <svg width="17" height="17" viewBox="0 0 576 512">
+                <path d="M147.8 192H480V144C480 117.5 458.5 96 432 96h-160l-64-64h-160C21.49 32 0 53.49 0 80v328.4l90.54-181.1C101.4 205.6 123.4 192 147.8 192zM543.1 224H147.8C135.7 224 124.6 230.8 119.2 241.7L0 480h447.1c12.12 0 23.2-6.852 28.62-17.69l96-192C583.2 249 567.7 224 543.1 224z"/>
+              </svg>
+            </div>
             <input type="file" class="buttonHidden">
           </div>
           <div class="holder">
