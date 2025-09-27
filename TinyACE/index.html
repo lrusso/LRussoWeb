@@ -113,10 +113,9 @@
         border: thin solid #d3d3d3;
       }
       .save {
-        display: block;
-        font-family: Arial;
-        font-size: 15px;
-        line-height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 32px;
         width: 28px;
         background-color: #f2f2f2;
@@ -126,9 +125,6 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAWElEQVQ4jWNgZGT8Tw5mYGA4z8DAoM9ArgFQQ94zIHH8cSiyZ2BgsEfj18P5SBJYXcMABTj59DCAn4GBgZ9sAwi6CF2CWDBqAI0M0CdBvz6GAWRnKEoNAABz05cZXE0N/gAAAABJRU5ErkJggg==");
-        background-repeat: no-repeat;
-        background-position: center;
       }
       .save:hover {
         background-color: #e3e3e3;
@@ -451,7 +447,14 @@
             <input type="file" class="buttonHidden">
           </div>
           <div class="holder">
-            <div class="save"></div>
+            <div class="save">
+              <svg width="16" height="16" viewBox="0 0 1000 1000">
+                <path
+                  d="M896 960h-896v-1024h1024v896zM512 832h128v-256h-128v256zM896 64h-768v768h64v-320h576v320h75l53 -53v-715z"
+                  transform="translate(-10 930) scale(-1,1) rotate(180)"
+                />
+              </svg>
+            </div>
           </div>
           <div class="separator"></div>
           <div class="holder">
