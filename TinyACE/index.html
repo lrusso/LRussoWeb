@@ -68,7 +68,7 @@
         height: 100px;
         width: 1px;
       }
-      .new_enabled {
+      .new {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -86,11 +86,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .new_enabled:hover {
+      .new:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .open_enabled {
+      .open {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -108,11 +108,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .open_enabled:hover {
+      .open:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .save_enabled {
+      .save {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -130,7 +130,7 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .save_enabled:hover {
+      .save:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
@@ -214,7 +214,7 @@
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .search_enabled {
+      .search {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -232,11 +232,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .search_enabled:hover {
+      .search:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .insert_enabled {
+      .insert {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -254,7 +254,7 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .insert_enabled:hover {
+      .insert:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
@@ -391,15 +391,15 @@
       }
 
       @media (pointer: coarse) {
-        .new_enabled:hover {
+        .new:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .open_enabled:hover {
+        .open:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .save_enabled:hover {
+        .save:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
@@ -411,11 +411,11 @@
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .search_enabled:hover {
+        .search:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .insert_enabled:hover {
+        .insert:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
@@ -445,14 +445,14 @@
       <div class="menu_wrapper">
         <div class="menu_size">
           <div class="holder">
-            <div class="new_enabled"></div>
+            <div class="new"></div>
           </div>
           <div class="holder">
-            <div class="open_enabled"></div>
+            <div class="open"></div>
             <input type="file" class="buttonHidden">
           </div>
           <div class="holder">
-            <div class="save_enabled"></div>
+            <div class="save"></div>
           </div>
           <div class="separator"></div>
           <div class="holder">
@@ -463,11 +463,11 @@
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="search_enabled"></div>
+            <div class="search"></div>
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="insert_enabled"></div>
+            <div class="insert"></div>
             <input type="file" class="buttonHidden">
           </div>
           <div class="separator"></div>
@@ -521,11 +521,11 @@
 
       var menuContainer = document.getElementsByClassName("menu_container")[0]
       var aceContainer = document.getElementsByClassName("ace_container")[0]
-      var newBtn = document.getElementsByClassName("new_enabled")[0]
-      var openBtn = document.getElementsByClassName("open_enabled")[0]
-      var saveBtn = document.getElementsByClassName("save_enabled")[0]
-      var searchBtn = document.getElementsByClassName("search_enabled")[0]
-      var insertBtn = document.getElementsByClassName("insert_enabled")[0]
+      var newBtn = document.getElementsByClassName("new")[0]
+      var openBtn = document.getElementsByClassName("open")[0]
+      var saveBtn = document.getElementsByClassName("save")[0]
+      var searchBtn = document.getElementsByClassName("search")[0]
+      var insertBtn = document.getElementsByClassName("insert")[0]
       var filenameBtn = document.getElementsByClassName("filename")[0]
       var openFile = document.getElementsByClassName("buttonHidden")[0]
       var insertFile = document.getElementsByClassName("buttonHidden")[1]
