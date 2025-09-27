@@ -261,7 +261,7 @@
       .buttonHidden {
         display: none;
       }
-      .splash_container {
+      .loading {
         position: fixed;
         left: 0;
         right: 0;
@@ -423,7 +423,7 @@
     </style>
   </head>
   <body>
-    <div class="splash_container">
+    <div class="loading">
       <div class="pleasewait">
         <div class="spinner">
           <div></div>
@@ -519,6 +519,7 @@
       var STRING_WELCOME =
         '<!DOCTYPE html>\n<html lang="en">\n\u0009<head>\n\u0009\u0009<meta charset="UTF-8">\n\u0009\u0009<link rel="stylesheet" href="styles.css">\n\u0009\u0009<title>Welcome to TinyACE Editor (based on Ace Code Editor) by Leonardo Russo / www.lrusso.com</title>\n\u0009</head>\n\u0009<body>\n\u0009\u0009<form action="example.html" method="GET">\n\u0009\u0009\u0009<input type="text" value="TEST TEXT">\n\u0009\u0009\u0009<input type="submit" value="ENTER">\n\u0009\u0009</form>\n\u0009</body>\n</html>'
 
+      var loadingIcon = document.getElementsByClassName("loading")[0]
       var menuContainer = document.getElementsByClassName("menu_container")[0]
       var aceContainer = document.getElementsByClassName("ace_container")[0]
       var newBtn = document.getElementsByClassName("new")[0]
@@ -815,9 +816,8 @@
           editor.setOptions({ readOnly: true, highlightGutterLine: false })
           editor.renderer.$cursorLayer.element.style.display = "none"
 
-          // SHOWING THE LOADING SPLASH
-          document.getElementsByClassName("splash_container")[0].style.display =
-            "block"
+          // SHOWING THE LOADING SPINNER
+          loadingIcon.style.display = "block"
 
           // CREATING THE FILEREADER
           var filereader = new FileReader()
@@ -826,7 +826,7 @@
           // SETTING THE FILE NAME
           STRING_FILENAME = file.name
 
-          // WAITING FOR THE SPLASH CONTAINER TO BE DISPLAYED
+          // WAITING FOR THE LOADING SPINNER CONTAINER TO BE DISPLAYED
           setTimeout(function () {
             // CHECKING THE FILE EXTENSION
             var extension = filereader.file_name.split(".").pop().toLowerCase()
@@ -908,9 +908,8 @@
               editor.setOptions({ readOnly: false, highlightGutterLine: true })
               editor.renderer.$cursorLayer.element.style.display = "block"
 
-              // HIDING THE LOADING SPLASH
-              document.getElementsByClassName("splash_container")[0].style.display =
-                "none"
+              // HIDING THE LOADING SPINNER
+              loadingIcon.style.display = "none"
 
               // CLEARING THE SELECTED FILE VALUE
               openFile.value = null
@@ -1090,9 +1089,8 @@
           secSameDomain || // RUNNING IN AN IFRAME IN THE SAME DOMAIN
           secLocalFile // RUNNING IN A LOCAL FILE
         ) {
-          // HIDING THE LOADING SPLASH
-          document.getElementsByClassName("splash_container")[0].style.display =
-            "none"
+          // HIDING THE LOADING SPINNER
+          loadingIcon.style.display = "none"
 
           // SHOWING THE CODE EDITOR
           menuContainer.style.display = "block"
