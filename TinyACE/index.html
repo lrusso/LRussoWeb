@@ -359,7 +359,7 @@
         }
       }
 
-      #filename {
+      .filename {
         float: left;
         font-family: Arial;
         font-size: 13px;
@@ -491,7 +491,7 @@
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div id="filename"></div>
+            <div class="filename"></div>
           </div>
         </div>
       </div>
@@ -536,7 +536,7 @@
       var searchBtn = document.getElementsByClassName("search_enabled")[0]
       var insertBtn = document.getElementsByClassName("insert_enabled")[0]
       var inserterFile = document.getElementById("fileInserter")
-      var filenameBtn = document.getElementById("filename")
+      var filenameBtn = document.getElementsByClassName("filename")[0]
 
       function confirmCustom(title, message, yes, no, myCallback) {
         try {
