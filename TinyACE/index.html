@@ -458,12 +458,7 @@
           </div>
           <div class="holder">
             <div class="open_enabled"></div>
-            <input
-              type="file"
-              class="buttonHidden"
-              id="fileOpener"
-              onChange="menuOpenFileExecute(document.getElementById('fileOpener').files[0]);"
-            >
+            <input type="file" class="buttonHidden">
           </div>
           <div class="holder">
             <div class="save_enabled"></div>
@@ -482,12 +477,7 @@
           <div class="separator"></div>
           <div class="holder">
             <div class="insert_enabled"></div>
-            <input
-              type="file"
-              class="buttonHidden"
-              id="fileInserter"
-              onChange="menuInsert(document.getElementById('fileInserter').files[0]);"
-            >
+            <input type="file" class="buttonHidden">
           </div>
           <div class="separator"></div>
           <div class="holder">
@@ -535,8 +525,9 @@
       var saveBtn = document.getElementsByClassName("save_enabled")[0]
       var searchBtn = document.getElementsByClassName("search_enabled")[0]
       var insertBtn = document.getElementsByClassName("insert_enabled")[0]
-      var inserterFile = document.getElementById("fileInserter")
       var filenameBtn = document.getElementsByClassName("filename")[0]
+      var openFile = document.getElementsByClassName("buttonHidden")[0]
+      var insertFile = document.getElementsByClassName("buttonHidden")[1]
 
       function confirmCustom(title, message, yes, no, myCallback) {
         try {
@@ -813,7 +804,7 @@
           editor.focus()
 
           // SHOWING THE OPEN FILE DIALOG
-          document.getElementById("fileOpener").click()
+          openFile.click()
         } catch (err) {}
       }
 
@@ -921,7 +912,7 @@
                 "none"
 
               // CLEARING THE SELECTED FILE VALUE
-              document.getElementById("fileOpener").value = null
+              openFile.value = null
             }
 
             // READING THE FILE
@@ -930,7 +921,7 @@
         } catch (err) {}
 
         // CLEARING THE SELECTED FILE VALUE
-        document.getElementById("fileOpener").value = null
+        openFile.value = null
       }
 
       function menuSaveFile() {
@@ -994,14 +985,14 @@
             editor.focus()
 
             // CLEARING THE SELECTED FILE VALUE
-            inserterFile.value = null
+            insertFile.value = null
           }
 
           // READING THE FILE
           filereader.readAsDataURL(file)
 
           // CLEARING THE SELECTED FILE VALUE
-          inserterFile.value = null
+          insertFile.value = null
         } catch (err) {}
       }
 
@@ -1142,7 +1133,7 @@
 
           insertBtn.addEventListener("click", function (event) {
               editor.focus()
-              inserterFile.click()
+              insertFile.click()
             })
 
           filenameBtn.addEventListener("click", function (event) {
@@ -1150,6 +1141,14 @@
             })
 
           filenameBtn.innerText = STRING_FILENAME_EMPTY + ".html"
+
+          openFile.addEventListener("change", function(event) {
+            menuOpenFileExecute(openFile.files[0])
+          })
+
+          insertFile.addEventListener("change", function(event) {
+            menuInsert(insertFile.files[0])
+          })
         }
       })
     </script>
