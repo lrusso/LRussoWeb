@@ -7533,7 +7533,7 @@
                 let lastY
                 let text = ""
                 for (const item of textContent.items) {
-                  if (lastY == item.transform[5] || !lastY) {
+                  if (lastY === item.transform[5] || !lastY) {
                     text += item.str
                   } else {
                     text += "\n" + item.str
