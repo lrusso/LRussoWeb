@@ -1064,7 +1064,7 @@
         } catch (err) {}
       }
 
-      window.addEventListener("focus", function() {
+      window.addEventListener("focus", function () {
         resizeTinyACEEditor()
       })
 
@@ -1102,21 +1102,21 @@
           resizeTinyACEEditor()
 
           // SETTING WHAT HAPPENS WHEN EACH ELEMENT IS CLICKED
-          menuContainer.addEventListener("click", function() {
+          menuContainer.addEventListener("click", function () {
             resizeTinyACEEditor()
           })
 
           newBtn.addEventListener("click", function (event) {
-              menuNewFile()
-            })
+            menuNewFile()
+          })
 
           openBtn.addEventListener("click", function (event) {
-              menuOpenFile()
-            })
+            menuOpenFile()
+          })
 
           saveBtn.addEventListener("click", function (event) {
-              menuSaveFile()
-            })
+            menuSaveFile()
+          })
 
           document
             .getElementById("buttonUndo")
@@ -1130,25 +1130,25 @@
             })
 
           searchBtn.addEventListener("click", function (event) {
-              menuSearch()
-            })
+            menuSearch()
+          })
 
           insertBtn.addEventListener("click", function (event) {
-              editor.focus()
-              insertFile.click()
-            })
+            editor.focus()
+            insertFile.click()
+          })
 
           filenameBtn.addEventListener("click", function (event) {
-              editor.focus()
-            })
+            editor.focus()
+          })
 
           filenameBtn.innerText = STRING_FILENAME_EMPTY + ".html"
 
-          openFile.addEventListener("change", function(event) {
+          openFile.addEventListener("change", function (event) {
             menuOpenFileExecute(openFile.files[0])
           })
 
-          insertFile.addEventListener("change", function(event) {
+          insertFile.addEventListener("change", function (event) {
             menuInsert(insertFile.files[0])
           })
         }
