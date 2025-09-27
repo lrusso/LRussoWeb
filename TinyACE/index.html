@@ -430,7 +430,7 @@
       var STRING_LOSECHANGES_YES = "Yes"
       var STRING_LOSECHANGES_NO = "No"
       var STRING_WELCOME =
-        '<!DOCTYPE html>\n<html lang="en">\n\u0009<head>\n\u0009\u0009<meta charset="UTF-8">\n\u0009\u0009<link rel="stylesheet" href="styles.css">\n\u0009\u0009<title>Welcome to TinyACE Editor (based on Ace Code Editor) by Leonardo Russo / www.lrusso.com</title>\n\u0009</head>\n\u0009<body>\n\u0009\u0009<form action="example.htm" method="GET">\n\u0009\u0009\u0009<input type="text" value="TEST TEXT">\n\u0009\u0009\u0009<input type="submit" value="ENTER">\n\u0009\u0009</form>\n\u0009</body>\n</html>'
+        '<!DOCTYPE html>\n<html lang="en">\n\u0009<head>\n\u0009\u0009<meta charset="UTF-8">\n\u0009\u0009<link rel="stylesheet" href="styles.css">\n\u0009\u0009<title>Welcome to TinyACE Editor (based on Ace Code Editor) by Leonardo Russo / www.lrusso.com</title>\n\u0009</head>\n\u0009<body>\n\u0009\u0009<form action="example.html" method="GET">\n\u0009\u0009\u0009<input type="text" value="TEST TEXT">\n\u0009\u0009\u0009<input type="submit" value="ENTER">\n\u0009\u0009</form>\n\u0009</body>\n</html>'
     </script>
     <div class="splash_container">
       <div class="pleasewait">
@@ -654,7 +654,7 @@
 
       try {
         // SETTING THE DEFAULT FILE NAME IN THE LABEL
-        document.getElementById("filename").innerHTML = STRING_FILENAME
+        filenameBtn.innerText = STRING_FILENAME
 
         // SETTING THE PATH OF THE ACE CORE
         ace.config.set("basePath", ".")
@@ -738,8 +738,8 @@
       function menuNewFileExecute(files) {
         try {
           // SETTING THE DEFAULT FILE NAME IN THE LABEL
-          STRING_FILENAME = STRING_FILENAME_EMPTY + ".htm"
-          document.getElementById("filename").innerHTML = STRING_FILENAME
+          STRING_FILENAME = STRING_FILENAME_EMPTY + ".html"
+          filenameBtn.innerText = STRING_FILENAME
 
           // SETTING THE DEFAULT PROGRAMMING LANGUAGE
           editor.session.setMode("ace/mode/html")
@@ -843,7 +843,7 @@
               var content = this.result
 
               // SETTING THE FILE NAME VALUE IN THE LABEL
-              document.getElementById("filename").innerHTML = STRING_FILENAME
+              filenameBtn.innerText = STRING_FILENAME
 
               // SETTING THE PROGRAMMING LANGUAGE
               var newLanguage
