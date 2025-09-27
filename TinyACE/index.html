@@ -538,6 +538,7 @@
       var saveBtn = document.getElementsByClassName("save_enabled")[0]
       var searchBtn = document.getElementsByClassName("search_enabled")[0]
       var insertBtn = document.getElementsByClassName("insert_enabled")[0]
+      var inserterFile = document.getElementById("fileInserter")
       var filenameBtn = document.getElementById("filename")
 
       function confirmCustom(title, message, yes, no, myCallback) {
@@ -996,14 +997,14 @@
             editor.focus()
 
             // CLEARING THE SELECTED FILE VALUE
-            document.getElementById("fileInserter").value = null
+            inserterFile.value = null
           }
 
           // READING THE FILE
           filereader.readAsDataURL(file)
 
           // CLEARING THE SELECTED FILE VALUE
-          document.getElementById("fileInserter").value = null
+          inserterFile.value = null
         } catch (err) {}
       }
 
@@ -1144,7 +1145,7 @@
 
           insertBtn.addEventListener("click", function (event) {
               editor.focus()
-              document.getElementById("fileInserter").click()
+              inserterFile.click()
             })
 
           filenameBtn.addEventListener("click", function (event) {
