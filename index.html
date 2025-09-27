@@ -64,7 +64,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#home">
-          <div class="lrussoLogo"><svg width="32" height="32" fill="#FFFFFF" viewBox="0 0.079 313.031 313.031" xmlns="http://www.w3.org/2000/svg"><path d="m 1720,2775.9 -190.82,-190.82 -85.55,85.54 192.19,190.82 z m -360.59,-23.67 -51.32,51.32 c -88.6,72.82 -176.76,72.82 -264.5,0 l -51.32,-51.32 -190.821,190.82 372.421,376.36 376.36,-376.36 z m 255.32,-251.37 190.82,190.82 84.22,-85.55 -190.82,-190.82 z m 169.76,-173.71 190.82,194.76 372.42,-373.75 -372.42,-376.36 -190.82,188.2 51.33,51.33 c 72.81,88.59 72.81,176.76 0,264.49 z M 715.898,2861.44 906.719,2670.62 822.5,2585.08 631.68,2775.9 Z m -339.527,-343.47 190.82,-190.82 -51.332,-51.33 c -72.808,-87.73 -72.808,-175.9 0,-264.49 L 567.191,1960 376.371,1771.8 0,2145.55 Z m 276.359,-102.66 -192.14,190.82 85.539,85.55 190.82,-190.82 z m -21.05,-897.5 190.82,190.82 84.219,-85.54 -190.821,-190.83 z m 105.269,275.04 -190.82,-190.82 -85.539,85.55 192.14,190.82 z m 306.641,-306.64 c 87.74,-71.87 175.9,-71.87 264.5,0 l 51.32,52.66 190.82,-192.15 -376.36,-375.04 -372.421,375.04 190.821,192.15 z m 592.19,-53.95 -192.15,190.83 85.55,85.54 190.82,-190.82 z m -21.05,360.59 84.22,85.55 190.82,-190.82 -84.22,-85.55 z" transform="matrix(0.133333, 0, 0, -0.133333, 0, 442.666656)" /><path d="m 1748.95,2187.66 c 24.57,-28.09 24.57,-56.14 0,-84.22 l -530.32,-531.68 c -28.08,-23.67 -56.56,-23.67 -85.54,0 l -530.36,531.68 c -24.57,28.08 -24.57,56.13 0,84.22 l 527.7,531.68 c 28.09,21.05 56.56,21.05 85.55,0 z" transform="matrix(0.133333, 0, 0, -0.133333, 0, 442.666656)" /></svg></div>
+          <div class="lrussoLogo"><svg width="32" height="32" fill="#FFFFFF" viewBox="0 0.079 313.031 313.031"><path d="m 1720,2775.9 -190.82,-190.82 -85.55,85.54 192.19,190.82 z m -360.59,-23.67 -51.32,51.32 c -88.6,72.82 -176.76,72.82 -264.5,0 l -51.32,-51.32 -190.821,190.82 372.421,376.36 376.36,-376.36 z m 255.32,-251.37 190.82,190.82 84.22,-85.55 -190.82,-190.82 z m 169.76,-173.71 190.82,194.76 372.42,-373.75 -372.42,-376.36 -190.82,188.2 51.33,51.33 c 72.81,88.59 72.81,176.76 0,264.49 z M 715.898,2861.44 906.719,2670.62 822.5,2585.08 631.68,2775.9 Z m -339.527,-343.47 190.82,-190.82 -51.332,-51.33 c -72.808,-87.73 -72.808,-175.9 0,-264.49 L 567.191,1960 376.371,1771.8 0,2145.55 Z m 276.359,-102.66 -192.14,190.82 85.539,85.55 190.82,-190.82 z m -21.05,-897.5 190.82,190.82 84.219,-85.54 -190.821,-190.83 z m 105.269,275.04 -190.82,-190.82 -85.539,85.55 192.14,190.82 z m 306.641,-306.64 c 87.74,-71.87 175.9,-71.87 264.5,0 l 51.32,52.66 190.82,-192.15 -376.36,-375.04 -372.421,375.04 190.821,192.15 z m 592.19,-53.95 -192.15,190.83 85.55,85.54 190.82,-190.82 z m -21.05,360.59 84.22,85.55 190.82,-190.82 -84.22,-85.55 z" transform="matrix(0.133333, 0, 0, -0.133333, 0, 442.666656)" /><path d="m 1748.95,2187.66 c 24.57,-28.09 24.57,-56.14 0,-84.22 l -530.32,-531.68 c -28.08,-23.67 -56.56,-23.67 -85.54,0 l -530.36,531.68 c -24.57,28.08 -24.57,56.13 0,84.22 l 527.7,531.68 c 28.09,21.05 56.56,21.05 85.55,0 z" transform="matrix(0.133333, 0, 0, -0.133333, 0, 442.666656)" /></svg></div>
           <div class="lrussoTitle">Leonardo Russo<span class="lrussoSlogan"> - IT Solutions</span></div>
         </a>
         <div class="collapse navbar-collapse">
@@ -145,252 +145,222 @@
       // smooth-scrolling
       ;(function(e,t){"use strict";var n=0,r=500,i=15,s=document.getElementsByTagName("a"),o;for(var u=0;u<s.length;u++){o=s[u].attributes.href===t?null:s[u].attributes.href.nodeValue.toString();if(o!==null&&o.length>1&&o.indexOf("#")!=-1){s[u].onclick=function(){var n,s=this.attributes.href.nodeValue.toString(),o=s.substr(0,s.indexOf("#")),u=s.substr(s.indexOf("#")+1);if(n=document.getElementById(u)){var l=(r-r%i)/i,c=f(),h=(a(n)-c)/l;if(e.history&&typeof e.history.pushState=="function")e.history.pushState({},t,o+"#"+u);for(var p=1;p<=l;p++){(function(){var t=h*p;setTimeout(function(){e.scrollTo(0,t+c)},i*p)})()}return false}}}}var a=function(e){var r=n*-1;while(e.offsetParent!=t&&e.offsetParent!=null){r+=e.offsetTop+(e.clientTop!=null?e.clientTop:0);e=e.offsetParent}return r};var f=function(){return e.pageYOffset!==t?e.pageYOffset:document.documentElement.scrollTop!==t?document.documentElement.scrollTop:document.body.scrollTop}})(window)
 
-      const userLanguage = window.navigator.language.substring(0, 2).toLowerCase()
-
-      let STRING_PROJECTS = ""
-      let STRING_PRESS = ""
-      let STRING_CONTACT = ""
-      let STRING_CUSTOM_SOFTWARE = ""
-      let STRING_CUSTOM_SOFTWARE_DESC = ""
-      let STRING_LATEST_PROJECTS = ""
-      let STRING_DOWNLOAD_APP = ""
-      let STRING_BROWSE_WEBSITE = ""
-      let STRING_READ_MORE = ""
-      let STRING_WATCH_VIDEO = ""
-      let STRING_APPS_PRESS = ""
-      let STRING_CONTACT_INFO = ""
-
-      let STRING_BLIND1 = ""
-      let STRING_BLIND2 = ""
-      let STRING_BLIND3 = ""
-      let STRING_MOBILITY = ""
-      let STRING_TAXI = ""
-      let STRING_MAKER = ""
-      let STRING_MUSEUM = ""
-      let STRING_EMULATRIX = ""
-      let STRING_VIRTUALXP = ""
-      let STRING_RECOGNITION = ""
-
-      let STRING_LATEST1_TITLE = ""
-      let STRING_LATEST1_DESC = ""
-      let STRING_LATEST2_TITLE = ""
-      let STRING_LATEST2_DESC = ""
-      let STRING_LATEST3_TITLE = ""
-      let STRING_LATEST3_DESC = ""
-
-      if (userLanguage === "es") {
-        STRING_PROJECTS = "Desarrollos"
-        STRING_PRESS = "Prensa"
-        STRING_CONTACT = "Contacto"
-        STRING_CUSTOM_SOFTWARE = "Software a medida"
-        STRING_CUSTOM_SOFTWARE_DESC = "Dise&ntilde;o de Apps h&iacute;bridas en React Native. <br class='breaksDesc'>Desarrollo de Apps nativas en Android y iOS. <br class='breaksDesc'>Web Apps en React y videojuegos en Phaser. <br class='breaksDesc'>Hardware y software Arduino."
-        STRING_LATEST_PROJECTS = "&Uacute;ltimos desarrollos"
-        STRING_DOWNLOAD_APP = "Descargar App"
-        STRING_BROWSE_WEBSITE = "Visitar Web"
-        STRING_READ_MORE = "Leer m&aacute;s"
-        STRING_WATCH_VIDEO = "Ver v&iacute;deo"
-        STRING_APPS_PRESS = "Publicaciones destacadas"
-        STRING_CONTACT_INFO = "Informaci&oacute;n de contacto"
-
-        STRING_BLIND1 = "Art&iacute;culo sobre Blind Communicator."
-        STRING_BLIND2 = "V&iacute;deo sobre Blind Communicator."
-        STRING_BLIND3 = "Art&iacute;culo sobre Blind Web Reader."
-        STRING_MOBILITY = "Art&iacute;culo sobre Mobility Launcher."
-        STRING_TAXI = "Art&iacute;culo sobre TaxiCuentas."
-        STRING_MAKER = "Art&iacute;culo sobre 3D Object Maker."
-        STRING_MUSEUM = "Art&iacute;culo sobre 3D Art Museum."
-        STRING_EMULATRIX = "Art&iacute;culo sobre Emulatrix."
-        STRING_VIRTUALXP = "Art&iacute;culo sobre VirtualXP."
-        STRING_RECOGNITION = "Art&iacute;culo de reconocimiento."
-
-        STRING_LATEST1_TITLE = "3D Object Maker"
-        STRING_LATEST1_DESC = "App gratuita y de c&oacute;digo libre de dise&ntilde;o 3D para escuelas primarias."
-        STRING_LATEST2_TITLE = "Arduino Simulator"
-        STRING_LATEST2_DESC = "Web gratuita y de c&oacute;digo libre para programar en Arduino."
-        STRING_LATEST3_TITLE = "Emulatrix"
-        STRING_LATEST3_DESC = "Web gratuita y de c&oacute;digo libre para jugar juegos retro."
-      } else {
-        STRING_PROJECTS = "Projects"
-        STRING_PRESS = "Press"
-        STRING_CONTACT = "Contact"
-        STRING_CUSTOM_SOFTWARE = "Custom software"
-        STRING_CUSTOM_SOFTWARE_DESC = "Design of hybrid Apps in React Native. <br class='breaksDesc'>Development of native Apps on Android and iOS. <br class='breaksDesc'>Web Apps in React and video games in Phaser. <br class='breaksDesc'>Arduino hardware and software."
-        STRING_LATEST_PROJECTS = "Latest projects"
-        STRING_DOWNLOAD_APP = "Download App"
-        STRING_BROWSE_WEBSITE = "Browse Website"
-        STRING_READ_MORE = "Read more"
-        STRING_WATCH_VIDEO = "Watch video"
-        STRING_APPS_PRESS = "My Apps on the press"
-        STRING_CONTACT_INFO = "Contact information"
-
-        STRING_BLIND1 = "Article about Blind Communicator."
-        STRING_BLIND2 = "Video about Blind Communicator."
-        STRING_BLIND3 = "Article about Blind Web Reader."
-        STRING_MOBILITY = "Article about Mobility Launcher."
-        STRING_TAXI = "Article about Taxi Calculator."
-        STRING_MAKER = "Article about 3D Object Maker."
-        STRING_MUSEUM = "Article about 3D Art Museum."
-        STRING_EMULATRIX = "Article about Emulatrix."
-        STRING_VIRTUALXP = "Article about VirtualXP."
-        STRING_RECOGNITION = "Recognition article."
-
-        STRING_LATEST1_TITLE = "3D Object Maker"
-        STRING_LATEST1_DESC = "3D Design software for schools and institutions."
-        STRING_LATEST2_TITLE = "Arduino Simulator"
-        STRING_LATEST2_DESC = "Free and open source Web for coding in Arduino."
-        STRING_LATEST3_TITLE = "Emulatrix"
-        STRING_LATEST3_DESC = "Free and open source Web for playing retro games."
+      const APP_STRINGS = {
+        en: {
+          projects: "Projects",
+          press: "Press",
+          contact: "Contact",
+          custom_software: "Custom software",
+          custom_desc: "Design of hybrid Apps in React Native. <br class='breaksDesc'>Development of native Apps on Android and iOS. <br class='breaksDesc'>Web Apps in React and video games in Phaser. <br class='breaksDesc'>Arduino hardware and software.",
+          latest_projects: "Latest projects",
+          download: "Download App",
+          website: "Browse Website",
+          read: "Read more",
+          watch: "Watch video",
+          apps_press: "My Apps on the press",
+          contact_info: "Contact information",
+          blind1: "Article about Blind Communicator.",
+          blind2: "Video about Blind Communicator.",
+          blind3: "Article about Blind Web Reader.",
+          mobility: "Article about Mobility Launcher.",
+          taxi: "Article about Taxi Calculator.",
+          maker: "Article about 3D Object Maker.",
+          museum: "Article about 3D Art Museum.",
+          emulatrix: "Article about Emulatrix.",
+          virtualxp: "Article about VirtualXP.",
+          recognition: "Recognition article.",
+          latest1_title: "3D Object Maker",
+          latest1_desc: "3D Design software for schools and institutions.",
+          latest2_title: "Arduino Simulator",
+          latest2_desc: "Free and open source Web for coding in Arduino.",
+          latest3_title: "Emulatrix",
+          latest3_desc: "Free and open source Web for playing retro games.",
+        },
+        es: {
+          projects: "Desarrollos",
+          press: "Prensa",
+          contact: "Contacto",
+          custom_software: "Software a medida",
+          custom_desc: "Dise&ntilde;o de Apps h&iacute;bridas en React Native. <br class='breaksDesc'>Desarrollo de Apps nativas en Android y iOS. <br class='breaksDesc'>Web Apps en React y videojuegos en Phaser. <br class='breaksDesc'>Hardware y software Arduino.",
+          latest_projects: "&Uacute;ltimos desarrollos",
+          download: "Descargar App",
+          website: "Visitar Web",
+          read: "Leer m&aacute;s",
+          watch: "Ver v&iacute;deo",
+          apps_press: "Publicaciones destacadas",
+          contact_info: "Informaci&oacute;n de contacto",
+          blind1: "Art&iacute;culo sobre Blind Communicator.",
+          blind2: "V&iacute;deo sobre Blind Communicator.",
+          blind3: "Art&iacute;culo sobre Blind Web Reader.",
+          mobility: "Art&iacute;culo sobre Mobility Launcher.",
+          taxi: "Art&iacute;culo sobre TaxiCuentas.",
+          maker: "Art&iacute;culo sobre 3D Object Maker.",
+          museum: "Art&iacute;culo sobre 3D Art Museum.",
+          emulatrix: "Art&iacute;culo sobre Emulatrix.",
+          virtualxp: "Art&iacute;culo sobre VirtualXP.",
+          recognition: "Art&iacute;culo de reconocimiento.",
+          latest1_title: "3D Object Maker",
+          latest1_desc: "App gratuita y de c&oacute;digo libre de dise&ntilde;o 3D para escuelas primarias.",
+          latest2_title: "Arduino Simulator",
+          latest2_desc: "Web gratuita y de c&oacute;digo libre para programar en Arduino.",
+          latest3_title: "Emulatrix",
+          latest3_desc: "Web gratuita y de c&oacute;digo libre para jugar juegos retro.",
+        },
       }
 
-      const STRING_LATEST = [
+      const USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      const GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
+      const t = (stringName) => GET_APP_STRING[stringName] || ""
+
+      const LATEST_PROJECTS = [
         {
-          title: STRING_LATEST1_TITLE,
+          title: t("latest1_title"),
           image: "img_Latest_1.webp",
-          description: STRING_LATEST1_DESC,
-          buttonText: STRING_DOWNLOAD_APP,
+          description: t("latest1_desc"),
+          buttonText: t("download"),
           buttonLink: "https://play.google.com/store/apps/details?id=ar.com.lrusso.dobjectmaker",
         },
         {
-          title: STRING_LATEST2_TITLE,
+          title: t("latest2_title"),
           image: "img_Latest_2.webp",
-          description: STRING_LATEST2_DESC,
-          buttonText: STRING_BROWSE_WEBSITE,
+          description: t("latest2_desc"),
+          buttonText: t("website"),
           buttonLink: "https://lrusso.github.io/ArduinoSimulator/demo1.html",
         },
         {
-          title: STRING_LATEST3_TITLE,
+          title: t("latest3_title"),
           image: "img_Latest_3.webp",
-          description: STRING_LATEST3_DESC,
-          buttonText: STRING_BROWSE_WEBSITE,
+          description: t("latest3_desc"),
+          buttonText: t("website"),
           buttonLink: "https://www.emulatrix.com",
         },
       ]
 
-      const STRING_ARTICLES = [
+      const LIST_ARTICLES = [
         {
           title: "BBC",
           image: "img_Press_BBC_01.webp",
-          description: STRING_BLIND2,
-          buttonText: STRING_WATCH_VIDEO,
+          description: t("blind2"),
+          buttonText: t("watch"),
           buttonLink: "https://www.youtube.com/watch?v=B15FjOoRszc",
         },
         {
           title: "CNN",
           image: "img_Press_CNN_01.webp",
-          description: STRING_BLIND2,
-          buttonText: STRING_WATCH_VIDEO,
+          description: t("blind2"),
+          buttonText: t("watch"),
           buttonLink: "https://www.youtube.com/watch?v=8CoQdF3OIW0",
         },
         {
           title: "GitHub",
           image: "img_Press_GitHub_01.webp",
-          description: STRING_RECOGNITION,
-          buttonText: STRING_READ_MORE,
+          description: t("recognition"),
+          buttonText: t("read"),
           buttonLink: "https://github.com/readme/stories/leonardo-javier-russo",
         },
         {
           title: "Infobae",
           image: "img_Press_Infobae_06.webp",
-          description: STRING_RECOGNITION,
-          buttonText: STRING_READ_MORE,
+          description: t("recognition"),
+          buttonText: t("read"),
           buttonLink: "https://www.infobae.com/economia/2024/05/25/era-empleado-publico-renuncio-para-estudiar-y-ahora-factura-mas-de-65-millones-al-ano-claves-de-un-cambio-de-vida-en-3-anos/",
         },
         {
           title: "Infobae",
           image: "img_Press_Infobae_02.webp",
-          description: STRING_RECOGNITION,
-          buttonText: STRING_READ_MORE,
+          description: t("recognition"),
+          buttonText: t("read"),
           buttonLink: "https://www.infobae.com/discapacidad/2018/08/08/la-historia-del-empleado-publico-que-creo-una-aplicacion-para-personas-con-discapacidad-visual/",
         },
         {
           title: "Gizmodo",
           image: "img_Press_Gizmodo_01.webp",
-          description: STRING_EMULATRIX,
-          buttonText: STRING_READ_MORE,
+          description: t("emulatrix"),
+          buttonText: t("read"),
           buttonLink: "https://es.gizmodo.com/emulatrix-es-un-emulador-web-de-juegos-retro-de-codigo-1845558196",
         },
         {
           title: "La Naci&oacute;n",
           image: "img_Press_LN_04.webp",
-          description: STRING_EMULATRIX,
-          buttonText: STRING_READ_MORE,
+          description: t("emulatrix"),
+          buttonText: t("read"),
           buttonLink: "https://www.lanacion.com.ar/tecnologia/emulatrix-motor-web-juegos-retro-acento-argentino-nid2507857",
         },
         {
           title: "Infobae",
           image: "img_Press_Infobae_04.webp",
-          description: STRING_EMULATRIX,
-          buttonText: STRING_READ_MORE,
+          description: t("emulatrix"),
+          buttonText: t("read"),
           buttonLink: "https://www.infobae.com/gaming/2019/12/27/que-es-emulatrix-la-plataforma-de-codigo-libre-para-jugar-juegos-retro-online/",
         },
         {
           title: "Clar&iacute;n",
           image: "img_Press_Clarin_01.webp",
-          description: STRING_BLIND1,
-          buttonText: STRING_READ_MORE,
+          description: t("blind1"),
+          buttonText: t("read"),
           buttonLink: "https://www.clarin.com/sociedad/creo-aplicacion-facilitar-celular-ciegos_0_SkdLTQ2C.html",
         },
         {
           title: "La Naci&oacute;n",
           image: "img_Press_LN_01.webp",
-          description: STRING_BLIND1,
-          buttonText: STRING_READ_MORE,
+          description: t("blind1"),
+          buttonText: t("read"),
           buttonLink: "https://www.lanacion.com.ar/tecnologia/una-aplicacion-ayuda-a-los-invidentes-a-usar-sus-dispositivos-moviles-nid1797826/",
         },
         {
           title: "Infobae",
           image: "img_Press_Infobae_01.webp",
-          description: STRING_BLIND1,
-          buttonText: STRING_READ_MORE,
+          description: t("blind1"),
+          buttonText: t("read"),
           buttonLink: "https://www.infobae.com/tecno/2016/07/12/como-funciona-blind-communicator-la-aplicacion-para-que-personas-no-videntes-puedan-usar-sus-telefonos-y-tablets/",
         },
         {
           title: "Clar&iacute;n",
           image: "img_Press_Clarin_03.webp",
-          description: STRING_MOBILITY,
-          buttonText: STRING_READ_MORE,
+          description: t("mobility"),
+          buttonText: t("read"),
           buttonLink: "https://www.clarin.com/tecnologia/nuevo-dispositivo-argentino-permite-discapacitados-motrices-usar-smartphone_0_HJKuWnjVb.amp.html",
         },
         {
           title: "La Naci&oacute;n",
           image: "img_Press_LN_02.webp",
-          description: STRING_MOBILITY,
-          buttonText: STRING_READ_MORE,
+          description: t("mobility"),
+          buttonText: t("read"),
           buttonLink: "https://www.lanacion.com.ar/tecnologia/un-control-para-que-personas-con-problemas-motrices-usen-un-smartphones-nid1840591/",
         },
         {
           title: "Infobae",
           image: "img_Press_Infobae_03.webp",
-          description: STRING_MUSEUM,
-          buttonText: STRING_READ_MORE,
+          description: t("museum"),
+          buttonText: t("read"),
           buttonLink: "https://www.infobae.com/america/cultura-america/2018/09/08/arte-y-software-libre-viaje-virtual-al-interior-del-museo-total/",
         },
         {
           title: "Clar&iacute;n",
           image: "img_Press_Clarin_04.webp",
-          description: STRING_MAKER,
-          buttonText: STRING_READ_MORE,
+          description: t("maker"),
+          buttonText: t("read"),
           buttonLink: "https://www.clarin.com/tecnologia/crean-software-imprimir-3d-facil_0_pRfB2m-b-.html",
         },
         {
           title: "La Naci&oacute;n",
           image: "img_Press_LN_03.webp",
-          description: STRING_MAKER,
-          buttonText: STRING_READ_MORE,
+          description: t("maker"),
+          buttonText: t("read"),
           buttonLink: "https://www.lanacion.com.ar/tecnologia/es-argentino-desarrollo-aplicacion-gratis-ayudar-chicos-nid2229765",
         },
         {
           title: "Infobae",
           image: "img_Press_Infobae_05.webp",
-          description: STRING_BLIND3,
-          buttonText: STRING_READ_MORE,
+          description: t("blind3"),
+          buttonText: t("read"),
           buttonLink: "https://www.infobae.com/america/tecno/2021/06/15/la-app-gratuita-y-de-codigo-abierto-para-que-personas-con-discapacidad-visual-puedan-acceder-mas-facil-a-la-web/",
         },
         {
           title: "Clar&iacute;n",
           image: "img_Press_Clarin_02.webp",
-          description: STRING_TAXI,
-          buttonText: STRING_READ_MORE,
+          description: t("taxi"),
+          buttonText: t("read"),
           buttonLink: "https://www.clarin.com/apps/taxicuentas-app-taxistas-controlen-ganacias_0_Sk5pPxyEg.html",
         },
       ]
@@ -399,20 +369,20 @@
         const getElement = (name) => document.getElementsByClassName(name).length > 0 ? document.getElementsByClassName(name) : document.getElementsByTagName(name)
 
         // UPDATING HEADER
-        getElement("nav-link")[0].innerHTML = STRING_PROJECTS
-        getElement("nav-link")[1].innerHTML = STRING_PRESS
-        getElement("nav-link")[2].innerHTML = STRING_CONTACT
+        getElement("nav-link")[0].innerHTML = t("projects")
+        getElement("nav-link")[1].innerHTML = t("press")
+        getElement("nav-link")[2].innerHTML = t("contact")
 
         // UPDATING COVER
         getElement("img")[0].src = "img_Cover.webp?" + Date.now()
-        getElement("h1")[0].innerHTML = STRING_CUSTOM_SOFTWARE
-        getElement("p")[0].innerHTML = STRING_CUSTOM_SOFTWARE_DESC
-        getElement("btnWeb")[0].innerHTML = STRING_READ_MORE
+        getElement("h1")[0].innerHTML = t("custom_software")
+        getElement("p")[0].innerHTML = t("custom_desc")
+        getElement("btnWeb")[0].innerHTML = t("read")
 
         // UPDATING LATEST PROJECTS
-        getElement("h2")[0].innerHTML = STRING_LATEST_PROJECTS
+        getElement("h2")[0].innerHTML = t("latest_projects")
         let latestProjectsCounter = 0
-        STRING_LATEST.forEach((card) => {
+        LATEST_PROJECTS.forEach((card) => {
           getElement("card-title")[latestProjectsCounter].innerHTML = card.title
           getElement("card-text")[latestProjectsCounter].innerHTML = card.description
           getElement("img")[latestProjectsCounter + 1].src = card.image + "?" + Date.now()
@@ -422,10 +392,10 @@
         })
 
         // UPDATING ARTICLES
-        getElement("h2")[1].innerHTML = STRING_APPS_PRESS
+        getElement("h2")[1].innerHTML = t("apps_press")
         let articlesCounter = 3
         let imageCounter = 1
-        STRING_ARTICLES.forEach((card) => {
+        LIST_ARTICLES.forEach((card) => {
           getElement("card-title")[articlesCounter].innerHTML = card.title
           getElement("card-text")[articlesCounter].innerHTML = card.description
           getElement("img")[articlesCounter + 1].src = card.image + "?" + Date.now()
@@ -436,7 +406,7 @@
         })
 
         // UPDATING CONTACT INFORMATION
-        getElement("h2")[2].innerHTML = STRING_CONTACT_INFO
+        getElement("h2")[2].innerHTML = t("contact_info")
         getElement("contactLink")[0].href = atob("bWFpbHRvOmluZm9AbHJ1c3NvLmNvbQ==")
         getElement("contactLabel")[0].innerHTML = atob("RW1haWw=")
 
