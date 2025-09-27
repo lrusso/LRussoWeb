@@ -69,10 +69,9 @@
         width: 1px;
       }
       .new {
-        display: block;
-        font-family: Arial;
-        font-size: 15px;
-        line-height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 32px;
         width: 28px;
         background-color: #f2f2f2;
@@ -82,9 +81,6 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAJ5JREFUOI3t06EKQjEUxvEfIjbxAeRGwccwGm4xGEwGH8JXMQlmQYtiMwi+g8EXMBuMGhx4GcpcM/iHw86273wb44wnO9wTccFIRD2MHUxwiAWBfThkjgYWseCM/ofi6n6JG8bxDb5lgyGWuGKVYzBAN+RHTHMMZuihHeYtNKuC1BvElDhBLaPoLX+DXzCoNlLh1WkpinhhK/2d41jDA8osKMtPNyUKAAAAAElFTkSuQmCC");
-        background-repeat: no-repeat;
-        background-position: center;
       }
       .new:hover {
         background-color: #e3e3e3;
@@ -436,7 +432,11 @@
       <div class="menu_wrapper">
         <div class="menu_size">
           <div class="holder">
-            <div class="new"></div>
+            <div class="new">
+              <svg width="19" height="19" viewBox="0 0 512 512">
+                <path d="M298.699,42.5h-213.5v427h341.602V170.61L298.699,42.5z M309.375,83.369l76.543,76.556h-76.543V83.369z M405.449,448.15   H106.551V63.85h181.475v117.426h117.424V448.15z"/>
+              </svg>
+            </div>
           </div>
           <div class="holder">
             <div class="open">
