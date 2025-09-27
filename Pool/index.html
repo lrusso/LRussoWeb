@@ -194,7 +194,7 @@
       var STRING_LOWEST_BALL_NOT_HIT_FIRST = ""
 
       // CHECKING THE USER LANGUAGE
-      if (userLanguage == "es") {
+      if (userLanguage === "es") {
         STRING_PLAYER1_WINS = "GANO EL JUGADOR 1"
         STRING_PLAYER2_WINS = "GANO EL JUGADOR 2"
         STRING_CPU_WINS = "GANO LA CPU"
@@ -787,13 +787,13 @@
             var ball = this.balls.children[i]
 
             // CHECKING IF IT IS NOT THE CUEBALL
-            if (ball._frame.index != Pool.WHITE) {
+            if (ball._frame.index !== Pool.WHITE) {
               // ADDING A CALLBACK WHEN THERE IS A COLLISION WITH ANOTHER BALL
               this.cueball.body.createBodyCallback(
                 ball,
                 function (cueballSprite, otherBallSprite) {
                   // CHECKING IF THERE WASN'T A FIRST HIT
-                  if (this.firstHit == null) {
+                  if (this.firstHit === null) {
                     // GETTING THE BALL NUMBER THAT RECEIVED THE HIT
                     var ballNumber = otherBallSprite.sprite._frame.index
 
@@ -892,7 +892,7 @@
           this.buttonPlayer2.alpha = 0.4
 
           // CHECKING IF THE USER IS PLAYING AGAINST THE CPU
-          if (versusCPU == true) {
+          if (versusCPU === true) {
             this.buttonPlayer2.loadTexture("imageCPU")
           }
 
@@ -902,7 +902,7 @@
 
           // SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
           this.input.onUp.add(function () {
-            if (this.turn == Pool.turnPlayer2 && versusCPU == true) {
+            if (this.turn === Pool.turnPlayer2 && versusCPU === true) {
               return
             }
             this.takeShot()
@@ -911,7 +911,7 @@
 
         toggleDebug: function () {
           // CHECKING IF THE DEBUG MODE IS ENABLED
-          if (Pool.showDebug == true) {
+          if (Pool.showDebug === true) {
             // DISABLING THE DEBUG MODE
             Pool.showDebug = false
           } else {
@@ -938,9 +938,9 @@
           this.input.activePointer.y = 217.5
 
           // CHECKING IF THE SWITCH VERSUS BUTTON WAS CLICKED
-          if (switchVersus == true) {
+          if (switchVersus === true) {
             // CHECKING IF THE USER WAS PLAYING AGAINST THE CPU
-            if (versusCPU == true) {
+            if (versusCPU === true) {
               // SETTING THAT THE USER WILL BE PLAYING AGAINST ANOTHER USER
               versusCPU = false
             } else {
@@ -963,7 +963,7 @@
           ball.body.createBodyCallback(this.pockets, this.hitPocket, this)
 
           // CHECKING IF THE BALL IS THE WHITE ONE
-          if (color == Pool.WHITE) {
+          if (color === Pool.WHITE) {
             // SETTING THAT THE USER CAN INTERACT WITH THE BALL
             ball.inputEnabled = true
 
@@ -977,7 +977,7 @@
             }, this)
 
             // CHECKING IF IT IS A MOBILE DEVICE
-            if (isMobileDevice() == true) {
+            if (isMobileDevice() === true) {
               // CREATING THE MOBILE HANDLER FOR THE CUEBALL BECAUSE THE FINGER IS NOT AS ACCURATE AS THE MOUSE POINTER
               var cueballMobileHandler = this.shadows.create(
                 x - 20,
@@ -994,7 +994,7 @@
                 // SETTING THAT THE CUE BALL IS SELECTED
                 this.cueballSelected = true
               }, this)
-              if (Pool.showDebug == true) {
+              if (Pool.showDebug === true) {
                 cueballMobileHandler.alpha = 0.3
               } else {
                 cueballMobileHandler.alpha = 0
@@ -1016,7 +1016,7 @@
 
         takeShot: function (CPUShotSpeed) {
           // CHECKING IF THE CUE BALL IS SELECTED
-          if (this.cueballSelected == true) {
+          if (this.cueballSelected === true) {
             // CHECKING IF THE SPEED IS ENOUGH TO ALLOW THE SHOT
             if (this.speed > this.allowShotSpeed) {
               return
@@ -1026,9 +1026,9 @@
             this.firstHit = null
 
             // CHECKING IF THERE IS A TOAST
-            if (this.toastShadow != null) {
+            if (this.toastShadow !== null) {
               // CHECKING IF THERE IS A TOAST FADE OUT
-              if (this.toastFadeOut != null) {
+              if (this.toastFadeOut !== null) {
                 // REMOVING THE TOAST FADE OUT
                 game.time.events.remove(this.toastFadeOut)
                 this.toastFadeOut = null
@@ -1048,7 +1048,7 @@
               // WAITING 300 MS
               game.time.events.add(300, function () {
                 // CHECKING IF THERE IS A TOAST
-                if (game.state.states["Pool.Game"].toastShadow != null) {
+                if (game.state.states["Pool.Game"].toastShadow !== null) {
                   // REMOVING THE TOAST
                   game.state.states["Pool.Game"].toastShadow.destroy()
                   game.state.states["Pool.Game"].toastText.destroy()
@@ -1061,7 +1061,7 @@
             }
 
             // CHECKING IF THE CUE IS VISIBLE
-            if (this.cueContainer.visible == true) {
+            if (this.cueContainer.visible === true) {
               // CREATING THE VARIABLE THAT WILL CONTAIN THE BALL SPEED VALUE
               var speed
 
@@ -1083,14 +1083,14 @@
               var py = Math.sin(parseFloat(this.aimLine.angle).toFixed(2)) * speed
 
               // BUGFIX FOR IMPULSE CALCULATION
-              if (parseFloat(px).toFixed(1) == 0) {
+              if (parseFloat(px).toFixed(1) === 0) {
                 if (px < 0) {
                   px = -0.1
                 } else {
                   px = 0.1
                 }
               }
-              if (parseFloat(py).toFixed(1) == 0) {
+              if (parseFloat(py).toFixed(1) === 0) {
                 if (py < 0) {
                   py = -0.1
                 } else {
@@ -1138,9 +1138,9 @@
             var ballNumber = ball.sprite._frame.index
 
             // CHECKING IF IT IS THE PLAYER 1 TURN
-            if (this.turn == Pool.turnPlayer1) {
+            if (this.turn === Pool.turnPlayer1) {
               // CHECKING IF THE PLAYER 1 HAS ANY TYPE OF BALLS ASSIGNED
-              if (this.player1BallType == null) {
+              if (this.player1BallType === null) {
                 // CHECKING IF THE BALL IS A SOLID ONE
                 if (ballNumber < 8) {
                   // SETTING THAT THE PLAYER 1 WILL BE HITTING SOLID BALLS
@@ -1163,7 +1163,7 @@
                   this.player1Hitted = this.player1Hitted + 1
 
                   // CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
-                  if (this.resetting == false) {
+                  if (this.resetting === false) {
                     // SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
                     this.turnSwitch = false
 
@@ -1193,7 +1193,7 @@
                   this.player1Hitted = this.player1Hitted + 1
 
                   // CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
-                  if (this.resetting == false) {
+                  if (this.resetting === false) {
                     // SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
                     this.turnSwitch = false
 
@@ -1210,8 +1210,8 @@
               } else {
                 // CHECKING IF THE BALL THAT HIT THE POCKET IS A BALL THAT BELONGS TO THE PLAYER 1
                 if (
-                  (ballNumber < 8 && this.player1BallType == Pool.typeSolids) ||
-                  (ballNumber > 8 && this.player1BallType == Pool.typeStripes)
+                  (ballNumber < 8 && this.player1BallType === Pool.typeSolids) ||
+                  (ballNumber > 8 && this.player1BallType === Pool.typeStripes)
                 ) {
                   // ADDING THE BALL TO THE BOTTOM-LEFT CORNER OF THE SCREEN
                   var tempBall = this.back_layer.create(
@@ -1228,11 +1228,11 @@
 
                   // CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
                   if (
-                    this.resetting == false &&
+                    this.resetting === false &&
                     ((this.firstHit < 8 &&
-                      this.player1BallType == Pool.typeSolids) ||
+                      this.player1BallType === Pool.typeSolids) ||
                       (this.firstHit > 8 &&
-                        this.player1BallType == Pool.typeStripes))
+                        this.player1BallType === Pool.typeStripes))
                   ) {
                     // SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
                     this.turnSwitch = false
@@ -1243,8 +1243,8 @@
                 }
                 // CHECKING IF THE BALL THAT HIT THE POCKET IS A BALL THAT BELONGS TO THE PLAYER 2
                 else if (
-                  (ballNumber < 8 && this.player2BallType == Pool.typeSolids) ||
-                  (ballNumber > 8 && this.player2BallType == Pool.typeStripes)
+                  (ballNumber < 8 && this.player2BallType === Pool.typeSolids) ||
+                  (ballNumber > 8 && this.player2BallType === Pool.typeStripes)
                 ) {
                   // ADDING THE BALL TO THE BOTTOM-RIGHT CORNER OF THE SCREEN
                   var tempBall = this.back_layer.create(
@@ -1261,7 +1261,7 @@
                 } else {
                   // THE PLAYER 1 HITTED THE BLACK BALL.
                   // COUNTING IF THE PLAYER 1 HAS ENOUGH HITTED BALLS TO WIN THE GAME
-                  if (this.player1Hitted == 7) {
+                  if (this.player1Hitted === 7) {
                     this.gameWin()
                   } else {
                     // IF IT IS NOT THE CASE, GAME OVER
@@ -1274,9 +1274,9 @@
               }
             }
             // CHECKING IF IT IS THE PLAYER 2 TURN
-            else if (this.turn == Pool.turnPlayer2) {
+            else if (this.turn === Pool.turnPlayer2) {
               // CHECKING IF THE PLAYER 2 HAS ANY TYPE OF BALLS ASSIGNED
-              if (this.player2BallType == null) {
+              if (this.player2BallType === null) {
                 // CHECKING IF THE BALL IS A SOLID ONE
                 if (ballNumber < 8) {
                   // SETTING THAT THE PLAYER 2 WILL BE HITTING SOLID BALLS
@@ -1299,7 +1299,7 @@
                   this.player2Hitted = this.player2Hitted + 1
 
                   // CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
-                  if (this.resetting == false) {
+                  if (this.resetting === false) {
                     // SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
                     this.turnSwitch = false
 
@@ -1329,7 +1329,7 @@
                   this.player2Hitted = this.player2Hitted + 1
 
                   // CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
-                  if (this.resetting == false) {
+                  if (this.resetting === false) {
                     // SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
                     this.turnSwitch = false
 
@@ -1346,8 +1346,8 @@
               } else {
                 // CHECKING IF THE BALL THAT HIT THE POCKET IS A BALL THAT BELONGS TO THE PLAYER 1
                 if (
-                  (ballNumber < 8 && this.player1BallType == Pool.typeSolids) ||
-                  (ballNumber > 8 && this.player1BallType == Pool.typeStripes)
+                  (ballNumber < 8 && this.player1BallType === Pool.typeSolids) ||
+                  (ballNumber > 8 && this.player1BallType === Pool.typeStripes)
                 ) {
                   // ADDING THE BALL TO THE BOTTOM-LEFT CORNER OF THE SCREEN
                   var tempBall = this.back_layer.create(
@@ -1362,8 +1362,8 @@
                   // UPDATING THE COUNTER FOR THE PLAYER 1 HITTED BALLS
                   this.player1Hitted = this.player1Hitted + 1
                 } else if (
-                  (ballNumber < 8 && this.player2BallType == Pool.typeSolids) ||
-                  (ballNumber > 8 && this.player2BallType == Pool.typeStripes)
+                  (ballNumber < 8 && this.player2BallType === Pool.typeSolids) ||
+                  (ballNumber > 8 && this.player2BallType === Pool.typeStripes)
                 ) {
                   // ADDING THE BALL TO THE BOTTOM-RIGHT CORNER OF THE SCREEN
                   var tempBall = this.back_layer.create(
@@ -1380,11 +1380,11 @@
 
                   // CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
                   if (
-                    this.resetting == false &&
+                    this.resetting === false &&
                     ((this.firstHit < 8 &&
-                      this.player2BallType == Pool.typeSolids) ||
+                      this.player2BallType === Pool.typeSolids) ||
                       (this.firstHit > 8 &&
-                        this.player2BallType == Pool.typeStripes))
+                        this.player2BallType === Pool.typeStripes))
                   ) {
                     // SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
                     this.turnSwitch = false
@@ -1395,7 +1395,7 @@
                 } else {
                   // THE PLAYER 2 HITTED THE BLACK BALL.
                   // COUNTING IF THE PLAYER 2 HAS ENOUGH HITTED BALLS TO WIN THE GAME
-                  if (this.player2Hitted == 7) {
+                  if (this.player2Hitted === 7) {
                     this.gameWin()
                   } else {
                     // IF IT IS NOT THE CASE, GAME OVER
@@ -1482,8 +1482,8 @@
 
           // CHECKING IF A HUMAN IS PLAYING
           if (
-            this.turn == Pool.turnPlayer1 ||
-            (this.turn == Pool.turnPlayer2 && versusCPU == false)
+            this.turn === Pool.turnPlayer1 ||
+            (this.turn === Pool.turnPlayer2 && versusCPU === false)
           ) {
             // REMOVING THE REFERENCE TO THE 'PLACECUEBALL' FUNCTION, THAT WAS CALLED WHEN THE MOUSE OR FINGER IS UP
             this.input.onUp.remove(this.placeCueBall, this)
@@ -1491,7 +1491,7 @@
 
           // SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
           this.input.onUp.add(function () {
-            if (this.turn == Pool.turnPlayer2 && versusCPU == true) {
+            if (this.turn === Pool.turnPlayer2 && versusCPU === true) {
               return
             }
             this.takeShot()
@@ -1503,7 +1503,7 @@
           this.aimLine.start.set(this.cueball.x, this.cueball.y)
 
           // CHECKING IF THE CUE BALL IS SELECTED
-          if (this.cueballSelected == false) {
+          if (this.cueballSelected === false) {
             // CHECKING IF THE CUE BALL IS ON THE RIGHT SIDE OF TABLE
             if (this.cueball.x >= 400) {
               // SETTING THE FINAL POINT FOR THE CUE TO BE DRAWN POINTING AT THE RIGHT SIDE OF THE TABLE
@@ -1524,7 +1524,7 @@
           this.cueContainer.rotation = parseFloat(this.aimLine.angle).toFixed(2)
 
           // CHECKING IF THE CUE BALL IS SELECTED
-          if (this.cueballSelected == false) {
+          if (this.cueballSelected === false) {
             // SETTING AN EMPTY VALUE (FROM THE INITIAL AND FINAL POINT) FOR THE NEXT SHOT
             // IN ORDER TO SHOW THE CUE RIGHT NEXT TO THE BALL.
             this.aimLine.end.set(this.cueball.x, this.cueball.y)
@@ -1559,7 +1559,7 @@
 
         update: function () {
           // CHECKING IF THE CUE CONTAINER IS VISIBLE
-          if (this.cueContainer.visible == false) {
+          if (this.cueContainer.visible === false) {
             // CONSTRAINING EVERY BALL MAX VELOCITY
             for (var i = 0; i < this.balls.length; i++) {
               // GETTING A BALL
@@ -1582,12 +1582,12 @@
           this.updateSpeed()
 
           // CHECKING IF THE GAME IS NOT OVER
-          if (this.isGameOver == false) {
+          if (this.isGameOver === false) {
             // CHECKING IF THE CPU IS PLAYING
             if (
-              this.turn == Pool.turnPlayer2 &&
-              this.cueContainer.visible == true &&
-              versusCPU == true
+              this.turn === Pool.turnPlayer2 &&
+              this.cueContainer.visible === true &&
+              versusCPU === true
             ) {
               // STARTING THE CPU
               this.playingCPU()
@@ -1648,16 +1648,16 @@
             this.cueball.body.setZeroVelocity()
 
             // CHECKING IF THERE IS ANY BALL IN MOVEMENT
-            if (ballsInMovement == false) {
+            if (ballsInMovement === false) {
               // CHECKING IF THE RESETTING VARIBLE IS TRUE (MEANING THAT THE CUE BALL HIT A POCKET)
-              if (this.resetting == true) {
+              if (this.resetting === true) {
                 // CHECKING IF THE TURN MUST SWITCH (TO THE OTHER PLAYER)
-                if (this.turnSwitch == true) {
+                if (this.turnSwitch === true) {
                   // CHECKING FOR ANY PLAYER/CPU FOUL
                   this.checkForFouls()
 
                   // CHECKING IF IT IS THE PLAYER 1 TURN
-                  if (this.turn == Pool.turnPlayer1) {
+                  if (this.turn === Pool.turnPlayer1) {
                     // SWITCHING TO PLAYER 2
                     this.switchToPlayer2()
                   } else {
@@ -1670,7 +1670,7 @@
                 this.turnSwitch = false
 
                 // CHECKING IF THE RESETTINGLOCATION VARIABLE IS TRUE (MEANING THAT THE CUE BALL HIT A POCKET)
-                if (this.resettingRelocation == true) {
+                if (this.resettingRelocation === true) {
                   // UPDATING THE PLACEBALL LOCATION TO THE DEFAULT LOCATION
                   this.placeball.x = 200
                   this.placeball.y = 217.5
@@ -1685,8 +1685,8 @@
 
                   // CHECKING IF A HUMAN IS PLAYING
                   if (
-                    this.turn == Pool.turnPlayer1 ||
-                    (this.turn == Pool.turnPlayer2 && versusCPU == false)
+                    this.turn === Pool.turnPlayer1 ||
+                    (this.turn === Pool.turnPlayer2 && versusCPU === false)
                   ) {
                     // GETTING THE MOUSE OR FINGER POSITION
                     locationX = this.input.activePointer.x
@@ -1748,7 +1748,7 @@
                 this.input.onUp.remove(this.takeShot, this)
 
                 // CHECKING IF THERE ISN'T A PREVIOUS FOUL
-                if (this.toastShadow == null) {
+                if (this.toastShadow === null) {
                   // SHOWING THE FOUL TOAST
                   this.showToast(STRING_SCRATCH, 365)
 
@@ -1769,8 +1769,8 @@
 
                 // CHECKING IF A HUMAN IS PLAYING
                 if (
-                  this.turn == Pool.turnPlayer1 ||
-                  (this.turn == Pool.turnPlayer2 && versusCPU == false)
+                  this.turn === Pool.turnPlayer1 ||
+                  (this.turn === Pool.turnPlayer2 && versusCPU === false)
                 ) {
                   // SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
                   this.input.onUp.add(this.placeCueBall, this)
@@ -1780,12 +1780,12 @@
                 }
               } else {
                 // CHECKINF IG THE 'TURN SWITCH' (TO THE OTHER PLAYER) VARIABLE IS TRUE
-                if (this.turnSwitch == true) {
+                if (this.turnSwitch === true) {
                   // CHECKING FOR ANY PLAYER/CPU FOUL
                   this.checkForFouls()
 
                   // CHECKING IF IT IS THE PLAYER 1 TURN
-                  if (this.turn == Pool.turnPlayer1) {
+                  if (this.turn === Pool.turnPlayer1) {
                     // SWITCHING TO PLAYER 2
                     this.switchToPlayer2()
                   } else {
@@ -1809,13 +1809,13 @@
 
         updateGuideLine: function () {
           // CHECKING IF THE CUEBALL IS SELECTED AND THE CUE CONTAINER (THE STICK) IS VISIBLE
-          if (this.cueContainer.visible == true) {
+          if (this.cueContainer.visible === true) {
             // LOCATING THE GUIDE LINE AT THE INITIAL POINT
             this.guideLineContainer.position.x = this.cueball.x
             this.guideLineContainer.position.y = this.cueball.y
 
             // CHECKING IF THE CUE BALL IS SELECTED
-            if (this.cueballSelected == true) {
+            if (this.cueballSelected === true) {
               // ROTATING THE GUIDE LINE ACCORDING THE ANGLE OBTAINED FROM THE INITIAL AND FINAL POINT.
               this.guideLineContainer.rotation = parseFloat(
                 this.aimLine.angle
@@ -1938,7 +1938,7 @@
             }
 
             // CHECKING IF THERE WAS NO HIT
-            if (someHit == false) {
+            if (someHit === false) {
               // CLEARING THE CPU HITTING BALL VARIABLES
               this.lastCheckCPUWillHit = false
               this.lastCheckCPUWillHitBall = null
@@ -2037,7 +2037,7 @@
 
         switchToPlayer1: function () {
           // CHECKING IF THE PLAYER OR CPU MUST PASS BECAUSE OF A FOUL
-          if (this.mustPass == Pool.turnPlayer1) {
+          if (this.mustPass === Pool.turnPlayer1) {
             this.mustPass = null
             return
           }
@@ -2047,7 +2047,7 @@
           this.buttonPlayer1.alpha = 1
 
           // CHECKING IF THE USER IS PLAYING AGAINST THE CPU
-          if (versusCPU == true) {
+          if (versusCPU === true) {
             // UPDATING THE CPU ICON TO NOT SELECTED
             this.buttonPlayer2.loadTexture("imageCPU")
             this.buttonPlayer2.alpha = 0.4
@@ -2069,7 +2069,7 @@
 
         switchToPlayer2: function () {
           // CHECKING IF THE PLAYER OR CPU MUST PASS BECAUSE OF A FOUL
-          if (this.mustPass == Pool.turnPlayer2) {
+          if (this.mustPass === Pool.turnPlayer2) {
             this.mustPass = null
             return
           }
@@ -2079,7 +2079,7 @@
           this.buttonPlayer1.alpha = 0.4
 
           // CHECKING IF THE USER IS PLAYING AGAINST THE CPU
-          if (versusCPU == true) {
+          if (versusCPU === true) {
             // UPDATING THE CPU ICON TO SELECTED
             this.buttonPlayer2.loadTexture("imageCPUSelected")
             this.buttonPlayer2.alpha = 1
@@ -2098,15 +2098,15 @@
 
         checkForFouls: function () {
           // CHECKING IF THE PLAYER OR CPU HAS RESET THE CUEBALL LOCATION, IF SO, NO POINT GOING ANY FURTHER
-          if (this.resetting == true) {
+          if (this.resetting === true) {
             this.mustPass = null
             return
           }
 
           // CHECKING IF THERE WASN'T A HIT
-          if (this.firstHit == null) {
+          if (this.firstHit === null) {
             // CHECKING IF THERE ISN'T A PREVIOUS FOUL
-            if (this.toastShadow == null) {
+            if (this.toastShadow === null) {
               // SHOWING THE FOUL TOAST
               this.showToast(STRING_BALL_NOT_HIT, 410)
 
@@ -2133,20 +2133,20 @@
             // GETTING THE BALL TYPE THAT SHOULD BE GETTING THE FIRST HIT AND HOW MANY BALLS BOTH PLAYERS HITTED
             var turnType = null
             var turnCounter = null
-            if (this.turn == Pool.turnPlayer1) {
+            if (this.turn === Pool.turnPlayer1) {
               turnType = this.player1BallType
               turnCounter = this.player1Hitted
-            } else if (this.turn == Pool.turnPlayer2) {
+            } else if (this.turn === Pool.turnPlayer2) {
               turnType = this.player2BallType
               turnCounter = this.player2Hitted
             }
 
             // CHECKING IF THERE IS A BALL TYPE
-            if (turnType != null) {
+            if (turnType !== null) {
               // CHECKING IF THE BALL IS A SOLID ONE
-              if (this.firstHit < 8 && turnType == Pool.typeStripes) {
+              if (this.firstHit < 8 && turnType === Pool.typeStripes) {
                 // CHECKING IF THERE ISN'T A PREVIOUS FOUL
-                if (this.toastShadow == null) {
+                if (this.toastShadow === null) {
                   // SHOWING THE FOUL TOAST
                   this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST, 300)
 
@@ -2169,9 +2169,9 @@
                 this.mustPass = this.turn
               }
               // CHECKING IF THE BALL IS A STRIPE ONE
-              else if (this.firstHit > 8 && turnType == Pool.typeSolids) {
+              else if (this.firstHit > 8 && turnType === Pool.typeSolids) {
                 // CHECKING IF THERE ISN'T A PREVIOUS FOUL
-                if (this.toastShadow == null) {
+                if (this.toastShadow === null) {
                   // SHOWING THE FOUL TOAST
                   this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST, 300)
 
@@ -2194,9 +2194,9 @@
                 this.mustPass = this.turn
               }
               // CHECKING IF THE HITTING THE 8TH BALL IS A FOUL
-              else if (this.firstHit == 8 && turnCounter < 7) {
+              else if (this.firstHit === 8 && turnCounter < 7) {
                 // CHECKING IF THERE ISN'T A PREVIOUS FOUL
-                if (this.toastShadow == null) {
+                if (this.toastShadow === null) {
                   // SHOWING THE FOUL TOAST
                   this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST, 300)
 
@@ -2228,9 +2228,9 @@
           var textGameAccent
 
           // CHECKING THE CURRENT TURN
-          if (this.turn == Pool.turnPlayer1) {
+          if (this.turn === Pool.turnPlayer1) {
             // CHECKING IF THE USER IS PLAYING AGAINST THE CPU
-            if (versusCPU == true) {
+            if (versusCPU === true) {
               // UPDATING THE GAME STATUS
               textGameStatus = STRING_CPU_WINS
 
@@ -2243,7 +2243,7 @@
               // SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
               textGameAccent = 335
             }
-          } else if (this.turn == Pool.turnPlayer2) {
+          } else if (this.turn === Pool.turnPlayer2) {
             // UPDATING THE GAME STATUS
             textGameStatus = STRING_PLAYER1_WINS
 
@@ -2261,15 +2261,15 @@
           var textGameAccent
 
           // CHECKING THE CURRENT TURN
-          if (this.turn == Pool.turnPlayer1) {
+          if (this.turn === Pool.turnPlayer1) {
             // UPDATING THE GAME STATUS
             textGameStatus = STRING_PLAYER1_WINS
 
             // SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
             textGameAccent = 335
-          } else if (this.turn == Pool.turnPlayer2) {
+          } else if (this.turn === Pool.turnPlayer2) {
             // CHECKING IF THE USER IS PLAYING AGAINST THE CPU
-            if (versusCPU == true) {
+            if (versusCPU === true) {
               // UPDATING THE GAME STATUS
               textGameStatus = STRING_CPU_WINS
 
@@ -2290,7 +2290,7 @@
 
         render: function () {
           // CHECKING IF THE DEBUG MODE IS ENABLED
-          if (Pool.showDebug == true) {
+          if (Pool.showDebug === true) {
             // CHECKING IF THE SHOT SPEED INDICATOR MUST BE DRAWN
             if (this.speed < 6) {
               // DRAWING THE SHOT SPEED
@@ -2313,7 +2313,7 @@
           this.cueballSelected = true
 
           // CHECKING IF THE DEBUG MODE IS DISABLED
-          if (Pool.showDebug == false) {
+          if (Pool.showDebug === false) {
             // HIDING THE CUE AND THE GUIDE LINE WHILE THE CPU IS CHECKING EVERY SHOT
             this.cueContainer.alpha = 0
             this.guideLineBall.alpha = 0
@@ -2341,35 +2341,35 @@
             }
 
             // CHECKING IF THE CPU CAN HIT A BALL USING THE CURRENT CUE ANGLE
-            if (this.lastCheckCPUWillHitBall != null) {
+            if (this.lastCheckCPUWillHitBall !== null) {
               // CREATING A VARIABLE TO KNOW WHEN THE CPU CAN TAKE THE SHOT
               var canTakeTheShot = false
 
               // CHECKING IF THE CPU MUST HIT THAT KIND OF BALL (STRIPE OR SOLID)
               if (
                 (this.lastCheckCPUWillHitBall < 8 &&
-                  this.player2BallType == Pool.typeSolids) ||
+                  this.player2BallType === Pool.typeSolids) ||
                 (this.lastCheckCPUWillHitBall > 8 &&
-                  this.player2BallType == Pool.typeStripes)
+                  this.player2BallType === Pool.typeStripes)
               ) {
                 // SETTING THAT THE CPU CAN TAKE THE SHOT
                 canTakeTheShot = true
               }
 
               // CHECKING IF THE CPU HITTED 7 BALLS AND IF THE BALL 8 IS SELECTED FOR THE NEXT SHOT
-              if (this.player2Hitted == 7 && this.lastCheckCPUWillHitBall == 8) {
+              if (this.player2Hitted === 7 && this.lastCheckCPUWillHitBall === 8) {
                 // SETTING THAT THE CPU CAN TAKE THE SHOT
                 canTakeTheShot = true
               }
 
               // CHECKING IF THERE ISN'T A BALL TYPE DEFINED
-              else if (this.player2BallType == null) {
+              else if (this.player2BallType === null) {
                 // SETTING THAT THE CPU CAN TAKE THE SHOT
                 canTakeTheShot = true
               }
 
               // CHECKING IF ANY BALL WAS ON TARGET YET OR ADDING THE CURRENT ANGLE AS A POSSIBLE BEST SHOT
-              if (canTakeTheShot == true) {
+              if (canTakeTheShot === true) {
                 // SETTING THE BALL TARGET
                 this.lastCheckCPUAngleBall = this.lastCheckCPUWillHitBall
 
@@ -2384,8 +2384,8 @@
             // CHECKING IF THE CPU CAN TAKE THE SHOT
             if (
               this.lastCheckCPUAngleList.length > 0 &&
-              (this.lastCheckCPUWillHitBall != this.lastCheckCPUAngleBall ||
-                this.lastCheckCPUWillHitBall == null)
+              (this.lastCheckCPUWillHitBall !== this.lastCheckCPUAngleBall ||
+                this.lastCheckCPUWillHitBall === null)
             ) {
               // GETTING THE MIDDLE ANGLE OF ALL THE POSSIBLE ANGLES, THAT MEANS A DIRECT SHOT TO THE BALL
               var bestPossibleShot =
@@ -2417,7 +2417,7 @@
             // CHECKING IF THE CPU DIDN'T FIND ANY SHOT WITH THE MORE ACCURATE VALUE - WILL TAKE THE LAST SHOT ANYWAY
             if (
               this.lastCheckCPUAngleCounter >= 6.28 &&
-              this.lastCheckCPUWillHitBall == null
+              this.lastCheckCPUWillHitBall === null
             ) {
               // TAKING THE SHOT WITH A SPEED VALUE
               this.takeShot(80)
@@ -2443,7 +2443,7 @@
 
         showToast: function (myText, accentPositionX) {
           // CHECKING IF THERE IS A TOAST
-          if (this.toastShadow != null) {
+          if (this.toastShadow !== null) {
             // REMOVING THE TOAST
             this.toastShadow.destroy()
             this.toastText.destroy()
@@ -2505,7 +2505,7 @@
             .to({ alpha: 1 }, 250, Phaser.Easing.Linear.None, true)
 
           // CHECKING THE USER LANGUAGE IS RUNNING THE GAME IN SPANISH
-          if (userLanguage == "es") {
+          if (userLanguage === "es") {
             // FADING IN THE TOAST TEXT ACCENT
             game.add
               .tween(game.state.states["Pool.Game"].toastTextAccent)
@@ -2518,7 +2518,7 @@
       var rendererMode = Phaser.WEBGL
 
       // CHECKING IF THE WEBGL RENDERER MODE IS NOT AVAILABLE
-      if (isWebGLAvailable() == false) {
+      if (isWebGLAvailable() === false) {
         // CHANGING THE RENDERER MODE
         rendererMode = Phaser.CANVAS
       }
