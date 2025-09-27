@@ -381,7 +381,7 @@
         right: 0;
         display: none;
       }
-      #textcode {
+      .ace_editor {
         position: absolute;
         top: 0;
         right: 0;
@@ -486,7 +486,7 @@
         </div>
       </div>
     </div>
-    <div class="ace_container"><div id="textcode"></div></div>
+    <div class="ace_container"><div id="ace_editor"></div></div>
 
     <script>
       // ace.js version 1.4.12 MODIFIED
@@ -652,7 +652,7 @@
         ace.config.set("basePath", ".")
 
         // CREATING THE ACE INSTANCE
-        var editor = ace.edit("textcode")
+        var editor = ace.edit("ace_editor")
 
         // SETTING THE OPTIONS
         editor.setOptions({
