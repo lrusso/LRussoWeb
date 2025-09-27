@@ -703,9 +703,7 @@
 
           // THE UNDO BUTTON WILL BE ENABLED
           document.getElementById("buttonUndo").classList.add("undo_enabled")
-          document
-            .getElementById("buttonUndo")
-            .classList.remove("undo_disabled")
+          document.getElementById("buttonUndo").classList.remove("undo_disabled")
         })
       } catch (err) {}
 
@@ -759,13 +757,9 @@
 
           // SETTING THE DEFAULT STATE FOR EACH BUTTON
           document.getElementById("buttonUndo").classList.add("undo_disabled")
-          document
-            .getElementById("buttonUndo")
-            .classList.remove("undo_enabled")
+          document.getElementById("buttonUndo").classList.remove("undo_enabled")
           document.getElementById("buttonRedo").classList.add("redo_disabled")
-          document
-            .getElementById("buttonRedo")
-            .classList.remove("redo_enabled")
+          document.getElementById("buttonRedo").classList.remove("redo_enabled")
 
           // HIDING THE SEARCH BOX (IF AVAILABLE)
           try {
@@ -894,18 +888,10 @@
               editor.session.getUndoManager().reset()
 
               // SETTING THE DEFAULT STATE FOR EACH BUTTON
-              document
-                .getElementById("buttonUndo")
-                .classList.add("undo_disabled")
-              document
-                .getElementById("buttonUndo")
-                .classList.remove("undo_enabled")
-              document
-                .getElementById("buttonRedo")
-                .classList.add("redo_disabled")
-              document
-                .getElementById("buttonRedo")
-                .classList.remove("redo_enabled")
+              document.getElementById("buttonUndo").classList.add("undo_disabled")
+              document.getElementById("buttonUndo").classList.remove("undo_enabled")
+              document.getElementById("buttonRedo").classList.add("redo_disabled")
+              document.getElementById("buttonRedo").classList.remove("redo_enabled")
 
               // HIDING THE SEARCH BOX (IF AVAILABLE)
               try {
@@ -963,18 +949,10 @@
             editor.session.getUndoManager().reset()
 
             // SETTING THE DEFAULT STATE FOR EACH BUTTON
-            document
-              .getElementById("buttonUndo")
-              .classList.add("undo_disabled")
-            document
-              .getElementById("buttonUndo")
-              .classList.remove("undo_enabled")
-            document
-              .getElementById("buttonRedo")
-              .classList.add("redo_disabled")
-            document
-              .getElementById("buttonRedo")
-              .classList.remove("redo_enabled")
+            document.getElementById("buttonUndo").classList.add("undo_disabled")
+            document.getElementById("buttonUndo").classList.remove("undo_enabled")
+            document.getElementById("buttonRedo").classList.add("redo_disabled")
+            document.getElementById("buttonRedo").classList.remove("redo_enabled")
 
             // HIDING THE SEARCH BOX (IF AVAILABLE)
             try {
@@ -1042,22 +1020,14 @@
 
           // IF THERE ARE ANY UNDOS LEFT, THE UNDO BUTTON WILL BE DISABLED
           if (!editor.session.getUndoManager().hasUndo()) {
-            document
-              .getElementById("buttonUndo")
-              .classList.add("undo_disabled")
-            document
-              .getElementById("buttonUndo")
-              .classList.remove("undo_enabled")
+            document.getElementById("buttonUndo").classList.add("undo_disabled")
+            document.getElementById("buttonUndo").classList.remove("undo_enabled")
           }
 
           // IF THERE ARE ANY REDOS LEFT, THE REDO BUTTON WILL BE DISABLED
           if (editor.session.getUndoManager().hasRedo()) {
-            document
-              .getElementById("buttonRedo")
-              .classList.add("redo_enabled")
-            document
-              .getElementById("buttonRedo")
-              .classList.remove("redo_disabled")
+            document.getElementById("buttonRedo").classList.add("redo_enabled")
+            document.getElementById("buttonRedo").classList.remove("redo_disabled")
           }
         } catch (err) {}
       }
@@ -1075,22 +1045,14 @@
 
           // IF THERE ARE ANY UNDOS LEFT, THE UNDO BUTTON WILL BE DISABLED
           if (!editor.session.getUndoManager().hasRedo()) {
-            document
-              .getElementById("buttonRedo")
-              .classList.add("redo_disabled")
-            document
-              .getElementById("buttonRedo")
-              .classList.remove("redo_enabled")
+            document.getElementById("buttonRedo").classList.add("redo_disabled")
+            document.getElementById("buttonRedo").classList.remove("redo_enabled")
           }
 
           // IF THERE ARE ANY REDOS LEFT, THE REDO BUTTON WILL BE DISABLED
           if (editor.session.getUndoManager().hasUndo()) {
-            document
-              .getElementById("buttonUndo")
-              .classList.add("undo_enabled")
-            document
-              .getElementById("buttonUndo")
-              .classList.remove("undo_disabled")
+            document.getElementById("buttonUndo").classList.add("undo_enabled")
+            document.getElementById("buttonUndo").classList.remove("undo_disabled")
           }
         } catch (err) {}
       }
