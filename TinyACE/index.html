@@ -1067,6 +1067,10 @@
         } catch (err) {}
       }
 
+      window.addEventListener("focus", function() {
+        resizeTinyACEEditor()
+      })
+
       window.addEventListener("resize", function () {
         // RESIZING THE EDITOR
         resizeTinyACEEditor()
@@ -1098,6 +1102,10 @@
 
           // RESIZING THE EDITOR
           resizeTinyACEEditor()
+
+          document.getElementsByClassName("menu_container")[0].addEventListener("click", function() {
+            resizeTinyACEEditor()
+          })
 
           // SETTING WHAT HAPPENS WHEN EACH ELEMENT IS CLICKED
           document
