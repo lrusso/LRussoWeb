@@ -67,7 +67,7 @@
         height: 100px;
         width: 1px;
       }
-      .button_new_enabled {
+      .new_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -85,11 +85,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .button_new_enabled:hover {
+      .new_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .button_open_enabled {
+      .open_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -107,11 +107,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .button_open_enabled:hover {
+      .open_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .button_save_enabled {
+      .save_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -129,11 +129,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .button_save_enabled:hover {
+      .save_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .button_undo_disabled {
+      .undo_disabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -151,7 +151,7 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .button_undo_enabled {
+      .undo_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -169,11 +169,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .button_undo_enabled:hover {
+      .undo_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .button_redo_disabled {
+      .redo_disabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -191,7 +191,7 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .button_redo_enabled {
+      .redo_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -209,11 +209,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .button_redo_enabled:hover {
+      .redo_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .button_search_enabled {
+      .search_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -231,11 +231,11 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .button_search_enabled:hover {
+      .search_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
-      .button_insert_enabled {
+      .insert_enabled {
         display: block;
         font-family: Arial;
         font-size: 15px;
@@ -253,7 +253,7 @@
         background-repeat: no-repeat;
         background-position: center;
       }
-      .button_insert_enabled:hover {
+      .insert_enabled:hover {
         background-color: #e3e3e3;
         border: thin solid #d3d3d3;
       }
@@ -390,31 +390,31 @@
       }
 
       @media (pointer: coarse) {
-        .button_new_enabled:hover {
+        .new_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .button_open_enabled:hover {
+        .open_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .button_save_enabled:hover {
+        .save_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .button_undo_enabled:hover {
+        .undo_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .button_redo_enabled:hover {
+        .redo_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .button_search_enabled:hover {
+        .search_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
-        .button_insert_enabled:hover {
+        .insert_enabled:hover {
           background-color: #f2f2f2;
           border: thin solid #f2f2f2;
         }
@@ -454,10 +454,10 @@
       <div class="menu">
         <div class="menu_size">
           <div class="holder">
-            <div class="button_new_enabled" id="buttonNew"></div>
+            <div class="new_enabled" id="buttonNew"></div>
           </div>
           <div class="holder">
-            <div class="button_open_enabled" id="buttonOpen"></div>
+            <div class="open_enabled" id="buttonOpen"></div>
             <input
               type="file"
               class="buttonHidden"
@@ -466,22 +466,22 @@
             >
           </div>
           <div class="holder">
-            <div class="button_save_enabled" id="buttonSave"></div>
+            <div class="save_enabled" id="buttonSave"></div>
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="button_undo_disabled" id="buttonUndo"></div>
+            <div class="undo_disabled" id="buttonUndo"></div>
           </div>
           <div class="holder">
-            <div class="button_redo_disabled" id="buttonRedo"></div>
-          </div>
-          <div class="separator"></div>
-          <div class="holder">
-            <div class="button_search_enabled" id="buttonSearch"></div>
+            <div class="redo_disabled" id="buttonRedo"></div>
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="button_insert_enabled" id="buttonInsert"></div>
+            <div class="search_enabled" id="buttonSearch"></div>
+          </div>
+          <div class="separator"></div>
+          <div class="holder">
+            <div class="insert_enabled" id="buttonInsert"></div>
             <input
               type="file"
               class="buttonHidden"
@@ -702,10 +702,10 @@
           }
 
           // THE UNDO BUTTON WILL BE ENABLED
-          document.getElementById("buttonUndo").classList.add("button_undo_enabled")
+          document.getElementById("buttonUndo").classList.add("undo_enabled")
           document
             .getElementById("buttonUndo")
-            .classList.remove("button_undo_disabled")
+            .classList.remove("undo_disabled")
         })
       } catch (err) {}
 
@@ -758,14 +758,14 @@
           editor.renderer.$cursorLayer.element.style.display = "block"
 
           // SETTING THE DEFAULT STATE FOR EACH BUTTON
-          document.getElementById("buttonUndo").classList.add("button_undo_disabled")
+          document.getElementById("buttonUndo").classList.add("undo_disabled")
           document
             .getElementById("buttonUndo")
-            .classList.remove("button_undo_enabled")
-          document.getElementById("buttonRedo").classList.add("button_redo_disabled")
+            .classList.remove("undo_enabled")
+          document.getElementById("buttonRedo").classList.add("redo_disabled")
           document
             .getElementById("buttonRedo")
-            .classList.remove("button_redo_enabled")
+            .classList.remove("redo_enabled")
 
           // HIDING THE SEARCH BOX (IF AVAILABLE)
           try {
@@ -896,16 +896,16 @@
               // SETTING THE DEFAULT STATE FOR EACH BUTTON
               document
                 .getElementById("buttonUndo")
-                .classList.add("button_undo_disabled")
+                .classList.add("undo_disabled")
               document
                 .getElementById("buttonUndo")
-                .classList.remove("button_undo_enabled")
+                .classList.remove("undo_enabled")
               document
                 .getElementById("buttonRedo")
-                .classList.add("button_redo_disabled")
+                .classList.add("redo_disabled")
               document
                 .getElementById("buttonRedo")
-                .classList.remove("button_redo_enabled")
+                .classList.remove("redo_enabled")
 
               // HIDING THE SEARCH BOX (IF AVAILABLE)
               try {
@@ -965,16 +965,16 @@
             // SETTING THE DEFAULT STATE FOR EACH BUTTON
             document
               .getElementById("buttonUndo")
-              .classList.add("button_undo_disabled")
+              .classList.add("undo_disabled")
             document
               .getElementById("buttonUndo")
-              .classList.remove("button_undo_enabled")
+              .classList.remove("undo_enabled")
             document
               .getElementById("buttonRedo")
-              .classList.add("button_redo_disabled")
+              .classList.add("redo_disabled")
             document
               .getElementById("buttonRedo")
-              .classList.remove("button_redo_enabled")
+              .classList.remove("redo_enabled")
 
             // HIDING THE SEARCH BOX (IF AVAILABLE)
             try {
@@ -1044,20 +1044,20 @@
           if (!editor.session.getUndoManager().hasUndo()) {
             document
               .getElementById("buttonUndo")
-              .classList.add("button_undo_disabled")
+              .classList.add("undo_disabled")
             document
               .getElementById("buttonUndo")
-              .classList.remove("button_undo_enabled")
+              .classList.remove("undo_enabled")
           }
 
           // IF THERE ARE ANY REDOS LEFT, THE REDO BUTTON WILL BE DISABLED
           if (editor.session.getUndoManager().hasRedo()) {
             document
               .getElementById("buttonRedo")
-              .classList.add("button_redo_enabled")
+              .classList.add("redo_enabled")
             document
               .getElementById("buttonRedo")
-              .classList.remove("button_redo_disabled")
+              .classList.remove("redo_disabled")
           }
         } catch (err) {}
       }
@@ -1077,20 +1077,20 @@
           if (!editor.session.getUndoManager().hasRedo()) {
             document
               .getElementById("buttonRedo")
-              .classList.add("button_redo_disabled")
+              .classList.add("redo_disabled")
             document
               .getElementById("buttonRedo")
-              .classList.remove("button_redo_enabled")
+              .classList.remove("redo_enabled")
           }
 
           // IF THERE ARE ANY REDOS LEFT, THE REDO BUTTON WILL BE DISABLED
           if (editor.session.getUndoManager().hasUndo()) {
             document
               .getElementById("buttonUndo")
-              .classList.add("button_undo_enabled")
+              .classList.add("undo_enabled")
             document
               .getElementById("buttonUndo")
-              .classList.remove("button_undo_disabled")
+              .classList.remove("undo_disabled")
           }
         } catch (err) {}
       }
