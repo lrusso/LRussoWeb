@@ -21,7 +21,7 @@
     </style>
   </head>
   <body>
-    <div class="pleasewait" id="loading">
+    <div class="pleasewait">
       <div class="lds-spinner">
         <div></div>
         <div></div>
@@ -2484,7 +2484,7 @@
         secLocalFile // RUNNING IN A LOCAL FILE
       ) {
         // HIDING THE LOADING SPINNER
-        document.getElementById("loading").style.display = "none"
+        document.querySelector(".pleasewait").style.display = "none"
 
         // CREATING THE GAME INSTANCE
         var config = {
