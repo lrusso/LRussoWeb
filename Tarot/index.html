@@ -51,222 +51,262 @@
       // isMobileDevice.js
       function isMobileDevice(){return!!(navigator.userAgent.match(/Android/i)||navigator.userAgent.match(/webOS/i)||navigator.userAgent.match(/iPhone/i)||navigator.userAgent.match(/iPad/i)||navigator.userAgent.match(/iPod/i)||navigator.userAgent.match(/BlackBerry/i)||navigator.userAgent.match(/Windows Phone/i))}
 
-      // GETTING THE USER LANGUAGE
-      var userLanguage = window.navigator.language.substring(0, 2).toLowerCase()
+      var APP_STRINGS = {
+        en: {
+          disclaimer1: "DISCLAIMER",
+          disclaimer2: "This is a Tarot game that",
+          disclaimer3: "will randomly show you cards",
+          disclaimer4: "and the meaning of those cards.",
+          disclaimer5: "You should not decide or perform an",
+          disclaimer6: "action according to the obtained results.",
+          disclaimer7: "It's just a simple game.",
+          disclaimer8_desktop: "Click to continue",
+          disclaimer8_mobile: "Tap to continue",
+          title: "ASK A QUESTION AND SELECT THREE CARDS",
+          cards: [
+            {
+              name: "THE FOOL",
+              upright: "Important decision. You are faced\nwith a choice that you must decide carefully, but\nalso with courage and, above all, paying attention\nto your intuition and impulses. You have to take\nrisks.",
+              reversed: "There is a danger of making a bad\nechoice. It is advisable to act with the utmost\ncaution and prudence. Tendency to foolishness,\nirresponsibility, selfishness, fantasy\nand obsession.",
+            },
+            {
+              name: "THE MAGICIAN",
+              upright: "Willpower, command,\norganizational ability, creative talent. The ability\nto take power from above and direct it toward\nmanifestation, with positive results.\nSkill and intuition and dexterity.",
+              reversed: "Indecision, inability, ineptitude,\nblockage of creative energies, fear of\nexperimenting and trying new things, use of\npower for destructive purposes. Insecurity,\ncowardly, lack of emotional control.",
+            },
+            {
+              name: "THE HIGH PRIESTESS",
+              upright: "Unknown future. Hidden\ninfluences. Trust your instinct. You need to listen\nto your inner voice. Protect yourself and\nkeep it confidential.",
+              reversed: "Deceit, shallow\nknowledge. Tendency to dissimulation, hypocrisy,\nlaziness, inaction, resentment, indifference. You\nare denying your inner voice.",
+            },
+            {
+              name: "THE EMPRESS",
+              upright: "Creativity, productivity,\nmotherhood, abundance, good harvests, success,\nachievement, environment safe and free from\nharm. Beauty, seduction, sensuality. Mental and\nphysical fertility.",
+              reversed: "Inactivity, loss of\ncrops, infidelity, cynicism, futility,\nanxiety, possessiveness, tyranny, jealousy,\nselfishness.",
+            },
+            {
+              name: "THE EMPEROR",
+              upright: "Leadership, domination,\nfatherhood, sovereignty, guidance. Think more\nbefore you act so as not to become a rude\nperson.",
+              reversed: "Immaturity, emotional\ndependence, slavery to authority figures.\nLack of initiative. Abuse of power. Man/woman\non the outside but child on the inside.",
+            },
+            {
+              name: "THE HIEROPHANT",
+              upright: "The High Priest's message is\nthat we should seek spiritual meaning in\neverything that we do. Spiritualization and\nreligiosity. Benevolence and wisdom. Loyalty\nand fidelity. Teaching, balanced advice.",
+              reversed: "Breaking the conventional.\nIt's time to try something new, original. Keep an\nopen mind, accept new ideas and new ways.\nRepresents someone who needs spiritual\nsupport.",
+            },
+            {
+              name: "THE LOVERS",
+              upright: "Need for choice (almost always on\na love level), choice, temptation, attraction,\nharmony between internal and external aspects\nof life, pure love, altruism. Abundance of\nhappy feelings.",
+              reversed: "Blind love, blinding feelings,\ninfidelity, bad choice, bad choices, need to\nstabilize emotions, deinconsequential decision.\nRupture, separation, divorce, disorder.",
+            },
+            {
+              name: "THE CHARIOT",
+              upright: "Triumph, success, victory,\ndeserved promotion. Restoration of health,\nvictory over apure economic or enemies of any\nkind.",
+              reversed: "Unethical victory, excessive\nambition and focused on material things. Defeat,\ndisaster, frustration, poor health. Poverty, needs.\nDangerous opportunism. Worries, tiredness\nand lack of rest.",
+            },
+            {
+              name: "THE STRENGTH",
+              upright: "Power of conquest, mastery\nof the situation. Strength of character, spiritual\npower surpassing material power. Love\ntriumphing over hate. Overcoming obstacles.\nEnergy, moral, calm, courage.",
+              reversed: "Lack of moral strength, abuse of\npower. Fighting, violent conquest, discord,\ninsensitivity, cruelty, impatience. Dominance\nmaterial, oblivion of the spiritual.",
+            },
+            {
+              name: "THE HERMIT",
+              upright: "Reflection, detachment, secrecy.\nEnlightenment, silent and prudent advice.\nDiscretion, wisdom from above, instruction from\na teacher.",
+              reversed: "Immaturity, obscurantism, shyness,\nisolation, depression. Misconception of a\nsituation. Refusal to listen to wisdom. Unwise\nadvice.",
+            },
+            {
+              name: "THE WHEEL OF FORTUNE",
+              upright: "Success, stroke of\nluck, change of luck for the better. Evolution,\nfavorable change. Cunning, presence of mind\nthat seizes good opportunities.",
+              reversed: "Speculation, bad luck,\ninsecurity. Prediction, little seriousness.\nUnstable profit and loss situation. Adventures,\nrisks. Decline of luck. Unfavorable change.",
+            },
+            {
+              name: "THE JUSTICE",
+              upright: "Balanced mind. Favorable court\nruling. Fair reward. Stability, order, discipline,\nlogic, coordination. Flexibility, adaptation to\nneeds.",
+              reversed: "Injustice, loss, great disorder,\ndanger. Bad result in a legal or economic matter.\nIngratitude, unfair reward. Tendency to see\nthings from an objective and insensitive point\nof view.",
+            },
+            {
+              name: "THE HANGED MAN",
+              upright: "Necessity of a renunciation\nor sacrifice. Selflessness, self-forgetfulness.\nSubmission to duty, generous dreams.\nTransformation of personality through\nrenunciation or sacrifice.",
+              reversed: "Arrogance, selfishness,\nself-satisfaction. Not wanting to break with the\npast. Egotism. Useless efforts. Purely physical\nsatisfactions. Selfish ends without a thought\nfor others.",
+            },
+            {
+              name: "THE DEATH",
+              upright: "End of a phase. Transformation,\nchange and renewal. Birth of new ideas and new\nopportunities. Give up old habits. Depth,\nintellectual penetration, metaphysical thought.",
+              reversed: "Fear or resistance to change,\nindolence, apathy, stagnation. You need to stop\ngrieving over old things that are gone.",
+            },
+            {
+              name: "THE TEMPERANCE",
+              upright: "Moderation, adaptation,\ncooperation, work in harmony. Tolerance,\npatience, practicality, happiness. Renewal of life,\nserenity, balance. Inner peace.",
+              reversed: "Disorder, disagreements,\nindifference. Lack of personality, passivity.\nInconstancy, irregular mood, imbalance.\nAggressions, corruption, riots, spiritual\ndisharmony.",
+            },
+            {
+              name: "THE DEVIL",
+              upright: "Indomitable passions. Sexual\nattraction. Compulsive obsession Slavery of\nmatter. Sense of sin and guilt. Error. Excessive\ngreed and ambition.",
+              reversed: "Clarification, understanding, control\nof fears, the chains that bind the material begin\nto loosen. Overcome pride and selfishness.",
+            },
+            {
+              name: "THE TOWER",
+              upright: "Destruction of obsolete structures\nand old ideas. Danger, conflict, catastrophe.\nSudden change in life form, drastic\ntransformation.",
+              reversed: "False accusations, oppression,\nminor catastrophe. Scandal, hypocrisy unmasked.\nExcess, abuse. Presumption, pride.",
+            },
+            {
+              name: "THE STAR",
+              upright: "Inspiration, vision, hope.\nIdealism. Selfless help. Spiritual gifts. Great love\ngiven or received. Comprehensive vision and\nself-knowledge of oneself. Achievement of a\ndesire. Kindness, compassion.",
+              reversed: "Pessimism, doubts, hindrance.\nHate, irritability. Lack of perception. Harmony\ndeviated from its initial goal, inattentiveness,\ncarelessness. Shamelessness,\nflippancy. Lack of spontaneity.",
+            },
+            {
+              name: "THE MOON",
+              upright: "Inspiration, imagination, intuition.\nNavigation, change. Inconstancy, insecurity,\nfear. Utopian dreams, difficulty accepting reality.\nConfusion of thoughts. Stress and worries.",
+              reversed: "Rejection of intuition, false\nassumptions. Scams, deception, delusion.\nWrong theories, false knowledge, hysterical\nclairvoyance. Threat, blackmail. Untimely trip,\nwhims. Disturbed."
+            },
+            {
+              name: "THE SUN",
+              upright: "Peace, love, happiness. A life well\nlived. A job well done. Awakening. Renewal. Joy,\nprosperity. Marital happiness. Fraternity,\nintelligence and good feelings.",
+              reversed: "Emptiness, unhappiness, lack of\npurpose. Confusion, thick clouds. Fight, loss,\ndiscomfort. Opposite luck, attempts in\ndarkness. Dazzle. Vanity, pose, bravado.",
+            },
+            {
+              name: "THE JUDGEMENT",
+              upright: "Wonderful things will happen.\nYou can see what the future holds.\nTransformation. You will see everything in a new\nlight. Enthusiasm, emotional excitement,\nintensity of feelings. Renewal, birth.",
+              reversed: "Anxiety, longing. I want to be\nfree from certain situations, but without seeing a\nway out. Mistake as to himself and all the\nthings, proofs and works that will result from a\nfalse judgment.",
+            },
+            {
+              name: "THE WORLD",
+              upright: "Completion, realization. Prize.\nFreedom. Completion of a job well done. Very\nfavorable circumstances. Ecstasy. Joy,\nrecognition, wealth.",
+              reversed: "Negative attitude, stagnation.\nFailure. Process that affects feelings. Hostile\nenvironment, everyone is against it. Worldly\ndispositions. Dispersion, distraction. Inability\nto concentrate.",
+            }
+          ],
+        },
+        es: {
+          disclaimer1: "DESCARGO DE RESPONSABILIDAD",
+          disclaimer2: "Este es un juego de Tarot",
+          disclaimer3: "que muestra cartas al azar junto",
+          disclaimer4: "con el significado de las mismas.",
+          disclaimer5: "No se deben tomar decisiones o acciones",
+          disclaimer6: "de acuerdo a los resultados obtenidos.",
+          disclaimer7: "Es un simple juego.",
+          disclaimer8_desktop: "Haga click para continuar",
+          disclaimer8_mobile: "Presione para continuar",
+          title: "HAZ UNA PREGUNTA Y SELECCIONA TRES CARTAS",
+          cards: [
+            {
+              name: "EL LOCO",
+              upright: "Decisi\u00F3n importante. Est\u00E1s ante una\nelecci\u00F3n que debes decidir con cuidado, pero\ntambi\u00E9n con valent\u00EDa y, sobre todo, atendiendo\na tu intuici\u00F3n e impulsos. Hay que correr riesgos.",
+              reversed: "Existe el peligro de hacer una mala\nelecci\u00F3n. Es recomendable actuar con la m\u00E1xima\ncautela y prudencia. Tendencias a la necedad,\nla irresponsabilidad, el ego\u00EDsmo, la fantas\u00EDa\ny la obsesi\u00F3n.",
+            },
+            {
+              name: "EL MAGO",
+              upright: "Voluntad, dominio, capacidad\norganizativa, talento creativo. La capacidad de\ntomar el poder desde arriba y dirigirlo hacia la\nmanifestaci\u00F3n, con resultados positivos.\nHabilidad e intuici\u00F3n y destreza.",
+              reversed: "Indecisi\u00F3n, incapacidad, ineptitud,\nbloqueo de energ\u00EDas creativas, miedo a\nexperimentar y probar cosas nuevas, uso del\npoder con fines destructivos. Inseguridad,\ncobard\u00EDa, descontrol emocional.",
+            },
+            {
+              name: "LA SACERDOTISA",
+              upright: "Futuro desconocido.\nInfluencias ocultas. Conf\u00EDa en tu instinto.\nNecesita escuchar su voz interior. Prot\u00E9jase y\nmant\u00E9ngalo confidencial.",
+              reversed: "Enga\u00F1o, conocimiento\nsuperficial. Tendencias al disimulo, hipocres\u00EDa,\npereza, inacci\u00F3n, rencor, indiferencia. Est\u00E1s\nnegando tu voz interior.",
+            },
+            {
+              name: "LA EMPERATRIZ",
+              upright: "Creatividad, productividad,\nmaternidad, abundancia, buenas cosechas, \u00E9xito,\nlogro, ambiente seguro y libre de da\u00F1os. Belleza,\nseducci\u00F3n, sensualidad. Fertilidad mental y f\u00EDsica.",
+              reversed: "Inactividad, p\u00E9rdida de\ncosechas, infidelidad, cinismo, futilidad,\nansiedad, posesividad, tiran\u00EDa, celos, ego\u00EDsmo.",
+            },
+            {
+              name: "EL EMPERADOR",
+              upright: "Liderazgo, dominaci\u00F3n,\npaternidad, soberan\u00EDa, gu\u00EDa. Piensa m\u00E1s antes de\nactuar para no convertirte en una persona\ngrosera.",
+              reversed: "Inmadurez, dependencia\nemocional, esclavitud a figuras de autoridad.\nFalta de iniciativa. Abuso de poder.\nHombre/mujer por fuera pero ni\u00F1o por dentro.",
+            },
+            {
+              name: "EL PAPA",
+              upright: "El mensaje del Sumo Sacerdote es que\ndebemos buscar un significado espiritual en todo\nlo que hacemos. Espiritualizaci\u00F3n y religiosidad.\nBenevolencia y sabidur\u00EDa. Lealtad y fidelidad.\nEnse\u00F1anza, asesoramiento equilibrado.",
+              reversed: "Rompiendo lo convencional. Es hora de\nprobar algo nuevo, original. Mantenga una mente\nabierta, acepte nuevas ideas y nuevas formas.\nRepresenta a alguien que necesita apoyo\nespiritual.",
+            },
+            {
+              name: "LOS ENAMORADOS",
+              upright: "Necesidad de elecci\u00F3n (casi\nsiempre a nivel amoroso), elecci\u00F3n, tentaci\u00F3n,\natracci\u00F3n, armon\u00EDa entre los aspectos internos y\nexternos de la vida, amor puro, altruismo.\nAbundancia de sentimientos de felicidad.",
+              reversed: "Amor ciego, sentimientos que\nte ciegan, infidelidad, mala elecci\u00F3n, malas\nelecciones, necesidad de estabilizar emociones,\ndecisi\u00F3n intrascendente. Ruptura, separaci\u00F3n,\ndivorcio, desorden.",
+            },
+            {
+              name: "EL CARRO",
+              upright: "Triunfo, \u00E9xito, victoria, merecido\nascenso. Recuperaci\u00F3n de la salud, victoria sobre\napuros econ\u00F3micos o enemigos de cualquier tipo.",
+              reversed: "Victoria poco \u00E9tica, ambici\u00F3n\ndesmedida y centrada en lo material. Derrota,\ndesastre, frustraci\u00F3n, mala salud. Pobreza,\nnecesidades. Oportunismo peligroso.\nPreocupaciones, cansancio y falta de descanso.",
+            },
+            {
+              name: "LA FUERZA",
+              upright: "Poder de conquista, dominio de la\nsituaci\u00F3n. Fuerza de car\u00E1cter, poder espiritual\nsuperando el poder material. El amor triunfando\nsobre el odio. Superando obst\u00E1culos. Energ\u00EDa\nmoral, calma, coraje.",
+              reversed: "Falta de fuerza moral, abuso de\npoder. Peleas, conquista violenta, discordia,\ninsensibilidad, crueldad, impaciencia. Dominio\nmaterial, olvido de lo espiritual.",
+            },
+            {
+              name: "EL ERMITANO",
+              upright: "Reflexi\u00F3n, desapego, secretismo.\nIlustraci\u00F3n, consejo silencioso y prudente.\nDiscreci\u00F3n, sabidur\u00EDa de lo alto, instrucci\u00F3n\nde un maestro.",
+              reversed: "Inmadurez, oscurantismo, timidez,\naislamiento, depresi\u00F3n. Concepto err\u00F3neo de una\nsituaci\u00F3n. Negaci\u00F3n a escuchar la sabidur\u00EDa.\nConsejo imprudente.",
+            },
+            {
+              name: "LA RUEDA DE LA FORTUNA",
+              upright: "Golpe de suerte,\n\u00E9xito, cambio de suerte para mejor. Evoluci\u00F3n,\ncambio favorable. Astucia, presencia de \u00E1nimo\nque no desaprovecha las buenas oportunidades.",
+              reversed: "Especulaci\u00F3n, mala\nsuerte, inseguridad. Predicci\u00F3n, poca seriedad.\nSituaci\u00F3n inestable de p\u00E9rdidas y ganancias.\nAventuras, riesgos. Declive de la suerte.\nCambio desfavorable.",
+            },
+            {
+              name: "LA JUSTICIA",
+              upright: "Mente equilibrada. Sentencia\njudicial favorable. Recompensa justa. Estabilidad,\norden, disciplina, l\u00F3gica, coordinaci\u00F3n.\nFlexibilidad, adaptaci\u00F3n a las necesidades.",
+              reversed: "Injusticia, p\u00E9rdida, gran desorden,\npeligro. Mal resultado en un asunto legal o\necon\u00F3mico. Ingratitud, recompensa injusta.\nTendencia a ver las cosas desde un punto de\nvista objetivo e insensible.",
+            },
+            {
+              name: "EL COLGADO",
+              upright: "Necesidad de una renuncia o\nsacrificio. Desinter\u00E9s, olvido de s\u00ED mismo.\nSumisi\u00F3n al deber, sue\u00F1os generosos.\nTransformaci\u00F3n de la personalidad a trav\u00E9s de\nla renuncia o el sacrificio.",
+              reversed: "Arrogancia, ego\u00EDsmo,\nautosatisfacci\u00F3n. No querer romper con el\npasado. Egolatr\u00EDa. Esfuerzos in\u00FAtiles.\nSatisfacciones puramente f\u00EDsicas. Fines ego\u00EDstas\nsin pensar en nada por los dem\u00E1s.",
+            },
+            {
+              name: "LA MUERTE",
+              upright: "Fin de una fase. Transformaci\u00F3n,\ncambio y renovaci\u00F3n. Nacimiento de nuevas\nideas y nuevas oportunidades. Abandona viejos\nh\u00E1bitos. Profundidad, penetraci\u00F3n intelectual,\npensamiento metaf\u00EDsico.",
+              reversed: "Miedo o resistencia al cambio,\nindolencia, apat\u00EDa, estancamiento. Necesitas\ndejar de afligirte por cosas viejas que se han ido.",
+            },
+            {
+              name: "LA TEMPLANZA",
+              upright: "Moderaci\u00F3n, adaptaci\u00F3n,\ncooperaci\u00F3n, trabajo en armon\u00EDa. Tolerancia,\npaciencia, practicidad, felicidad. Renovaci\u00F3n de\nla vida, serenidad, equilibrio. Paz interior.",
+              reversed: "Desorden, desacuerdos,\nindiferencia. Falta de personalidad, pasividad.\nInconstancia, estado de \u00E1nimo irregular,\ndesequilibrio. Agresiones, corrupci\u00F3n, disturbios,\ndesarmon\u00EDa espiritual.",
+            },
+            {
+              name: "EL DIABLO",
+              upright: "Pasiones indomables. Atracci\u00F3n\nsexual. Obsesi\u00F3n compulsiva. Esclavitud de la\nmateria. Sentido de pecado y culpa. Error.\nCodicia y ambici\u00F3n excesivas.",
+              reversed: "Esclarecimiento, comprensi\u00F3n,\ncontrol de miedos, las cadenas que atan el\nmaterial comienzan a aflojarse. Superar el orgullo\ny el ego\u00EDsmo.",
+            },
+            {
+              name: "LA TORRE",
+              upright: "Destrucci\u00F3n de estructuras obsoletas\ne ideas antiguas. Peligro, conflicto, cat\u00E1strofe.\nCambio repentino en la forma de vida,\ntransformaci\u00F3n dr\u00E1stica.",
+              reversed: "Falsas acusaciones, opresi\u00F3n,\ncat\u00E1strofe menor. Esc\u00E1ndalo, hipocres\u00EDa\ndesenmascarada. Exceso, abuso. Presunci\u00F3n,\norgullo.",
+            },
+            {
+              name: "LA ESTRELLA",
+              upright: "Inspiraci\u00F3n, visi\u00F3n, esperanza.\nIdealismo. Ayuda desinteresada. Dones\nespirituales. Gran amor dado o recibido. Visi\u00F3n\nintegral y autoconocimiento de uno mismo.\nAlcance de un deseo. Bondad, compasi\u00F3n.",
+              reversed: "Pesimismo, dudas, impedimento.\nOdio, irritabilidad. Falta de percepci\u00F3n. Armon\u00EDa\ndesviada de su objetivo inicial, falta de atenci\u00F3n,\ndescuido. Desvergüenza, ligereza.\nFalta de espontaneidad.",
+            },
+            {
+              name: "LA LUNA",
+              upright: "Inspiraci\u00F3n, imaginaci\u00F3n, intuici\u00F3n.\nNavegaci\u00F3n, cambio. Inconstancia, inseguridad,\nmiedo. Sue\u00F1os ut\u00F3picos, dificultad para aceptar\nla realidad. Confusi\u00F3n en los pensamientos.\nEstr\u00E9s y preocupaciones.",
+              reversed: "Rechazo de la intuici\u00F3n, suposiciones\nfalsas. Estafas, enga\u00F1o, desilusi\u00F3n.\nTeor\u00EDas equivocadas, conocimiento falso,\nclarividencia hist\u00E9rica. Amenaza, chantaje.\nViaje intempestivo, caprichos. Perturbado.",
+            },
+            {
+              name: "EL SOL",
+              upright: "Paz, amor, felicidad. Una vida bien\nvivida. Un trabajo bien hecho. Despertar.\nRenovaci\u00F3n. Alegr\u00EDa, prosperidad. Felicidad\nmarital. Fraternidad, inteligencia y buenos\nsentimientos.",
+              reversed: "Vac\u00EDo, infelicidad, falta de prop\u00F3sito.\nConfusi\u00F3n, nubes densas. Lucha, p\u00E9rdida,\nmalestar. Suerte opuesta, intentos en la\noscuridad. Deslumbrar. Vanidad, pose,\nbravuconer\u00EDa.",
+            },
+            {
+              name: "EL JUICIO",
+              upright: "Suceder\u00E1n cosas maravillosas.\nPuedes ver lo que te depara el futuro.\nTransformaci\u00F3n. Ver\u00E1s todo bajo una nueva luz.\nEntusiasmo, exaltaci\u00F3n emocional, intensidad de\nsentimientos. Renovaci\u00F3n, nacimiento.",
+              reversed: "Inquietud, a\u00F1oranza. Deseo de\nliberarse de ciertas situaciones, pero sin ver una\nsalida. Error en cuanto a s\u00ED mismo y todas las\ncosas, pruebas y obras que resultar\u00E1n de un\njuicio falso.",
+            },
+            {
+              name: "EL MUNDO",
+              upright: "Finalizaci\u00F3n, realizaci\u00F3n. Premio.\nLibertad. Terminaci\u00F3n de un trabajo bien hecho.\nCircunstancias muy favorables. \u00E9xtasis.\nAlegr\u00EDa, reconocimiento, riqueza.",
+              reversed: "Actitud negativa, estancamiento.\nFalla. Proceso que afecta a los sentimientos.\nAmbiente hostil, todos est\u00E1n en contra.\nDisposiciones mundanas. Dispersi\u00F3n, distracci\u00F3n.\nIncapacidad para concentrarse.",
+            }
+          ],
+        },
+      }
 
-      var STRING_DISCLAIMER1 = ""
-      var STRING_DISCLAIMER2 = ""
-      var STRING_DISCLAIMER3 = ""
-      var STRING_DISCLAIMER4 = ""
-      var STRING_DISCLAIMER5 = ""
-      var STRING_DISCLAIMER6 = ""
-      var STRING_DISCLAIMER7 = ""
-      var STRING_DISCLAIMER8_DESKTOP = ""
-      var STRING_DISCLAIMER8_MOBILE = ""
-      var STRING_TITLE = ""
-      var STRING_CARDS_TITLE = []
-      var STRING_CARDS_MEANING_NORMAL = []
-      var STRING_CARDS_MEANING_INVERTED = []
+      var USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      var GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
 
-      // CHECKING THE USER LANGUAGE
-      if (userLanguage === "es") {
-        STRING_DISCLAIMER1 = "DESCARGO DE RESPONSABILIDAD"
-        STRING_DISCLAIMER2 = "Este es un juego de Tarot"
-        STRING_DISCLAIMER3 = "que muestra cartas al azar junto"
-        STRING_DISCLAIMER4 = "con el significado de las mismas."
-        STRING_DISCLAIMER5 = "No se deben tomar decisiones o acciones"
-        STRING_DISCLAIMER6 = "de acuerdo a los resultados obtenidos."
-        STRING_DISCLAIMER7 = "Es un simple juego."
-        STRING_DISCLAIMER8_DESKTOP = "Haga click para continuar"
-        STRING_DISCLAIMER8_MOBILE = "Presione para continuar"
-        STRING_TITLE = "HAZ UNA PREGUNTA Y SELECCIONA TRES CARTAS"
-
-        STRING_CARDS_TITLE[0] = "EL LOCO"
-        STRING_CARDS_MEANING_NORMAL[0] = "Decisi\u00F3n importante. Est\u00E1s ante una\nelecci\u00F3n que debes decidir con cuidado, pero\ntambi\u00E9n con valent\u00EDa y, sobre todo, atendiendo\na tu intuici\u00F3n e impulsos. Hay que correr riesgos."
-        STRING_CARDS_MEANING_INVERTED[0] = "Existe el peligro de hacer una mala\nelecci\u00F3n. Es recomendable actuar con la m\u00E1xima\ncautela y prudencia. Tendencias a la necedad,\nla irresponsabilidad, el ego\u00EDsmo, la fantas\u00EDa\ny la obsesi\u00F3n."
-
-        STRING_CARDS_TITLE[1] = "EL MAGO"
-        STRING_CARDS_MEANING_NORMAL[1] = "Voluntad, dominio, capacidad\norganizativa, talento creativo. La capacidad de\ntomar el poder desde arriba y dirigirlo hacia la\nmanifestaci\u00F3n, con resultados positivos.\nHabilidad e intuici\u00F3n y destreza."
-        STRING_CARDS_MEANING_INVERTED[1] = "Indecisi\u00F3n, incapacidad, ineptitud,\nbloqueo de energ\u00EDas creativas, miedo a\nexperimentar y probar cosas nuevas, uso del\npoder con fines destructivos. Inseguridad,\ncobard\u00EDa, descontrol emocional."
-
-        STRING_CARDS_TITLE[2] = "LA SACERDOTISA"
-        STRING_CARDS_MEANING_NORMAL[2] = "Futuro desconocido.\nInfluencias ocultas. Conf\u00EDa en tu instinto.\nNecesita escuchar su voz interior. Prot\u00E9jase y\nmant\u00E9ngalo confidencial."
-        STRING_CARDS_MEANING_INVERTED[2] = "Enga\u00F1o, conocimiento\nsuperficial. Tendencias al disimulo, hipocres\u00EDa,\npereza, inacci\u00F3n, rencor, indiferencia. Est\u00E1s\nnegando tu voz interior."
-
-        STRING_CARDS_TITLE[3] = "LA EMPERATRIZ"
-        STRING_CARDS_MEANING_NORMAL[3] = "Creatividad, productividad,\nmaternidad, abundancia, buenas cosechas, \u00E9xito,\nlogro, ambiente seguro y libre de da\u00F1os. Belleza,\nseducci\u00F3n, sensualidad. Fertilidad mental y f\u00EDsica."
-        STRING_CARDS_MEANING_INVERTED[3] = "Inactividad, p\u00E9rdida de\ncosechas, infidelidad, cinismo, futilidad,\nansiedad, posesividad, tiran\u00EDa, celos, ego\u00EDsmo."
-
-        STRING_CARDS_TITLE[4] = "EL EMPERADOR"
-        STRING_CARDS_MEANING_NORMAL[4] = "Liderazgo, dominaci\u00F3n,\npaternidad, soberan\u00EDa, gu\u00EDa. Piensa m\u00E1s antes de\nactuar para no convertirte en una persona\ngrosera."
-        STRING_CARDS_MEANING_INVERTED[4] = "Inmadurez, dependencia\nemocional, esclavitud a figuras de autoridad.\nFalta de iniciativa. Abuso de poder.\nHombre/mujer por fuera pero ni\u00F1o por dentro."
-
-        STRING_CARDS_TITLE[5] = "EL PAPA"
-        STRING_CARDS_MEANING_NORMAL[5] = "El mensaje del Sumo Sacerdote es que\ndebemos buscar un significado espiritual en todo\nlo que hacemos. Espiritualizaci\u00F3n y religiosidad.\nBenevolencia y sabidur\u00EDa. Lealtad y fidelidad.\nEnse\u00F1anza, asesoramiento equilibrado."
-        STRING_CARDS_MEANING_INVERTED[5] = "Rompiendo lo convencional. Es hora de\nprobar algo nuevo, original. Mantenga una mente\nabierta, acepte nuevas ideas y nuevas formas.\nRepresenta a alguien que necesita apoyo\nespiritual."
-
-        STRING_CARDS_TITLE[6] = "LOS ENAMORADOS"
-        STRING_CARDS_MEANING_NORMAL[6] = "Necesidad de elecci\u00F3n (casi\nsiempre a nivel amoroso), elecci\u00F3n, tentaci\u00F3n,\natracci\u00F3n, armon\u00EDa entre los aspectos internos y\nexternos de la vida, amor puro, altruismo.\nAbundancia de sentimientos de felicidad."
-        STRING_CARDS_MEANING_INVERTED[6] = "Amor ciego, sentimientos que\nte ciegan, infidelidad, mala elecci\u00F3n, malas\nelecciones, necesidad de estabilizar emociones,\ndecisi\u00F3n intrascendente. Ruptura, separaci\u00F3n,\ndivorcio, desorden."
-
-        STRING_CARDS_TITLE[7] = "EL CARRO"
-        STRING_CARDS_MEANING_NORMAL[7] = "Triunfo, \u00E9xito, victoria, merecido\nascenso. Recuperaci\u00F3n de la salud, victoria sobre\napuros econ\u00F3micos o enemigos de cualquier tipo."
-        STRING_CARDS_MEANING_INVERTED[7] = "Victoria poco \u00E9tica, ambici\u00F3n\ndesmedida y centrada en lo material. Derrota,\ndesastre, frustraci\u00F3n, mala salud. Pobreza,\nnecesidades. Oportunismo peligroso.\nPreocupaciones, cansancio y falta de descanso."
-
-        STRING_CARDS_TITLE[8] = "LA FUERZA"
-        STRING_CARDS_MEANING_NORMAL[8] = "Poder de conquista, dominio de la\nsituaci\u00F3n. Fuerza de car\u00E1cter, poder espiritual\nsuperando el poder material. El amor triunfando\nsobre el odio. Superando obst\u00E1culos. Energ\u00EDa\nmoral, calma, coraje."
-        STRING_CARDS_MEANING_INVERTED[8] = "Falta de fuerza moral, abuso de\npoder. Peleas, conquista violenta, discordia,\ninsensibilidad, crueldad, impaciencia. Dominio\nmaterial, olvido de lo espiritual."
-
-        STRING_CARDS_TITLE[9] = "EL ERMITANO"
-        STRING_CARDS_MEANING_NORMAL[9] = "Reflexi\u00F3n, desapego, secretismo.\nIlustraci\u00F3n, consejo silencioso y prudente.\nDiscreci\u00F3n, sabidur\u00EDa de lo alto, instrucci\u00F3n\nde un maestro."
-        STRING_CARDS_MEANING_INVERTED[9] = "Inmadurez, oscurantismo, timidez,\naislamiento, depresi\u00F3n. Concepto err\u00F3neo de una\nsituaci\u00F3n. Negaci\u00F3n a escuchar la sabidur\u00EDa.\nConsejo imprudente."
-
-        STRING_CARDS_TITLE[10] = "LA RUEDA DE LA FORTUNA"
-        STRING_CARDS_MEANING_NORMAL[10] = "Golpe de suerte,\n\u00E9xito, cambio de suerte para mejor. Evoluci\u00F3n,\ncambio favorable. Astucia, presencia de \u00E1nimo\nque no desaprovecha las buenas oportunidades."
-        STRING_CARDS_MEANING_INVERTED[10] = "Especulaci\u00F3n, mala\nsuerte, inseguridad. Predicci\u00F3n, poca seriedad.\nSituaci\u00F3n inestable de p\u00E9rdidas y ganancias.\nAventuras, riesgos. Declive de la suerte.\nCambio desfavorable."
-
-        STRING_CARDS_TITLE[11] = "LA JUSTICIA"
-        STRING_CARDS_MEANING_NORMAL[11] = "Mente equilibrada. Sentencia\njudicial favorable. Recompensa justa. Estabilidad,\norden, disciplina, l\u00F3gica, coordinaci\u00F3n.\nFlexibilidad, adaptaci\u00F3n a las necesidades."
-        STRING_CARDS_MEANING_INVERTED[11] = "Injusticia, p\u00E9rdida, gran desorden,\npeligro. Mal resultado en un asunto legal o\necon\u00F3mico. Ingratitud, recompensa injusta.\nTendencia a ver las cosas desde un punto de\nvista objetivo e insensible."
-
-        STRING_CARDS_TITLE[12] = "EL COLGADO"
-        STRING_CARDS_MEANING_NORMAL[12] = "Necesidad de una renuncia o\nsacrificio. Desinter\u00E9s, olvido de s\u00ED mismo.\nSumisi\u00F3n al deber, sue\u00F1os generosos.\nTransformaci\u00F3n de la personalidad a trav\u00E9s de\nla renuncia o el sacrificio."
-        STRING_CARDS_MEANING_INVERTED[12] = "Arrogancia, ego\u00EDsmo,\nautosatisfacci\u00F3n. No querer romper con el\npasado. Egolatr\u00EDa. Esfuerzos in\u00FAtiles.\nSatisfacciones puramente f\u00EDsicas. Fines ego\u00EDstas\nsin pensar en nada por los dem\u00E1s."
-
-        STRING_CARDS_TITLE[13] = "LA MUERTE"
-        STRING_CARDS_MEANING_NORMAL[13] = "Fin de una fase. Transformaci\u00F3n,\ncambio y renovaci\u00F3n. Nacimiento de nuevas\nideas y nuevas oportunidades. Abandona viejos\nh\u00E1bitos. Profundidad, penetraci\u00F3n intelectual,\npensamiento metaf\u00EDsico."
-        STRING_CARDS_MEANING_INVERTED[13] = "Miedo o resistencia al cambio,\nindolencia, apat\u00EDa, estancamiento. Necesitas\ndejar de afligirte por cosas viejas que se han ido."
-
-        STRING_CARDS_TITLE[14] = "LA TEMPLANZA"
-        STRING_CARDS_MEANING_NORMAL[14] = "Moderaci\u00F3n, adaptaci\u00F3n,\ncooperaci\u00F3n, trabajo en armon\u00EDa. Tolerancia,\npaciencia, practicidad, felicidad. Renovaci\u00F3n de\nla vida, serenidad, equilibrio. Paz interior."
-        STRING_CARDS_MEANING_INVERTED[14] = "Desorden, desacuerdos,\nindiferencia. Falta de personalidad, pasividad.\nInconstancia, estado de \u00E1nimo irregular,\ndesequilibrio. Agresiones, corrupci\u00F3n, disturbios,\ndesarmon\u00EDa espiritual."
-
-        STRING_CARDS_TITLE[15] = "EL DIABLO"
-        STRING_CARDS_MEANING_NORMAL[15] = "Pasiones indomables. Atracci\u00F3n\nsexual. Obsesi\u00F3n compulsiva. Esclavitud de la\nmateria. Sentido de pecado y culpa. Error.\nCodicia y ambici\u00F3n excesivas."
-        STRING_CARDS_MEANING_INVERTED[15] = "Esclarecimiento, comprensi\u00F3n,\ncontrol de miedos, las cadenas que atan el\nmaterial comienzan a aflojarse. Superar el orgullo\ny el ego\u00EDsmo."
-
-        STRING_CARDS_TITLE[16] = "LA TORRE"
-        STRING_CARDS_MEANING_NORMAL[16] = "Destrucci\u00F3n de estructuras obsoletas\ne ideas antiguas. Peligro, conflicto, cat\u00E1strofe.\nCambio repentino en la forma de vida,\ntransformaci\u00F3n dr\u00E1stica."
-        STRING_CARDS_MEANING_INVERTED[16] = "Falsas acusaciones, opresi\u00F3n,\ncat\u00E1strofe menor. Esc\u00E1ndalo, hipocres\u00EDa\ndesenmascarada. Exceso, abuso. Presunci\u00F3n,\norgullo."
-
-        STRING_CARDS_TITLE[17] = "LA ESTRELLA"
-        STRING_CARDS_MEANING_NORMAL[17] = "Inspiraci\u00F3n, visi\u00F3n, esperanza.\nIdealismo. Ayuda desinteresada. Dones\nespirituales. Gran amor dado o recibido. Visi\u00F3n\nintegral y autoconocimiento de uno mismo.\nAlcance de un deseo. Bondad, compasi\u00F3n."
-        STRING_CARDS_MEANING_INVERTED[17] = "Pesimismo, dudas, impedimento.\nOdio, irritabilidad. Falta de percepci\u00F3n. Armon\u00EDa\ndesviada de su objetivo inicial, falta de atenci\u00F3n,\ndescuido. Desvergüenza, ligereza.\nFalta de espontaneidad."
-
-        STRING_CARDS_TITLE[18] = "LA LUNA"
-        STRING_CARDS_MEANING_NORMAL[18] = "Inspiraci\u00F3n, imaginaci\u00F3n, intuici\u00F3n.\nNavegaci\u00F3n, cambio. Inconstancia, inseguridad,\nmiedo. Sue\u00F1os ut\u00F3picos, dificultad para aceptar\nla realidad. Confusi\u00F3n en los pensamientos.\nEstr\u00E9s y preocupaciones."
-        STRING_CARDS_MEANING_INVERTED[18] = "Rechazo de la intuici\u00F3n, suposiciones\nfalsas. Estafas, enga\u00F1o, desilusi\u00F3n.\nTeor\u00EDas equivocadas, conocimiento falso,\nclarividencia hist\u00E9rica. Amenaza, chantaje.\nViaje intempestivo, caprichos. Perturbado."
-
-        STRING_CARDS_TITLE[19] = "EL SOL"
-        STRING_CARDS_MEANING_NORMAL[19] = "Paz, amor, felicidad. Una vida bien\nvivida. Un trabajo bien hecho. Despertar.\nRenovaci\u00F3n. Alegr\u00EDa, prosperidad. Felicidad\nmarital. Fraternidad, inteligencia y buenos\nsentimientos."
-        STRING_CARDS_MEANING_INVERTED[19] = "Vac\u00EDo, infelicidad, falta de prop\u00F3sito.\nConfusi\u00F3n, nubes densas. Lucha, p\u00E9rdida,\nmalestar. Suerte opuesta, intentos en la\noscuridad. Deslumbrar. Vanidad, pose,\nbravuconer\u00EDa."
-
-        STRING_CARDS_TITLE[20] = "EL JUICIO"
-        STRING_CARDS_MEANING_NORMAL[20] = "Suceder\u00E1n cosas maravillosas.\nPuedes ver lo que te depara el futuro.\nTransformaci\u00F3n. Ver\u00E1s todo bajo una nueva luz.\nEntusiasmo, exaltaci\u00F3n emocional, intensidad de\nsentimientos. Renovaci\u00F3n, nacimiento."
-        STRING_CARDS_MEANING_INVERTED[20] = "Inquietud, a\u00F1oranza. Deseo de\nliberarse de ciertas situaciones, pero sin ver una\nsalida. Error en cuanto a s\u00ED mismo y todas las\ncosas, pruebas y obras que resultar\u00E1n de un\njuicio falso."
-
-        STRING_CARDS_TITLE[21] = "EL MUNDO"
-        STRING_CARDS_MEANING_NORMAL[21] = "Finalizaci\u00F3n, realizaci\u00F3n. Premio.\nLibertad. Terminaci\u00F3n de un trabajo bien hecho.\nCircunstancias muy favorables. \u00E9xtasis.\nAlegr\u00EDa, reconocimiento, riqueza."
-        STRING_CARDS_MEANING_INVERTED[21] = "Actitud negativa, estancamiento.\nFalla. Proceso que afecta a los sentimientos.\nAmbiente hostil, todos est\u00E1n en contra.\nDisposiciones mundanas. Dispersi\u00F3n, distracci\u00F3n.\nIncapacidad para concentrarse."
-      } else {
-        STRING_DISCLAIMER1 = "DISCLAIMER"
-        STRING_DISCLAIMER2 = "This is a Tarot game that"
-        STRING_DISCLAIMER3 = "will randomly show you cards"
-        STRING_DISCLAIMER4 = "and the meaning of those cards."
-        STRING_DISCLAIMER5 = "You should not decide or perform an"
-        STRING_DISCLAIMER6 = "action according to the obtained results."
-        STRING_DISCLAIMER7 = "It's just a simple game."
-        STRING_DISCLAIMER8_DESKTOP = "Click to continue"
-        STRING_DISCLAIMER8_MOBILE = "Tap to continue"
-        STRING_TITLE = "ASK A QUESTION AND SELECT THREE CARDS"
-
-        STRING_CARDS_TITLE[0] = "THE FOOL"
-        STRING_CARDS_MEANING_NORMAL[0] = "Important decision. You are faced\nwith a choice that you must decide carefully, but\nalso with courage and, above all, paying attention\nto your intuition and impulses. You have to take\nrisks."
-        STRING_CARDS_MEANING_INVERTED[0] = "There is a danger of making a bad\nechoice. It is advisable to act with the utmost\ncaution and prudence. Tendency to foolishness,\nirresponsibility, selfishness, fantasy\nand obsession."
-
-        STRING_CARDS_TITLE[1] = "THE MAGICIAN"
-        STRING_CARDS_MEANING_NORMAL[1] = "Willpower, command,\norganizational ability, creative talent. The ability\nto take power from above and direct it toward\nmanifestation, with positive results.\nSkill and intuition and dexterity."
-        STRING_CARDS_MEANING_INVERTED[1] = "Indecision, inability, ineptitude,\nblockage of creative energies, fear of\nexperimenting and trying new things, use of\npower for destructive purposes. Insecurity,\ncowardly, lack of emotional control."
-
-        STRING_CARDS_TITLE[2] = "THE HIGH PRIESTESS"
-        STRING_CARDS_MEANING_NORMAL[2] = "Unknown future. Hidden\ninfluences. Trust your instinct. You need to listen\nto your inner voice. Protect yourself and\nkeep it confidential."
-        STRING_CARDS_MEANING_INVERTED[2] = "Deceit, shallow\nknowledge. Tendency to dissimulation, hypocrisy,\nlaziness, inaction, resentment, indifference. You\nare denying your inner voice."
-
-        STRING_CARDS_TITLE[3] = "THE EMPRESS"
-        STRING_CARDS_MEANING_NORMAL[3] = "Creativity, productivity,\nmotherhood, abundance, good harvests, success,\nachievement, environment safe and free from\nharm. Beauty, seduction, sensuality. Mental and\nphysical fertility."
-        STRING_CARDS_MEANING_INVERTED[3] = "Inactivity, loss of\ncrops, infidelity, cynicism, futility,\nanxiety, possessiveness, tyranny, jealousy,\nselfishness."
-
-        STRING_CARDS_TITLE[4] = "THE EMPEROR"
-        STRING_CARDS_MEANING_NORMAL[4] = "Leadership, domination,\nfatherhood, sovereignty, guidance. Think more\nbefore you act so as not to become a rude\nperson."
-        STRING_CARDS_MEANING_INVERTED[4] = "Immaturity, emotional\ndependence, slavery to authority figures.\nLack of initiative. Abuse of power. Man/woman\non the outside but child on the inside."
-
-        STRING_CARDS_TITLE[5] = "THE HIEROPHANT"
-        STRING_CARDS_MEANING_NORMAL[5] = "The High Priest's message is\nthat we should seek spiritual meaning in\neverything that we do. Spiritualization and\nreligiosity. Benevolence and wisdom. Loyalty\nand fidelity. Teaching, balanced advice."
-        STRING_CARDS_MEANING_INVERTED[5] = "Breaking the conventional.\nIt's time to try something new, original. Keep an\nopen mind, accept new ideas and new ways.\nRepresents someone who needs spiritual\nsupport."
-
-        STRING_CARDS_TITLE[6] = "THE LOVERS"
-        STRING_CARDS_MEANING_NORMAL[6] = "Need for choice (almost always on\na love level), choice, temptation, attraction,\nharmony between internal and external aspects\nof life, pure love, altruism. Abundance of\nhappy feelings."
-        STRING_CARDS_MEANING_INVERTED[6] = "Blind love, blinding feelings,\ninfidelity, bad choice, bad choices, need to\nstabilize emotions, deinconsequential decision.\nRupture, separation, divorce, disorder."
-
-        STRING_CARDS_TITLE[7] = "THE CHARIOT"
-        STRING_CARDS_MEANING_NORMAL[7] = "Triumph, success, victory,\ndeserved promotion. Restoration of health,\nvictory over apure economic or enemies of any\nkind."
-        STRING_CARDS_MEANING_INVERTED[7] = "Unethical victory, excessive\nambition and focused on material things. Defeat,\ndisaster, frustration, poor health. Poverty, needs.\nDangerous opportunism. Worries, tiredness\nand lack of rest."
-
-        STRING_CARDS_TITLE[8] = "THE STRENGTH"
-        STRING_CARDS_MEANING_NORMAL[8] = "Power of conquest, mastery\nof the situation. Strength of character, spiritual\npower surpassing material power. Love\ntriumphing over hate. Overcoming obstacles.\nEnergy, moral, calm, courage."
-        STRING_CARDS_MEANING_INVERTED[8] = "Lack of moral strength, abuse of\npower. Fighting, violent conquest, discord,\ninsensitivity, cruelty, impatience. Dominance\nmaterial, oblivion of the spiritual."
-
-        STRING_CARDS_TITLE[9] = "THE HERMIT"
-        STRING_CARDS_MEANING_NORMAL[9] = "Reflection, detachment, secrecy.\nEnlightenment, silent and prudent advice.\nDiscretion, wisdom from above, instruction from\na teacher."
-        STRING_CARDS_MEANING_INVERTED[9] = "Immaturity, obscurantism, shyness,\nisolation, depression. Misconception of a\nsituation. Refusal to listen to wisdom. Unwise\nadvice."
-
-        STRING_CARDS_TITLE[10] = "THE WHEEL OF FORTUNE"
-        STRING_CARDS_MEANING_NORMAL[10] = "Success, stroke of\nluck, change of luck for the better. Evolution,\nfavorable change. Cunning, presence of mind\nthat seizes good opportunities."
-        STRING_CARDS_MEANING_INVERTED[10] = "Speculation, bad luck,\ninsecurity. Prediction, little seriousness.\nUnstable profit and loss situation. Adventures,\nrisks. Decline of luck. Unfavorable change."
-
-        STRING_CARDS_TITLE[11] = "THE JUSTICE"
-        STRING_CARDS_MEANING_NORMAL[11] = "Balanced mind. Favorable court\nruling. Fair reward. Stability, order, discipline,\nlogic, coordination. Flexibility, adaptation to\nneeds."
-        STRING_CARDS_MEANING_INVERTED[11] = "Injustice, loss, great disorder,\ndanger. Bad result in a legal or economic matter.\nIngratitude, unfair reward. Tendency to see\nthings from an objective and insensitive point\nof view."
-
-        STRING_CARDS_TITLE[12] = "THE HANGED MAN"
-        STRING_CARDS_MEANING_NORMAL[12] = "Necessity of a renunciation\nor sacrifice. Selflessness, self-forgetfulness.\nSubmission to duty, generous dreams.\nTransformation of personality through\nrenunciation or sacrifice."
-        STRING_CARDS_MEANING_INVERTED[12] = "Arrogance, selfishness,\nself-satisfaction. Not wanting to break with the\npast. Egotism. Useless efforts. Purely physical\nsatisfactions. Selfish ends without a thought\nfor others."
-
-        STRING_CARDS_TITLE[13] = "THE DEATH"
-        STRING_CARDS_MEANING_NORMAL[13] = "End of a phase. Transformation,\nchange and renewal. Birth of new ideas and new\nopportunities. Give up old habits. Depth,\nintellectual penetration, metaphysical thought."
-        STRING_CARDS_MEANING_INVERTED[13] = "Fear or resistance to change,\nindolence, apathy, stagnation. You need to stop\ngrieving over old things that are gone."
-
-        STRING_CARDS_TITLE[14] = "THE TEMPERANCE"
-        STRING_CARDS_MEANING_NORMAL[14] = "Moderation, adaptation,\ncooperation, work in harmony. Tolerance,\npatience, practicality, happiness. Renewal of life,\nserenity, balance. Inner peace."
-        STRING_CARDS_MEANING_INVERTED[14] = "Disorder, disagreements,\nindifference. Lack of personality, passivity.\nInconstancy, irregular mood, imbalance.\nAggressions, corruption, riots, spiritual\ndisharmony."
-
-        STRING_CARDS_TITLE[15] = "THE DEVIL"
-        STRING_CARDS_MEANING_NORMAL[15] = "Indomitable passions. Sexual\nattraction. Compulsive obsession Slavery of\nmatter. Sense of sin and guilt. Error. Excessive\ngreed and ambition."
-        STRING_CARDS_MEANING_INVERTED[15] = "Clarification, understanding, control\nof fears, the chains that bind the material begin\nto loosen. Overcome pride and selfishness."
-
-        STRING_CARDS_TITLE[16] = "THE TOWER"
-        STRING_CARDS_MEANING_NORMAL[16] = "Destruction of obsolete structures\nand old ideas. Danger, conflict, catastrophe.\nSudden change in life form, drastic\ntransformation."
-        STRING_CARDS_MEANING_INVERTED[16] = "False accusations, oppression,\nminor catastrophe. Scandal, hypocrisy unmasked.\nExcess, abuse. Presumption, pride."
-
-        STRING_CARDS_TITLE[17] = "THE STAR"
-        STRING_CARDS_MEANING_NORMAL[17] = "Inspiration, vision, hope.\nIdealism. Selfless help. Spiritual gifts. Great love\ngiven or received. Comprehensive vision and\nself-knowledge of oneself. Achievement of a\ndesire. Kindness, compassion."
-        STRING_CARDS_MEANING_INVERTED[17] = "Pessimism, doubts, hindrance.\nHate, irritability. Lack of perception. Harmony\ndeviated from its initial goal, inattentiveness,\ncarelessness. Shamelessness,\nflippancy. Lack of spontaneity."
-
-        STRING_CARDS_TITLE[18] = "THE MOON"
-        STRING_CARDS_MEANING_NORMAL[18] = "Inspiration, imagination, intuition.\nNavigation, change. Inconstancy, insecurity,\nfear. Utopian dreams, difficulty accepting reality.\nConfusion of thoughts. Stress and worries."
-        STRING_CARDS_MEANING_INVERTED[18] = "Rejection of intuition, false\nassumptions. Scams, deception, delusion.\nWrong theories, false knowledge, hysterical\nclairvoyance. Threat, blackmail. Untimely trip,\nwhims. Disturbed."
-
-        STRING_CARDS_TITLE[19] = "THE SUN"
-        STRING_CARDS_MEANING_NORMAL[19] = "Peace, love, happiness. A life well\nlived. A job well done. Awakening. Renewal. Joy,\nprosperity. Marital happiness. Fraternity,\nintelligence and good feelings."
-        STRING_CARDS_MEANING_INVERTED[19] = "Emptiness, unhappiness, lack of\npurpose. Confusion, thick clouds. Fight, loss,\ndiscomfort. Opposite luck, attempts in\ndarkness. Dazzle. Vanity, pose, bravado."
-
-        STRING_CARDS_TITLE[20] = "THE JUDGEMENT"
-        STRING_CARDS_MEANING_NORMAL[20] = "Wonderful things will happen.\nYou can see what the future holds.\nTransformation. You will see everything in a new\nlight. Enthusiasm, emotional excitement,\nintensity of feelings. Renewal, birth."
-        STRING_CARDS_MEANING_INVERTED[20] = "Anxiety, longing. I want to be\nfree from certain situations, but without seeing a\nway out. Mistake as to himself and all the\nthings, proofs and works that will result from a\nfalse judgment."
-
-        STRING_CARDS_TITLE[21] = "THE WORLD"
-        STRING_CARDS_MEANING_NORMAL[21] = "Completion, realization. Prize.\nFreedom. Completion of a job well done. Very\nfavorable circumstances. Ecstasy. Joy,\nrecognition, wealth."
-        STRING_CARDS_MEANING_INVERTED[21] = "Negative attitude, stagnation.\nFailure. Process that affects feelings. Hostile\nenvironment, everyone is against it. Worldly\ndispositions. Dispersion, distraction. Inability\nto concentrate."
+      function t(stringName) {
+        return GET_APP_STRING[stringName] || ""
       }
 
       var Tarot = {}
@@ -499,7 +539,7 @@
             0,
             this.marginY + 20,
             "ArialBlackWhite",
-            STRING_DISCLAIMER1,
+            t("disclaimer1"),
             20
           )
           this.line1.height = 25
@@ -511,7 +551,7 @@
             0,
             this.marginY + 90,
             "ArialBlackWhite",
-            STRING_DISCLAIMER2,
+            t("disclaimer2"),
             20
           )
           this.line2.height = 25
@@ -522,7 +562,7 @@
             0,
             this.marginY + 130,
             "ArialBlackWhite",
-            STRING_DISCLAIMER3,
+            t("disclaimer3"),
             20
           )
           this.line3.height = 25
@@ -533,7 +573,7 @@
             0,
             this.marginY + 170,
             "ArialBlackWhite",
-            STRING_DISCLAIMER4,
+            t("disclaimer4"),
             20
           )
           this.line4.height = 25
@@ -544,7 +584,7 @@
             0,
             this.marginY + 210,
             "ArialBlackWhite",
-            STRING_DISCLAIMER5,
+            t("disclaimer5"),
             20
           )
           this.line5.height = 25
@@ -555,7 +595,7 @@
             0,
             this.marginY + 250,
             "ArialBlackWhite",
-            STRING_DISCLAIMER6,
+            t("disclaimer6"),
             20
           )
           this.line6.height = 25
@@ -566,7 +606,7 @@
             0,
             this.marginY + 290,
             "ArialBlackWhite",
-            STRING_DISCLAIMER7,
+            t("disclaimer7"),
             20
           )
           this.line7.height = 25
@@ -579,7 +619,7 @@
               0,
               this.marginY + 360,
               "ArialBlackWhite",
-              STRING_DISCLAIMER8_MOBILE,
+              t("disclaimer8_mobile"),
               20
             )
             this.line8.height = 25
@@ -591,7 +631,7 @@
               0,
               this.marginY + 360,
               "ArialBlackWhite",
-              STRING_DISCLAIMER8_DESKTOP,
+              t("disclaimer8_desktop"),
               20
             )
             this.line8.height = 25
@@ -640,17 +680,17 @@
         this.buttonRestartShadow = null
         this.selectedCards = null
         this.selectedCard1 = null
-        this.selectedCard1Inverted = null
+        this.selectedCard1Reversed = null
         this.selectedCard1Sprite = null
         this.selectedCard1BackgroundText = null
         this.selectedCard1Text = null
         this.selectedCard2 = null
-        this.selectedCard2Inverted = null
+        this.selectedCard2Reversed = null
         this.selectedCard2Sprite = null
         this.selectedCard2BackgroundText = null
         this.selectedCard2Text = null
         this.selectedCard3 = null
-        this.selectedCard3Inverted = null
+        this.selectedCard3Reversed = null
         this.selectedCard3Sprite = null
         this.selectedCard3BackgroundText = null
         this.selectedCard3Text = null
@@ -705,17 +745,17 @@
           this.buttonRestartShadow = null
           this.selectedCards = 0
           this.selectedCard1 = null
-          this.selectedCard1Inverted = false
+          this.selectedCard1Reversed = false
           this.selectedCard1Sprite = null
           this.selectedCard1BackgroundText = null
           this.selectedCard1Text = null
           this.selectedCard2 = null
-          this.selectedCard2Inverted = false
+          this.selectedCard2Reversed = false
           this.selectedCard2Sprite = null
           this.selectedCard2BackgroundText = null
           this.selectedCard2Text = null
           this.selectedCard3 = null
-          this.selectedCard3Inverted = false
+          this.selectedCard3Reversed = false
           this.selectedCard3Sprite = null
           this.selectedCard3BackgroundText = null
           this.selectedCard3Text = null
@@ -736,7 +776,7 @@
             0,
             0,
             "ArialBlackShadow",
-            STRING_TITLE,
+            t("title"),
             20.5
           )
           this.titleText.height = 24.5
@@ -970,21 +1010,21 @@
             return item !== cardValue
           })
 
-          // GETTING A RANDOM VALUE FOR INVERTING THE CARD
-          var isInvertedGenerator = Math.floor(Math.random() * 9)
-          var isInverted = false
+          // GETTING A RANDOM VALUE FOR REVERSING THE CARD
+          var isReversedGenerator = Math.floor(Math.random() * 9)
+          var isReversed = false
 
-          // CHECKING IF THE CARD MUST BE INVERTED
-          if (isInvertedGenerator > 4) {
-            // INVERTING THE CARD
-            isInverted = true
+          // CHECKING IF THE CARD MUST BE REVERSED
+          if (isReversedGenerator > 4) {
+            // REVERSING THE CARD
+            isReversed = true
           }
 
           // CHECKING IF THE FIRST CARD WAS SELECTED
           if (this.selectedCards === 1) {
             // UPDATING THE FIRST CARD VALUES
             this.selectedCard1 = cardValue
-            this.selectedCard1Inverted = isInverted
+            this.selectedCard1Reversed = isReversed
             this.selectedCard1Sprite = selectedCard
           }
 
@@ -992,7 +1032,7 @@
           else if (this.selectedCards === 2) {
             // UPDATING THE SECOND CARD VALUES
             this.selectedCard2 = cardValue
-            this.selectedCard2Inverted = isInverted
+            this.selectedCard2Reversed = isReversed
             this.selectedCard2Sprite = selectedCard
           }
 
@@ -1000,7 +1040,7 @@
           else if (this.selectedCards === 3) {
             // UPDATING THE THIRD CARD VALUES
             this.selectedCard3 = cardValue
-            this.selectedCard3Inverted = isInverted
+            this.selectedCard3Reversed = isReversed
             this.selectedCard3Sprite = selectedCard
 
             // DISABLING THE INPUT EVENT ON EVERY CARD
@@ -1175,7 +1215,7 @@
             .to({ x: 0, y: flipZoom }, flipSpeed / 2, Phaser.Easing.Linear.None)
           this.flipTween1.onComplete.add(function () {
             this.selectedCard1Sprite.loadTexture(selectedTexture1)
-            if (this.selectedCard1Inverted) {
+            if (this.selectedCard1Reversed) {
               this.selectedCard1Sprite.angle = 180
             } else {
               this.selectedCard1Sprite.angle = 0
@@ -1193,7 +1233,7 @@
             .to({ x: 0, y: flipZoom }, flipSpeed / 2, Phaser.Easing.Linear.None)
           this.flipTween2.onComplete.add(function () {
             this.selectedCard2Sprite.loadTexture(selectedTexture2)
-            if (this.selectedCard2Inverted) {
+            if (this.selectedCard2Reversed) {
               this.selectedCard2Sprite.angle = 180
             } else {
               this.selectedCard2Sprite.angle = 0
@@ -1211,7 +1251,7 @@
             .to({ x: 0, y: flipZoom }, flipSpeed / 2, Phaser.Easing.Linear.None)
           this.flipTween3.onComplete.add(function () {
             this.selectedCard3Sprite.loadTexture(selectedTexture3)
-            if (this.selectedCard3Inverted) {
+            if (this.selectedCard3Reversed) {
               this.selectedCard3Sprite.angle = 180
             } else {
               this.selectedCard3Sprite.angle = 0
@@ -1264,25 +1304,25 @@
         },
 
         showMeanings: function () {
-          // CHECKING IF THE FIRST CARD IS INVERTED
-          if (this.selectedCard1Inverted) {
-            // SHOWING THE INVERTED MEANING FOR THE FIRST CARD
+          // CHECKING IF THE FIRST CARD IS REVERSED
+          if (this.selectedCard1Reversed) {
+            // SHOWING THE REVERSED MEANING FOR THE FIRST CARD
             this.selectedCard1Text.setText(
-              STRING_CARDS_TITLE[this.selectedCard1] +
+              t("cards")[this.selectedCard1].name +
                 ": " +
-                STRING_CARDS_MEANING_INVERTED[this.selectedCard1]
+                t("cards")[this.selectedCard1].reversed
             )
           } else {
             // SHOWING THE NORMAL MEANING FOR THE FIRST CARD
             this.selectedCard1Text.setText(
-              STRING_CARDS_TITLE[this.selectedCard1] +
+              t("cards")[this.selectedCard1].name +
                 ": " +
-                STRING_CARDS_MEANING_NORMAL[this.selectedCard1]
+                t("cards")[this.selectedCard1].upright
             )
           }
 
           // CHECKING THE USER LANGUAGE IS RUNNING THE GAME IN SPANISH
-          if (userLanguage === "es") {
+          if (USER_LANG === "es") {
             // CHECKING IF THE ARCANE 9 WAS SELECTED
             if (this.selectedCard1 === 9) {
               // ADDING A SPANISH ACCENT TO AN SPECIFIC WORD IN THE DISCLAIMER LINE 4
@@ -1299,25 +1339,25 @@
             }
           }
 
-          // CHECKING IF THE SECOND CARD IS INVERTED
-          if (this.selectedCard2Inverted) {
-            // SHOWING THE INVERTED MEANING FOR THE SECOND CARD
+          // CHECKING IF THE SECOND CARD IS REVERSED
+          if (this.selectedCard2Reversed) {
+            // SHOWING THE REVERSED MEANING FOR THE SECOND CARD
             this.selectedCard2Text.setText(
-              STRING_CARDS_TITLE[this.selectedCard2] +
+              t("cards")[this.selectedCard2].name +
                 ": " +
-                STRING_CARDS_MEANING_INVERTED[this.selectedCard2]
+                t("cards")[this.selectedCard2].reversed
             )
           } else {
             // SHOWING THE NORMAL MEANING FOR THE SECOND CARD
             this.selectedCard2Text.setText(
-              STRING_CARDS_TITLE[this.selectedCard2] +
+              t("cards")[this.selectedCard2].name +
                 ": " +
-                STRING_CARDS_MEANING_NORMAL[this.selectedCard2]
+                t("cards")[this.selectedCard2].upright
             )
           }
 
           // CHECKING THE USER LANGUAGE IS RUNNING THE GAME IN SPANISH
-          if (userLanguage === "es") {
+          if (USER_LANG === "es") {
             // CHECKING IF THE ARCANE 9 WAS SELECTED
             if (this.selectedCard2 === 9) {
               // ADDING A SPANISH ACCENT TO AN SPECIFIC WORD IN THE DISCLAIMER LINE 4
@@ -1334,25 +1374,25 @@
             }
           }
 
-          // CHECKING IF THE THIRD CARD IS INVERTED
-          if (this.selectedCard3Inverted) {
-            // SHOWING THE INVERTED MEANING FOR THE THIRD CARD
+          // CHECKING IF THE THIRD CARD IS REVERSED
+          if (this.selectedCard3Reversed) {
+            // SHOWING THE REVERSED MEANING FOR THE THIRD CARD
             this.selectedCard3Text.setText(
-              STRING_CARDS_TITLE[this.selectedCard3] +
+              t("cards")[this.selectedCard3].name +
                 ": " +
-                STRING_CARDS_MEANING_INVERTED[this.selectedCard3]
+                t("cards")[this.selectedCard3].reversed
             )
           } else {
             // SHOWING THE NORMAL MEANING FOR THE THIRD CARD
             this.selectedCard3Text.setText(
-              STRING_CARDS_TITLE[this.selectedCard3] +
+              t("cards")[this.selectedCard3].name +
                 ": " +
-                STRING_CARDS_MEANING_NORMAL[this.selectedCard3]
+                t("cards")[this.selectedCard3].upright
             )
           }
 
           // CHECKING THE USER LANGUAGE IS RUNNING THE GAME IN SPANISH
-          if (userLanguage === "es") {
+          if (USER_LANG === "es") {
             // CHECKING IF THE ARCANE 9 WAS SELECTED
             if (this.selectedCard3 === 9) {
               // ADDING A SPANISH ACCENT TO AN SPECIFIC WORD IN THE DISCLAIMER LINE 4
