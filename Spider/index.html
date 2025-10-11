@@ -45,40 +45,38 @@
       // isWebGLAvailable.min.js
       function isWebGLAvailable(){if(window.WebGLRenderingContext){for(var e=document.createElement("canvas"),t=["webgl2","webgl","experimental-webgl","moz-webgl","webkit-3d"],n=!1,r=0;r<t.length;r++)try{if((n=e.getContext(t[r]))&&"function"==typeof n.getParameter)return!0}catch(e){}return!1}return!1}
 
-      // GETTING THE USER LANGUAGE
-      var userLanguage = window.navigator.language.substring(0, 2).toLowerCase()
+      var APP_STRINGS = {
+        en: {
+          new: "New game",
+          select: "Select the game difficulty you want:",
+          easy: "Easy: One Suit",
+          medium: "Medium: Two Suits",
+          hard: "Difficult: Four Suits",
+          score: "Score: ",
+          moves: "Moves: ",
+          win: "You Won!",
+        },
+        es: {
+          new: "Nuevo juego",
+          select: "Seleccione el nivel de dificultad de la partida:",
+          easy: "F\u00E1cil: un palo",
+          medium: "Medio: dos palos",
+          hard: "Dif\u00EDcil: cuatro palos",
+          score: "Puntuaci\u00F3n: ",
+          moves: "Manos: ",
+          win: "\u00A1Victoria!",
+        }
+      }
 
-      var STRING_NEWGAME = ""
-      var STRING_SELECTDIFFICULTY = ""
-      var STRING_EASY = ""
-      var STRING_MEDIUM = ""
-      var STRING_HARD = ""
-      var STRING_SCORE = ""
-      var STRING_MOVES = ""
-      var STRING_WIN = ""
+      var USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      var GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
+
+      function t(stringName) {
+        return GET_APP_STRING[stringName] || ""
+      }
 
       var showRestartGame = true
       var cardsAreMoving = false
-
-      if (userLanguage === "es") {
-        STRING_NEWGAME = "Nuevo juego"
-        STRING_SELECTDIFFICULTY = "Seleccione el nivel de dificultad de la partida:"
-        STRING_EASY = "F\u00E1cil: un palo"
-        STRING_MEDIUM = "Medio: dos palos"
-        STRING_HARD = "Dif\u00EDcil: cuatro palos"
-        STRING_SCORE = "Puntuaci\u00F3n: "
-        STRING_MOVES = "Manos: "
-        STRING_WIN = "\u00A1Victoria!"
-      } else {
-        STRING_NEWGAME = "New game"
-        STRING_SELECTDIFFICULTY = "Select the game difficulty you want:"
-        STRING_EASY = "Easy: One Suit"
-        STRING_MEDIUM = "Medium: Two Suits"
-        STRING_HARD = "Difficult: Four Suits"
-        STRING_SCORE = "Score: "
-        STRING_MOVES = "Moves: "
-        STRING_WIN = "You Won!"
-      }
 
       var Consts = (function () {
         function Consts() {}
@@ -447,10 +445,10 @@
           GameUI.uiLayer.add(GameUI.stepsText)
           GameUI.uiLayer.add(GameUI.stepsTextBold)
           GameUI.reinitData()
-          GameUI.scoreTxt.text = STRING_SCORE + GameUI.scoreTotal
-          GameUI.scoreTxtBold.text = STRING_SCORE + GameUI.scoreTotal
-          GameUI.stepsText.text = STRING_MOVES + GameUI.moves
-          GameUI.scoreTxtBold.text = STRING_SCORE + GameUI.moves
+          GameUI.scoreTxt.text = t("score") + GameUI.scoreTotal
+          GameUI.scoreTxtBold.text = t("score") + GameUI.scoreTotal
+          GameUI.stepsText.text = t("moves") + GameUI.moves
+          GameUI.scoreTxtBold.text = t("score") + GameUI.moves
           GameUI.scoreTxt.x = Math.round(GameUI.scoreTxt.x)
           GameUI.stepsText.x = Math.round(GameUI.stepsText.x)
           GameUI.scoreTxt.y = Math.round(GameUI.scoreTxt.y)
@@ -531,10 +529,10 @@
             }
           }
 
-          GameUI.scoreTxt.text = STRING_SCORE + GameUI.scoreTotal
-          GameUI.scoreTxtBold.text = STRING_SCORE + GameUI.scoreTotal
-          GameUI.stepsText.text = STRING_MOVES + GameUI.moves
-          GameUI.stepsTextBold.text = STRING_MOVES + GameUI.moves
+          GameUI.scoreTxt.text = t("score") + GameUI.scoreTotal
+          GameUI.scoreTxtBold.text = t("score") + GameUI.scoreTotal
+          GameUI.stepsText.text = t("moves") + GameUI.moves
+          GameUI.stepsTextBold.text = t("moves") + GameUI.moves
         }
 
         GameUI.onMenuButtonPressed = function () {
@@ -564,7 +562,7 @@
             x,
             y + 3,
             "ArialBlackWhiteBig",
-            STRING_WIN,
+            t("win"),
             51.5
           )
           this.text.height = 60
@@ -3400,7 +3398,7 @@
             0,
             0,
             "ArialBlackWhite",
-            STRING_NEWGAME,
+            t("new"),
             15
           )
           this.menuText.width = 96
@@ -3418,7 +3416,7 @@
             0,
             0,
             "ArialWhite",
-            STRING_SELECTDIFFICULTY,
+            t("select"),
             14.3
           )
           this.menuText.height = 15
@@ -3435,7 +3433,7 @@
             this.menuBG.y + 310,
             0,
             0,
-            STRING_EASY,
+            t("easy"),
             function () {
               GameUI.promptLayer.removeAll(true)
               CardUtil.NUM_SUIT_COLORS = 1
@@ -3452,7 +3450,7 @@
             this.menuBG.y + 342,
             0,
             0,
-            STRING_MEDIUM,
+            t("medium"),
             function () {
               GameUI.promptLayer.removeAll(true)
               CardUtil.NUM_SUIT_COLORS = 2
@@ -3469,7 +3467,7 @@
             this.menuBG.y + 374,
             0,
             0,
-            STRING_HARD,
+            t("hard"),
             function () {
               GameUI.promptLayer.removeAll(true)
               CardUtil.NUM_SUIT_COLORS = 4
