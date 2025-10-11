@@ -51,58 +51,10 @@
       // isMobileDevice.js
       function isMobileDevice(){return!!(navigator.userAgent.match(/Android/i)||navigator.userAgent.match(/webOS/i)||navigator.userAgent.match(/iPhone/i)||navigator.userAgent.match(/iPad/i)||navigator.userAgent.match(/iPod/i)||navigator.userAgent.match(/BlackBerry/i)||navigator.userAgent.match(/Windows Phone/i))}
 
-      // GETTING THE USER LANGUAGE
-      var userLanguage = window.navigator.language.substring(0, 2).toLowerCase()
-
-      var STRING_NOFREETILES = ""
-      var STRING_MESSAGES = []
-
-      // CHECKING THE USER LANGUAGE
-      if (userLanguage === "es") {
-        STRING_NOFREETILES = "No quedan fichas libres"
-        STRING_MESSAGES = [
-          "Asistir\u00E1s a una fiesta donde imperar\u00E1n costumbres extra\u00F1as.",
-          "Una visita con amigos probar\u00E1 ser una ocasi\u00F3n agradable.",
-          "Nuevas experiencias extra\u00F1as se sumar\u00E1n a su alegr\u00EDa de vivir.",
-          "La expresi\u00F3n de agradecimiento de otra persona te encantar\u00E1.",
-          "Momentos memorables har\u00E1n su viaje placentero.",
-          "Un feliz reencuentro aguarda su llegada.",
-          "Escuche a su coraz\u00F3n y proceda con confianza.",
-          "Hagas lo que hagas, hazlo divertido.",
-          "Un objetivo secreto est\u00E1 a la vista. Resiste.",
-          "A trav\u00E9s de los ojos del amor, todo tendr\u00E1 un nuevo significado.",
-          "Te relajar\u00E1s en el regazo del lujo.",
-          "Con\u00F3cete a ti mismo para que puedas entender a los dem\u00E1s.",
-          "Nuevas experiencias y nuevos amigos enriquecer\u00E1n tu vida.",
-          "Lo que haces con sinceridad paga la mayor recompensa.",
-          "Un regalo inesperado se sumar\u00E1 a tu placer.",
-          "Tu confianza en una amistad resultar\u00E1 bien fundada.",
-          "La preocupaci\u00F3n de las dem\u00E1s har\u00E1 que tu viaje sea una delicia.",
-          "Una oferta inesperada merece una seria consideraci\u00F3n.",
-          "Una nueva amistad ayudar\u00E1 a lanzar un hechizo.",
-          "Fuerzas invisibles est\u00E1n trabajando a tu favor.",
-          "Una oferta inusual mejorar\u00E1 su futuro.",
-          "Afronte un nuevo desaf\u00EDo con tranquilidad y seguridad.",
-          "Dentro de ti reside el poder para el bien, \u00DAsalo.",
-          "Todas las peque\u00F1as cosas se sumar\u00E1n a un feliz viaje.",
-          "Sea bienvenida la oportunidad de aprender sobre los dem\u00E1s.",
-          "La preocupaci\u00F3n por la felicidad de un amigo mejorar\u00E1 la tuya.",
-          "Ten paciencia y la respuesta ser\u00E1 revelada.",
-          "Viaja con un coraz\u00F3n alegre y expectativas felices.",
-          "Ser\u00E1s colmado de atenci\u00F3n.",
-          "Vale la pena seguir ese pensamiento fugaz.",
-          "Una mano amiga te acerca a una meta secreta.",
-          "Mant\u00E9n la calma y la compostura, y todo encajar\u00E1.",
-          "Acepta la siguiente propuesta que escuches.",
-          "\u00BFHas encontrado el antiguo secreto de Taipei?",
-          "\u00BFPor qu\u00E9 no presionas recargar y juegas de nuevo?",
-          "Dondequiera que vayas, ah\u00ED estar\u00E1s.",
-          "La pelota hinchable es la fuente de toda bondad y luz.",
-          "\u00A1Felicitaciones por ganar Taipei!",
-        ]
-      } else {
-        STRING_NOFREETILES = "No free tiles"
-        STRING_MESSAGES = [
+      var APP_STRINGS = {
+        en: {
+          no_free_tiles: "No free tiles",
+          messages: [
           "You will attend a party where strange customs prevail.",
           "A visit with friends will prove an enjoyable occasion.",
           "Strange new experiences will add to your joy of living.",
@@ -141,7 +93,58 @@
           "Wherever you go, there you are.",
           "Bouncy ball is the source of all goodness and light.",
           "Congratulations on winning Taipei!",
-        ]
+        ],
+        },
+        es: {
+          no_free_tiles: "No quedan fichas libres",
+          messages: [
+          "Asistir\u00E1s a una fiesta donde imperar\u00E1n costumbres extra\u00F1as.",
+          "Una visita con amigos probar\u00E1 ser una ocasi\u00F3n agradable.",
+          "Nuevas experiencias extra\u00F1as se sumar\u00E1n a su alegr\u00EDa de vivir.",
+          "La expresi\u00F3n de agradecimiento de otra persona te encantar\u00E1.",
+          "Momentos memorables har\u00E1n su viaje placentero.",
+          "Un feliz reencuentro aguarda su llegada.",
+          "Escuche a su coraz\u00F3n y proceda con confianza.",
+          "Hagas lo que hagas, hazlo divertido.",
+          "Un objetivo secreto est\u00E1 a la vista. Resiste.",
+          "A trav\u00E9s de los ojos del amor, todo tendr\u00E1 un nuevo significado.",
+          "Te relajar\u00E1s en el regazo del lujo.",
+          "Con\u00F3cete a ti mismo para que puedas entender a los dem\u00E1s.",
+          "Nuevas experiencias y nuevos amigos enriquecer\u00E1n tu vida.",
+          "Lo que haces con sinceridad paga la mayor recompensa.",
+          "Un regalo inesperado se sumar\u00E1 a tu placer.",
+          "Tu confianza en una amistad resultar\u00E1 bien fundada.",
+          "La preocupaci\u00F3n de las dem\u00E1s har\u00E1 que tu viaje sea una delicia.",
+          "Una oferta inesperada merece una seria consideraci\u00F3n.",
+          "Una nueva amistad ayudar\u00E1 a lanzar un hechizo.",
+          "Fuerzas invisibles est\u00E1n trabajando a tu favor.",
+          "Una oferta inusual mejorar\u00E1 su futuro.",
+          "Afronte un nuevo desaf\u00EDo con tranquilidad y seguridad.",
+          "Dentro de ti reside el poder para el bien, \u00DAsalo.",
+          "Todas las peque\u00F1as cosas se sumar\u00E1n a un feliz viaje.",
+          "Sea bienvenida la oportunidad de aprender sobre los dem\u00E1s.",
+          "La preocupaci\u00F3n por la felicidad de un amigo mejorar\u00E1 la tuya.",
+          "Ten paciencia y la respuesta ser\u00E1 revelada.",
+          "Viaja con un coraz\u00F3n alegre y expectativas felices.",
+          "Ser\u00E1s colmado de atenci\u00F3n.",
+          "Vale la pena seguir ese pensamiento fugaz.",
+          "Una mano amiga te acerca a una meta secreta.",
+          "Mant\u00E9n la calma y la compostura, y todo encajar\u00E1.",
+          "Acepta la siguiente propuesta que escuches.",
+          "\u00BFHas encontrado el antiguo secreto de Taipei?",
+          "\u00BFPor qu\u00E9 no presionas recargar y juegas de nuevo?",
+          "Dondequiera que vayas, ah\u00ED estar\u00E1s.",
+          "La pelota hinchable es la fuente de toda bondad y luz.",
+          "\u00A1Felicitaciones por ganar Taipei!",
+        ],
+        }
+      }
+
+      var USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      var GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
+
+      function t(stringName) {
+        return GET_APP_STRING[stringName] || ""
       }
 
       var Taipei = {}
@@ -995,7 +998,7 @@
             var randomNumber = Math.floor(Math.random() * (37 - 0 + 1) + 0)
 
             // SHOWING A MESSAGE BECAUSE THE USER WON
-            this.showToast(STRING_MESSAGES[randomNumber])
+            this.showToast(t("messages")[randomNumber])
           } else {
             // CREATING A VARIABLE FOR THE PENDING TILES
             var pendingTiles = []
@@ -1012,7 +1015,7 @@
             // CHECKING IF THE GAME IS OVER
             if (this.isGameOver(pendingTiles)) {
               // SHOWING THE GAME OVER MESSAGE
-              this.showToast(STRING_NOFREETILES)
+              this.showToast(t("no_free_tiles"))
             }
           }
         },
