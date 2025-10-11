@@ -51,31 +51,30 @@
       // isMobileDevice.js
       function isMobileDevice(){return!!(navigator.userAgent.match(/Android/i)||navigator.userAgent.match(/webOS/i)||navigator.userAgent.match(/iPhone/i)||navigator.userAgent.match(/iPad/i)||navigator.userAgent.match(/iPod/i)||navigator.userAgent.match(/BlackBerry/i)||navigator.userAgent.match(/Windows Phone/i))}
 
-      // GETTING THE USER LANGUAGE
-      var userLanguage = window.navigator.language.substring(0, 2).toLowerCase()
+      var APP_STRINGS = {
+        en: {
+          player1_wins: "PLAYER 1 WINS",
+          player2_wins: "PLAYER 2 WINS",
+          cpu_wins : "CPU WINS",
+          scratch: "FOUL: SCRATCH",
+          ball_not_hit: "FOUL: BALL NOT HIT",
+          lowest_ball_not_hit: "FOUL: LOWEST BALL NOT HIT FIRST",
+        },
+        es: {
+          player1_wins: "GANO EL JUGADOR 1",
+          player2_wins: "GANO EL JUGADOR 2",
+          cpu_wins : "GANO LA CPU",
+          scratch: "FALTA: METIO LA BOLA BLANCA",
+          ball_not_hit: "FALTA: NO GOLPEO NINGUNA BOLA",
+          lowest_ball_not_hit: "FALTA: BOLA MAS BAJA NO GOLPEADA PRIMERO",
+        }
+      }
 
-      var STRING_PLAYER1_WINS = ""
-      var STRING_PLAYER2_WINS = ""
-      var STRING_CPU_WINS = ""
-      var STRING_SCRATCH = ""
-      var STRING_BALL_NOT_HIT = ""
-      var STRING_LOWEST_BALL_NOT_HIT_FIRST = ""
+      var USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      var GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
 
-      // CHECKING THE USER LANGUAGE
-      if (userLanguage === "es") {
-        STRING_PLAYER1_WINS = "GANO EL JUGADOR 1"
-        STRING_PLAYER2_WINS = "GANO EL JUGADOR 2"
-        STRING_CPU_WINS = "GANO LA CPU"
-        STRING_SCRATCH = "FALTA: METIO LA BOLA BLANCA"
-        STRING_BALL_NOT_HIT = "FALTA: NO GOLPEO NINGUNA BOLA"
-        STRING_LOWEST_BALL_NOT_HIT_FIRST = "FALTA: BOLA MAS BAJA NO GOLPEADA PRIMERO"
-      } else {
-        STRING_PLAYER1_WINS = "PLAYER 1 WINS"
-        STRING_PLAYER2_WINS = "PLAYER 2 WINS"
-        STRING_CPU_WINS = "CPU WINS"
-        STRING_SCRATCH = "FOUL: SCRATCH"
-        STRING_BALL_NOT_HIT = "FOUL: BALL NOT HIT"
-        STRING_LOWEST_BALL_NOT_HIT_FIRST = "FOUL: LOWEST BALL NOT HIT FIRST"
+      function t(stringName) {
+        return GET_APP_STRING[stringName] || ""
       }
 
       var versusCPU = false
@@ -1622,7 +1621,7 @@
                 // CHECKING IF THERE ISN'T A PREVIOUS FOUL
                 if (this.toastShadow === null) {
                   // SHOWING THE FOUL TOAST
-                  this.showToast(STRING_SCRATCH, 365)
+                  this.showToast(t("scratch"), 365)
 
                   // WAITING 5000 MS
                   this.toastFadeOut = game.time.events.add(5000, function () {
@@ -2048,7 +2047,7 @@
             // CHECKING IF THERE ISN'T A PREVIOUS FOUL
             if (this.toastShadow === null) {
               // SHOWING THE FOUL TOAST
-              this.showToast(STRING_BALL_NOT_HIT, 410)
+              this.showToast(t("ball_not_hit"), 410)
 
               // WAITING 5000 MS
               this.toastFadeOut = game.time.events.add(5000, function () {
@@ -2088,7 +2087,7 @@
                 // CHECKING IF THERE ISN'T A PREVIOUS FOUL
                 if (this.toastShadow === null) {
                   // SHOWING THE FOUL TOAST
-                  this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST, 300)
+                  this.showToast(t("lowest_ball_not_hit"), 300)
 
                   // WAITING 5000 MS
                   this.toastFadeOut = game.time.events.add(5000, function () {
@@ -2113,7 +2112,7 @@
                 // CHECKING IF THERE ISN'T A PREVIOUS FOUL
                 if (this.toastShadow === null) {
                   // SHOWING THE FOUL TOAST
-                  this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST, 300)
+                  this.showToast(t("lowest_ball_not_hit"), 300)
 
                   // WAITING 5000 MS
                   this.toastFadeOut = game.time.events.add(5000, function () {
@@ -2138,7 +2137,7 @@
                 // CHECKING IF THERE ISN'T A PREVIOUS FOUL
                 if (this.toastShadow === null) {
                   // SHOWING THE FOUL TOAST
-                  this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST, 300)
+                  this.showToast(t("lowest_ball_not_hit"), 300)
 
                   // WAITING 5000 MS
                   this.toastFadeOut = game.time.events.add(5000, function () {
@@ -2172,20 +2171,20 @@
             // CHECKING IF THE USER IS PLAYING AGAINST THE CPU
             if (versusCPU) {
               // UPDATING THE GAME STATUS
-              textGameStatus = STRING_CPU_WINS
+              textGameStatus = t("cpu_wins")
 
               // SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
               textGameAccent = 378
             } else {
               // UPDATING THE GAME STATUS
-              textGameStatus = STRING_PLAYER2_WINS
+              textGameStatus = t("player2_wins")
 
               // SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
               textGameAccent = 335
             }
           } else if (this.turn === Pool.turnPlayer2) {
             // UPDATING THE GAME STATUS
-            textGameStatus = STRING_PLAYER1_WINS
+            textGameStatus = t("player1_wins")
 
             // SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
             textGameAccent = 335
@@ -2203,7 +2202,7 @@
           // CHECKING THE CURRENT TURN
           if (this.turn === Pool.turnPlayer1) {
             // UPDATING THE GAME STATUS
-            textGameStatus = STRING_PLAYER1_WINS
+            textGameStatus = t("player1_wins")
 
             // SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
             textGameAccent = 335
@@ -2211,13 +2210,13 @@
             // CHECKING IF THE USER IS PLAYING AGAINST THE CPU
             if (versusCPU) {
               // UPDATING THE GAME STATUS
-              textGameStatus = STRING_CPU_WINS
+              textGameStatus = t("cpu_wins")
 
               // SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
               textGameAccent = 378
             } else {
               // UPDATING THE GAME STATUS
-              textGameStatus = STRING_PLAYER2_WINS
+              textGameStatus = ("player2_wins")
 
               // SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
               textGameAccent = 335
