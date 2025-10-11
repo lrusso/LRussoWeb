@@ -1511,14 +1511,12 @@
               // Remove leading non-alphabetic characters
               var trimmedLine = line.replace(/^[^a-zA-Z]*/, "")
 
-              // Get all the words
-              var wordMatches = trimmedLine.match(/\w+/g)
-              if (wordMatches) {
-                for (var word of wordMatches) {
-                  // Check if the word has 6 or more characters
-                  if (word.length > 6) {
-                    repeatedWords[word] = (repeatedWords[word] || 0) + 1
-                  }
+              // Get the first word
+              var firstWordMatch = trimmedLine.match(/^\w+/)
+              if (firstWordMatch) {
+                var word = firstWordMatch[0]
+                if (word.length > 6) {
+                  repeatedWords[word] = (repeatedWords[word] || 0) + 1
                 }
               }
             }
