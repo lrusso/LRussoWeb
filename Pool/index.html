@@ -55,7 +55,7 @@
         en: {
           player1_wins: "PLAYER 1 WINS",
           player2_wins: "PLAYER 2 WINS",
-          cpu_wins : "CPU WINS",
+          cpu_wins: "CPU WINS",
           scratch: "FOUL: SCRATCH",
           ball_not_hit: "FOUL: BALL NOT HIT",
           lowest_ball_not_hit: "FOUL: LOWEST BALL NOT HIT FIRST",
@@ -63,11 +63,11 @@
         es: {
           player1_wins: "GANO EL JUGADOR 1",
           player2_wins: "GANO EL JUGADOR 2",
-          cpu_wins : "GANO LA CPU",
+          cpu_wins: "GANO LA CPU",
           scratch: "FALTA: METIO LA BOLA BLANCA",
           ball_not_hit: "FALTA: NO GOLPEO NINGUNA BOLA",
           lowest_ball_not_hit: "FALTA: BOLA MAS BAJA NO GOLPEADA PRIMERO",
-        }
+        },
       }
 
       var USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
@@ -2216,7 +2216,7 @@
               textGameAccent = 378
             } else {
               // UPDATING THE GAME STATUS
-              textGameStatus = ("player2_wins")
+              textGameStatus = t("player2_wins")
 
               // SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
               textGameAccent = 335
