@@ -21,22 +21,20 @@
     </style>
   </head>
   <body>
-    <div class="loading">
-      <div class="pleasewait">
-        <div class="lds-spinner">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+    <div class="pleasewait">
+      <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
     <div class="menu_container">
@@ -192,7 +190,7 @@
       window.isDirty = false
 
       var editor
-      var loadingIcon = document.getElementsByClassName("loading")[0]
+      var loadingIcon = document.querySelector(".pleasewait")
       var menuContainer = document.getElementsByClassName("menu_container")[0]
       var aceContainer = document.getElementsByClassName("ace_container")[0]
       var newBtn = document.getElementsByClassName("new")[0]
@@ -814,6 +812,7 @@
         ) {
           // HIDING THE LOADING SPINNER
           loadingIcon.style.display = "none"
+          loadingIcon.style.zIndex = 9999
 
           // SHOWING THE CODE EDITOR
           menuContainer.style.display = "block"
