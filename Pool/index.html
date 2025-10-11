@@ -609,6 +609,8 @@
         this.lastCheckCPUAngleCounter = null
         this.lastCheckCPUAngleAccurate = null
         this.lastCheckCPUMustWait = null
+        this.lastCheckCPUCalculatorStarts = null
+        this.lastCheckCPUCalculatorEnds = null
 
         this.debugKey = null
 
@@ -692,6 +694,8 @@
           this.lastCheckCPUAngleCounter = null
           this.lastCheckCPUAngleAccurate = 0.01
           this.lastCheckCPUMustWait = 0
+          this.lastCheckCPUCalculatorStarts = null
+          this.lastCheckCPUCalculatorEnds = null
 
           this.debugKey = null
         },
@@ -1957,6 +1961,13 @@
 
               // SHOWING IF THE BALL HITS A POCKET
               // console.log(this.ballHitsAPocket(startsAt, endsAt))
+
+              // SETTING THE START AND END VALUES FOR FURTHER CPU VALIDATIONS
+              this.lastCheckCPUCalculatorStarts = startsAt
+              this.lastCheckCPUCalculatorEnds = endsAt
+            } else {
+              this.lastCheckCPUCalculatorStarts = null
+              this.lastCheckCPUCalculatorEnds = null
             }
 
             // CHECKING IF THERE WAS NO HIT
@@ -2041,12 +2052,12 @@
 
           // GETTING ALL THE POCKETS
           var myPockets = [
-            { radius: 31, x: 60, y: 35 },
-            { radius: 16, x: 400, y: 43 },
-            { radius: 32, x: 738, y: 36 },
-            { radius: 32, x: 58, y: 397 },
-            { radius: 16, x: 400, y: 392 },
-            { radius: 32, x: 739, y: 394 },
+            { radius: 8, x: 86, y: 61 },
+            { radius: 8, x: 400, y: 61 },
+            { radius: 8, x: 714, y: 61 },
+            { radius: 8, x: 84, y: 374 },
+            { radius: 8, x: 400, y: 374 },
+            { radius: 8, x: 716, y: 374 },
           ]
 
           // CHECKING IF THE BALL COULD HIT ONE OF THE POCKETS
@@ -2471,6 +2482,8 @@
               this.lastCheckCPUAngleBall = null
               this.lastCheckCPUAngleList = []
               this.lastCheckCPUAngleCounter = 0
+              this.lastCheckCPUCalculatorStarts = null
+              this.lastCheckCPUCalculatorEnds = null
             } else {
               // UPDATING THE CUE ANGLE
               this.updateCue(this.cueball.x + x, this.cueball.y + y)
@@ -2490,6 +2503,8 @@
               this.lastCheckCPUAngleBall = null
               this.lastCheckCPUAngleList = []
               this.lastCheckCPUAngleCounter = 0
+              this.lastCheckCPUCalculatorStarts = null
+              this.lastCheckCPUCalculatorEnds = null
             }
           }
         },
