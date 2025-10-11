@@ -2448,7 +2448,7 @@
             .to({ alpha: 1 }, 250, Phaser.Easing.Linear.None, true)
 
           // CHECKING THE USER LANGUAGE IS RUNNING THE GAME IN SPANISH
-          if (userLanguage === "es") {
+          if (USER_LANG === "es") {
             // FADING IN THE TOAST TEXT ACCENT
             game.add
               .tween(game.state.states["Pool.Game"].toastTextAccent)
