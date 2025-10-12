@@ -1,0 +1,27 @@
+name: "Cron Job"
+
+on:
+  schedule:
+    - cron: "*/60 11 * * *"
+    # RUNS EVERY DAY AT 11:00 AM UTC
+  workflow_dispatch:
+    # ALLOWS YOU TO RUN THIS WORKFLOW MANUALLY FROM GITHUB
+
+jobs:
+  cronjob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - name: Setting up the environment
+        uses: actions/setup-java@v3
+        with:
+          distribution: "zulu"
+          java-version: 17
+      - name: Running the cron job
+        env:
+          BOT_SETTINGS: ${{ vars.BOT_SETTINGS }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: cd .github/workflows && node cronjob.js
