@@ -109,14 +109,13 @@ for (const filePath of filesToFormat) {
 
   if (messages.length > 0) {
     hasErrors = true
-    const relativePath = filePath.slice(startDir.length + 1)
 
     // eslint-disable-next-line no-console
-    console.log(`\n${relativePath}`)
+    console.log(filePath.slice(startDir.length + 1))
 
     for (const { line, column, message } of messages) {
       // eslint-disable-next-line no-console
-      console.log(`${line}:${column} - ${message}`)
+      console.log(line + ":" + column + " - " + message)
     }
   }
 }
