@@ -42,6 +42,17 @@ const htmlFiles = findFilesRecursiveSync(startDir, ".html")
 
 let errorsFound = false
 
+const getVersion = () => {
+  try {
+    const nvuVersion = execSync("java -jar vnu.jar --version").toString().trim()
+    return nvuVersion
+  } catch (err) {
+    return ""
+  }
+}
+
+console.log("Nu Html Checker version: " + getVersion())
+
 for (const filePath of htmlFiles) {
   console.log("Checking... " + filePath.substring(startDir.length, filePath.length))
   try {
