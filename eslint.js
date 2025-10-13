@@ -1,3 +1,8 @@
+import { dirname, join, extname, resolve } from "path"
+import { statSync, readdirSync, readFileSync } from "fs"
+import { fileURLToPath } from "url"
+import process from "process"
+
 // https://cdn.jsdelivr.net/npm/eslint4b-prebuilt@6.7.2/dist/eslint4b.js
 
 const B64_ESLINT =
@@ -5,19 +10,76 @@ const B64_ESLINT =
 const eslintCode = Buffer.from(B64_ESLINT, "base64").toString("utf8")
 new Function(eslintCode)()
 
+function findAllFilesRecursive(dir) {
+  const files = []
+
+  try {
+    const stats = statSync(dir)
+    if (!stats.isDirectory()) {
+      return files
+    }
+  } catch (error) {
+    return files
+  }
+
+  const entries = readdirSync(dir)
+
+  for (const entry of entries) {
+    const fullPath = join(dir, entry)
+
+    try {
+      const stats = statSync(fullPath)
+
+      if (stats.isDirectory()) {
+        files.push(...findAllFilesRecursive(fullPath))
+      } else if (stats.isFile()) {
+        files.push(fullPath)
+      }
+    } catch (error) {}
+  }
+
+  return files
+}
+
+const alphaNumericSort = (a, b) => {
+  const nameA = a.toLowerCase()
+  const nameB = b.toLowerCase()
+
+  const isDigitA = /^\d/.test(nameA)
+  const isDigitB = /^\d/.test(nameB)
+
+  if (isDigitA && !isDigitB) return -1
+  if (!isDigitA && isDigitB) return 1
+
+  return nameA.localeCompare(nameB)
+}
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const startDir = resolve(__dirname, ".")
+
+const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
+const targetExts = [".js"]
+const filesToFormat = allFiles.filter((file) => targetExts.includes(extname(file)))
+
 const Linter = globalThis.ESLint
 const linter = new Linter()
 
-const code = "var x = 1; console.log(x);"
-const config = {
-  rules: {
-    "no-console": "error",
-    semi: "error",
-  },
-}
+for (const filePath of filesToFormat) {
+  const code = readFileSync(filePath, "utf8")
+  const config = {
+    rules: {
+      "no-console": "error",
+      semi: "error",
+    },
+  }
 
-const messages = linter.verify(code, config)
-for (let i = 0; i < messages.length; i++) {
-  const message = messages[i]
-  console.log(message.line + ":" + message.column + " - " + message.message)
+  const messages = linter.verify(code, config)
+  if (messages.length > 0) {
+    console.log(filePath.substring(startDir.length + 1, filePath.length))
+  }
+  for (let i = 0; i < messages.length; i++) {
+    const message = messages[i]
+    console.log(message.line + ":" + message.column + " - " + message.message)
+  }
 }
