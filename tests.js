@@ -164,6 +164,11 @@ const runTests = async () => {
 
 const fileExists = (path) => existsSync(path)
 
+const generateHash = (s) =>
+  Math.abs(
+    [...s].reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0)
+  ).toString(16)
+
 function getVariable(filename, variableName) {
   try {
     const content = readFileSync(filename, "utf8")
@@ -176,9 +181,6 @@ function getVariable(filename, variableName) {
     return ""
   }
 }
-
-const generateHash = (s) =>
-  [...s].reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0).toString(16)
 
 const langsCheckAmountKeys = (jsonData) => {
   let keysStored = null
@@ -311,7 +313,7 @@ describe("privacy.html", () => {
     expect(fileExists("privacy.html")).toBe(true)
   })
   it("Content shows the same content", () => {
-    const expectedHash = "-102f2163"
+    const expectedHash = "102f2163"
     let currentHash = ""
 
     try {
