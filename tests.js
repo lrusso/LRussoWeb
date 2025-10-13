@@ -79,6 +79,7 @@ const langsCheckAmountKeys = (jsonData) => {
 const langsCheckSameKeys = (jsonData) => {
   let allLanguagesHaveSameKeys = true
   let referenceKeys = null
+  const differences = {}
 
   try {
     jsonData = JSON.parse(jsonData)
@@ -90,17 +91,24 @@ const langsCheckSameKeys = (jsonData) => {
       if (!referenceKeys) {
         referenceKeys = keys
       } else {
-        if (
-          referenceKeys.length !== keys.length ||
-          !referenceKeys.every((key, index) => key === keys[index])
-        ) {
+        // Find keys missing or extra compared to reference
+        const missingKeys = referenceKeys.filter((k) => !keys.includes(k))
+        const extraKeys = keys.filter((k) => !referenceKeys.includes(k))
+
+        if (missingKeys.length > 0 || extraKeys.length > 0) {
           allLanguagesHaveSameKeys = false
-          break
+          differences[lang] = {}
+          if (missingKeys.length > 0) differences[lang].missing = missingKeys
+          if (extraKeys.length > 0) differences[lang].extra = extraKeys
         }
       }
     }
   } catch (err) {
     allLanguagesHaveSameKeys = false
+  }
+
+  if (!allLanguagesHaveSameKeys) {
+    allLanguagesHaveSameKeys = differences
   }
 
   return allLanguagesHaveSameKeys
