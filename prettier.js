@@ -133,30 +133,24 @@ const parseCode = async (codeToFormat, filePath, mustFix) => {
       ],
     })
 
+    const relativePath = filePath.substring(startDir.length + 1)
+    const unchanged = formattedCode === codeToFormat
+
     if (mustFix) {
       filesModified = true
-      if (formattedCode === codeToFormat) {
-        console.log(
-          "\x1b[90m" +
-            filePath.substring(startDir.length + 1, filePath.length) +
-            "\x1b[0m" +
-            " (unchanged)"
-        )
+
+      if (unchanged) {
+        console.log("\x1b[90m" + relativePath + "\x1b[0m (unchanged)")
       } else {
-        console.log(filePath.substring(startDir.length + 1, filePath.length))
+        console.log(relativePath)
       }
-    } else if (formattedCode !== codeToFormat) {
-      console.log(
-        "[\x1b[33mwarn\x1b[0m]",
-        filePath.substring(startDir.length + 1, filePath.length)
-      )
+      return formattedCode
+    } else if (!unchanged) {
+      console.log("[\x1b[33mwarn\x1b[0m] " + relativePath)
       filesModified = true
     }
-
-    return formattedCode
-  } catch (error) {
-    return codeToFormat
-  }
+  } catch (error) {}
+  return codeToFormat
 }
 
 const runPrettier = async (mustFix) => {
