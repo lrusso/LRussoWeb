@@ -17,4 +17,7 @@ const config = {
 }
 
 const messages = linter.verify(code, config)
-console.log(messages)
+for (let i = 0; i < messages.length; i++) {
+  const message = messages[i]
+  console.log(message.line + ":" + message.column + " - " + message.message)
+}
