@@ -17,6 +17,151 @@ global.expect = expect
 global.beforeEach = beforeEach
 global.afterEach = afterEach
 
+const runTests = async () => {
+  const startTime = Date.now()
+  const result = await run()
+
+  let hasErrors = false
+
+  let testsPassed = 0
+  let testsFailed = 0
+  let testsSuitesPassed = 0
+  let testsSuitesFailed = 0
+
+  /* eslint-disable no-undef */
+  const passedSuites = new Set()
+  /* eslint-disable no-undef */
+  const failedSuites = new Set()
+
+  for (let i = 0; i < result.length; i++) {
+    const testData = result[i]
+    const testPassed = testData.status === "pass"
+    const testName = testData.testPath[1]
+    const testScenario = testData.testPath[2]
+
+    if (testPassed) {
+      testsPassed++
+
+      passedSuites.add(testName)
+
+      // eslint-disable-next-line no-console
+      console.log(
+        "\x1b[42m\x1b[38;2;255;255;255m PASS \x1b[0m",
+        "\x1b[38;2;168;168;168m" + testName + "\x1b[0m",
+        testScenario
+      )
+    } else {
+      hasErrors = true
+
+      testsFailed++
+
+      failedSuites.add(testName)
+
+      const testError = testData.errors[0].split("\n")
+
+      // eslint-disable-next-line no-console
+      console.log(
+        "\x1b[41m\x1b[38;2;255;255;255m FAIL \x1b[0m",
+        "\x1b[38;2;168;168;168m" + testName + "\x1b[0m",
+        testScenario
+      )
+      // eslint-disable-next-line no-console
+      console.log(
+        "Expected: \x1b[38;2;0;165;0m" +
+          testError[3].trim() +
+          "\x1b[0m\n" +
+          "Received: \x1b[38;2;220;0;0m" +
+          testError[5].trim() +
+          "\x1b[0m"
+      )
+    }
+  }
+
+  // Count unique suites
+  testsSuitesPassed = passedSuites.size
+  testsSuitesFailed = failedSuites.size
+
+  const endTime = Date.now()
+  const elapsed = Math.round(endTime - startTime)
+
+  // eslint-disable-next-line no-console
+  console.log("")
+
+  const green = "\x1b[1m\x1b[38;2;0;180;0m"
+  const red = "\x1b[1m\x1b[38;2;220;0;0m"
+  const reset = "\x1b[0m"
+
+  if (hasErrors) {
+    // eslint-disable-next-line no-console
+    console.log(
+      "Test Suites: " +
+        red +
+        testsSuitesFailed +
+        " failed" +
+        reset +
+        ", " +
+        green +
+        testsSuitesPassed +
+        " passed" +
+        reset +
+        ", " +
+        (testsSuitesFailed + testsSuitesPassed) +
+        " total"
+    )
+
+    // eslint-disable-next-line no-console
+    console.log(
+      "Tests:       " +
+        red +
+        testsFailed +
+        " failed" +
+        reset +
+        ", " +
+        green +
+        testsPassed +
+        " passed" +
+        reset +
+        ", " +
+        (testsFailed + testsPassed) +
+        " total"
+    )
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(
+      "Test Suites: " +
+        green +
+        testsSuitesPassed +
+        " passed" +
+        reset +
+        ", " +
+        (testsSuitesFailed + testsSuitesPassed) +
+        " total"
+    )
+
+    // eslint-disable-next-line no-console
+    console.log(
+      "Tests:       " +
+        green +
+        testsPassed +
+        " passed" +
+        reset +
+        ", " +
+        (testsFailed + testsPassed) +
+        " total"
+    )
+  }
+
+  // eslint-disable-next-line no-console
+  console.log("Time:        " + elapsed + " ms")
+
+  // eslint-disable-next-line no-console
+  console.log("")
+
+  if (hasErrors) {
+    process.exit(1)
+  }
+}
+
 const exists = (path) => existsSync(path)
 
 function getVariable(filename, variableName) {
@@ -227,149 +372,4 @@ describe("index.html", () => {
   })
 })
 
-const main = async () => {
-  const startTime = Date.now()
-  const result = await run()
-
-  let hasErrors = false
-
-  let testsPassed = 0
-  let testsFailed = 0
-  let testsSuitesPassed = 0
-  let testsSuitesFailed = 0
-
-  /* eslint-disable no-undef */
-  const passedSuites = new Set()
-  /* eslint-disable no-undef */
-  const failedSuites = new Set()
-
-  for (let i = 0; i < result.length; i++) {
-    const testData = result[i]
-    const testPassed = testData.status === "pass"
-    const testName = testData.testPath[1]
-    const testScenario = testData.testPath[2]
-
-    if (testPassed) {
-      testsPassed++
-
-      passedSuites.add(testName)
-
-      // eslint-disable-next-line no-console
-      console.log(
-        "\x1b[42m\x1b[38;2;255;255;255m PASS \x1b[0m",
-        "\x1b[38;2;168;168;168m" + testName + "\x1b[0m",
-        testScenario
-      )
-    } else {
-      hasErrors = true
-
-      testsFailed++
-
-      failedSuites.add(testName)
-
-      const testError = testData.errors[0].split("\n")
-
-      // eslint-disable-next-line no-console
-      console.log(
-        "\x1b[41m\x1b[38;2;255;255;255m FAIL \x1b[0m",
-        "\x1b[38;2;168;168;168m" + testName + "\x1b[0m",
-        testScenario
-      )
-      // eslint-disable-next-line no-console
-      console.log(
-        "Expected: \x1b[38;2;0;165;0m" +
-          testError[3].trim() +
-          "\x1b[0m\n" +
-          "Received: \x1b[38;2;220;0;0m" +
-          testError[5].trim() +
-          "\x1b[0m"
-      )
-    }
-  }
-
-  // Count unique suites
-  testsSuitesPassed = passedSuites.size
-  testsSuitesFailed = failedSuites.size
-
-  const endTime = Date.now()
-  const elapsed = Math.round(endTime - startTime)
-
-  // eslint-disable-next-line no-console
-  console.log("")
-
-  const green = "\x1b[1m\x1b[38;2;0;180;0m"
-  const red = "\x1b[1m\x1b[38;2;220;0;0m"
-  const reset = "\x1b[0m"
-
-  if (hasErrors) {
-    // eslint-disable-next-line no-console
-    console.log(
-      "Test Suites: " +
-        red +
-        testsSuitesFailed +
-        " failed" +
-        reset +
-        ", " +
-        green +
-        testsSuitesPassed +
-        " passed" +
-        reset +
-        ", " +
-        (testsSuitesFailed + testsSuitesPassed) +
-        " total"
-    )
-
-    // eslint-disable-next-line no-console
-    console.log(
-      "Tests:       " +
-        red +
-        testsFailed +
-        " failed" +
-        reset +
-        ", " +
-        green +
-        testsPassed +
-        " passed" +
-        reset +
-        ", " +
-        (testsFailed + testsPassed) +
-        " total"
-    )
-  } else {
-    // eslint-disable-next-line no-console
-    console.log(
-      "Test Suites: " +
-        green +
-        testsSuitesPassed +
-        " passed" +
-        reset +
-        ", " +
-        (testsSuitesFailed + testsSuitesPassed) +
-        " total"
-    )
-
-    // eslint-disable-next-line no-console
-    console.log(
-      "Tests:       " +
-        green +
-        testsPassed +
-        " passed" +
-        reset +
-        ", " +
-        (testsFailed + testsPassed) +
-        " total"
-    )
-  }
-
-  // eslint-disable-next-line no-console
-  console.log("Time:        " + elapsed + " ms")
-
-  // eslint-disable-next-line no-console
-  console.log("")
-
-  if (hasErrors) {
-    process.exit(1)
-  }
-}
-
-main()
+runTests()
