@@ -37,11 +37,6 @@ const main = async () => {
     const testPassed = testData.status === "pass"
     const testName = testData.testPath[1]
     const testScenario = testData.testPath[2]
-    const testError =
-      testData.errors.length > 0 ? testData.errors[0].split("\n") : ""
-    const testFailMessage = testError
-      ? "Expected: " + testError[3].trim() + " Received:" + testError[5].trim()
-      : ""
 
     if (testPassed) {
       // eslint-disable-next-line no-console
@@ -53,6 +48,8 @@ const main = async () => {
     } else {
       hasErrors = true
 
+      const testError = testData.errors[0].split("\n")
+
       // eslint-disable-next-line no-console
       console.log(
         "\x1b[41m\x1b[38;2;255;255;255m FAIL \x1b[0m",
@@ -60,7 +57,10 @@ const main = async () => {
         testScenario
       )
       // eslint-disable-next-line no-console
-      console.log(testFailMessage)
+      console.log(
+        "\x1b[38;2;230;0;0m%s\x1b[0m",
+        "Expected: " + testError[3].trim() + "\nReceived: " + testError[5].trim()
+      )
     }
   }
 
