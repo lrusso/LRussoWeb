@@ -104,7 +104,9 @@ const parseCode = async (codeToFormat, filePath) => {
       ? "html"
       : filePath.endsWith(".md")
         ? "markdown"
-        : "babel"
+        : filePath.endsWith(".yml")
+          ? "yaml"
+          : "babel"
 
   try {
     const formattedCode = await prettier.format(codeToFormat, {
@@ -130,8 +132,10 @@ const parseCode = async (codeToFormat, filePath) => {
 }
 
 const runPrettier = async () => {
-  formatFiles(findFilesRecursiveSync(startDir, ".html"))
-  formatFiles(findFilesRecursiveSync(startDir, ".js"))
+  await formatFiles(findFilesRecursiveSync(startDir, ".html"))
+  await formatFiles(findFilesRecursiveSync(startDir, ".js"))
+  await formatFiles(findFilesRecursiveSync(startDir, ".md"))
+  await formatFiles(findFilesRecursiveSync(startDir, ".yml"))
 }
 
 runPrettier()

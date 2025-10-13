@@ -248,9 +248,11 @@ async function task4(newspapers) {
               .trim()
 
             const hasMinimumWords = text.split(/\s+/).filter(Boolean).length > 4
-            const differentSection = match[1].indexOf("href") > -1 && match[1].indexOf(sectionName) === -1
+            const differentSection =
+              match[1].indexOf("href") > -1 && match[1].indexOf(sectionName) === -1
             const exceedsLimit = counter > maxHeadlines
-            const mustBeIncluded = hasMinimumWords && !exceedsLimit && !differentSection
+            const mustBeIncluded =
+              hasMinimumWords && !exceedsLimit && !differentSection
 
             if (mustBeIncluded) {
               result =
@@ -287,7 +289,10 @@ async function runTasks() {
     }
 
     // SENDING AN EMAIL WITH THE SYSTEM REPORT
-    await sendEmail(settings.emailSubjects.systemReport, report.join("<br><br>").toString())
+    await sendEmail(
+      settings.emailSubjects.systemReport,
+      report.join("<br><br>").toString()
+    )
 
     // EXITING THE PROCESS WITH AN ERROR IN ORDER TO TRIGGER A GITHUB NOTIFICATION
     process.exit(1)
