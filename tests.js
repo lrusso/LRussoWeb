@@ -279,24 +279,31 @@ const main = async () => {
   // eslint-disable-next-line no-console
   console.log("")
 
+  const green = "\x1b[1m\x1b[38;2;0;180;0m"
+  const red = "\x1b[1m\x1b[38;2;220;0;0m"
+  const reset = "\x1b[0m"
+
   if (hasErrors) {
     // eslint-disable-next-line no-console
     console.log(
       "Tests: " +
+        red +
         failed +
-        " failed, " +
+        " failed" +
+        reset +
+        ", " +
+        green +
         passed +
-        " passed, " +
+        " passed" +
+        reset +
+        ", " +
         (failed + passed) +
         " total"
     )
   } else {
-    const green = "\x1b[1m\x1b[38;2;0;180;0m"
-    const reset = "\x1b[0m"
-
     // eslint-disable-next-line no-console
     console.log(
-      "Tests: " + green + passed + " passed" + reset + ", " + passed + " total"
+      "Tests: " + green + passed + " passed" + reset + " " + passed + " total"
     )
   }
 
