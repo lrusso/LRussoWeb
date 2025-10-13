@@ -4,6 +4,8 @@ import { execSync } from "child_process"
 import { fileURLToPath } from "url"
 import process from "process"
 
+// https://app.unpkg.com/vnu-jar@23.4.11
+
 function findFilesRecursiveSync(dir, ext) {
   const files = []
 
@@ -37,14 +39,14 @@ function findFilesRecursiveSync(dir, ext) {
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-const startDir = resolve(__dirname, "../../")
+const startDir = resolve(__dirname, ".")
 const htmlFiles = findFilesRecursiveSync(startDir, ".html")
 
 let errorsFound = false
 
 const getVersion = () => {
   try {
-    const nvuVersion = execSync("java -jar vnu.jar --version").toString().trim()
+    const nvuVersion = execSync("java -jar w3c.jar --version").toString().trim()
     return nvuVersion
   } catch (err) {
     return ""
@@ -59,7 +61,7 @@ for (const filePath of htmlFiles) {
   )
   try {
     const nvuReport = execSync(
-      "java -jar vnu.jar --exit-zero-always --stdout --html " + filePath
+      "java -jar w3c.jar --exit-zero-always --stdout --html " + filePath
     )
     const reportText = nvuReport
       .toString()

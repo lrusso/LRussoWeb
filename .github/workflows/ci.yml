@@ -25,4 +25,4 @@ jobs:
       - name: Running Prettier
         run: node prettier.js
       - name: Running the W3C Validator
-        run: cd .github/workflows && node ci.js
+        run: node w3c.js
