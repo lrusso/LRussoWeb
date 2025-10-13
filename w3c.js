@@ -6,7 +6,7 @@ import process from "process"
 
 // https://app.unpkg.com/vnu-jar@23.4.11
 
-function findFilesRecursiveSync(dir, ext) {
+function findAllFilesRecursive(dir) {
   const files = []
 
   try {
@@ -14,7 +14,7 @@ function findFilesRecursiveSync(dir, ext) {
     if (!stats.isDirectory()) {
       return files
     }
-  } catch (e) {
+  } catch (error) {
     return files
   }
 
@@ -27,20 +27,32 @@ function findFilesRecursiveSync(dir, ext) {
       const stats = statSync(fullPath)
 
       if (stats.isDirectory()) {
-        files.push(...findFilesRecursiveSync(fullPath, ext))
-      } else if (stats.isFile() && extname(entry) === ext) {
+        files.push(...findAllFilesRecursive(fullPath))
+      } else if (stats.isFile()) {
         files.push(fullPath)
       }
-    } catch (e) {}
+    } catch (error) {}
   }
 
   return files
 }
 
+const alphaNumericSort = (a, b) => {
+  const nameA = a.toLowerCase()
+  const nameB = b.toLowerCase()
+
+  const isDigitA = /^\d/.test(nameA)
+  const isDigitB = /^\d/.test(nameB)
+
+  if (isDigitA && !isDigitB) return -1
+  if (!isDigitA && isDigitB) return 1
+
+  return nameA.localeCompare(nameB)
+}
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const startDir = resolve(__dirname, ".")
-const htmlFiles = findFilesRecursiveSync(startDir, ".html")
 
 let errorsFound = false
 
@@ -55,7 +67,11 @@ const getVersion = () => {
 
 console.log("Nu Html Checker version: " + getVersion())
 
-for (const filePath of htmlFiles) {
+const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
+const targetExts = [".html", ".htm"]
+const filesToFormat = allFiles.filter((file) => targetExts.includes(extname(file)))
+
+for (const filePath of filesToFormat) {
   console.log(
     "Checking... " + filePath.substring(startDir.length + 1, filePath.length)
   )
