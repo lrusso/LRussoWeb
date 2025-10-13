@@ -301,39 +301,65 @@ const main = async () => {
   const red = "\x1b[1m\x1b[38;2;220;0;0m"
   const reset = "\x1b[0m"
 
-  // eslint-disable-next-line no-console
-  console.log(
-    "Test Suites: " +
-      red +
-      testsSuitesFailed +
-      " failed" +
-      reset +
-      ", " +
-      green +
-      testsSuitesPassed +
-      " passed" +
-      reset +
-      ", " +
-      (testsSuitesFailed + testsSuitesPassed) +
-      " total"
-  )
+  if (hasErrors) {
+    // eslint-disable-next-line no-console
+    console.log(
+      "Test Suites: " +
+        red +
+        testsSuitesFailed +
+        " failed" +
+        reset +
+        ", " +
+        green +
+        testsSuitesPassed +
+        " passed" +
+        reset +
+        ", " +
+        (testsSuitesFailed + testsSuitesPassed) +
+        " total"
+    )
 
-  // eslint-disable-next-line no-console
-  console.log(
-    "Tests:       " +
-      red +
-      testsFailed +
-      " failed" +
-      reset +
-      ", " +
-      green +
-      testsPassed +
-      " passed" +
-      reset +
-      ", " +
-      (testsFailed + testsPassed) +
-      " total"
-  )
+    // eslint-disable-next-line no-console
+    console.log(
+      "Tests:       " +
+        red +
+        testsFailed +
+        " failed" +
+        reset +
+        ", " +
+        green +
+        testsPassed +
+        " passed" +
+        reset +
+        ", " +
+        (testsFailed + testsPassed) +
+        " total"
+    )
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(
+      "Test Suites: " +
+        green +
+        testsSuitesPassed +
+        " passed" +
+        reset +
+        ", " +
+        (testsSuitesFailed + testsSuitesPassed) +
+        " total"
+    )
+
+    // eslint-disable-next-line no-console
+    console.log(
+      "Tests:       " +
+        green +
+        testsPassed +
+        " passed" +
+        reset +
+        ", " +
+        (testsFailed + testsPassed) +
+        " total"
+    )
+  }
 
   // eslint-disable-next-line no-console
   console.log("Time:        " + elapsed / 1000 + " s")
