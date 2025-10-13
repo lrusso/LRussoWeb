@@ -200,7 +200,17 @@ const runPrettier = async (mustFix) => {
   }
 
   const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
-  const targetExts = [".html", ".js", ".md", ".yml", ".yaml", ".ts", ".mts", ".cts"]
+  const targetExts = [
+    ".html",
+    ".htm",
+    ".js",
+    ".md",
+    ".yml",
+    ".yaml",
+    ".ts",
+    ".mts",
+    ".cts",
+  ]
   const filesToFormat = allFiles.filter((file) => targetExts.includes(extname(file)))
 
   await formatFiles(filesToFormat, mustFix)
