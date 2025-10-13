@@ -1,18 +1,14 @@
+import { dirname, join, extname, resolve } from "path"
+import { statSync, readdirSync } from "fs"
 import { execSync } from "child_process"
-import process from "process"
-import * as fs from "fs"
-import * as path from "path"
 import { fileURLToPath } from "url"
-import { dirname } from "path"
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import process from "process"
 
 function findFilesRecursiveSync(dir, ext) {
   const files = []
 
   try {
-    const stats = fs.statSync(dir)
+    const stats = statSync(dir)
     if (!stats.isDirectory()) {
       return files
     }
@@ -20,17 +16,17 @@ function findFilesRecursiveSync(dir, ext) {
     return files
   }
 
-  const entries = fs.readdirSync(dir)
+  const entries = readdirSync(dir)
 
   for (const entry of entries) {
-    const fullPath = path.join(dir, entry)
+    const fullPath = join(dir, entry)
 
     try {
-      const stats = fs.statSync(fullPath)
+      const stats = statSync(fullPath)
 
       if (stats.isDirectory()) {
         files.push(...findFilesRecursiveSync(fullPath, ext))
-      } else if (stats.isFile() && path.extname(entry) === ext) {
+      } else if (stats.isFile() && extname(entry) === ext) {
         files.push(fullPath)
       }
     } catch (e) {}
@@ -39,10 +35,10 @@ function findFilesRecursiveSync(dir, ext) {
   return files
 }
 
-const startDir = path.resolve(__dirname, "../../")
-const fileExtension = ".html"
-
-const htmlFiles = findFilesRecursiveSync(startDir, fileExtension)
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const startDir = resolve(__dirname, "../../")
+const htmlFiles = findFilesRecursiveSync(startDir, ".html")
 
 let errorsFound = false
 
