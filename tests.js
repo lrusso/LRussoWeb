@@ -43,7 +43,7 @@ const main = async () => {
       // eslint-disable-next-line no-console
       console.log(
         "\x1b[42m\x1b[38;2;255;255;255m PASS \x1b[0m",
-        testName,
+        "\x1b[38;2;168;168;168m" + testName + "\x1b[0m",
         testScenario
       )
     } else {
@@ -52,7 +52,7 @@ const main = async () => {
       // eslint-disable-next-line no-console
       console.log(
         "\x1b[41m\x1b[38;2;255;255;255m FAIL \x1b[0m",
-        testName,
+        "\x1b[38;2;168;168;168m" + testName + "\x1b[0m",
         testScenario
       )
       // eslint-disable-next-line no-console
