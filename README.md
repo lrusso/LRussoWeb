@@ -121,7 +121,6 @@ This GitHub Actions workflow, located in the [cronjob.yml](https://github.com/lr
 ```json
 {
   "checks": {
-    "w3c": ["../../index.html", "../../privacy.html"],
     "urls": [
       { "https://www.example.com/products": "Out of Stock" },
       { "https://www.anothersite.org/news": ["Breaking News", "Urgent Update"] }
@@ -156,8 +155,6 @@ This GitHub Actions workflow, located in the [cronjob.yml](https://github.com/lr
   }
 }
 ```
-
-- **w3c**: A list of file paths to be checked against W3C validation rules. It's an array of strings. Each element in the array should be a string representing a valid file path.
 
 * **urls**: A list of URLs to check for the presence or absence of specific strings. It's an array of objects. Each object in the array should have a single key-value pair where:
 
