@@ -69,8 +69,30 @@ for (const filePath of filesToFormat) {
   const code = readFileSync(filePath, "utf8")
   const config = {
     rules: {
+      "no-alert": "error",
       "no-console": "error",
-      semi: "never",
+      "no-dupe-keys": "error",
+      "no-duplicate-case": "error",
+      "no-duplicate-imports": "error",
+      "no-empty": "error",
+      "no-shadow": "error",
+      "no-tabs": "error",
+      "no-undef": "error",
+      "no-unused-expressions": "error",
+      "no-unused-vars": [
+        "error",
+        {
+          vars: "all",
+          args: "all",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "err",
+          ignoreRestSiblings: false,
+        },
+      ],
+    },
+    env: {
+      browser: true,
+      node: true,
     },
     parserOptions: {
       ecmaVersion: 2020,
