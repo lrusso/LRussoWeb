@@ -35,7 +35,9 @@ function findAllFilesRecursive(dir) {
       } else if (stats.isFile()) {
         files.push(fullPath)
       }
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
   }
 
   return files
@@ -62,11 +64,14 @@ const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
 const targetExts = [".js"]
 const filesToFormat = allFiles.filter((file) => targetExts.includes(extname(file)))
 
+// eslint-disable-next-line
 const Linter = globalThis.ESLint
 const linter = new Linter()
 
 for (const filePath of filesToFormat) {
-  const code = readFileSync(filePath, "utf8")
+  let code = readFileSync(filePath, "utf8")
+  code = code.replace(/import\.meta\.url/g, "''")
+
   const config = {
     rules: {
       "no-alert": "error",
@@ -102,10 +107,17 @@ for (const filePath of filesToFormat) {
 
   const messages = linter.verify(code, config)
   if (messages.length > 0) {
+    // eslint-disable-next-line no-console
     console.log(filePath.substring(startDir.length + 1, filePath.length))
   }
+
   for (let i = 0; i < messages.length; i++) {
     const message = messages[i]
+    // eslint-disable-next-line no-console
     console.log(message.line + ":" + message.column + " - " + message.message)
+  }
+
+  if (messages.length > 0) {
+    process.exit(1)
   }
 }

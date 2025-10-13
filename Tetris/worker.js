@@ -20,6 +20,6 @@ self.addEventListener("fetch", function (event) {
         }
         return fetch(event.request)
       })
-      .catch(function (error) {})
+      .catch(function () {})
   )
 })
