@@ -38,8 +38,8 @@ describe("404.html", () => {
     expect(fileExists).toBe(true)
   })
   it("Contains redirects", () => {
-    const redirectsList = getVariable("404.html", "redirects")
-    expect(redirectsList).not.toBe("")
+    const variableExists = getVariable("404.html", "redirects")
+    expect(variableExists).not.toBe("")
   })
   it("The redirects list is a JSON", () => {
     const redirectsList = getVariable("404.html", "redirects").replace(
@@ -100,6 +100,10 @@ describe("index.html", () => {
   it("File exists", () => {
     const fileExists = exists("index.html")
     expect(fileExists).toBe(true)
+  })
+  it("Internationalization variable exists", () => {
+    const variableExists = getVariable("index.html", "STR")
+    expect(variableExists).not.toBe("")
   })
 })
 
