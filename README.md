@@ -156,33 +156,33 @@ This GitHub Actions workflow, located in the [cronjob.yml](https://github.com/lr
 }
 ```
 
-* **urls**: A list of URLs to check for the presence or absence of specific strings. It's an array of objects. Each object in the array should have a single key-value pair where:
+- **urls**: A list of URLs to check for the presence or absence of specific strings. It's an array of objects. Each object in the array should have a single key-value pair where:
 
   - The key is a string representing the URL to check.
   - The value can be either:
     - A string: The system will report if this string is not found on the page.
     - An array of strings: The system will report if any of these strings are found on the page.
 
-* **dates**: A list of dates associated with specific events. This can be used for reminders or to track upcoming events. It's an array of objects. Each object in the array should have a single key-value pair where:
+- **dates**: A list of dates associated with specific events. This can be used for reminders or to track upcoming events. It's an array of objects. Each object in the array should have a single key-value pair where:
 
   - The key is a string in `YYYY-MM-DD` format representing the date.
   - The value is a string representing the name of the event.
 
-* **domains**: A list of domains to be checked on specific dates. This could be for monitoring domain expiration, SSL certificate validity, or other date-sensitive domain-related tasks. It's an array of objects. Each object in the array should have a single key-value pair where:
+- **domains**: A list of domains to be checked on specific dates. This could be for monitoring domain expiration, SSL certificate validity, or other date-sensitive domain-related tasks. It's an array of objects. Each object in the array should have a single key-value pair where:
 
   - The key is a string in `YYYY-MM-DD` format representing the date.
   - The value is a string representing the domain name (e.g., example.com).
 
-* **newspapers**: A configuration for getting the headlines from sections of newspapers. It's an array of objects. Each object in the array should have a single key-value pair where:
+- **newspapers**: A configuration for getting the headlines from sections of newspapers. It's an array of objects. Each object in the array should have a single key-value pair where:
 
   - The key is a string representing the name of the section (e.g., "TECH", "SPORTS").
   - The value is an array of strings, where each string is a URL to a specific newspaper section.
 
-* **userLanguage**: Specifies the preferred user language(s) in a comma-separated format, similar to the Accept-Language HTTP header. It's a String. A string containing language tags and optional quality values (q-factor).
+- **userLanguage**: Specifies the preferred user language(s) in a comma-separated format, similar to the Accept-Language HTTP header. It's a String. A string containing language tags and optional quality values (q-factor).
 
-* **systemReport**: The localized string to be used as the subject in the email that is sent to the user when the bot detects something that must be reported. It's a String. Any string.
+- **systemReport**: The localized string to be used as the subject in the email that is sent to the user when the bot detects something that must be reported. It's a String. Any string.
 
-* **newspaperHeadlines**: The localized string to be used as the subject in the email that is sent to the user with the list of newspaper headlines. It's a String. Any string.
+- **newspaperHeadlines**: The localized string to be used as the subject in the email that is sent to the user with the list of newspaper headlines. It's a String. Any string.
 
 Once you create your `BOT_SETTINGS` object, you will need to:
 
