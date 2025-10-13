@@ -273,6 +273,7 @@ const main = async () => {
       )
     }
   }
+
   const endTime = Date.now()
   const elapsed = Math.round(endTime - startTime)
 
