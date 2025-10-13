@@ -58,8 +58,12 @@ const main = async () => {
       )
       // eslint-disable-next-line no-console
       console.log(
-        "\x1b[38;2;230;0;0m%s\x1b[0m",
-        "Expected: " + testError[3].trim() + "\nReceived: " + testError[5].trim()
+        "Expected: \x1b[38;2;0;165;0m" +
+          testError[3].trim() +
+          "\x1b[0m\n" + // Green
+          "Received: \x1b[38;2;220;0;0m" +
+          testError[5].trim() +
+          "\x1b[0m" // Red
       )
     }
   }
