@@ -32,7 +32,7 @@ function getVariable(filename, variableName) {
   }
 }
 
-const hash = (s) =>
+const generateHash = (s) =>
   [...s].reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0).toString(16)
 
 const langsCheckAmountKeys = (jsonData) => {
@@ -74,6 +74,36 @@ const langsCheckAmountKeys = (jsonData) => {
   }
 
   return sameAmount
+}
+
+const langsCheckSameKeys = (jsonData) => {
+  let allLanguagesHaveSameKeys = true
+  let referenceKeys = null
+
+  try {
+    jsonData = JSON.parse(jsonData)
+    const languages = Object.keys(jsonData)
+
+    for (const lang of languages) {
+      const keys = Object.keys(jsonData[lang]).sort()
+
+      if (!referenceKeys) {
+        referenceKeys = keys
+      } else {
+        if (
+          referenceKeys.length !== keys.length ||
+          !referenceKeys.every((key, index) => key === keys[index])
+        ) {
+          allLanguagesHaveSameKeys = false
+          break
+        }
+      }
+    }
+  } catch (err) {
+    allLanguagesHaveSameKeys = false
+  }
+
+  return allLanguagesHaveSameKeys
 }
 
 describe("404.html", () => {
@@ -135,7 +165,7 @@ describe("privacy.html", () => {
 
     try {
       const content = readFileSync("privacy.html", "utf8")
-      currentHash = hash(content)
+      currentHash = generateHash(content)
     } catch (err) {
       currentHash = ""
     }
@@ -163,35 +193,11 @@ describe("index.html", () => {
     expect(sameAmount).toBe(true)
   })
   it("All the languages have the same keys", () => {
-    let STR = getVariable("index.html", "STR")
+    const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
 
-    let allLanguagesHaveSameKeys = true
-    let referenceKeys = null
-
-    try {
-      STR = JSON.parse(STR)
-      const languages = Object.keys(STR)
-
-      for (const lang of languages) {
-        const keys = Object.keys(STR[lang]).sort()
-
-        if (!referenceKeys) {
-          referenceKeys = keys
-        } else {
-          if (
-            referenceKeys.length !== keys.length ||
-            !referenceKeys.every((key, index) => key === keys[index])
-          ) {
-            allLanguagesHaveSameKeys = false
-            break
-          }
-        }
-      }
-    } catch (err) {
-      allLanguagesHaveSameKeys = false
-    }
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(STR)
 
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
