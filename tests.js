@@ -1,3 +1,4 @@
+import { existsSync, readFileSync } from "fs"
 import process from "process"
 
 // https://unpkg.com/jest-lite@1.0.0-alpha.4/dist/core.js
@@ -16,14 +17,42 @@ global.expect = expect
 global.beforeEach = beforeEach
 global.afterEach = afterEach
 
-describe("<Button />", () => {
-  it("renders children", () => {
-    const button = false
-    expect(button).toBe(false)
+const exists = (path) => existsSync(path)
+
+function getVariable(filename, variableName) {
+  try {
+    const content = readFileSync(filename, "utf8")
+    const regex = new RegExp(
+      `\\b(?:const|let|var)\\s+${variableName}\\s*=\\s*([\\s\\S]*?)(?=\\n\\s*(?:const|let|var|function|class|export|import|$))`
+    )
+    const match = content.match(regex)
+    return match ? match[1].trim() : null
+  } catch (err) {
+    return ""
+  }
+}
+
+describe("404.html", () => {
+  it("File exists", () => {
+    const fileExists = exists("404.html")
+    expect(fileExists).toBe(true)
   })
-  it("renders parent", () => {
-    const button = true
-    expect(button).toBe(false)
+  it("Contains redirects", () => {
+    const redirectsList = getVariable("404.html", "redirects")
+    expect(redirectsList).not.toBe("")
+  })
+  it("Redirects are valid", () => {
+    const redirectsList = getVariable("404.html", "redirects").replace(
+      /,\s*([}\]])/g,
+      "$1"
+    )
+    let isValidJSON = true
+    try {
+      JSON.parse(redirectsList)
+    } catch (err) {
+      isValidJSON = false
+    }
+    expect(isValidJSON).toBe(true)
   })
 })
 
