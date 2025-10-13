@@ -228,9 +228,12 @@ describe("index.html", () => {
 })
 
 const main = async () => {
+  const startTime = Date.now()
   const result = await run()
 
   let hasErrors = false
+  let passed = 0
+  let failed = 0
 
   for (let i = 0; i < result.length; i++) {
     const testData = result[i]
@@ -239,6 +242,8 @@ const main = async () => {
     const testScenario = testData.testPath[2]
 
     if (testPassed) {
+      passed++
+
       // eslint-disable-next-line no-console
       console.log(
         "\x1b[42m\x1b[38;2;255;255;255m PASS \x1b[0m",
@@ -248,6 +253,7 @@ const main = async () => {
     } else {
       hasErrors = true
 
+      failed++
       const testError = testData.errors[0].split("\n")
 
       // eslint-disable-next-line no-console
@@ -267,6 +273,38 @@ const main = async () => {
       )
     }
   }
+  const endTime = Date.now()
+  const elapsed = Math.round(endTime - startTime)
+
+  // eslint-disable-next-line no-console
+  console.log("")
+
+  if (hasErrors) {
+    // eslint-disable-next-line no-console
+    console.log(
+      "Tests: " +
+        failed +
+        " failed, " +
+        passed +
+        " passed, " +
+        (failed + passed) +
+        " total"
+    )
+  } else {
+    const green = "\x1b[1m\x1b[38;2;0;180;0m"
+    const reset = "\x1b[0m"
+
+    // eslint-disable-next-line no-console
+    console.log(
+      "Tests: " + green + passed + " passed" + reset + ", " + passed + " total"
+    )
+  }
+
+  // eslint-disable-next-line no-console
+  console.log("Time:  " + elapsed / 1000 + " s")
+
+  // eslint-disable-next-line no-console
+  console.log("")
 
   if (hasErrors) {
     process.exit(1)
