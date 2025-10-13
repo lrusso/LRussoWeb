@@ -21,5 +21,10 @@ describe("<Button />", () => {
   })
 })
 
-const result = await run()
-console.log(result)
+const main = async () => {
+  const result = await run()
+  // eslint-disable-next-line no-console
+  console.log(result)
+}
+
+main()
