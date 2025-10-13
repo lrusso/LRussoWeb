@@ -162,7 +162,7 @@ const runTests = async () => {
   }
 }
 
-const exists = (path) => existsSync(path)
+const fileExists = (path) => existsSync(path)
 
 function getVariable(filename, variableName) {
   try {
@@ -261,8 +261,7 @@ const langsCheckSameKeys = (jsonData) => {
 
 describe("404.html", () => {
   it("File exists", () => {
-    const fileExists = exists("404.html")
-    expect(fileExists).toBe(true)
+    expect(fileExists("404.html")).toBe(true)
   })
   it("Contains redirects", () => {
     const variableExists = getVariable("404.html", "redirects")
@@ -309,8 +308,7 @@ describe("404.html", () => {
 
 describe("privacy.html", () => {
   it("File exists", () => {
-    const fileExists = exists("privacy.html")
-    expect(fileExists).toBe(true)
+    expect(fileExists("privacy.html")).toBe(true)
   })
   it("Content shows the same content", () => {
     const expectedHash = "-102f2163"
@@ -329,8 +327,7 @@ describe("privacy.html", () => {
 
 describe("index.html", () => {
   it("File exists", () => {
-    const fileExists = exists("index.html")
-    expect(fileExists).toBe(true)
+    expect(fileExists("index.html")).toBe(true)
   })
   it("Internationalization variable exists", () => {
     const variableExists = getVariable("index.html", "STR")
