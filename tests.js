@@ -362,7 +362,7 @@ const main = async () => {
   }
 
   // eslint-disable-next-line no-console
-  console.log("Time:        " + elapsed / 1000 + " s")
+  console.log("Time:        " + elapsed + " ms")
 
   // eslint-disable-next-line no-console
   console.log("")
