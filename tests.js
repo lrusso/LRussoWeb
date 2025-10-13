@@ -35,6 +35,47 @@ function getVariable(filename, variableName) {
 const hash = (s) =>
   [...s].reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0).toString(16)
 
+const langsCheckAmountKeys = (jsonData) => {
+  let keysStored = null
+  let sameAmount = true
+
+  try {
+    jsonData = JSON.parse(jsonData)
+    const languages = Object.keys(jsonData)
+    for (let i = 0; i < languages.length; i++) {
+      const lang = languages[i]
+      const stringCounter = Object.keys(jsonData[lang]).length
+      if (!keysStored) {
+        keysStored = stringCounter
+      } else if (keysStored !== stringCounter) {
+        sameAmount = false
+      }
+    }
+  } catch (err) {
+    sameAmount = false
+  }
+
+  try {
+    if (!sameAmount) {
+      sameAmount = ""
+      const languages = Object.keys(jsonData)
+      for (let i = 0; i < languages.length; i++) {
+        const lang = languages[i]
+        const stringCounter = Object.keys(jsonData[lang]).length
+        if (!sameAmount) {
+          sameAmount = lang + "(" + stringCounter + ")"
+        } else {
+          sameAmount = sameAmount + " " + lang + "(" + stringCounter + ")"
+        }
+      }
+    }
+  } catch (err) {
+    //
+  }
+
+  return sameAmount
+}
+
 describe("404.html", () => {
   it("File exists", () => {
     const fileExists = exists("404.html")
@@ -113,45 +154,11 @@ describe("index.html", () => {
     expect(variableExists).not.toBe("")
   })
   it("All the languages have the same amount of keys", () => {
-    let STR = getVariable("index.html", "STR")
+    const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
-    let sameAmount = true
-    let keysStored = null
 
-    try {
-      STR = JSON.parse(STR)
-      const languages = Object.keys(STR)
-      for (let i = 0; i < languages.length; i++) {
-        const lang = languages[i]
-        const stringCounter = Object.keys(STR[lang]).length
-        if (!keysStored) {
-          keysStored = stringCounter
-        } else if (keysStored !== stringCounter) {
-          sameAmount = false
-        }
-      }
-    } catch (err) {
-      sameAmount = false
-    }
-
-    try {
-      if (!sameAmount) {
-        sameAmount = ""
-        const languages = Object.keys(STR)
-        for (let i = 0; i < languages.length; i++) {
-          const lang = languages[i]
-          const stringCounter = Object.keys(STR[lang]).length
-          if (!sameAmount) {
-            sameAmount = lang + "(" + stringCounter + ")"
-          } else {
-            sameAmount = sameAmount + " " + lang + "(" + stringCounter + ")"
-          }
-        }
-      }
-    } catch (err) {
-      //
-    }
+    const sameAmount = langsCheckAmountKeys(STR)
 
     expect(sameAmount).toBe(true)
   })
