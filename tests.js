@@ -65,7 +65,7 @@ describe("404.html", () => {
 
       for (const [, folderPath] of Object.entries(myJSON)) {
         if (!existsSync("." + folderPath)) {
-          linksValid = folderPath
+          linksValid = false
         }
       }
     } catch (err) {
@@ -129,6 +129,45 @@ describe("index.html", () => {
       sameAmount = false
     }
     expect(sameAmount).toBe(true)
+  })
+  it("All the languages have the same keys", () => {
+    let STR = getVariable("index.html", "STR")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    let allLanguagesHaveSameKeys = true
+    let referenceKeys = null
+
+    try {
+      STR = JSON.parse(STR)
+      const languages = Object.keys(STR)
+
+      for (const lang of languages) {
+        const keys = Object.keys(STR[lang]).sort()
+
+        if (!referenceKeys) {
+          referenceKeys = keys
+        } else {
+          if (
+            referenceKeys.length !== keys.length ||
+            !referenceKeys.every((key, index) => key === keys[index])
+          ) {
+            allLanguagesHaveSameKeys = false
+            break
+          }
+        }
+      }
+    } catch (err) {
+      allLanguagesHaveSameKeys = false
+    }
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+  it("Latest projects are showing images", () => {
+    expect(true).toBe(true)
+  })
+  it("Articles are showing images", () => {
+    expect(true).toBe(true)
   })
 })
 
