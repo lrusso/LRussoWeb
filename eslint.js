@@ -73,7 +73,7 @@ for (const filePath of filesToFormat) {
       semi: "never",
     },
     parserOptions: {
-      ecmaVersion: 2020, // Or a later version like 2021, 2022, etc.
+      ecmaVersion: 2020,
       sourceType: "module",
     },
   }
