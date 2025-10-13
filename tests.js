@@ -55,11 +55,11 @@ describe("404.html", () => {
     expect(isValidJSON).toBe(true)
   })
   it("Redirects are valid", () => {
-    const redirectsList = getVariable("404.html", "redirects").replace(
-      /,\s*([}\]])/g,
-      "$1"
-    )
+    const redirectsList = getVariable("404.html", "redirects")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
     let linksValid = true
+
     try {
       const myJSON = JSON.parse(redirectsList)
 
@@ -71,6 +71,7 @@ describe("404.html", () => {
     } catch (err) {
       linksValid = false
     }
+
     expect(linksValid).toBe(true)
   })
 })
@@ -104,6 +105,30 @@ describe("index.html", () => {
   it("Internationalization variable exists", () => {
     const variableExists = getVariable("index.html", "STR")
     expect(variableExists).not.toBe("")
+  })
+  it("All the languages have the same amount of strings", () => {
+    let STR = getVariable("index.html", "STR")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+    let sameAmount = true
+    let keysStored = null
+
+    try {
+      STR = JSON.parse(STR)
+      const languages = Object.keys(STR)
+      for (let i = 0; i < languages.length; i++) {
+        const lang = languages[i]
+        const stringCounter = Object.keys(STR[lang]).length
+        if (!keysStored) {
+          keysStored = stringCounter
+        } else if (keysStored !== stringCounter) {
+          sameAmount = false
+        }
+      }
+    } catch (err) {
+      sameAmount = false
+    }
+    expect(sameAmount).toBe(true)
   })
 })
 
