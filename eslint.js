@@ -70,7 +70,11 @@ for (const filePath of filesToFormat) {
   const config = {
     rules: {
       "no-console": "error",
-      semi: "error",
+      semi: "never",
+    },
+    parserOptions: {
+      ecmaVersion: 2020, // Or a later version like 2021, 2022, etc.
+      sourceType: "module",
     },
   }
 
