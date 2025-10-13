@@ -99,14 +99,19 @@ const formatFiles = async (fileList) => {
 }
 
 const parseCode = async (codeToFormat, filePath) => {
-  const selectedParser =
-    filePath.endsWith(".html") || filePath.endsWith(".htm")
-      ? "html"
-      : filePath.endsWith(".md")
-        ? "markdown"
-        : filePath.endsWith(".yml")
-          ? "yaml"
-          : "babel"
+  const selectedParser = (() => {
+    switch (true) {
+      case filePath.endsWith(".html"):
+      case filePath.endsWith(".htm"):
+        return "html"
+      case filePath.endsWith(".md"):
+        return "markdown"
+      case filePath.endsWith(".yml"):
+        return "yaml"
+      default:
+        return "babel"
+    }
+  })()
 
   try {
     const formattedCode = await prettier.format(codeToFormat, {
