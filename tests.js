@@ -286,7 +286,24 @@ const main = async () => {
   if (hasErrors) {
     // eslint-disable-next-line no-console
     console.log(
-      "Tests: " +
+      "Test Suites: " +
+        red +
+        failed +
+        " failed" +
+        reset +
+        ", " +
+        green +
+        passed +
+        " passed" +
+        reset +
+        ", " +
+        (failed + passed) +
+        " total"
+    )
+
+    // eslint-disable-next-line no-console
+    console.log(
+      "Tests:       " +
         red +
         failed +
         " failed" +
@@ -303,12 +320,17 @@ const main = async () => {
   } else {
     // eslint-disable-next-line no-console
     console.log(
-      "Tests: " + green + passed + " passed" + reset + " " + passed + " total"
+      "Test Suites: " + green + passed + " passed" + reset + ", " + passed + " total"
+    )
+
+    // eslint-disable-next-line no-console
+    console.log(
+      "Tests:       " + green + passed + " passed" + reset + ", " + passed + " total"
     )
   }
 
   // eslint-disable-next-line no-console
-  console.log("Time:  " + elapsed / 1000 + " s")
+  console.log("Time:        " + elapsed / 1000 + " s")
 
   // eslint-disable-next-line no-console
   console.log("")
