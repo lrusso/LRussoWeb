@@ -132,6 +132,7 @@ const parseCode = async (codeToFormat, filePath, mustFix) => {
         prettierPlugins.voidHtml,
       ],
     })
+
     if (mustFix) {
       filesModified = true
       if (formattedCode === codeToFormat) {
@@ -151,6 +152,7 @@ const parseCode = async (codeToFormat, filePath, mustFix) => {
       )
       filesModified = true
     }
+
     return formattedCode
   } catch (error) {
     return codeToFormat
