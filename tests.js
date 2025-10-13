@@ -1,3 +1,5 @@
+import process from "process"
+
 // https://unpkg.com/jest-lite@1.0.0-alpha.4/dist/core.js
 
 global.window = {}
@@ -19,12 +21,48 @@ describe("<Button />", () => {
     const button = false
     expect(button).toBe(false)
   })
+  it("renders parent", () => {
+    const button = true
+    expect(button).toBe(false)
+  })
 })
 
 const main = async () => {
   const result = await run()
-  // eslint-disable-next-line no-console
-  console.log(result)
+
+  let hasErrors = false
+
+  for (let i = 0; i < result.length; i++) {
+    const testData = result[i]
+    const testPassed = testData.status === "pass"
+    const testName = testData.testPath[1]
+    const testScenario = testData.testPath[2]
+    const testError = testData.errors[0]
+
+    if (testPassed) {
+      // eslint-disable-next-line no-console
+      console.log(
+        "\x1b[42m\x1b[38;2;255;255;255m PASS \x1b[0m",
+        testName,
+        testScenario
+      )
+    } else {
+      hasErrors = true
+
+      // eslint-disable-next-line no-console
+      console.log(
+        "\x1b[41m\x1b[38;2;255;255;255m FAIL \x1b[0m",
+        testName,
+        testScenario
+      )
+      // eslint-disable-next-line no-console
+      console.log(testError)
+    }
+  }
+
+  if (hasErrors) {
+    process.exit(1)
+  }
 }
 
 main()
