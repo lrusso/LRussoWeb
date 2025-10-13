@@ -111,7 +111,7 @@ for (const filePath of filesToFormat) {
     hasErrors = true
 
     // eslint-disable-next-line no-console
-    console.log(filePath.slice(startDir.length + 1))
+    console.log(filePath.substring(startDir.length + 1))
 
     for (const { line, column, message } of messages) {
       // eslint-disable-next-line no-console
