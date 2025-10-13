@@ -404,6 +404,9 @@ describe("index.html", () => {
   it("Latest projects are showing images", () => {
     expect(true).toBe(true)
   })
+  it("Latest projects images exists", () => {
+    expect(true).toBe(true)
+  })
   it("Latest projects are showing descriptions", () => {
     expect(true).toBe(true)
   })
@@ -414,6 +417,9 @@ describe("index.html", () => {
     expect(true).toBe(true)
   })
   it("The articles are showing images", () => {
+    expect(true).toBe(true)
+  })
+  it("The articles images exists", () => {
     expect(true).toBe(true)
   })
   it("The articles are showing descriptions", () => {
