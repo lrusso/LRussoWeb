@@ -8,7 +8,7 @@ on:
     # ALLOWS YOU TO RUN THIS WORKFLOW MANUALLY FROM GITHUB
 
 jobs:
-  cronjob:
+  cron-job:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
