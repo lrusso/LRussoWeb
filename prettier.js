@@ -190,6 +190,10 @@ const runPrettier = async (mustFix) => {
   await formatFiles(findFilesRecursiveSync(startDir, ".js"), mustFix)
   await formatFiles(findFilesRecursiveSync(startDir, ".md"), mustFix)
   await formatFiles(findFilesRecursiveSync(startDir, ".yml"), mustFix)
+  await formatFiles(findFilesRecursiveSync(startDir, ".yaml"), mustFix)
+  await formatFiles(findFilesRecursiveSync(startDir, ".ts"), mustFix)
+  await formatFiles(findFilesRecursiveSync(startDir, ".mts"), mustFix)
+  await formatFiles(findFilesRecursiveSync(startDir, ".cts"), mustFix)
 
   if (filesModified && !mustFix) {
     console.log(
