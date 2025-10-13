@@ -67,57 +67,60 @@ const filesToFormat = allFiles.filter((file) => targetExts.includes(extname(file
 // eslint-disable-next-line
 const Linter = globalThis.ESLint
 const linter = new Linter()
+const lintConfig = {
+  rules: {
+    "no-alert": "error",
+    "no-console": "error",
+    "no-dupe-keys": "error",
+    "no-duplicate-case": "error",
+    "no-duplicate-imports": "error",
+    "no-empty": "error",
+    "no-shadow": "error",
+    "no-tabs": "error",
+    "no-undef": "error",
+    "no-unused-expressions": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        vars: "all",
+        args: "all",
+        caughtErrors: "all",
+        caughtErrorsIgnorePattern: "err",
+        ignoreRestSiblings: false,
+      },
+    ],
+  },
+  env: {
+    browser: true,
+    node: true,
+  },
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: "module",
+  },
+}
+
+let hasErrors = false
 
 for (const filePath of filesToFormat) {
-  let code = readFileSync(filePath, "utf8")
-  code = code.replace(/import\.meta\.url/g, "''")
+  const code = readFileSync(filePath, "utf8").replace(/import\.meta\.url/g, "''")
 
-  const config = {
-    rules: {
-      "no-alert": "error",
-      "no-console": "error",
-      "no-dupe-keys": "error",
-      "no-duplicate-case": "error",
-      "no-duplicate-imports": "error",
-      "no-empty": "error",
-      "no-shadow": "error",
-      "no-tabs": "error",
-      "no-undef": "error",
-      "no-unused-expressions": "error",
-      "no-unused-vars": [
-        "error",
-        {
-          vars: "all",
-          args: "all",
-          caughtErrors: "all",
-          caughtErrorsIgnorePattern: "err",
-          ignoreRestSiblings: false,
-        },
-      ],
-    },
-    env: {
-      browser: true,
-      node: true,
-    },
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: "module",
-    },
-  }
-
-  const messages = linter.verify(code, config)
-  if (messages.length > 0) {
-    // eslint-disable-next-line no-console
-    console.log(filePath.substring(startDir.length + 1, filePath.length))
-  }
-
-  for (let i = 0; i < messages.length; i++) {
-    const message = messages[i]
-    // eslint-disable-next-line no-console
-    console.log(message.line + ":" + message.column + " - " + message.message)
-  }
+  const messages = linter.verify(code, lintConfig)
 
   if (messages.length > 0) {
-    process.exit(1)
+    hasErrors = true
+    const relativePath = filePath.slice(startDir.length + 1)
+
+    // eslint-disable-next-line no-console
+    console.log(`\n${relativePath}`)
+
+    for (const { line, column, message } of messages) {
+      // eslint-disable-next-line no-console
+      console.log(`${line}:${column} - ${message}`)
+    }
   }
+}
+
+if (hasErrors) {
+  process.exit(1)
 }
