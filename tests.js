@@ -96,6 +96,13 @@ describe("privacy.html", () => {
   })
 })
 
+describe("index.html", () => {
+  it("File exists", () => {
+    const fileExists = exists("index.html")
+    expect(fileExists).toBe(true)
+  })
+})
+
 const main = async () => {
   const result = await run()
 
