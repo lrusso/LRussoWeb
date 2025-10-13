@@ -10,7 +10,10 @@
       href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtGVYSWZJSSoACAAAAAYAEgEDAAEAAAABAAAAGgEFAAEAAABWAAAAGwEFAAEAAABeAAAAKAEDAAEAAAACAAAAEwIDAAEAAAABAAAAaYcEAAEAAABmAAAAAAAAAEgAAAABAAAASAAAAAEAAAAGAACQBwAEAAAAMDIxMAGRBwAEAAAAAQIDAACgBwAEAAAAMDEwMAGgAwABAAAA//8AAAKgBAABAAAAEAAAAAOgBAABAAAAEAAAAAAAAADuCXwMAAACWklEQVR4nHWTTU8TURSG3/sx0+mMLf2ipUTBEIQYQcRgJBoXbg0kJv4A4x8ghCAbY0I0bgxxpYk/wK+NuJKNLNBERQ2QIERYoAJVqrSlZdrSdjr3GkpsQKdvcnLPybnnybnn5JJbYxMPSQBXCSOoJWtLSGHKpds3+07/m+NUIT52hmpU2wNoVMFZ/9G9QmnjXeor2BeKTq25e/TOxNzojUvd+wF0f3CIu6rFu1IIw4VgK2xDYiG2DqHIroGBp30HOiiZtjs8r4PxPdYcYv89ISh1CE2CekBSAsYBgM6V1WuXeyGlBKUUbrdScxbLy79wf3EqeQCAavI3OGcIhQyYZrF6oVgsQwiBaLTOEcr/Og0NHjBGEYl4K3EymcOryWWUyjakBBYW4+jpOQJKxWdHQDxuQlEYbFsikchhdi6GrG3icJsLNrGxupTDh08SimLojlvw+3UEAgYaG+vwcyMD4SrhXH8QrT0GWFMaHec9yIltBEPue46ATGYH6XQeiUS20j7hArl8Eev5Nfx4rUKGtyFcBeiGGnYE6LpaMa9Xq5wQBJsyjvknFKFTZRR5Fky4sJO3so4Ay7Irtjv1k51RcNuNzWkDx/sJWCCP9UkDHuJDKp174AjAPvl8Ok60R6BZPqTeB2G+aYK3EMFGLAPKyLOh4fGX1S1ICVKyyjjWVl8FuDSOjs4o2trDWP2ehBASTc0BzM6sYWpmhUT8dReHR55Pj9290suLVin16PHHb5RS4dRNVW9XUF+vm+ZmQVXdvDXc4u8aHBofq/2Ha0rSwesvZlWVtJQK5ZE/FEjku+1WZk0AAAAASUVORK5CYII="
     >
     <meta name="theme-color" content="#edf1f7">
-    <meta name="keywords" content="ats, resume, checker, validator, cv, pdf, docx, format, file, document">
+    <meta
+      name="keywords"
+      content="ats, resume, checker, validator, cv, pdf, docx, format, file, document"
+    >
     <meta name="description" content="ATS Resume Checker.">
     <meta
       name="viewport"
@@ -429,7 +432,16 @@
             var fileType = file.type === "application/pdf" ? "PDF" : "DOCX"
 
             // Create preview content
-            previewContainer.innerHTML = "<div class=\"preview-header\"><i class=\"fas " + fileIcon + "\"></i><div class=\"preview-info\"><h4>" + file.name + "</h4><span>" + fileType + " " + formatFileSize(file.size) + "</span></div></div>"
+            previewContainer.innerHTML =
+              '<div class="preview-header"><i class="fas ' +
+              fileIcon +
+              '"></i><div class="preview-info"><h4>' +
+              file.name +
+              "</h4><span>" +
+              fileType +
+              " " +
+              formatFileSize(file.size) +
+              "</span></div></div>"
 
             // Make sure preview is visible
             previewContainer.style.display = "block"
@@ -1706,7 +1718,14 @@
                 iconClass = "fa-exclamation-circle"
               }
 
-              detailItem.innerHTML = "<i class=\"fas " + iconClass + "\"></i><div><strong>" + detail.item + "</strong><p>" + detail.message + "</p></div>";
+              detailItem.innerHTML =
+                '<i class="fas ' +
+                iconClass +
+                '"></i><div><strong>' +
+                detail.item +
+                "</strong><p>" +
+                detail.message +
+                "</p></div>"
 
               container.appendChild(detailItem)
             }
@@ -1824,7 +1843,13 @@
 
             for (var item of items) {
               var li = document.createElement("li")
-              li.innerHTML = "<strong>" + item.section + " - " + item.item + ":</strong> " + item.message;
+              li.innerHTML =
+                "<strong>" +
+                item.section +
+                " - " +
+                item.item +
+                ":</strong> " +
+                item.message
               list.appendChild(li)
             }
           }
