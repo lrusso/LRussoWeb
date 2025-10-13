@@ -1,4 +1,5 @@
 import { execSync } from "child_process"
+import process from "process"
 
 let settings = {
   checks: {
@@ -94,17 +95,16 @@ async function task1(fileList) {
   // GETTING EVERY FILE
   for (const filename of fileList) {
     try {
-      let nvuReport = execSync(
+      const nvuReport = execSync(
         "java -jar vnu.jar --exit-zero-always --stdout --html " + filename
       )
-      nvuReport = nvuReport.toString().trim()
 
-      let result = ""
-      result = result + nvuReport
-      result = result.replace(/"file:[^"]*\/([^\/"]+\.[^":]+)":/g, "")
-      result = result.trim()
+      const resultText = nvuReport
+        .toString()
+        .replace(/"file:[^"]*\/([^\/"]+\.[^":]+)":/g, "")
+        .trim()
 
-      if (result) {
+      if (resultText) {
         report.push("W3C report obtained when checking: " + filename + "\n" + result)
       }
     } catch (err) {
