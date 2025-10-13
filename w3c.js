@@ -31,7 +31,9 @@ function findAllFilesRecursive(dir) {
       } else if (stats.isFile()) {
         files.push(fullPath)
       }
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
   }
 
   return files
@@ -65,6 +67,7 @@ const getVersion = () => {
   }
 }
 
+// eslint-disable-next-line no-console
 console.log("Nu Html Checker version: " + getVersion())
 
 const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
@@ -72,6 +75,7 @@ const targetExts = [".html", ".htm"]
 const filesToFormat = allFiles.filter((file) => targetExts.includes(extname(file)))
 
 for (const filePath of filesToFormat) {
+  // eslint-disable-next-line no-console
   console.log(
     "Checking... " + filePath.substring(startDir.length + 1, filePath.length)
   )
@@ -84,10 +88,12 @@ for (const filePath of filesToFormat) {
       .replace(/"file:[^"]*\/([^\/"]+\.[^":]+)":/g, "")
       .trim()
     if (reportText) {
+      // eslint-disable-next-line no-console
       console.log(reportText)
       errorsFound = true
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error)
     errorsFound = true
   }
