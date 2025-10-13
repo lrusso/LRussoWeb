@@ -162,6 +162,8 @@ const runTests = async () => {
   }
 }
 
+process.nextTick(runTests)
+
 const fileExists = (path) => existsSync(path)
 
 const generateHash = (s) =>
@@ -388,5 +390,3 @@ describe("index.html", () => {
     expect(true).toBe(true)
   })
 })
-
-runTests()
