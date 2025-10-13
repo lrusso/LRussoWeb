@@ -164,6 +164,10 @@ const runTests = async () => {
 
 process.nextTick(runTests)
 
+// ----------------------------------------------------------------------------
+// IMPLEMENT YOUR JEST TESTS BELOW
+// ----------------------------------------------------------------------------
+
 const fileExists = (path) => existsSync(path)
 
 const generateHash = (s) =>
