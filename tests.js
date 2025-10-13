@@ -267,6 +267,36 @@ const langsCheckSameKeys = (jsonData) => {
   return allLanguagesHaveSameKeys
 }
 
+const langsCheckEmptyKeys = (jsonData) => {
+  let allLanguagesHaveNoEmptyKeys = true
+  const emptyKeys = {}
+
+  try {
+    jsonData = JSON.parse(jsonData)
+    const languages = Object.keys(jsonData)
+
+    for (const lang of languages) {
+      const entries = Object.entries(jsonData[lang])
+      const emptyForLang = entries
+        .filter(([, value]) => value === "" || value === null || value === undefined)
+        .map(([key]) => key)
+
+      if (emptyForLang.length > 0) {
+        allLanguagesHaveNoEmptyKeys = false
+        emptyKeys[lang] = emptyForLang
+      }
+    }
+  } catch (err) {
+    allLanguagesHaveNoEmptyKeys = false
+  }
+
+  if (!allLanguagesHaveNoEmptyKeys) {
+    allLanguagesHaveNoEmptyKeys = emptyKeys
+  }
+
+  return allLanguagesHaveNoEmptyKeys
+}
+
 describe("404.html", () => {
   it("File exists", () => {
     expect(fileExists("404.html")).toBe(true)
@@ -360,8 +390,13 @@ describe("index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
   it("All the languages have non-empty keys", () => {
-    // TODO: the failed result must show the list of empty keys
-    expect(true).toBe(true)
+    const STR = getVariable("index.html", "STR")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(STR)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
   it("Latest projects are showing titles", () => {
     expect(true).toBe(true)
