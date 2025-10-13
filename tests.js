@@ -37,7 +37,11 @@ const main = async () => {
     const testPassed = testData.status === "pass"
     const testName = testData.testPath[1]
     const testScenario = testData.testPath[2]
-    const testError = testData.errors[0]
+    const testError =
+      testData.errors.length > 0 ? testData.errors[0].split("\n") : ""
+    const testFailMessage = testError
+      ? "Expected: " + testError[3].trim() + " Received:" + testError[5].trim()
+      : ""
 
     if (testPassed) {
       // eslint-disable-next-line no-console
@@ -56,7 +60,7 @@ const main = async () => {
         testScenario
       )
       // eslint-disable-next-line no-console
-      console.log(testError)
+      console.log(testFailMessage)
     }
   }
 
