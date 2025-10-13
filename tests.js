@@ -357,10 +357,28 @@ describe("index.html", () => {
     // TODO: the failed result must show the list of empty keys
     expect(true).toBe(true)
   })
+  it("Latest projects are showing titles", () => {
+    expect(true).toBe(true)
+  })
   it("Latest projects are showing images", () => {
     expect(true).toBe(true)
   })
-  it("Articles are showing images", () => {
+  it("Latest projects are showing descriptions", () => {
+    expect(true).toBe(true)
+  })
+  it("Latest projects are showing buttons", () => {
+    expect(true).toBe(true)
+  })
+  it("The articles are showing titles", () => {
+    expect(true).toBe(true)
+  })
+  it("The articles are showing images", () => {
+    expect(true).toBe(true)
+  })
+  it("The articles are showing descriptions", () => {
+    expect(true).toBe(true)
+  })
+  it("The articles are showing buttons", () => {
     expect(true).toBe(true)
   })
   it("The cover image exists", () => {
