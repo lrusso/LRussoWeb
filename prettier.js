@@ -214,9 +214,7 @@ const runPrettier = async (mustFix) => {
   }
 }
 
-const prettierParam = process.argv[2]
-
-runPrettier(prettierParam === "fix" ? true : false)
+runPrettier(process.argv[2] === "fix" ? true : false)
 
 // HOW TO USE THIS PRETTIER IMPLEMENTATION?
 
