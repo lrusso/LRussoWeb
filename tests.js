@@ -68,8 +68,11 @@ describe("404.html", () => {
 
       for (const [, folderPath] of Object.entries(myJSON)) {
         if (!existsSync("." + folderPath)) {
-          // TODO: the result must show all the paths that do not exists
-          linksValid = false
+          if (typeof linksValid === "boolean") {
+            linksValid = folderPath
+          } else {
+            linksValid = linksValid + ", " + folderPath
+          }
         }
       }
     } catch (err) {
