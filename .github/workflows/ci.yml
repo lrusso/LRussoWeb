@@ -22,7 +22,7 @@ jobs:
         with:
           distribution: "zulu"
           java-version: 17
-      - name: Validating the code style
+      - name: Running Prettier
         run: node prettier.js
-      - name: Validating the HTML structure
+      - name: Running the W3C Validator
         run: cd .github/workflows && node ci.js
