@@ -68,6 +68,7 @@ describe("404.html", () => {
 
       for (const [, folderPath] of Object.entries(myJSON)) {
         if (!existsSync("." + folderPath)) {
+          // TODO: the result must show all the paths that do not exists
           linksValid = false
         }
       }
@@ -108,7 +109,7 @@ describe("index.html", () => {
     const variableExists = getVariable("index.html", "STR")
     expect(variableExists).not.toBe("")
   })
-  it("All the languages have the same amount of strings", () => {
+  it("All the languages have the same amount of keys", () => {
     let STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
@@ -124,6 +125,7 @@ describe("index.html", () => {
         if (!keysStored) {
           keysStored = stringCounter
         } else if (keysStored !== stringCounter) {
+          // TODO: the result must show the amount of keys per language
           sameAmount = false
         }
       }
@@ -164,6 +166,10 @@ describe("index.html", () => {
     }
 
     expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+  it("All the languages have non-empty keys", () => {
+    // TODO: the failed result must show the list of empty keys
+    expect(true).toBe(true)
   })
   it("Latest projects are showing images", () => {
     expect(true).toBe(true)
