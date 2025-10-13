@@ -1,5 +1,5 @@
-import { dirname, join, extname, resolve } from "path"
 import { statSync, readdirSync, readFileSync, writeFileSync } from "fs"
+import { dirname, join, extname, resolve } from "path"
 import { fileURLToPath } from "url"
 import process from "process"
 
@@ -220,3 +220,8 @@ const runPrettier = async (mustFix) => {
 const prettierParam = process.argv[2]
 
 runPrettier(prettierParam === "fix" ? true : false)
+
+// HOW TO USE THIS PRETTIER IMPLEMENTATION?
+
+// node prettier
+// node prettier fix
