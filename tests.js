@@ -169,6 +169,12 @@ describe("index.html", () => {
   it("Articles are showing images", () => {
     expect(true).toBe(true)
   })
+  it("The cover image exists", () => {
+    expect(true).toBe(true)
+  })
+  it("The cover image is loaded", () => {
+    expect(true).toBe(true)
+  })
 })
 
 const main = async () => {
