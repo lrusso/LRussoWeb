@@ -116,6 +116,8 @@ const parseCode = async (codeToFormat, filePath, mustFix) => {
   })()
 
   try {
+    const startTime = Date.now()
+
     const formattedCode = await prettier.format(codeToFormat, {
       parser: selectedParser,
       arrowParens: "always",
@@ -135,14 +137,18 @@ const parseCode = async (codeToFormat, filePath, mustFix) => {
 
     const relativePath = filePath.substring(startDir.length + 1)
     const unchanged = formattedCode === codeToFormat
+    const endTime = Date.now()
+    const elapsed = Math.round(endTime - startTime)
 
     if (mustFix) {
       filesModified = true
 
       if (unchanged) {
-        console.log("\x1b[90m" + relativePath + "\x1b[0m (unchanged)")
+        console.log(
+          "\x1b[90m" + relativePath + "\x1b[0m " + elapsed + "ms (unchanged)"
+        )
       } else {
-        console.log(relativePath)
+        console.log(relativePath + " " + elapsed + "ms")
       }
       return formattedCode
     } else if (!unchanged) {
