@@ -1,9 +1,7 @@
-import { execSync } from "child_process"
 import process from "process"
 
 let settings = {
   checks: {
-    w3c: [],
     urls: [],
     dates: [],
     domains: [],
@@ -90,31 +88,8 @@ async function customFetch(url) {
   }
 }
 
-// TASK 1 - CHECKING IF THE HTML FILES ARE MEETING THE W3C STANDARD
-async function task1(fileList) {
-  // GETTING EVERY FILE
-  for (const filename of fileList) {
-    try {
-      const nvuReport = execSync(
-        "java -jar vnu.jar --exit-zero-always --stdout --html " + filename
-      )
-
-      const resultText = nvuReport
-        .toString()
-        .replace(/"file:[^"]*\/([^\/"]+\.[^":]+)":/g, "")
-        .trim()
-
-      if (resultText) {
-        report.push("W3C report obtained when checking: " + filename + "\n" + result)
-      }
-    } catch (err) {
-      report.push("W3C error when checking: " + filename)
-    }
-  }
-}
-
-// TASK 2 - CHECKING IF THE URLS ARE SHOWING A DIFFERENT CONTENT
-async function task2(urlsArray) {
+// TASK 1 - CHECKING IF THE URLS ARE SHOWING A DIFFERENT CONTENT
+async function task1(urlsArray) {
   let taskURL = ""
 
   // GETTING EVERY URL
@@ -158,8 +133,8 @@ async function task2(urlsArray) {
   }
 }
 
-// TASK 3 - CHECKING IF IMPORTANT DATES ARE CLOSE
-function task3(datesArray, currentDate) {
+// TASK 2 - CHECKING IF IMPORTANT DATES ARE CLOSE
+function task2(datesArray, currentDate) {
   let taskDate = ""
 
   // GETTING EVERY DATE
@@ -190,8 +165,8 @@ function task3(datesArray, currentDate) {
   }
 }
 
-// TASK 4 - CHECKING IF REGISTERED DOMAINS CAN BE RENEWED
-function task4(domainsArray, currentDate) {
+// TASK 3 - CHECKING IF REGISTERED DOMAINS CAN BE RENEWED
+function task3(domainsArray, currentDate) {
   let taskDomain = ""
 
   // GETTING EVERY DOMAIN
@@ -235,8 +210,8 @@ function task4(domainsArray, currentDate) {
   }
 }
 
-// TASK 5 - READING NEWSPAPERS AND SENDING AN EMAIL
-async function task5(newspapers) {
+// TASK 4 - READING NEWSPAPERS AND SENDING AN EMAIL
+async function task4(newspapers) {
   let result = ""
 
   const h2Regex = /<h2[^>]*>(.*?)<\/h2>/gim
@@ -297,11 +272,10 @@ async function task5(newspapers) {
 }
 
 async function runTasks() {
-  await task1(settings.checks.w3c)
-  await task2(settings.checks.urls)
-  task3(settings.checks.dates, new Date())
-  task4(settings.checks.domains, new Date())
-  await task5(settings.checks.newspapers)
+  await task1(settings.checks.urls)
+  task2(settings.checks.dates, new Date())
+  task3(settings.checks.domains, new Date())
+  await task4(settings.checks.newspapers)
 
   if (report.length === 0) {
     console.log("Nothing to report.")
