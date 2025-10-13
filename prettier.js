@@ -69,7 +69,7 @@ const __dirname = dirname(__filename)
 const startDir = resolve(__dirname, ".")
 let filesModified = false
 
-function findFilesRecursiveSync(dir, ext) {
+function findAllFilesRecursive(dir) {
   const files = []
 
   try {
@@ -77,7 +77,7 @@ function findFilesRecursiveSync(dir, ext) {
     if (!stats.isDirectory()) {
       return files
     }
-  } catch (e) {
+  } catch (error) {
     return files
   }
 
@@ -90,11 +90,11 @@ function findFilesRecursiveSync(dir, ext) {
       const stats = statSync(fullPath)
 
       if (stats.isDirectory()) {
-        files.push(...findFilesRecursiveSync(fullPath, ext))
-      } else if (stats.isFile() && extname(entry) === ext) {
+        files.push(...findAllFilesRecursive(fullPath))
+      } else if (stats.isFile()) {
         files.push(fullPath)
       }
-    } catch (e) {}
+    } catch (error) {}
   }
 
   return files
@@ -181,19 +181,29 @@ const parseCode = async (codeToFormat, filePath, mustFix) => {
   return codeToFormat
 }
 
+const alphaNumericSort = (a, b) => {
+  const nameA = a.toLowerCase()
+  const nameB = b.toLowerCase()
+
+  const isDigitA = /^\d/.test(nameA)
+  const isDigitB = /^\d/.test(nameB)
+
+  if (isDigitA && !isDigitB) return -1
+  if (!isDigitA && isDigitB) return 1
+
+  return nameA.localeCompare(nameB)
+}
+
 const runPrettier = async (mustFix) => {
   if (!mustFix) {
     console.log("Checking formatting...")
   }
 
-  await formatFiles(findFilesRecursiveSync(startDir, ".html"), mustFix)
-  await formatFiles(findFilesRecursiveSync(startDir, ".js"), mustFix)
-  await formatFiles(findFilesRecursiveSync(startDir, ".md"), mustFix)
-  await formatFiles(findFilesRecursiveSync(startDir, ".yml"), mustFix)
-  await formatFiles(findFilesRecursiveSync(startDir, ".yaml"), mustFix)
-  await formatFiles(findFilesRecursiveSync(startDir, ".ts"), mustFix)
-  await formatFiles(findFilesRecursiveSync(startDir, ".mts"), mustFix)
-  await formatFiles(findFilesRecursiveSync(startDir, ".cts"), mustFix)
+  const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
+  const targetExts = [".html", ".js", ".md", ".yml", ".yaml", ".ts", ".mts", ".cts"]
+  const filesToFormat = allFiles.filter((file) => targetExts.includes(extname(file)))
+
+  await formatFiles(filesToFormat, mustFix)
 
   if (filesModified && !mustFix) {
     console.log(
