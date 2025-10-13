@@ -128,13 +128,31 @@ describe("index.html", () => {
         if (!keysStored) {
           keysStored = stringCounter
         } else if (keysStored !== stringCounter) {
-          // TODO: the result must show the amount of keys per language
           sameAmount = false
         }
       }
     } catch (err) {
       sameAmount = false
     }
+
+    try {
+      if (!sameAmount) {
+        sameAmount = ""
+        const languages = Object.keys(STR)
+        for (let i = 0; i < languages.length; i++) {
+          const lang = languages[i]
+          const stringCounter = Object.keys(STR[lang]).length
+          if (!sameAmount) {
+            sameAmount = lang + "(" + stringCounter + ")"
+          } else {
+            sameAmount = sameAmount + " " + lang + "(" + stringCounter + ")"
+          }
+        }
+      }
+    } catch (err) {
+      //
+    }
+
     expect(sameAmount).toBe(true)
   })
   it("All the languages have the same keys", () => {
