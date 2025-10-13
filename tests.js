@@ -41,7 +41,7 @@ describe("404.html", () => {
     const redirectsList = getVariable("404.html", "redirects")
     expect(redirectsList).not.toBe("")
   })
-  it("Redirects are valid", () => {
+  it("The redirects list is a JSON", () => {
     const redirectsList = getVariable("404.html", "redirects").replace(
       /,\s*([}\]])/g,
       "$1"
@@ -53,6 +53,25 @@ describe("404.html", () => {
       isValidJSON = false
     }
     expect(isValidJSON).toBe(true)
+  })
+  it("Redirects are valid", () => {
+    const redirectsList = getVariable("404.html", "redirects").replace(
+      /,\s*([}\]])/g,
+      "$1"
+    )
+    let linksValid = true
+    try {
+      const myJSON = JSON.parse(redirectsList)
+
+      for (const [, folderPath] of Object.entries(myJSON)) {
+        if (!existsSync("." + folderPath)) {
+          linksValid = folderPath
+        }
+      }
+    } catch (err) {
+      linksValid = false
+    }
+    expect(linksValid).toBe(true)
   })
 })
 
