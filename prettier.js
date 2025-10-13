@@ -113,11 +113,23 @@ const parseCode = async (codeToFormat, filePath, mustFix) => {
     switch (true) {
       case filePath.endsWith(".html"):
       case filePath.endsWith(".htm"):
+        if (filePath.endsWith(".component.html")) {
+          return "angular"
+        }
         return "html"
+
       case filePath.endsWith(".md"):
         return "markdown"
+
       case filePath.endsWith(".yml"):
+      case filePath.endsWith(".yaml"):
         return "yaml"
+
+      case filePath.endsWith(".ts"):
+      case filePath.endsWith(".mts"):
+      case filePath.endsWith(".cts"):
+        return "typescript"
+
       default:
         return "babel"
     }
