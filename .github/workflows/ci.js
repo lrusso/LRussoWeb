@@ -48,7 +48,10 @@ for (const filePath of htmlFiles) {
     const nvuReport = execSync(
       "java -jar vnu.jar --exit-zero-always --stdout --html " + filePath
     )
-    const reportText = nvuReport.toString().trim()
+    const reportText = nvuReport
+      .toString()
+      .replace(/"file:[^"]*\/([^\/"]+\.[^":]+)":/g, "")
+      .trim()
     if (reportText) {
       console.log(reportText)
       errorsFound = true
