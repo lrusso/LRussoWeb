@@ -232,8 +232,16 @@ const main = async () => {
   const result = await run()
 
   let hasErrors = false
-  let passed = 0
-  let failed = 0
+
+  let testsPassed = 0
+  let testsFailed = 0
+  let testsSuitesPassed = 0
+  let testsSuitesFailed = 0
+
+  /* eslint-disable no-undef */
+  const passedSuites = new Set()
+  /* eslint-disable no-undef */
+  const failedSuites = new Set()
 
   for (let i = 0; i < result.length; i++) {
     const testData = result[i]
@@ -242,7 +250,9 @@ const main = async () => {
     const testScenario = testData.testPath[2]
 
     if (testPassed) {
-      passed++
+      testsPassed++
+
+      passedSuites.add(testName)
 
       // eslint-disable-next-line no-console
       console.log(
@@ -253,7 +263,10 @@ const main = async () => {
     } else {
       hasErrors = true
 
-      failed++
+      testsFailed++
+
+      failedSuites.add(testName)
+
       const testError = testData.errors[0].split("\n")
 
       // eslint-disable-next-line no-console
@@ -266,13 +279,17 @@ const main = async () => {
       console.log(
         "Expected: \x1b[38;2;0;165;0m" +
           testError[3].trim() +
-          "\x1b[0m\n" + // Green
+          "\x1b[0m\n" +
           "Received: \x1b[38;2;220;0;0m" +
           testError[5].trim() +
-          "\x1b[0m" // Red
+          "\x1b[0m"
       )
     }
   }
+
+  // Count unique suites
+  testsSuitesPassed = passedSuites.size
+  testsSuitesFailed = failedSuites.size
 
   const endTime = Date.now()
   const elapsed = Math.round(endTime - startTime)
@@ -284,51 +301,39 @@ const main = async () => {
   const red = "\x1b[1m\x1b[38;2;220;0;0m"
   const reset = "\x1b[0m"
 
-  if (hasErrors) {
-    // eslint-disable-next-line no-console
-    console.log(
-      "Test Suites: " +
-        red +
-        failed +
-        " failed" +
-        reset +
-        ", " +
-        green +
-        passed +
-        " passed" +
-        reset +
-        ", " +
-        (failed + passed) +
-        " total"
-    )
+  // eslint-disable-next-line no-console
+  console.log(
+    "Test Suites: " +
+      red +
+      testsSuitesFailed +
+      " failed" +
+      reset +
+      ", " +
+      green +
+      testsSuitesPassed +
+      " passed" +
+      reset +
+      ", " +
+      (testsSuitesFailed + testsSuitesPassed) +
+      " total"
+  )
 
-    // eslint-disable-next-line no-console
-    console.log(
-      "Tests:       " +
-        red +
-        failed +
-        " failed" +
-        reset +
-        ", " +
-        green +
-        passed +
-        " passed" +
-        reset +
-        ", " +
-        (failed + passed) +
-        " total"
-    )
-  } else {
-    // eslint-disable-next-line no-console
-    console.log(
-      "Test Suites: " + green + passed + " passed" + reset + ", " + passed + " total"
-    )
-
-    // eslint-disable-next-line no-console
-    console.log(
-      "Tests:       " + green + passed + " passed" + reset + ", " + passed + " total"
-    )
-  }
+  // eslint-disable-next-line no-console
+  console.log(
+    "Tests:       " +
+      red +
+      testsFailed +
+      " failed" +
+      reset +
+      ", " +
+      green +
+      testsPassed +
+      " passed" +
+      reset +
+      ", " +
+      (testsFailed + testsPassed) +
+      " total"
+  )
 
   // eslint-disable-next-line no-console
   console.log("Time:        " + elapsed / 1000 + " s")
