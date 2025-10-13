@@ -54,7 +54,9 @@ const getVersion = () => {
 console.log("Nu Html Checker version: " + getVersion())
 
 for (const filePath of htmlFiles) {
-  console.log("Checking... " + filePath.substring(startDir.length, filePath.length))
+  console.log(
+    "Checking... " + filePath.substring(startDir.length + 1, filePath.length)
+  )
   try {
     const nvuReport = execSync(
       "java -jar vnu.jar --exit-zero-always --stdout --html " + filePath

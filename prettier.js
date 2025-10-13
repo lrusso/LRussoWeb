@@ -1,6 +1,7 @@
 import { dirname, join, extname, resolve } from "path"
 import { statSync, readdirSync, readFileSync, writeFileSync } from "fs"
 import { fileURLToPath } from "url"
+import process from "process"
 
 // prettier.js 3.5.3
 const B64_PRETTIER_STANDALONE =
@@ -58,6 +59,7 @@ new Function(voidHtmlPluginCode)()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const startDir = resolve(__dirname, ".")
+let filesModified = false
 
 function findFilesRecursiveSync(dir, ext) {
   const files = []
@@ -90,15 +92,15 @@ function findFilesRecursiveSync(dir, ext) {
   return files
 }
 
-const formatFiles = async (fileList) => {
+const formatFiles = async (fileList, mustFix) => {
   for (const filePath of fileList) {
     const fileData = readFileSync(filePath, "utf8")
-    const newFileData = await parseCode(fileData, filePath)
+    const newFileData = await parseCode(fileData, filePath, mustFix)
     writeFileSync(filePath, newFileData)
   }
 }
 
-const parseCode = async (codeToFormat, filePath) => {
+const parseCode = async (codeToFormat, filePath, mustFix) => {
   const selectedParser = (() => {
     switch (true) {
       case filePath.endsWith(".html"):
@@ -130,17 +132,53 @@ const parseCode = async (codeToFormat, filePath) => {
         prettierPlugins.voidHtml,
       ],
     })
+    if (mustFix) {
+      filesModified = true
+      if (formattedCode === codeToFormat) {
+        console.log(
+          "\x1b[90m" +
+            filePath.substring(startDir.length + 1, filePath.length) +
+            "\x1b[0m" +
+            " (unchanged)"
+        )
+      } else {
+        console.log(filePath.substring(startDir.length + 1, filePath.length))
+      }
+    } else if (formattedCode !== codeToFormat) {
+      console.log(
+        "[\x1b[33mwarn\x1b[0m]",
+        filePath.substring(startDir.length + 1, filePath.length)
+      )
+      filesModified = true
+    }
     return formattedCode
   } catch (error) {
     return codeToFormat
   }
 }
 
-const runPrettier = async () => {
-  await formatFiles(findFilesRecursiveSync(startDir, ".html"))
-  await formatFiles(findFilesRecursiveSync(startDir, ".js"))
-  await formatFiles(findFilesRecursiveSync(startDir, ".md"))
-  await formatFiles(findFilesRecursiveSync(startDir, ".yml"))
+const runPrettier = async (mustFix) => {
+  if (!mustFix) {
+    console.log("Checking formatting...")
+  }
+
+  await formatFiles(findFilesRecursiveSync(startDir, ".html"), mustFix)
+  await formatFiles(findFilesRecursiveSync(startDir, ".js"), mustFix)
+  await formatFiles(findFilesRecursiveSync(startDir, ".md"), mustFix)
+  await formatFiles(findFilesRecursiveSync(startDir, ".yml"), mustFix)
+
+  if (filesModified && !mustFix) {
+    console.log(
+      "[\x1b[33mwarn\x1b[0m] Code style issues found. Run Prettier to fix."
+    )
+    process.exit(1)
+  }
+
+  if (!filesModified) {
+    console.log("All matched files use Prettier code style!")
+  }
 }
 
-runPrettier()
+const prettierParam = process.argv[2]
+
+runPrettier(prettierParam === "fix" ? true : false)
