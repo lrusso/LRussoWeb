@@ -29,6 +29,7 @@ const langEN = "en-US"
 const langES = "es-AR"
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/117.0"
 const linkPlayStore = "#home > div:nth-child(12) > div:nth-child(3) > div > div > a"
+const linkGitHub = "#home > div:nth-child(12) > div:nth-child(4) > div > div > a"
 
 let errorsFound = false
 
@@ -53,7 +54,15 @@ const playStoreTest = browseToWebsite(langEN, userAgent, url, linkPlayStore)
 if (!playStoreTest.includes("3D Object Viewer")) {
   errorsFound = true
   // eslint-disable-next-line no-console
-  console.log("The Play Store is not working.")
+  console.log("The Play Store link is not working.")
+}
+
+// TEST 4 - CLICKING ON THE GITHUB ICON
+const githubTest = browseToWebsite(langEN, userAgent, url, linkGitHub)
+if (!githubTest.includes("Popular repositories")) {
+  errorsFound = true
+  // eslint-disable-next-line no-console
+  console.log("The GitHub link is not working.")
 }
 
 if (errorsFound) {
