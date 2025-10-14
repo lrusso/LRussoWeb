@@ -81,7 +81,8 @@ for (const filePath of filesToFormat) {
     )
     const reportText = nvuReport
       .toString()
-      .replace(/"file:[^"]*\/([^\/"]+\.[^":]+)":/g, "")
+      .replace(/"file:[^"]*\/([^\/"]+\.[^":]+)":/gm, "")
+      .replace(/(\d+\.\d+)-\d+\.\d+/gm, "$1")
       .replace(/^(.*?)(\berror:)/gm, "$2 $1")
       .replace(/^(.*?)(\binfo:)/gm, "$2 $1")
       .replace(/^(.*?)(\binfo warning:)/gm, "$2 $1")
