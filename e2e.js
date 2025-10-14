@@ -1,7 +1,7 @@
 import { execSync } from "child_process"
 import process from "process"
 
-const browseToWebsite = (userLanguage, userAgent, url, selector) => {
+const browseTo = (userLanguage, userAgent, url, selector) => {
   try {
     const result = execSync(
       'java -jar e2e.jar "' +
@@ -16,12 +16,12 @@ const browseToWebsite = (userLanguage, userAgent, url, selector) => {
     )
       .toString()
       .trim()
-    return JSON.parse(result).innerText
+    return JSON.parse(result)
   } catch (err) {
     //
   }
 
-  return ""
+  return { html: "", innerText: "" }
 }
 
 const url = "index.html"
@@ -35,7 +35,7 @@ const linkGitHub = "#home > div:nth-child(12) > div:nth-child(4) > div > div > a
 let errorsFound = false
 
 // TEST 1 - CHECKING WORDS IN ENGLISH
-const englishTest = browseToWebsite(langEN, userAgent, url)
+const englishTest = browseTo(langEN, userAgent, url).innerText
 if (!englishTest.includes("projects")) {
   errorsFound = true
   // eslint-disable-next-line no-console
@@ -43,7 +43,7 @@ if (!englishTest.includes("projects")) {
 }
 
 // TEST 2 - CHECKING WORDS IN SPANISH
-const spanishTest = browseToWebsite(langES, userAgent, url)
+const spanishTest = browseTo(langES, userAgent, url).innerText
 if (!spanishTest.includes("desarrollos")) {
   errorsFound = true
   // eslint-disable-next-line no-console
@@ -51,7 +51,7 @@ if (!spanishTest.includes("desarrollos")) {
 }
 
 // TEST 3 - CLICKING ON THE LINKEDIN ICON
-const linkedInTest = browseToWebsite(langEN, userAgent, url, linkLinkedIn)
+const linkedInTest = browseTo(langEN, userAgent, url, linkLinkedIn).innerText
 if (!linkedInTest.includes("Mobile, Web and AI developer")) {
   errorsFound = true
   // eslint-disable-next-line no-console
@@ -59,7 +59,7 @@ if (!linkedInTest.includes("Mobile, Web and AI developer")) {
 }
 
 // TEST 4 - CLICKING ON THE PLAY STORE ICON
-const playStoreTest = browseToWebsite(langEN, userAgent, url, linkPlayStore)
+const playStoreTest = browseTo(langEN, userAgent, url, linkPlayStore).innerText
 if (!playStoreTest.includes("3D Object Viewer")) {
   errorsFound = true
   // eslint-disable-next-line no-console
@@ -67,7 +67,7 @@ if (!playStoreTest.includes("3D Object Viewer")) {
 }
 
 // TEST 5 - CLICKING ON THE GITHUB ICON
-const githubTest = browseToWebsite(langEN, userAgent, url, linkGitHub)
+const githubTest = browseTo(langEN, userAgent, url, linkGitHub).innerText
 if (!githubTest.includes("Popular repositories")) {
   errorsFound = true
   // eslint-disable-next-line no-console
