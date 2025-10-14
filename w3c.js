@@ -75,9 +75,6 @@ const targetExts = [".html", ".htm"]
 const filesToFormat = allFiles.filter((file) => targetExts.includes(extname(file)))
 
 for (const filePath of filesToFormat) {
-  // eslint-disable-next-line no-console
-  console.log("Checking... " + filePath.substring(startDir.length + 1))
-
   try {
     const nvuReport = execSync(
       "java -jar w3c.jar --exit-zero-always --stdout --html " + filePath
@@ -87,6 +84,9 @@ for (const filePath of filesToFormat) {
       .replace(/"file:[^"]*\/([^\/"]+\.[^":]+)":/g, "")
       .trim()
     if (reportText) {
+      // eslint-disable-next-line no-console
+      console.log(filePath.substring(startDir.length + 1))
+
       // eslint-disable-next-line no-console
       console.log(reportText)
       errorsFound = true
