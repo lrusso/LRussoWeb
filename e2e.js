@@ -10,8 +10,10 @@ const browseToWebsite = (userLanguage, userAgent, url) => {
       .trim()
     return result
   } catch (err) {
-    return ""
+    //
   }
+
+  return ""
 }
 
 const findWord = (language, userAgent, url, word) => {
@@ -25,6 +27,8 @@ const findWord = (language, userAgent, url, word) => {
   } catch (err) {
     //
   }
+
+  // eslint-disable-next-line no-console
   console.log(language + " - " + url + ' not showing the "' + word + '" word.')
   return false
 }
@@ -38,6 +42,7 @@ const checkWebsite = (url) => {
         errorsFound = true
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err)
       errorsFound = true
     }
