@@ -82,6 +82,19 @@ for (const filePath of filesToFormat) {
     const reportText = nvuReport
       .toString()
       .replace(/"file:[^"]*\/([^\/"]+\.[^":]+)":/g, "")
+      .replace(/^(.*?)(\berror:)/gm, "$2 $1")
+      .replace(/^(.*?)(\binfo:)/gm, "$2 $1")
+      .replace(/^(.*?)(\binfo warning:)/gm, "$2 $1")
+      .replace(
+        /\berror:/gm,
+        "\x1b[48;2;255;0;0m\x1b[38;2;255;255;255m error \x1b[0m"
+      )
+      .replace(/\binfo:/gm, "\x1b[48;2;0;200;0m\x1b[38;2;0;0;0m info \x1b[0m")
+      .replace(
+        /\binfo warning:/gm,
+        "\x1b[48;2;0;200;0m\x1b[38;2;0;0;0m info warning \x1b[0m"
+      )
+      .replace(/:  /gm, " ")
       .trim()
     if (reportText) {
       // eslint-disable-next-line no-console
