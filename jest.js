@@ -163,11 +163,13 @@ describe("404.html", () => {
       "$1"
     )
     let isValidJSON = true
+
     try {
       JSON.parse(redirectsList)
     } catch (err) {
       isValidJSON = false
     }
+
     expect(isValidJSON).toBe(true)
   })
 
@@ -258,7 +260,71 @@ describe("index.html", () => {
   })
 
   it("Latest projects are showing titles", () => {
-    expect(true).toBe(true)
+    let STR = getVariable("index.html", "STR")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    let showingTitles = true
+
+    try {
+      STR = JSON.parse(STR)
+
+      const languages = Object.keys(STR)
+
+      for (const lang of languages) {
+        if (typeof STR[lang].latest1t !== "string") {
+          if (showingTitles !== true) {
+            showingTitles = showingTitles + ", " + lang + ":latest1t"
+          } else {
+            showingTitles = lang + ":latest1t"
+          }
+        }
+
+        if (typeof STR[lang].latest2t !== "string") {
+          if (showingTitles !== true) {
+            showingTitles = showingTitles + ", " + lang + ":latest2t"
+          } else {
+            showingTitles = lang + ":latest2t"
+          }
+        }
+
+        if (typeof STR[lang].latest3t !== "string") {
+          if (showingTitles !== true) {
+            showingTitles = showingTitles + ", " + lang + ":latest3t"
+          } else {
+            showingTitles = lang + ":latest3t"
+          }
+        }
+
+        if (STR[lang].latest1t === "") {
+          if (showingTitles !== true) {
+            showingTitles = showingTitles + ", " + lang + ":latest1t"
+          } else {
+            showingTitles = lang + ":latest1t"
+          }
+        }
+
+        if (STR[lang].latest2t === "") {
+          if (showingTitles !== true) {
+            showingTitles = showingTitles + ", " + lang + ":latest2t"
+          } else {
+            showingTitles = lang + ":latest2t"
+          }
+        }
+
+        if (STR[lang].latest3t === "") {
+          if (showingTitles !== true) {
+            showingTitles = showingTitles + ", " + lang + ":latest3t"
+          } else {
+            showingTitles = lang + ":latest3t"
+          }
+        }
+      }
+    } catch (err) {
+      showingTitles = false
+    }
+
+    expect(showingTitles).toBe(true)
   })
 
   it("Latest projects are showing images", () => {
