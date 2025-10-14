@@ -86,12 +86,9 @@ for (const filePath of filesToFormat) {
       .replace(/^(.*?)(\berror:)/gm, "$2 $1")
       .replace(/^(.*?)(\binfo:)/gm, "$2 $1")
       .replace(/^(.*?)(\binfo warning:)/gm, "$2 $1")
-      .replace(/\berror:/gm, "\x1b[41m\x1b[38;2;255;255;255m error \x1b[0m")
-      .replace(/\binfo:/gm, "\x1b[42m\x1b[38;2;255;255;255m info \x1b[0m")
-      .replace(
-        /\binfo warning:/gm,
-        "\x1b[42m\x1b[38;2;255;255;255m info warning \x1b[0m"
-      )
+      .replace(/\berror:/gm, "\x1b[41m\x1b[38;2;255;255;255m ERROR \x1b[0m")
+      .replace(/\binfo:/gm, "\x1b[42m\x1b[38;2;255;255;255m INFO \x1b[0m")
+      .replace(/\binfo warning:/gm, "\x1b[42m\x1b[38;2;255;255;255m INFO \x1b[0m")
       .replace(/:  /gm, " ")
       .trim()
     if (reportText) {
