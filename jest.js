@@ -368,10 +368,78 @@ describe("index.html", () => {
   })
 
   it("Latest projects are showing descriptions", () => {
-    expect(true).toBe(true)
+    let STR = getVariable("index.html", "STR")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    let showingDescriptions = true
+
+    try {
+      STR = JSON.parse(STR)
+
+      const languages = Object.keys(STR)
+
+      for (const lang of languages) {
+        if (typeof STR[lang].latest1d !== "string") {
+          if (showingDescriptions !== true) {
+            showingDescriptions = showingDescriptions + ", " + lang + ":latest1d"
+          } else {
+            showingDescriptions = lang + ":latest1d"
+          }
+        }
+
+        if (typeof STR[lang].latest2d !== "string") {
+          if (showingDescriptions !== true) {
+            showingDescriptions = showingDescriptions + ", " + lang + ":latest2d"
+          } else {
+            showingDescriptions = lang + ":latest2d"
+          }
+        }
+
+        if (typeof STR[lang].latest3d !== "string") {
+          if (showingDescriptions !== true) {
+            showingDescriptions = showingDescriptions + ", " + lang + ":latest3d"
+          } else {
+            showingDescriptions = lang + ":latest3d"
+          }
+        }
+
+        if (STR[lang].latest1d === "") {
+          if (showingDescriptions !== true) {
+            showingDescriptions = showingDescriptions + ", " + lang + ":latest1d"
+          } else {
+            showingDescriptions = lang + ":latest1d"
+          }
+        }
+
+        if (STR[lang].latest2d === "") {
+          if (showingDescriptions !== true) {
+            showingDescriptions = showingDescriptions + ", " + lang + ":latest2d"
+          } else {
+            showingDescriptions = lang + ":latest2d"
+          }
+        }
+
+        if (STR[lang].latest3d === "") {
+          if (showingDescriptions !== true) {
+            showingDescriptions = showingDescriptions + ", " + lang + ":latest3d"
+          } else {
+            showingDescriptions = lang + ":latest3d"
+          }
+        }
+      }
+    } catch (err) {
+      showingDescriptions = false
+    }
+
+    expect(showingDescriptions).toBe(true)
   })
 
   it("Latest projects are showing buttons", () => {
+    expect(true).toBe(true)
+  })
+
+  it("Latest projects are showing links", () => {
     expect(true).toBe(true)
   })
 
