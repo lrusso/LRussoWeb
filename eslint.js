@@ -47,5 +47,9 @@ const lintConfig = {
   },
 }
 
-// HOW TO USE THIS ESLINT IMPLEMENTATION?
+// --------------------------------------------
+// HOW TO USE THIS IMPLEMENTATION?
+// --------------------------------------------
+//
 // node eslint
+//
