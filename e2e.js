@@ -21,7 +21,7 @@ const browseTo = (userLanguage, userAgent, url, selector) => {
     //
   }
 
-  return { html: "", innerText: "" }
+  return { html: "", text: "" }
 }
 
 const url = "index.html"
@@ -35,7 +35,7 @@ const linkGitHub = "#home > div:nth-child(12) > div:nth-child(4) > div > div > a
 let errorsFound = false
 
 // TEST 1 - CHECKING WORDS IN ENGLISH
-const englishTest = browseTo(langEN, userAgent, url).innerText
+const englishTest = browseTo(langEN, userAgent, url).text
 if (!englishTest.includes("projects")) {
   errorsFound = true
   // eslint-disable-next-line no-console
@@ -43,7 +43,7 @@ if (!englishTest.includes("projects")) {
 }
 
 // TEST 2 - CHECKING WORDS IN SPANISH
-const spanishTest = browseTo(langES, userAgent, url).innerText
+const spanishTest = browseTo(langES, userAgent, url).text
 if (!spanishTest.includes("desarrollos")) {
   errorsFound = true
   // eslint-disable-next-line no-console
@@ -59,7 +59,7 @@ if (!emailTest.includes("mailto:info@lrusso.com")) {
 }
 
 // TEST 5 - CLICKING ON THE LINKEDIN ICON
-const linkedInTest = browseTo(langEN, userAgent, url, linkLinkedIn).innerText
+const linkedInTest = browseTo(langEN, userAgent, url, linkLinkedIn).text
 if (!linkedInTest.includes("Mobile, Web and AI developer")) {
   errorsFound = true
   // eslint-disable-next-line no-console
@@ -67,7 +67,7 @@ if (!linkedInTest.includes("Mobile, Web and AI developer")) {
 }
 
 // TEST 6 - CLICKING ON THE PLAY STORE ICON
-const playStoreTest = browseTo(langEN, userAgent, url, linkPlayStore).innerText
+const playStoreTest = browseTo(langEN, userAgent, url, linkPlayStore).text
 if (!playStoreTest.includes("3D Object Viewer")) {
   errorsFound = true
   // eslint-disable-next-line no-console
@@ -75,7 +75,7 @@ if (!playStoreTest.includes("3D Object Viewer")) {
 }
 
 // TEST 7 - CLICKING ON THE GITHUB ICON
-const githubTest = browseTo(langEN, userAgent, url, linkGitHub).innerText
+const githubTest = browseTo(langEN, userAgent, url, linkGitHub).text
 if (!githubTest.includes("Popular repositories")) {
   errorsFound = true
   // eslint-disable-next-line no-console
