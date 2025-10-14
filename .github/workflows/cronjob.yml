@@ -24,7 +24,7 @@ jobs:
         run: node eslint.js
       - name: Running Prettier
         run: node prettier.js
-      - name: Running Unit Tests
+      - name: Running Jest
         run: node jest.js
       - name: Running the W3C Validator
         run: node w3c.js
