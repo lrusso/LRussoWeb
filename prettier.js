@@ -39,6 +39,10 @@ const prettierConfig = {
   trailingComma: "es5",
 }
 
-// HOW TO USE THIS PRETTIER IMPLEMENTATION?
+// --------------------------------------------
+// HOW TO USE THIS IMPLEMENTATION?
+// --------------------------------------------
+//
 // node prettier
 // node prettier fix
+//
