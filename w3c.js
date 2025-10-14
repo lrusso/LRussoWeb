@@ -86,14 +86,11 @@ for (const filePath of filesToFormat) {
       .replace(/^(.*?)(\berror:)/gm, "$2 $1")
       .replace(/^(.*?)(\binfo:)/gm, "$2 $1")
       .replace(/^(.*?)(\binfo warning:)/gm, "$2 $1")
-      .replace(
-        /\berror:/gm,
-        "\x1b[48;2;255;0;0m\x1b[38;2;255;255;255m error \x1b[0m"
-      )
-      .replace(/\binfo:/gm, "\x1b[48;2;0;200;0m\x1b[38;2;0;0;0m info \x1b[0m")
+      .replace(/\berror:/gm, "\x1b[41m\x1b[38;2;255;255;255m error \x1b[0m")
+      .replace(/\binfo:/gm, "\x1b[42m\x1b[38;2;255;255;255m info \x1b[0m")
       .replace(
         /\binfo warning:/gm,
-        "\x1b[48;2;0;200;0m\x1b[38;2;0;0;0m info warning \x1b[0m"
+        "\x1b[42m\x1b[38;2;255;255;255m info warning \x1b[0m"
       )
       .replace(/:  /gm, " ")
       .trim()
