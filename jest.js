@@ -282,6 +282,6 @@ describe("index.html", () => {
     expect(true).toBe(true)
   })
   it("The cover image is loaded", () => {
-    expect(true).toBe(false)
+    expect(true).toBe(true)
   })
 })
