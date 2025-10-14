@@ -151,10 +151,12 @@ describe("404.html", () => {
   it("File exists", () => {
     expect(fileExists("404.html")).toBe(true)
   })
+
   it("Contains redirects", () => {
     const variableExists = getVariable("404.html", "redirects")
     expect(variableExists).not.toBe("")
   })
+
   it("The redirects list is a JSON", () => {
     const redirectsList = getVariable("404.html", "redirects").replace(
       /,\s*([}\]])/g,
@@ -168,6 +170,7 @@ describe("404.html", () => {
     }
     expect(isValidJSON).toBe(true)
   })
+
   it("Redirects are valid", () => {
     const redirectsList = getVariable("404.html", "redirects")
       .replace(/,\s*([}\]])/g, "$1")
@@ -198,6 +201,7 @@ describe("privacy.html", () => {
   it("File exists", () => {
     expect(fileExists("privacy.html")).toBe(true)
   })
+
   it("Content shows the same content", () => {
     const expectedHash = "102f2163"
     let currentHash = ""
@@ -217,10 +221,12 @@ describe("index.html", () => {
   it("File exists", () => {
     expect(fileExists("index.html")).toBe(true)
   })
+
   it("Internationalization variable exists", () => {
     const variableExists = getVariable("index.html", "STR")
     expect(variableExists).not.toBe("")
   })
+
   it("All the languages have the same amount of keys", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
@@ -230,6 +236,7 @@ describe("index.html", () => {
 
     expect(sameAmount).toBe(true)
   })
+
   it("All the languages have the same keys", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
@@ -239,6 +246,7 @@ describe("index.html", () => {
 
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
+
   it("All the languages have non-empty keys", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
@@ -248,39 +256,51 @@ describe("index.html", () => {
 
     expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
+
   it("Latest projects are showing titles", () => {
     expect(true).toBe(true)
   })
+
   it("Latest projects are showing images", () => {
     expect(true).toBe(true)
   })
+
   it("Latest projects images exists", () => {
     expect(true).toBe(true)
   })
+
   it("Latest projects are showing descriptions", () => {
     expect(true).toBe(true)
   })
+
   it("Latest projects are showing buttons", () => {
     expect(true).toBe(true)
   })
+
   it("The articles are showing titles", () => {
     expect(true).toBe(true)
   })
+
   it("The articles are showing images", () => {
     expect(true).toBe(true)
   })
+
   it("The articles images exists", () => {
     expect(true).toBe(true)
   })
+
   it("The articles are showing descriptions", () => {
     expect(true).toBe(true)
   })
+
   it("The articles are showing buttons", () => {
     expect(true).toBe(true)
   })
+
   it("The cover image exists", () => {
     expect(true).toBe(true)
   })
+
   it("The cover image is loaded", () => {
     expect(true).toBe(true)
   })
