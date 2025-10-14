@@ -328,7 +328,20 @@ describe("index.html", () => {
   })
 
   it("Latest projects are showing images", () => {
-    expect(true).toBe(true)
+    var imageLoaderFound = true
+
+    try {
+      const content = readFileSync("index.html", "utf8")
+      if (content.includes("img_Latest_")) {
+        imageLoaderFound = true
+      } else {
+        imageLoaderFound = "Image loader not found"
+      }
+    } catch (err) {
+      imageLoaderFound = "Image loader not found"
+    }
+
+    expect(imageLoaderFound).toBe(true)
   })
 
   it("Latest projects images exists", () => {
