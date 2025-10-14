@@ -21,7 +21,7 @@ global.afterEach = afterEach
 // HOW TO USE THIS IMPLEMENTATION?
 // --------------------------------------------
 //
-// node tests
+// node jest
 //
 
 const fileExists = (path) => existsSync(path)

@@ -25,7 +25,7 @@ jobs:
       - name: Running Prettier
         run: node prettier.js
       - name: Running Unit Tests
-        run: node tests.js
+        run: node jest.js
       - name: Running the W3C Validator
         run: node w3c.js
       - name: Running the cron job
