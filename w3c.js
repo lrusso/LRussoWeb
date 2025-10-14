@@ -6,7 +6,7 @@ import process from "process"
 
 // https://app.unpkg.com/vnu-jar@23.4.11
 
-function findAllFilesRecursive(dir) {
+const findAllFilesRecursive = (dir) => {
   const files = []
 
   try {

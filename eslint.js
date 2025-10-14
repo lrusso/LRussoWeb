@@ -10,7 +10,7 @@ const B64_ESLINT =
 const eslintCode = Buffer.from(B64_ESLINT, "base64").toString("utf8")
 new Function(eslintCode)()
 
-function findAllFilesRecursive(dir) {
+const findAllFilesRecursive = (dir) => {
   const files = []
 
   try {
