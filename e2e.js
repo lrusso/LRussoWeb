@@ -29,7 +29,7 @@ const findWord = (language, userAgent, url, word) => {
   }
 
   // eslint-disable-next-line no-console
-  console.log(language + " - " + url + ' not showing the "' + word + '" word.')
+  console.log(language + " - " + url + ' is not showing the "' + word + '" word.')
   return false
 }
 
@@ -51,8 +51,8 @@ const checkWebsite = (url) => {
 
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/117.0"
 const languages = {
-  "es-AR": "desarrollos1",
-  "en-US": "projects2",
+  "es-AR": "desarrollos",
+  "en-US": "projects",
 }
 
 let errorsFound = false
