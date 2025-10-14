@@ -51,8 +51,8 @@ const checkWebsite = (url) => {
 
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/117.0"
 const languages = {
-  "es-AR": "desarrollos",
-  "en-US": "projects",
+  "es-AR": "desarrollos1",
+  "en-US": "projects2",
 }
 
 let errorsFound = false
