@@ -50,7 +50,7 @@ if (!spanishTest.includes("desarrollos")) {
   console.log(langES + ' - The "desarrollos" word was not found.')
 }
 
-// TEST 4 - CHECKING THE EMAIL ICON
+// TEST 3 - CHECKING THE EMAIL ICON
 const emailTest = browseTo(langEN, userAgent, url).html
 if (!emailTest.includes("mailto:info@lrusso.com")) {
   errorsFound = true
@@ -58,7 +58,7 @@ if (!emailTest.includes("mailto:info@lrusso.com")) {
   console.log("The Email link is not working.")
 }
 
-// TEST 5 - CLICKING ON THE LINKEDIN ICON
+// TEST 4 - CLICKING ON THE LINKEDIN ICON
 const linkedInTest = browseTo(langEN, userAgent, url, linkLinkedIn).text
 if (!linkedInTest.includes("Mobile, Web and AI developer")) {
   errorsFound = true
@@ -66,7 +66,7 @@ if (!linkedInTest.includes("Mobile, Web and AI developer")) {
   console.log("The LinkedIn link is not working.")
 }
 
-// TEST 6 - CLICKING ON THE PLAY STORE ICON
+// TEST 5 - CLICKING ON THE PLAY STORE ICON
 const playStoreTest = browseTo(langEN, userAgent, url, linkPlayStore).text
 if (!playStoreTest.includes("3D Object Viewer")) {
   errorsFound = true
@@ -74,7 +74,7 @@ if (!playStoreTest.includes("3D Object Viewer")) {
   console.log("The Play Store link is not working.")
 }
 
-// TEST 7 - CLICKING ON THE GITHUB ICON
+// TEST 6 - CLICKING ON THE GITHUB ICON
 const githubTest = browseTo(langEN, userAgent, url, linkGitHub).text
 if (!githubTest.includes("Popular repositories")) {
   errorsFound = true
