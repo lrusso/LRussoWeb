@@ -328,7 +328,7 @@ describe("index.html", () => {
   })
 
   it("Latest projects are showing images", () => {
-    var imageLoaderFound = true
+    let imageLoaderFound = true
 
     try {
       const content = readFileSync("index.html", "utf8")
@@ -345,7 +345,7 @@ describe("index.html", () => {
   })
 
   it("Latest projects images exists", () => {
-    var imagesExists = true
+    let imagesExists = true
 
     try {
       readFileSync("img_Latest_1.webp", "utf8")
