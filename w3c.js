@@ -110,8 +110,3 @@ if (errorsFound) {
   // EXITING THE PROCESS WITH AN ERROR IN ORDER TO TRIGGER A GITHUB NOTIFICATION
   process.exit(1)
 }
-
-
-
-
-
