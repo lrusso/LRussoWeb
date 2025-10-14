@@ -15,6 +15,17 @@ eval(Buffer.from(B64_LOADER, "base64").toString("utf8"))
 // HOW TO USE THIS IMPLEMENTATION?
 // --------------------------------------------
 //
+// ADD A JEST TEST TO THE BOTTOM OF THIS FILE:
+//
+// describe("Example", () => {
+//  it("Something", () => {
+//    const myValue = true
+//    expect(myValue).toBe(true)
+//   })
+// })
+//
+// THEN RUN:
+//
 // node jest
 //
 
