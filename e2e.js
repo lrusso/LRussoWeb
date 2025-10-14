@@ -60,7 +60,7 @@ if (!emailTest.includes("mailto:info@lrusso.com")) {
 
 // TEST 4 - CLICKING ON THE LINKEDIN ICON
 const linkedInTest = browseTo(langEN, userAgent, url, linkLinkedIn).text
-if (!linkedInTest.includes("Mobile, Web and AI developer")) {
+if (!linkedInTest.includes("full profile")) {
   errorsFound = true
   // eslint-disable-next-line no-console
   console.log("The LinkedIn link is not working.")
