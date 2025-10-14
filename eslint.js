@@ -46,3 +46,6 @@ const lintConfig = {
     sourceType: "module",
   },
 }
+
+// HOW TO USE THIS ESLINT IMPLEMENTATION?
+// node eslint
