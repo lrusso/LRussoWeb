@@ -332,7 +332,39 @@ describe("index.html", () => {
   })
 
   it("Latest projects images exists", () => {
-    expect(true).toBe(true)
+    var imagesExists = true
+
+    try {
+      readFileSync("img_Latest_1.webp", "utf8")
+    } catch (err) {
+      if (imagesExists !== true) {
+        imagesExists = imagesExists + ", img_Latest_1.webp"
+      } else {
+        imagesExists = "img_Latest_1.webp"
+      }
+    }
+
+    try {
+      readFileSync("img_Latest_2.webp", "utf8")
+    } catch (err) {
+      if (imagesExists !== true) {
+        imagesExists = imagesExists + ", img_Latest_2.webp"
+      } else {
+        imagesExists = "img_Latest_2.webp"
+      }
+    }
+
+    try {
+      readFileSync("img_Latest_3.webp", "utf8")
+    } catch (err) {
+      if (imagesExists !== true) {
+        imagesExists = imagesExists + ", img_Latest_3.webp"
+      } else {
+        imagesExists = "img_Latest_3.webp"
+      }
+    }
+
+    expect(imagesExists).toBe(true)
   })
 
   it("Latest projects are showing descriptions", () => {
