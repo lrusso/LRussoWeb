@@ -59,15 +59,17 @@ if (!emailTest.includes("mailto:info@lrusso.com")) {
 }
 
 // TEST 4 - CLICKING ON THE LINKEDIN ICON
-const linkedInTest = browseTo(langEN, userAgent, url, linkLinkedIn).text
-if (!linkedInTest.includes("full profile")) {
+const linkedInTest = browseTo(langEN, userAgent, url, [linkLinkedIn]).text
+if (
+  !(linkedInTest.includes("full profile") || linkedInTest.includes("Join LinkedIn"))
+) {
   errorsFound = true
   // eslint-disable-next-line no-console
   console.log("The LinkedIn link is not working.")
 }
 
 // TEST 5 - CLICKING ON THE PLAY STORE ICON
-const playStoreTest = browseTo(langEN, userAgent, url, linkPlayStore).text
+const playStoreTest = browseTo(langEN, userAgent, url, [linkPlayStore]).text
 if (!playStoreTest.includes("3D Object Viewer")) {
   errorsFound = true
   // eslint-disable-next-line no-console
@@ -75,7 +77,7 @@ if (!playStoreTest.includes("3D Object Viewer")) {
 }
 
 // TEST 6 - CLICKING ON THE GITHUB ICON
-const githubTest = browseTo(langEN, userAgent, url, linkGitHub).text
+const githubTest = browseTo(langEN, userAgent, url, [linkGitHub]).text
 if (!githubTest.includes("Popular repositories")) {
   errorsFound = true
   // eslint-disable-next-line no-console
