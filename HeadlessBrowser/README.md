@@ -34,7 +34,17 @@ node HeadlessBrowser.js "en-US" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrom
 
 ## Building the JAR file:
 
-The JAR file is already included in this repository, but if you like to build your own JAR, below are the instructions.
+The JAR file is already included in this repository, but if you like to build your own JAR, you have two ways to do it:
+
+### Using the GitHub Action designed in this repository
+
+1. Click on `Actions`.
+2. Click on `Build the JAR file`.
+3. Click on `Run workflow`.
+4. Click on `Run workflow` using the main branch.
+5. A JAR file will be generated and attached to that workflow as an artifact.
+
+### Manually
 
 1. Install [Node.js](https://nodejs.org/en/download)
 2. Install [Java Development Kit](https://www.oracle.com/java/technologies/downloads/)
