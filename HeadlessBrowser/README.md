@@ -39,7 +39,7 @@ The JAR file is already included in this repository, but if you like to build yo
 ### Using the GitHub Action designed in this repository
 
 1. Click on `Actions`.
-2. Click on `Build the JAR file`.
+2. Click on `Headless Browser`.
 3. Click on `Run workflow`.
 4. Click on `Run workflow` using the main branch.
 5. A JAR file will be generated and attached to that workflow as an artifact.
