@@ -13,12 +13,12 @@ This tool's core functionality is to navigate to a specified web resource (URL o
 
 ## **Arguments**
 
-| Argument                     | Description                                                                                                 | Example Value                                            |
-| :--------------------------- | :---------------------------------------------------------------------------------------------------------- | :------------------------------------------------------- |
-| **`<locale>`**               | The preferred language for the request.                                                                     | `en-US`                                                  |
-| **`<user_agent>`**           | The User-Agent string.                                                                                      | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/117.0` |
-| **`<url_or_file>`**          | A URL or a local file path.                                                                                 | `https://www.example.com`                                |
-| **`<selectors_or_actions>`** | **(Optional)** An array of CSS selectors to click specific elements on the page and perform typing actions. | `["#textbox1", "type:hello world"]`                      |
+| Argument                     | Description                                                                                                                                                              | Example Value                                            |
+| :--------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------- |
+| **`<locale>`**               | The preferred language for the request.                                                                                                                                  | `en-US`                                                  |
+| **`<user_agent>`**           | The User-Agent string.                                                                                                                                                   | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/117.0` |
+| **`<url_or_file>`**          | A URL or a local file path.                                                                                                                                              | `https://www.example.com`                                |
+| **`<selectors_or_actions>`** | **(Optional)** An array of CSS selectors and action instructions to interact with elements on the page, such as clicking specific elements or performing typing actions. | `["#textbox1", "type:hello world"]`                      |
 
 ### Using Java:
 
