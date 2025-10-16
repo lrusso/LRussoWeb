@@ -356,39 +356,39 @@ describe("index.html", () => {
   })
 
   it("Latest projects images exists", () => {
-    let imagesExists = true
+    let latestImageExists = true
 
     try {
       readFileSync("img_Latest_1.webp", "utf8")
     } catch (err) {
-      if (imagesExists !== true) {
-        imagesExists = imagesExists + ", img_Latest_1.webp"
+      if (latestImageExists !== true) {
+        latestImageExists = latestImageExists + ", img_Latest_1.webp"
       } else {
-        imagesExists = "img_Latest_1.webp"
+        latestImageExists = "img_Latest_1.webp"
       }
     }
 
     try {
       readFileSync("img_Latest_2.webp", "utf8")
     } catch (err) {
-      if (imagesExists !== true) {
-        imagesExists = imagesExists + ", img_Latest_2.webp"
+      if (latestImageExists !== true) {
+        latestImageExists = latestImageExists + ", img_Latest_2.webp"
       } else {
-        imagesExists = "img_Latest_2.webp"
+        latestImageExists = "img_Latest_2.webp"
       }
     }
 
     try {
       readFileSync("img_Latest_3.webp", "utf8")
     } catch (err) {
-      if (imagesExists !== true) {
-        imagesExists = imagesExists + ", img_Latest_3.webp"
+      if (latestImageExists !== true) {
+        latestImageExists = latestImageExists + ", img_Latest_3.webp"
       } else {
-        imagesExists = "img_Latest_3.webp"
+        latestImageExists = "img_Latest_3.webp"
       }
     }
 
-    expect(imagesExists).toBe(true)
+    expect(latestImageExists).toBe(true)
   })
 
   it("Latest projects are showing descriptions", () => {
@@ -396,7 +396,7 @@ describe("index.html", () => {
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
 
-    let showingDescriptions = true
+    let showingLatestDescriptions = true
 
     try {
       STR = JSON.parse(STR)
@@ -405,58 +405,64 @@ describe("index.html", () => {
 
       for (const lang of languages) {
         if (typeof STR[lang].latest1d !== "string") {
-          if (showingDescriptions !== true) {
-            showingDescriptions = showingDescriptions + ", " + lang + ":latest1d"
+          if (showingLatestDescriptions !== true) {
+            showingLatestDescriptions =
+              showingLatestDescriptions + ", " + lang + ":latest1d"
           } else {
-            showingDescriptions = lang + ":latest1d"
+            showingLatestDescriptions = lang + ":latest1d"
           }
         }
 
         if (typeof STR[lang].latest2d !== "string") {
-          if (showingDescriptions !== true) {
-            showingDescriptions = showingDescriptions + ", " + lang + ":latest2d"
+          if (showingLatestDescriptions !== true) {
+            showingLatestDescriptions =
+              showingLatestDescriptions + ", " + lang + ":latest2d"
           } else {
-            showingDescriptions = lang + ":latest2d"
+            showingLatestDescriptions = lang + ":latest2d"
           }
         }
 
         if (typeof STR[lang].latest3d !== "string") {
-          if (showingDescriptions !== true) {
-            showingDescriptions = showingDescriptions + ", " + lang + ":latest3d"
+          if (showingLatestDescriptions !== true) {
+            showingLatestDescriptions =
+              showingLatestDescriptions + ", " + lang + ":latest3d"
           } else {
-            showingDescriptions = lang + ":latest3d"
+            showingLatestDescriptions = lang + ":latest3d"
           }
         }
 
         if (STR[lang].latest1d === "") {
-          if (showingDescriptions !== true) {
-            showingDescriptions = showingDescriptions + ", " + lang + ":latest1d"
+          if (showingLatestDescriptions !== true) {
+            showingLatestDescriptions =
+              showingLatestDescriptions + ", " + lang + ":latest1d"
           } else {
-            showingDescriptions = lang + ":latest1d"
+            showingLatestDescriptions = lang + ":latest1d"
           }
         }
 
         if (STR[lang].latest2d === "") {
-          if (showingDescriptions !== true) {
-            showingDescriptions = showingDescriptions + ", " + lang + ":latest2d"
+          if (showingLatestDescriptions !== true) {
+            showingLatestDescriptions =
+              showingLatestDescriptions + ", " + lang + ":latest2d"
           } else {
-            showingDescriptions = lang + ":latest2d"
+            showingLatestDescriptions = lang + ":latest2d"
           }
         }
 
         if (STR[lang].latest3d === "") {
-          if (showingDescriptions !== true) {
-            showingDescriptions = showingDescriptions + ", " + lang + ":latest3d"
+          if (showingLatestDescriptions !== true) {
+            showingLatestDescriptions =
+              showingLatestDescriptions + ", " + lang + ":latest3d"
           } else {
-            showingDescriptions = lang + ":latest3d"
+            showingLatestDescriptions = lang + ":latest3d"
           }
         }
       }
     } catch (err) {
-      showingDescriptions = false
+      showingLatestDescriptions = false
     }
 
-    expect(showingDescriptions).toBe(true)
+    expect(showingLatestDescriptions).toBe(true)
   })
 
   it("Latest projects are showing buttons", () => {
@@ -464,29 +470,30 @@ describe("index.html", () => {
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
 
-    let showingButton = true
+    let showingLatestButtons = true
 
     try {
       LATEST = JSON.parse(LATEST)
 
       for (let i = 0; i < LATEST.length; i++) {
         if (LATEST[i].t !== "app" && LATEST[i].t !== "website") {
-          if (showingButton !== true) {
-            showingButton =
-              showingButton +
+          if (showingLatestButtons !== true) {
+            showingLatestButtons =
+              showingLatestButtons +
               " - Project " +
               (i + 1) +
               " is not showing a valid button"
           } else {
-            showingButton = "Project " + (i + 1) + " is not showing a valid button"
+            showingLatestButtons =
+              "Project " + (i + 1) + " is not showing a valid button"
           }
         }
       }
     } catch (err) {
-      showingButton = false
+      showingLatestButtons = false
     }
 
-    expect(showingButton).toBe(true)
+    expect(showingLatestButtons).toBe(true)
   })
 
   it("Latest projects are showing links", () => {
@@ -494,26 +501,30 @@ describe("index.html", () => {
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
 
-    let showingLinks = true
+    let showingLatestLinks = true
 
     try {
       LATEST = JSON.parse(LATEST)
 
       for (let i = 0; i < LATEST.length; i++) {
         if (LATEST[i].l.indexOf("https://") !== 0) {
-          if (showingLinks !== true) {
-            showingLinks =
-              showingLinks + " - Project " + (i + 1) + " is not showing a valid link"
+          if (showingLatestLinks !== true) {
+            showingLatestLinks =
+              showingLatestLinks +
+              " - Project " +
+              (i + 1) +
+              " is not showing a valid link"
           } else {
-            showingLinks = "Project " + (i + 1) + " is not showing a valid link"
+            showingLatestLinks =
+              "Project " + (i + 1) + " is not showing a valid link"
           }
         }
       }
     } catch (err) {
-      showingLinks = false
+      showingLatestLinks = false
     }
 
-    expect(showingLinks).toBe(true)
+    expect(showingLatestLinks).toBe(true)
   })
 
   it("The articles are showing titles", () => {
@@ -639,7 +650,34 @@ describe("index.html", () => {
   })
 
   it("The articles are showing buttons", () => {
-    expect(true).toBe(true)
+    let PRESS = getVariable("index.html", "PRESS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    let showingArticlesButtons = true
+
+    try {
+      PRESS = JSON.parse(PRESS)
+
+      for (let i = 0; i < PRESS.length; i++) {
+        if (PRESS[i].b !== "read" && PRESS[i].b !== "watch") {
+          if (showingArticlesButtons !== true) {
+            showingArticlesButtons =
+              showingArticlesButtons +
+              " - Article " +
+              (i + 1) +
+              " is not showing a valid button"
+          } else {
+            showingArticlesButtons =
+              "Article " + (i + 1) + " is not showing a valid button"
+          }
+        }
+      }
+    } catch (err) {
+      showingArticlesButtons = false
+    }
+
+    expect(showingArticlesButtons).toBe(true)
   })
 
   it("The cover image is loaded", () => {
