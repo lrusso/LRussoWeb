@@ -622,3 +622,44 @@ describe("index.html", () => {
     expect(coverImageExists).toBe(true)
   })
 })
+
+describe("Intranet/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("Intranet/index.html")).toBe(true)
+  })
+
+  it("Internationalization variable exists", () => {
+    const variableExists = getVariable("Intranet/index.html", "APP_STRINGS")
+    expect(variableExists).not.toBe("")
+  })
+
+  it("All the languages have the same amount of keys", () => {
+    const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    const sameAmount = langsCheckAmountKeys(APP_STRINGS)
+
+    expect(sameAmount).toBe(true)
+  })
+
+  it("All the languages have the same keys", () => {
+    const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+
+  it("All the languages have non-empty keys", () => {
+    const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
+  })
+})
