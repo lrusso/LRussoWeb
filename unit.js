@@ -38,7 +38,8 @@ function getVariable(filename, variableName) {
   try {
     const content = readFileSync(filename, "utf8")
     const regex = new RegExp(
-      `\\b(?:const|let|var)\\s+${variableName}\\s*=\\s*([\\s\\S]*?)(?=\\n\\s*(?:const|let|var|function|class|export|import|$))`
+      `\\b(?:const|let|var)\\s+${variableName}\\s*=\\s*([\\s\\S]*?)(?=^\\s*(?:const|let|var|function|class|export|import|$))`,
+      "m"
     )
     const match = content.match(regex)
     return match ? match[1].trim() : null
@@ -701,5 +702,28 @@ describe("Intranet/index.html", () => {
     const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
 
     expect(allLanguagesHaveNoEmptyKeys).toBe(true)
+  })
+
+  it("Checking if the desktop variable is created", () => {
+    let DESKTOP_FILES = getVariable("Intranet/index.html", "DESKTOP_FILES")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    DESKTOP_FILES = DESKTOP_FILES.replace(
+      /<iframe[\s\S]*?<\/iframe>/gim,
+      "data:text/html;base64,"
+    )
+
+    let desktopExists = true
+
+    try {
+      DESKTOP_FILES = JSON.parse(DESKTOP_FILES)
+      console.log(DESKTOP_FILES)
+    } catch (err) {
+      console.log(err)
+      desktopExists = false
+    }
+
+    expect(desktopExists).toBe(true)
   })
 })
