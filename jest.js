@@ -275,7 +275,7 @@ describe("index.html", () => {
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
 
-    let showingProjectTitles = true
+    let showingLatestTitles = true
 
     try {
       STR = JSON.parse(STR)
@@ -293,14 +293,14 @@ describe("index.html", () => {
       }
 
       if (missingTitles.length > 0) {
-        showingProjectTitles =
+        showingLatestTitles =
           "Missing or invalid titles for: " + missingTitles.join(", ")
       }
     } catch (err) {
-      showingProjectTitles = false
+      showingLatestTitles = false
     }
 
-    expect(showingProjectTitles).toBe(true)
+    expect(showingLatestTitles).toBe(true)
   })
 
   it("Latest projects are showing images", () => {
@@ -366,62 +366,21 @@ describe("index.html", () => {
     try {
       STR = JSON.parse(STR)
 
-      const languages = Object.keys(STR)
+      const missingDescriptions = []
+      const latestKeys = ["latest1d", "latest2d", "latest3d"]
 
-      for (const lang of languages) {
-        if (typeof STR[lang].latest1d !== "string") {
-          if (showingLatestDescriptions !== true) {
-            showingLatestDescriptions =
-              showingLatestDescriptions + ", " + lang + ":latest1d"
-          } else {
-            showingLatestDescriptions = lang + ":latest1d"
+      for (const [lang, data] of Object.entries(STR)) {
+        for (const key of latestKeys) {
+          const value = data[key]
+          if (typeof value !== "string" || value.trim() === "") {
+            missingDescriptions.push(lang + ":" + key)
           }
         }
+      }
 
-        if (typeof STR[lang].latest2d !== "string") {
-          if (showingLatestDescriptions !== true) {
-            showingLatestDescriptions =
-              showingLatestDescriptions + ", " + lang + ":latest2d"
-          } else {
-            showingLatestDescriptions = lang + ":latest2d"
-          }
-        }
-
-        if (typeof STR[lang].latest3d !== "string") {
-          if (showingLatestDescriptions !== true) {
-            showingLatestDescriptions =
-              showingLatestDescriptions + ", " + lang + ":latest3d"
-          } else {
-            showingLatestDescriptions = lang + ":latest3d"
-          }
-        }
-
-        if (STR[lang].latest1d === "") {
-          if (showingLatestDescriptions !== true) {
-            showingLatestDescriptions =
-              showingLatestDescriptions + ", " + lang + ":latest1d"
-          } else {
-            showingLatestDescriptions = lang + ":latest1d"
-          }
-        }
-
-        if (STR[lang].latest2d === "") {
-          if (showingLatestDescriptions !== true) {
-            showingLatestDescriptions =
-              showingLatestDescriptions + ", " + lang + ":latest2d"
-          } else {
-            showingLatestDescriptions = lang + ":latest2d"
-          }
-        }
-
-        if (STR[lang].latest3d === "") {
-          if (showingLatestDescriptions !== true) {
-            showingLatestDescriptions =
-              showingLatestDescriptions + ", " + lang + ":latest3d"
-          } else {
-            showingLatestDescriptions = lang + ":latest3d"
-          }
-        }
+      if (missingDescriptions.length > 0) {
+        showingLatestDescriptions =
+          "Missing or invalid descriptions for: " + missingDescriptions.join(", ")
       }
     } catch (err) {
       showingLatestDescriptions = false
