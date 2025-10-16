@@ -822,3 +822,23 @@ describe("Pool/index.html", () => {
     expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
 })
+
+describe("ResumeChecker/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("ResumeChecker/index.html")).toBe(true)
+  })
+
+  it("Content has not changed", () => {
+    const expectedHash = "afc2b8d"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("ResumeChecker/index.html", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
