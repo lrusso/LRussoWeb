@@ -42,7 +42,7 @@ function getVariable(filename, variableName) {
       "m"
     )
     const match = content.match(regex)
-    return match ? match[1].trim() : null
+    return match ? match[1].trim() : ""
   } catch (err) {
     return ""
   }
@@ -759,5 +759,66 @@ describe("Intranet/index.html", () => {
     }
 
     expect(validShortcuts).toBe(true)
+  })
+})
+
+describe("MediaPlayer/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("MediaPlayer/index.html")).toBe(true)
+  })
+
+  it("Content has not changed", () => {
+    const expectedHash = "26abbec8"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("MediaPlayer/index.html", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("Pool/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("Pool/index.html")).toBe(true)
+  })
+
+  it("Internationalization variable exists", () => {
+    const variableExists = getVariable("Pool/index.html", "APP_STRINGS")
+    expect(variableExists).not.toBe("")
+  })
+
+  it("All the languages have the same amount of keys", () => {
+    const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    const sameAmount = langsCheckAmountKeys(APP_STRINGS)
+
+    expect(sameAmount).toBe(true)
+  })
+
+  it("All the languages have the same keys", () => {
+    const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+
+  it("All the languages have non-empty keys", () => {
+    const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
 })
