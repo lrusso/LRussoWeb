@@ -339,7 +339,7 @@ describe("index.html", () => {
     }
 
     if (missingImages.length > 0) {
-      latestImageExists = `Missing projects image files: ${missingImages.join(", ")}`
+      latestImageExists = "Missing projects image files: " + missingImages.join(", ")
     }
 
     expect(latestImageExists).toBe(true)
