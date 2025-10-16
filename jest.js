@@ -275,7 +275,7 @@ describe("index.html", () => {
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
 
-    let showingTitles = true
+    let showingProjectTitles = true
 
     try {
       STR = JSON.parse(STR)
@@ -284,58 +284,58 @@ describe("index.html", () => {
 
       for (const lang of languages) {
         if (typeof STR[lang].latest1t !== "string") {
-          if (showingTitles !== true) {
-            showingTitles = showingTitles + ", " + lang + ":latest1t"
+          if (showingProjectTitles !== true) {
+            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest1t"
           } else {
-            showingTitles = lang + ":latest1t"
+            showingProjectTitles = lang + ":latest1t"
           }
         }
 
         if (typeof STR[lang].latest2t !== "string") {
-          if (showingTitles !== true) {
-            showingTitles = showingTitles + ", " + lang + ":latest2t"
+          if (showingProjectTitles !== true) {
+            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest2t"
           } else {
-            showingTitles = lang + ":latest2t"
+            showingProjectTitles = lang + ":latest2t"
           }
         }
 
         if (typeof STR[lang].latest3t !== "string") {
-          if (showingTitles !== true) {
-            showingTitles = showingTitles + ", " + lang + ":latest3t"
+          if (showingProjectTitles !== true) {
+            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest3t"
           } else {
-            showingTitles = lang + ":latest3t"
+            showingProjectTitles = lang + ":latest3t"
           }
         }
 
         if (STR[lang].latest1t === "") {
-          if (showingTitles !== true) {
-            showingTitles = showingTitles + ", " + lang + ":latest1t"
+          if (showingProjectTitles !== true) {
+            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest1t"
           } else {
-            showingTitles = lang + ":latest1t"
+            showingProjectTitles = lang + ":latest1t"
           }
         }
 
         if (STR[lang].latest2t === "") {
-          if (showingTitles !== true) {
-            showingTitles = showingTitles + ", " + lang + ":latest2t"
+          if (showingProjectTitles !== true) {
+            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest2t"
           } else {
-            showingTitles = lang + ":latest2t"
+            showingProjectTitles = lang + ":latest2t"
           }
         }
 
         if (STR[lang].latest3t === "") {
-          if (showingTitles !== true) {
-            showingTitles = showingTitles + ", " + lang + ":latest3t"
+          if (showingProjectTitles !== true) {
+            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest3t"
           } else {
-            showingTitles = lang + ":latest3t"
+            showingProjectTitles = lang + ":latest3t"
           }
         }
       }
     } catch (err) {
-      showingTitles = false
+      showingProjectTitles = false
     }
 
-    expect(showingTitles).toBe(true)
+    expect(showingProjectTitles).toBe(true)
   })
 
   it("Latest projects are showing images", () => {
