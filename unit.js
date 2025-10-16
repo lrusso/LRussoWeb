@@ -388,20 +388,18 @@ describe("index.html", () => {
 
     try {
       LATEST = JSON.parse(LATEST)
+      const missingButtons = []
 
       for (let i = 0; i < LATEST.length; i++) {
         if (LATEST[i].t !== "app" && LATEST[i].t !== "website") {
-          if (showingLatestButtons !== true) {
-            showingLatestButtons =
-              showingLatestButtons +
-              " - Project " +
-              (i + 1) +
-              " is not showing a valid button"
-          } else {
-            showingLatestButtons =
-              "Project " + (i + 1) + " is not showing a valid button"
-          }
+          missingButtons.push(
+            "Project " + (i + 1) + " is not showing a valid button"
+          )
         }
+      }
+
+      if (missingButtons.length > 0) {
+        showingLatestButtons = missingButtons.join(", ")
       }
     } catch (err) {
       showingLatestButtons = false
