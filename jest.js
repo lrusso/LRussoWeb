@@ -321,36 +321,25 @@ describe("index.html", () => {
   })
 
   it("Latest projects images exists", () => {
+    const imageFiles = [
+      "img_Latest_1.webp",
+      "img_Latest_2.webp",
+      "img_Latest_3.webp",
+    ]
+
     let latestImageExists = true
+    const missingImages = []
 
-    try {
-      readFileSync("img_Latest_1.webp", "utf8")
-    } catch (err) {
-      if (latestImageExists !== true) {
-        latestImageExists = latestImageExists + ", img_Latest_1.webp"
-      } else {
-        latestImageExists = "img_Latest_1.webp"
+    for (const file of imageFiles) {
+      try {
+        readFileSync(file, "utf8")
+      } catch {
+        missingImages.push(file)
       }
     }
 
-    try {
-      readFileSync("img_Latest_2.webp", "utf8")
-    } catch (err) {
-      if (latestImageExists !== true) {
-        latestImageExists = latestImageExists + ", img_Latest_2.webp"
-      } else {
-        latestImageExists = "img_Latest_2.webp"
-      }
-    }
-
-    try {
-      readFileSync("img_Latest_3.webp", "utf8")
-    } catch (err) {
-      if (latestImageExists !== true) {
-        latestImageExists = latestImageExists + ", img_Latest_3.webp"
-      } else {
-        latestImageExists = "img_Latest_3.webp"
-      }
+    if (missingImages.length > 0) {
+      latestImageExists = `Missing projects image files: ${missingImages.join(", ")}`
     }
 
     expect(latestImageExists).toBe(true)
