@@ -623,6 +623,46 @@ describe("index.html", () => {
   })
 })
 
+describe("HeadlessBrowser/build.js", () => {
+  it("File exists", () => {
+    expect(fileExists("HeadlessBrowser/build.js")).toBe(true)
+  })
+
+  it("Content has not changed", () => {
+    const expectedHash = "3004e120"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("HeadlessBrowser/build.js", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("HeadlessBrowser/HeadlessBrowser.js", () => {
+  it("File exists", () => {
+    expect(fileExists("HeadlessBrowser/HeadlessBrowser.js")).toBe(true)
+  })
+
+  it("Content has not changed", () => {
+    const expectedHash = "110b151d"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("HeadlessBrowser/HeadlessBrowser.js", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
 describe("Intranet/index.html", () => {
   it("File exists", () => {
     expect(fileExists("Intranet/index.html")).toBe(true)
