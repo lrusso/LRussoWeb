@@ -280,56 +280,21 @@ describe("index.html", () => {
     try {
       STR = JSON.parse(STR)
 
-      const languages = Object.keys(STR)
+      const missingTitles = []
+      const latestKeys = ["latest1t", "latest2t", "latest3t"]
 
-      for (const lang of languages) {
-        if (typeof STR[lang].latest1t !== "string") {
-          if (showingProjectTitles !== true) {
-            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest1t"
-          } else {
-            showingProjectTitles = lang + ":latest1t"
+      for (const [lang, data] of Object.entries(STR)) {
+        for (const key of latestKeys) {
+          const value = data[key]
+          if (typeof value !== "string" || value.trim() === "") {
+            missingTitles.push(lang + ":" + key)
           }
         }
+      }
 
-        if (typeof STR[lang].latest2t !== "string") {
-          if (showingProjectTitles !== true) {
-            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest2t"
-          } else {
-            showingProjectTitles = lang + ":latest2t"
-          }
-        }
-
-        if (typeof STR[lang].latest3t !== "string") {
-          if (showingProjectTitles !== true) {
-            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest3t"
-          } else {
-            showingProjectTitles = lang + ":latest3t"
-          }
-        }
-
-        if (STR[lang].latest1t === "") {
-          if (showingProjectTitles !== true) {
-            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest1t"
-          } else {
-            showingProjectTitles = lang + ":latest1t"
-          }
-        }
-
-        if (STR[lang].latest2t === "") {
-          if (showingProjectTitles !== true) {
-            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest2t"
-          } else {
-            showingProjectTitles = lang + ":latest2t"
-          }
-        }
-
-        if (STR[lang].latest3t === "") {
-          if (showingProjectTitles !== true) {
-            showingProjectTitles = showingProjectTitles + ", " + lang + ":latest3t"
-          } else {
-            showingProjectTitles = lang + ":latest3t"
-          }
-        }
+      if (missingTitles.length > 0) {
+        showingProjectTitles =
+          "Missing or invalid titles for: " + missingTitles.join(", ")
       }
     } catch (err) {
       showingProjectTitles = false
