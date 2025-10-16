@@ -189,16 +189,18 @@ describe("404.html", () => {
     let linksValid = true
 
     try {
-      const myJSON = JSON.parse(redirectsList)
+      const redirects = JSON.parse(redirectsList)
+      const missingPaths = []
 
-      for (const [, folderPath] of Object.entries(myJSON)) {
-        if (!existsSync("." + folderPath)) {
-          if (typeof linksValid === "boolean") {
-            linksValid = folderPath
-          } else {
-            linksValid = linksValid + ", " + folderPath
-          }
+      for (const folderPath of Object.values(redirects)) {
+        const fullPath = "." + folderPath
+        if (!existsSync(fullPath)) {
+          missingPaths.push(folderPath)
         }
+      }
+
+      if (missingPaths.length > 0) {
+        linksValid = missingPaths.join(", ")
       }
     } catch (err) {
       linksValid = false
