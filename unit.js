@@ -476,19 +476,17 @@ describe("index.html", () => {
 
     try {
       PRESS = JSON.parse(PRESS)
+      const missingImages = []
 
       for (let i = 0; i < PRESS.length; i++) {
-        if (PRESS[i].i === "" || typeof PRESS[i].i !== "string") {
-          if (showingArticlesImages !== true) {
-            showingArticlesImages =
-              showingArticlesImages +
-              " - Article " +
-              (i + 1) +
-              " is not showing an image"
-          } else {
-            showingArticlesImages = "Article " + (i + 1) + " is not showing an image"
-          }
+        const image = PRESS[i].i
+        if (image === "" || typeof image !== "string") {
+          missingImages.push("Article " + (i + 1) + " is not showing a valid image")
         }
+      }
+
+      if (missingImages.length > 0) {
+        showingArticlesImages = missingImages.join(", ")
       }
     } catch (err) {
       showingArticlesImages = false
