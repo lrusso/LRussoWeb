@@ -725,6 +725,7 @@ describe("Intranet/index.html", () => {
     )
 
     let validShortcuts = true
+    const invalidShortcuts = []
 
     try {
       DESKTOP_FILES = JSON.parse(DESKTOP_FILES)
@@ -740,13 +741,12 @@ describe("Intranet/index.html", () => {
             shortcut.content !== ""
           )
         ) {
-          if (validShortcuts !== true) {
-            validShortcuts =
-              validShortcuts + " - Shortcut " + (i + 1) + " is not valid"
-          } else {
-            validShortcuts = "Shortcut " + (i + 1) + " is not valid"
-          }
+          invalidShortcuts.push("Shortcut " + (i + 1) + " is not valid")
         }
+      }
+
+      if (invalidShortcuts.length > 0) {
+        validShortcuts = invalidShortcuts.join(", ")
       }
     } catch (err) {
       validShortcuts = false
