@@ -504,19 +504,17 @@ describe("index.html", () => {
 
     try {
       PRESS = JSON.parse(PRESS)
+      const missingImages = []
 
       for (let i = 0; i < PRESS.length; i++) {
         const imageFile = "img_Press_" + PRESS[i].i + ".webp"
-        if (!fileExists(imageFile))
-          if (articleImagesExists !== true) {
-            articleImagesExists =
-              articleImagesExists +
-              " - Article " +
-              (i + 1) +
-              " is not showing an image"
-          } else {
-            articleImagesExists = "Article " + (i + 1) + " is not showing an image"
-          }
+        if (!fileExists(imageFile)) {
+          missingImages.push("Article " + (i + 1) + " is not showing a valid image")
+        }
+      }
+
+      if (missingImages.length > 0) {
+        articleImagesExists = missingImages.join(", ")
       }
     } catch (err) {
       articleImagesExists = false
