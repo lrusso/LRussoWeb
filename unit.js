@@ -562,20 +562,19 @@ describe("index.html", () => {
 
     try {
       PRESS = JSON.parse(PRESS)
+      const missingButtons = []
 
       for (let i = 0; i < PRESS.length; i++) {
-        if (PRESS[i].b !== "read" && PRESS[i].b !== "watch") {
-          if (showingArticlesButtons !== true) {
-            showingArticlesButtons =
-              showingArticlesButtons +
-              " - Article " +
-              (i + 1) +
-              " is not showing a valid button"
-          } else {
-            showingArticlesButtons =
-              "Article " + (i + 1) + " is not showing a valid button"
-          }
+        const button = PRESS[i].b
+        if (button !== "read" && button !== "watch") {
+          missingButtons.push(
+            "Article " + (i + 1) + " is not showing a valid button"
+          )
         }
+      }
+
+      if (missingButtons.length > 0) {
+        showingArticlesButtons = missingButtons.join(", ")
       }
     } catch (err) {
       showingArticlesButtons = false
