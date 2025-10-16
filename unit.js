@@ -718,12 +718,51 @@ describe("Intranet/index.html", () => {
 
     try {
       DESKTOP_FILES = JSON.parse(DESKTOP_FILES)
-      console.log(DESKTOP_FILES)
     } catch (err) {
-      console.log(err)
       desktopExists = false
     }
 
     expect(desktopExists).toBe(true)
+  })
+
+  it("Checking if the desktop has valid shortcuts", () => {
+    let DESKTOP_FILES = getVariable("Intranet/index.html", "DESKTOP_FILES")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    DESKTOP_FILES = DESKTOP_FILES.replace(
+      /<iframe[\s\S]*?<\/iframe>/gim,
+      "data:text/html;base64,"
+    )
+
+    let validShortcuts = true
+
+    try {
+      DESKTOP_FILES = JSON.parse(DESKTOP_FILES)
+      for (let i = 0; i < DESKTOP_FILES.length; i++) {
+        const shortcut = DESKTOP_FILES[i]
+        if (
+          !(
+            typeof shortcut.filename === "string" &&
+            shortcut.filename !== "" &&
+            typeof shortcut.icon === "string" &&
+            shortcut.icon !== "" &&
+            typeof shortcut.content === "string" &&
+            shortcut.content !== ""
+          )
+        ) {
+          if (validShortcuts !== true) {
+            validShortcuts =
+              validShortcuts + " - Shortcut " + (i + 1) + " is not valid"
+          } else {
+            validShortcuts = "Shortcut " + (i + 1) + " is not valid"
+          }
+        }
+      }
+    } catch (err) {
+      validShortcuts = false
+    }
+
+    expect(validShortcuts).toBe(true)
   })
 })
