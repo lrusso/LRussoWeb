@@ -608,18 +608,45 @@ describe("index.html", () => {
   })
 
   it("The articles are showing descriptions", () => {
-    expect(true).toBe(true)
+    let PRESS = getVariable("index.html", "PRESS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    let showingArticlesDescriptions = true
+
+    try {
+      PRESS = JSON.parse(PRESS)
+
+      for (let i = 0; i < PRESS.length; i++) {
+        if (PRESS[i].d === "" || typeof PRESS[i].d !== "string") {
+          if (showingArticlesDescriptions !== true) {
+            showingArticlesDescriptions =
+              showingArticlesDescriptions +
+              " - Article " +
+              (i + 1) +
+              " is not showing a description"
+          } else {
+            showingArticlesDescriptions =
+              "Article " + (i + 1) + " is not showing a description"
+          }
+        }
+      }
+    } catch (err) {
+      showingArticlesDescriptions = false
+    }
+
+    expect(showingArticlesDescriptions).toBe(true)
   })
 
   it("The articles are showing buttons", () => {
     expect(true).toBe(true)
   })
 
-  it("The cover image exists", () => {
+  it("The cover image is loaded", () => {
     expect(true).toBe(true)
   })
 
-  it("The cover image is loaded", () => {
+  it("The cover image exists", () => {
     expect(true).toBe(true)
   })
 })
