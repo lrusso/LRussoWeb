@@ -548,7 +548,33 @@ describe("index.html", () => {
   })
 
   it("The articles are showing images", () => {
-    expect(true).toBe(true)
+    let PRESS = getVariable("index.html", "PRESS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    let showingArticlesImages = true
+
+    try {
+      PRESS = JSON.parse(PRESS)
+
+      for (let i = 0; i < PRESS.length; i++) {
+        if (PRESS[i].i === "" || typeof PRESS[i].i !== "string") {
+          if (showingArticlesImages !== true) {
+            showingArticlesImages =
+              showingArticlesImages +
+              " - Article " +
+              (i + 1) +
+              " is not showing an image"
+          } else {
+            showingArticlesImages = "Article " + (i + 1) + " is not showing an image"
+          }
+        }
+      }
+    } catch (err) {
+      showingArticlesImages = false
+    }
+
+    expect(showingArticlesImages).toBe(true)
   })
 
   it("The articles images exists", () => {
