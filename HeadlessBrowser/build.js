@@ -7,7 +7,7 @@ const run = (cmd) => {
     execSync(cmd, { stdio: "inherit" })
   } catch (err) {
     if (err.stderr) {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line
       console.log(err.stderr.toString())
     }
     process.exit(1)
@@ -76,6 +76,6 @@ if (fs.existsSync("jar-temp")) {
 
 // 12. Checking if the jar was created
 if (fs.existsSync("HeadlessBrowser.jar")) {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line
   console.log("A new HeadlessBrowser.jar file was generated")
 }

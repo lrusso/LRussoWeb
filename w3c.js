@@ -75,7 +75,7 @@ const getVersion = () => {
   }
 }
 
-// eslint-disable-next-line no-console
+// eslint-disable-next-line
 console.log("Nu Html Checker version: " + getVersion())
 
 const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
@@ -107,11 +107,11 @@ for (const filePath of filesToFormat) {
           .trim()
         if (reportText) {
           passed = false
-          // eslint-disable-next-line no-console
+          // eslint-disable-next-line
           console.log(reportText)
         }
       } catch (error) {
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line
         console.log(error)
       }
       expect(passed).toBe(true)

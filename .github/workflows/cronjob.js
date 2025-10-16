@@ -280,10 +280,10 @@ async function runTasks() {
   await task4(settings.checks.newspapers)
 
   if (report.length === 0) {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line
     console.log("Nothing to report.")
   } else {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line
     console.log(report.join("\n").toString())
 
     for (let i = 0; i < report.length; i++) {
