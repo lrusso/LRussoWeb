@@ -417,20 +417,18 @@ describe("index.html", () => {
 
     try {
       LATEST = JSON.parse(LATEST)
+      const missingLinks = []
 
       for (let i = 0; i < LATEST.length; i++) {
-        if (LATEST[i].l.indexOf("https://") !== 0) {
-          if (showingLatestLinks !== true) {
-            showingLatestLinks =
-              showingLatestLinks +
-              " - Project " +
-              (i + 1) +
-              " is not showing a valid link"
-          } else {
-            showingLatestLinks =
-              "Project " + (i + 1) + " is not showing a valid link"
-          }
+        if (typeof LATEST[i].l !== "string") {
+          missingLinks.push("Project " + (i + 1) + " is not showing a valid link")
+        } else if (LATEST[i].l.indexOf("https://") !== 0) {
+          missingLinks.push("Project " + (i + 1) + " is not showing a valid link")
         }
+      }
+
+      if (missingLinks.length > 0) {
+        showingLatestLinks = missingLinks.join(", ")
       }
     } catch (err) {
       showingLatestLinks = false
