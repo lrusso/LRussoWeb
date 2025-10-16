@@ -422,9 +422,15 @@ describe("index.html", () => {
 
       for (let i = 0; i < LATEST.length; i++) {
         const link = LATEST[i].l
+        let validLink = true
+
         if (typeof link !== "string") {
-          missingLinks.push("Project " + (i + 1) + " is not showing a valid link")
+          validLink = false
         } else if (link.indexOf("https://") !== 0) {
+          validLink = false
+        }
+
+        if (!validLink) {
           missingLinks.push("Project " + (i + 1) + " is not showing a valid link")
         }
       }
