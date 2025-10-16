@@ -27,7 +27,7 @@ jobs:
       - name: Running Prettier
         run: node prettier.js
       - name: Running Unit Tests
-        run: node jest.js
+        run: node unit.js
       - name: Running End-To-End Tests
         run: node e2e.js
       - name: Running the W3C Validator
