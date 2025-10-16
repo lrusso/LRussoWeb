@@ -460,7 +460,33 @@ describe("index.html", () => {
   })
 
   it("Latest projects are showing buttons", () => {
-    expect(true).toBe(true)
+    let LATEST = getVariable("index.html", "LATEST")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    let showingButton = true
+
+    try {
+      LATEST = JSON.parse(LATEST)
+
+      for (let i = 0; i < LATEST.length; i++) {
+        if (LATEST[i].t !== "app" && LATEST[i].t !== "website") {
+          if (showingButton !== true) {
+            showingButton =
+              showingButton +
+              " - Project " +
+              (i + 1) +
+              " is not showing a valid button"
+          } else {
+            showingButton = "Project " + (i + 1) + " is not showing a valid button"
+          }
+        }
+      }
+    } catch (err) {
+      showingButton = false
+    }
+
+    expect(showingButton).toBe(true)
   })
 
   it("Latest projects are showing links", () => {
