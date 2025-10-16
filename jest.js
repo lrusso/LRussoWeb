@@ -490,7 +490,30 @@ describe("index.html", () => {
   })
 
   it("Latest projects are showing links", () => {
-    expect(true).toBe(true)
+    let LATEST = getVariable("index.html", "LATEST")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+
+    let showingLinks = true
+
+    try {
+      LATEST = JSON.parse(LATEST)
+
+      for (let i = 0; i < LATEST.length; i++) {
+        if (LATEST[i].l.indexOf("https://") !== 0) {
+          if (showingLinks !== true) {
+            showingLinks =
+              showingLinks + " - Project " + (i + 1) + " is not showing a valid link"
+          } else {
+            showingLinks = "Project " + (i + 1) + " is not showing a valid link"
+          }
+        }
+      }
+    } catch (err) {
+      showingLinks = false
+    }
+
+    expect(showingLinks).toBe(true)
   })
 
   it("The articles are showing titles", () => {
