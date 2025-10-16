@@ -215,7 +215,7 @@ describe("privacy.html", () => {
     expect(fileExists("privacy.html")).toBe(true)
   })
 
-  it("Content shows the same content", () => {
+  it("Content hasn't changed", () => {
     const expectedHash = "102f2163"
     let currentHash = ""
 
