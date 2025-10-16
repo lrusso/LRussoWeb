@@ -391,7 +391,8 @@ describe("index.html", () => {
       const missingButtons = []
 
       for (let i = 0; i < LATEST.length; i++) {
-        if (LATEST[i].t !== "app" && LATEST[i].t !== "website") {
+        const button = LATEST[i].t
+        if (button !== "app" && button !== "website") {
           missingButtons.push(
             "Project " + (i + 1) + " is not showing a valid button"
           )
@@ -420,9 +421,10 @@ describe("index.html", () => {
       const missingLinks = []
 
       for (let i = 0; i < LATEST.length; i++) {
-        if (typeof LATEST[i].l !== "string") {
+        const link = LATEST[i].l
+        if (typeof link !== "string") {
           missingLinks.push("Project " + (i + 1) + " is not showing a valid link")
-        } else if (LATEST[i].l.indexOf("https://") !== 0) {
+        } else if (link.indexOf("https://") !== 0) {
           missingLinks.push("Project " + (i + 1) + " is not showing a valid link")
         }
       }
