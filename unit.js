@@ -448,20 +448,17 @@ describe("index.html", () => {
 
     try {
       PRESS = JSON.parse(PRESS)
+      const missingTitles = []
 
       for (let i = 0; i < PRESS.length; i++) {
-        if (PRESS[i].t === "" || typeof PRESS[i].t !== "string") {
-          if (showingArticlesTitles !== true) {
-            showingArticlesTitles =
-              showingArticlesTitles +
-              " - Article " +
-              (i + 1) +
-              " is not showing a valid title"
-          } else {
-            showingArticlesTitles =
-              "Article " + (i + 1) + " is not showing a valid title"
-          }
+        const title = PRESS[i].t
+        if (title === "" || typeof title !== "string") {
+          missingTitles.push("Article " + (i + 1) + " is not showing a valid title")
         }
+      }
+
+      if (missingTitles.length > 0) {
+        showingArticlesTitles = missingTitles.join(", ")
       }
     } catch (err) {
       showingArticlesTitles = false
