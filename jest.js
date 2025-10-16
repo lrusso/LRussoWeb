@@ -698,6 +698,14 @@ describe("index.html", () => {
   })
 
   it("The cover image exists", () => {
-    expect(true).toBe(true)
+    let coverImageExists = true
+
+    try {
+      readFileSync("img_Cover.webp", "utf8")
+    } catch (err) {
+      coverImageExists = false
+    }
+
+    expect(coverImageExists).toBe(true)
   })
 })
