@@ -681,7 +681,20 @@ describe("index.html", () => {
   })
 
   it("The cover image is loaded", () => {
-    expect(true).toBe(true)
+    let imageCoverLoaderFound = true
+
+    try {
+      const content = readFileSync("index.html", "utf8")
+      if (content.includes("img_Cover")) {
+        imageCoverLoaderFound = true
+      } else {
+        imageCoverLoaderFound = "Image cover loader not found"
+      }
+    } catch (err) {
+      imageCoverLoaderFound = "Image cover loader not found"
+    }
+
+    expect(imageCoverLoaderFound).toBe(true)
   })
 
   it("The cover image exists", () => {
