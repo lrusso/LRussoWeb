@@ -532,20 +532,19 @@ describe("index.html", () => {
 
     try {
       PRESS = JSON.parse(PRESS)
+      const missingArticleDescriptions = []
 
       for (let i = 0; i < PRESS.length; i++) {
-        if (PRESS[i].d === "" || typeof PRESS[i].d !== "string") {
-          if (showingArticlesDescriptions !== true) {
-            showingArticlesDescriptions =
-              showingArticlesDescriptions +
-              " - Article " +
-              (i + 1) +
-              " is not showing a description"
-          } else {
-            showingArticlesDescriptions =
-              "Article " + (i + 1) + " is not showing a description"
-          }
+        const description = PRESS[i].d
+        if (description === "" || typeof description !== "string") {
+          missingArticleDescriptions.push(
+            "Article " + (i + 1) + " is not showing a valid description"
+          )
         }
+      }
+
+      if (missingArticleDescriptions.length > 0) {
+        showingArticlesDescriptions = missingArticleDescriptions.join(", ")
       }
     } catch (err) {
       showingArticlesDescriptions = false
