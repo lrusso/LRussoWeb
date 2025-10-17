@@ -302,11 +302,11 @@ const getSvgSize = (buf) => {
 }
 
 describe("HeadlessBrowser/build.js", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("HeadlessBrowser/build.js")).toBe(true)
   })
 
-  it("Content has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "3004e120"
     let currentHash = ""
 
@@ -322,11 +322,11 @@ describe("HeadlessBrowser/build.js", () => {
 })
 
 describe("HeadlessBrowser/HeadlessBrowser.js", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("HeadlessBrowser/HeadlessBrowser.js")).toBe(true)
   })
 
-  it("Content has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "110b151d"
     let currentHash = ""
 
@@ -342,16 +342,16 @@ describe("HeadlessBrowser/HeadlessBrowser.js", () => {
 })
 
 describe("Intranet/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("Intranet/index.html")).toBe(true)
   })
 
-  it("Internationalization variable exists", () => {
+  it("i18n variable is defined", () => {
     const variableExists = getVariable("Intranet/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("All the languages have the same amount of keys", () => {
+  it("i18n keys have equal counts across languages", () => {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -361,7 +361,7 @@ describe("Intranet/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("All the languages have the same keys", () => {
+  it("i18n keys match across languages", () => {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -371,7 +371,7 @@ describe("Intranet/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("All the languages have non-empty keys", () => {
+  it("i18n keys are non-empty across languages", () => {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -381,7 +381,7 @@ describe("Intranet/index.html", () => {
     expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
 
-  it("Checking if the desktop variable is created", () => {
+  it("Should have a valid desktop variable", () => {
     let DESKTOP_FILES = getVariable("Intranet/index.html", "DESKTOP_FILES")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -402,7 +402,7 @@ describe("Intranet/index.html", () => {
     expect(desktopExists).toBe(true)
   })
 
-  it("Checking if the desktop has valid shortcuts", () => {
+  it("Should have valid desktop shortcuts", () => {
     let DESKTOP_FILES = getVariable("Intranet/index.html", "DESKTOP_FILES")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -445,11 +445,11 @@ describe("Intranet/index.html", () => {
 })
 
 describe("MediaPlayer/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("MediaPlayer/index.html")).toBe(true)
   })
 
-  it("Content has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "26abbec8"
     let currentHash = ""
 
@@ -465,16 +465,16 @@ describe("MediaPlayer/index.html", () => {
 })
 
 describe("Pool/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("Pool/index.html")).toBe(true)
   })
 
-  it("Internationalization variable exists", () => {
+  it("i18n variable is defined", () => {
     const variableExists = getVariable("Pool/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("All the languages have the same amount of keys", () => {
+  it("i18n keys have equal counts across languages", () => {
     const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -484,7 +484,7 @@ describe("Pool/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("All the languages have the same keys", () => {
+  it("i18n keys match across languages", () => {
     const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -494,7 +494,7 @@ describe("Pool/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("All the languages have non-empty keys", () => {
+  it("i18n keys are non-empty across languages", () => {
     const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -506,11 +506,11 @@ describe("Pool/index.html", () => {
 })
 
 describe("ResumeChecker/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("ResumeChecker/index.html")).toBe(true)
   })
 
-  it("Content has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "4af34ae9"
     let currentHash = ""
 
@@ -526,16 +526,16 @@ describe("ResumeChecker/index.html", () => {
 })
 
 describe("Spider/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("Spider/index.html")).toBe(true)
   })
 
-  it("Internationalization variable exists", () => {
+  it("i18n variable is defined", () => {
     const variableExists = getVariable("Spider/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("All the languages have the same amount of keys", () => {
+  it("i18n keys have equal counts across languages", () => {
     const APP_STRINGS = getVariable("Spider/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -545,7 +545,7 @@ describe("Spider/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("All the languages have the same keys", () => {
+  it("i18n keys match across languages", () => {
     const APP_STRINGS = getVariable("Spider/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -555,7 +555,7 @@ describe("Spider/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("All the languages have non-empty keys", () => {
+  it("i18n keys are non-empty across languages", () => {
     const APP_STRINGS = getVariable("Spider/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -567,16 +567,16 @@ describe("Spider/index.html", () => {
 })
 
 describe("Taipei/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("Taipei/index.html")).toBe(true)
   })
 
-  it("Internationalization variable exists", () => {
+  it("i18n variable is defined", () => {
     const variableExists = getVariable("Taipei/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("All the languages have the same amount of keys", () => {
+  it("i18n keys have equal counts across languages", () => {
     const APP_STRINGS = getVariable("Taipei/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -586,7 +586,7 @@ describe("Taipei/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("All the languages have the same keys", () => {
+  it("i18n keys match across languages", () => {
     const APP_STRINGS = getVariable("Taipei/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -596,7 +596,7 @@ describe("Taipei/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("All the languages have non-empty keys", () => {
+  it("i18n keys are non-empty across languages", () => {
     const APP_STRINGS = getVariable("Taipei/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -608,16 +608,16 @@ describe("Taipei/index.html", () => {
 })
 
 describe("Tarot/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("Tarot/index.html")).toBe(true)
   })
 
-  it("Internationalization variable exists", () => {
+  it("i18n variable is defined", () => {
     const variableExists = getVariable("Tarot/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("All the languages have the same amount of keys", () => {
+  it("i18n keys have equal counts across languages", () => {
     const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -627,7 +627,7 @@ describe("Tarot/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("All the languages have the same keys", () => {
+  it("i18n keys match across languages", () => {
     const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -637,7 +637,7 @@ describe("Tarot/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("All the languages have non-empty keys", () => {
+  it("i18n keys are non-empty across languages", () => {
     const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -649,16 +649,16 @@ describe("Tarot/index.html", () => {
 })
 
 describe("Tetris/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("Tetris/index.html")).toBe(true)
   })
 
-  it("Internationalization variable exists", () => {
+  it("i18n variable is defined", () => {
     const variableExists = getVariable("Tetris/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("All the languages have the same amount of keys", () => {
+  it("i18n keys have equal counts across languages", () => {
     const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -668,7 +668,7 @@ describe("Tetris/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("All the languages have the same keys", () => {
+  it("i18n keys match across languages", () => {
     const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -678,7 +678,7 @@ describe("Tetris/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("All the languages have non-empty keys", () => {
+  it("i18n keys are non-empty across languages", () => {
     const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -690,16 +690,16 @@ describe("Tetris/index.html", () => {
 })
 
 describe("TinyACE/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("TinyACE/index.html")).toBe(true)
   })
 
-  it("Internationalization variable exists", () => {
+  it("i18n variable is defined", () => {
     const variableExists = getVariable("TinyACE/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("All the languages have the same amount of keys", () => {
+  it("i18n keys have equal counts across languages", () => {
     const APP_STRINGS = getVariable("TinyACE/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -709,7 +709,7 @@ describe("TinyACE/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("All the languages have the same keys", () => {
+  it("i18n keys match across languages", () => {
     const APP_STRINGS = getVariable("TinyACE/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -719,7 +719,7 @@ describe("TinyACE/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("All the languages have non-empty keys", () => {
+  it("i18n keys are non-empty across languages", () => {
     const APP_STRINGS = getVariable("TinyACE/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -731,11 +731,11 @@ describe("TinyACE/index.html", () => {
 })
 
 describe("WebcamRecorder/index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("WebcamRecorder/index.html")).toBe(true)
   })
 
-  it("Content has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "477f1722"
     let currentHash = ""
 
@@ -751,11 +751,11 @@ describe("WebcamRecorder/index.html", () => {
 })
 
 describe("404.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("404.html")).toBe(true)
   })
 
-  it("Contains redirects", () => {
+  it("Should contain redirects", () => {
     const variableExists = getVariable("404.html", "redirects")
     expect(variableExists).not.toBe("")
   })
@@ -818,11 +818,11 @@ for (let i = 0; i < listFavIcons.length; i++) {
   const filename = Object.keys(listFavIcons[i])[0]
   const expectedHash = Object.values(listFavIcons[i])[0]
   describe(filename, () => {
-    it("File exists", () => {
+    it("Should exist", () => {
       expect(fileExists(filename)).toBe(true)
     })
 
-    it("Image is valid", () => {
+    it("Should be a valid image", () => {
       let imageValid = true
       try {
         getImageSize(filename, "utf8")
@@ -832,7 +832,7 @@ for (let i = 0; i < listFavIcons.length; i++) {
       expect(imageValid).toBe(true)
     })
 
-    it("Image has not changed", () => {
+    it("Should not have changed", () => {
       let currentHash = ""
 
       try {
@@ -848,16 +848,16 @@ for (let i = 0; i < listFavIcons.length; i++) {
 }
 
 describe("index.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("index.html")).toBe(true)
   })
 
-  it("Internationalization variable exists", () => {
+  it("i18n variable is defined", () => {
     const variableExists = getVariable("index.html", "STR")
     expect(variableExists).not.toBe("")
   })
 
-  it("All the languages have the same amount of keys", () => {
+  it("i18n keys have equal counts across languages", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -867,7 +867,7 @@ describe("index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("All the languages have the same keys", () => {
+  it("i18n keys match across languages", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -877,7 +877,7 @@ describe("index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("All the languages have non-empty keys", () => {
+  it("i18n keys are non-empty across languages", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -887,7 +887,7 @@ describe("index.html", () => {
     expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
 
-  it("Latest projects are showing titles", () => {
+  it("Should show titles for latest projects", () => {
     let STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -937,7 +937,7 @@ describe("index.html", () => {
     expect(imageLoaderFound).toBe(true)
   })
 
-  it("Latest projects images exists", () => {
+  it("Latest project images exist", () => {
     const imageFiles = [
       "img_Latest_1.webp",
       "img_Latest_2.webp",
@@ -1021,7 +1021,7 @@ describe("index.html", () => {
     expect(showingLatestDescriptions).toBe(true)
   })
 
-  it("Latest projects are showing buttons", () => {
+  it("Should display buttons for latest projects", () => {
     let LATEST = getVariable("index.html", "LATEST")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -1115,7 +1115,7 @@ describe("index.html", () => {
     expect(showingArticlesTitles).toBe(true)
   })
 
-  it("The articles are showing images", () => {
+  it("Should display images for articles", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -1291,7 +1291,7 @@ describe("index.html", () => {
     expect(coverImageExists).toBe(true)
   })
 
-  it("The cover image is valid", () => {
+  it("Should have a valid cover image", () => {
     let imageValid = true
     try {
       getImageSize("img_Cover.webp", "utf8")
@@ -1303,11 +1303,11 @@ describe("index.html", () => {
 })
 
 describe("license.txt", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("license.txt")).toBe(true)
   })
 
-  it("Content has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "792cf31f"
     let currentHash = ""
 
@@ -1323,11 +1323,11 @@ describe("license.txt", () => {
 })
 
 describe("privacy.html", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("privacy.html")).toBe(true)
   })
 
-  it("Content has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "102f2163"
     let currentHash = ""
 
@@ -1343,11 +1343,11 @@ describe("privacy.html", () => {
 })
 
 describe("profile1.webp", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("profile1.webp")).toBe(true)
   })
 
-  it("Image is valid", () => {
+  it("Should be a valid image", () => {
     let imageValid = true
     try {
       getImageSize("profile1.webp", "utf8")
@@ -1357,7 +1357,7 @@ describe("profile1.webp", () => {
     expect(imageValid).toBe(true)
   })
 
-  it("Image has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "14286336"
     let currentHash = ""
 
@@ -1373,11 +1373,11 @@ describe("profile1.webp", () => {
 })
 
 describe("profile2.webp", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("profile2.webp")).toBe(true)
   })
 
-  it("Image is valid", () => {
+  it("Should be a valid image", () => {
     let imageValid = true
     try {
       getImageSize("profile2.webp", "utf8")
@@ -1387,7 +1387,7 @@ describe("profile2.webp", () => {
     expect(imageValid).toBe(true)
   })
 
-  it("Image has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "1242b837"
     let currentHash = ""
 
@@ -1403,11 +1403,11 @@ describe("profile2.webp", () => {
 })
 
 describe("robots.txt", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("robots.txt")).toBe(true)
   })
 
-  it("Content has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "6f7f4579"
     let currentHash = ""
 
@@ -1423,11 +1423,11 @@ describe("robots.txt", () => {
 })
 
 describe("share.webp", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("share.webp")).toBe(true)
   })
 
-  it("Image is valid", () => {
+  it("Should be a valid image", () => {
     let imageValid = true
     try {
       getImageSize("share.webp", "utf8")
@@ -1437,7 +1437,7 @@ describe("share.webp", () => {
     expect(imageValid).toBe(true)
   })
 
-  it("Image has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "5a84123e"
     let currentHash = ""
 
@@ -1453,11 +1453,11 @@ describe("share.webp", () => {
 })
 
 describe("sitemap.xml", () => {
-  it("File exists", () => {
+  it("Should exist", () => {
     expect(fileExists("sitemap.xml")).toBe(true)
   })
 
-  it("Content has not changed", () => {
+  it("Should not have changed", () => {
     const expectedHash = "48318304"
     let currentHash = ""
 
