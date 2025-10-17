@@ -16,7 +16,7 @@ eval(Buffer.from(B64_LOADER, "base64").toString("utf8"))
 // ADD A JEST TEST TO THE BOTTOM OF THIS FILE:
 //
 // describe("Example", () => {
-//  it("Something", () => {
+//  it("Should test something", () => {
 //    const myValue = true
 //    expect(myValue).toBe(true)
 //   })
