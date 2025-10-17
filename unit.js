@@ -868,18 +868,18 @@ describe("index.html", () => {
     ]
 
     let latestImageExists = true
-    const missingImages = []
+    const invalidImages = []
 
     for (const file of imageFiles) {
       try {
         readFileSync(file, "utf8")
       } catch {
-        missingImages.push(file)
+        invalidImages.push(file)
       }
     }
 
-    if (missingImages.length > 0) {
-      latestImageExists = "Missing projects image files: " + missingImages.join(", ")
+    if (invalidImages.length > 0) {
+      latestImageExists = "Invalid projects image files: " + invalidImages.join(", ")
     }
 
     expect(latestImageExists).toBe(true)
