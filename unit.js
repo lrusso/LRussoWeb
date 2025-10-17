@@ -678,26 +678,6 @@ describe("404.html", () => {
   })
 })
 
-describe("privacy.html", () => {
-  it("File exists", () => {
-    expect(fileExists("privacy.html")).toBe(true)
-  })
-
-  it("Content has not changed", () => {
-    const expectedHash = "102f2163"
-    let currentHash = ""
-
-    try {
-      const content = readFileSync("privacy.html", "utf8")
-      currentHash = generateHash(content)
-    } catch (err) {
-      currentHash = ""
-    }
-
-    expect(currentHash).toBe(expectedHash)
-  })
-})
-
 describe("index.html", () => {
   it("File exists", () => {
     expect(fileExists("index.html")).toBe(true)
@@ -1083,5 +1063,25 @@ describe("index.html", () => {
     }
 
     expect(coverImageExists).toBe(true)
+  })
+})
+
+describe("privacy.html", () => {
+  it("File exists", () => {
+    expect(fileExists("privacy.html")).toBe(true)
+  })
+
+  it("Content has not changed", () => {
+    const expectedHash = "102f2163"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("privacy.html", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
   })
 })
