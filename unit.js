@@ -752,7 +752,7 @@ describe("WebcamRecorder/index.html", () => {
 
 describe("404.html", () => {
   it("Should exist", () => {
-    expect(!fileExists("404.html")).toBe(true)
+    expect(fileExists("404.html")).toBe(true)
   })
 
   it("Should contain redirects", () => {
