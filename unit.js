@@ -884,3 +884,126 @@ describe("Spider/index.html", () => {
     expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
 })
+
+describe("Taipei/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("Taipei/index.html")).toBe(true)
+  })
+
+  it("Internationalization variable exists", () => {
+    const variableExists = getVariable("Taipei/index.html", "APP_STRINGS")
+    expect(variableExists).not.toBe("")
+  })
+
+  it("All the languages have the same amount of keys", () => {
+    const APP_STRINGS = getVariable("Taipei/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const sameAmount = langsCheckAmountKeys(APP_STRINGS)
+
+    expect(sameAmount).toBe(true)
+  })
+
+  it("All the languages have the same keys", () => {
+    const APP_STRINGS = getVariable("Taipei/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+
+  it("All the languages have non-empty keys", () => {
+    const APP_STRINGS = getVariable("Taipei/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
+  })
+})
+
+describe("Tarot/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("Tarot/index.html")).toBe(true)
+  })
+
+  it("Internationalization variable exists", () => {
+    const variableExists = getVariable("Tarot/index.html", "APP_STRINGS")
+    expect(variableExists).not.toBe("")
+  })
+
+  it("All the languages have the same amount of keys", () => {
+    const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const sameAmount = langsCheckAmountKeys(APP_STRINGS)
+
+    expect(sameAmount).toBe(true)
+  })
+
+  it("All the languages have the same keys", () => {
+    const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+
+  it("All the languages have non-empty keys", () => {
+    const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
+  })
+})
+
+describe("Tetris/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("Tetris/index.html")).toBe(true)
+  })
+
+  it("Internationalization variable exists", () => {
+    const variableExists = getVariable("Tetris/index.html", "APP_STRINGS")
+    expect(variableExists).not.toBe("")
+  })
+
+  it("All the languages have the same amount of keys", () => {
+    const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const sameAmount = langsCheckAmountKeys(APP_STRINGS)
+
+    expect(sameAmount).toBe(true)
+  })
+
+  it("All the languages have the same keys", () => {
+    const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+
+  it("All the languages have non-empty keys", () => {
+    const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
+  })
+})
