@@ -1085,3 +1085,43 @@ describe("privacy.html", () => {
     expect(currentHash).toBe(expectedHash)
   })
 })
+
+describe("robots.txt", () => {
+  it("File exists", () => {
+    expect(fileExists("robots.txt")).toBe(true)
+  })
+
+  it("Content has not changed", () => {
+    const expectedHash = "6f7f4579"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("robots.txt", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("sitemap.xml", () => {
+  it("File exists", () => {
+    expect(fileExists("sitemap.xml")).toBe(true)
+  })
+
+  it("Content has not changed", () => {
+    const expectedHash = "48318304"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("sitemap.xml", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
