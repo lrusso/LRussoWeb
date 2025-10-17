@@ -184,6 +184,8 @@ const getImageSize = (filePath) => {
     return getJpegSize(buffer)
   } else if (isWebp(buffer)) {
     return getWebpSize(buffer)
+  } else if (isSvg(buffer)) {
+    return getSvgSize(buffer)
   } else {
     throw new Error("Unsupported image format")
   }
@@ -265,6 +267,38 @@ const getWebpSize = (buf) => {
   }
 
   throw new Error("Unsupported WebP chunk type: " + chunkType)
+}
+
+const isSvg = (buf) => {
+  const head = buf.toString("utf8", 0, 100).toLowerCase()
+  return head.includes("<svg")
+}
+
+const getSvgSize = (buf) => {
+  const text = buf.toString("utf8")
+
+  const widthMatch = text.match(/\bwidth=["']?([\d.]+)(px)?["']?/i)
+  const heightMatch = text.match(/\bheight=["']?([\d.]+)(px)?["']?/i)
+
+  if (widthMatch && heightMatch) {
+    return {
+      format: "svg",
+      width: parseFloat(widthMatch[1]),
+      height: parseFloat(heightMatch[1]),
+    }
+  }
+
+  const viewBoxMatch = text.match(/\bviewBox=["']?([\d.\s-]+)["']?/i)
+  if (viewBoxMatch) {
+    const parts = viewBoxMatch[1].trim().split(/\s+/)
+    if (parts.length === 4) {
+      const width = parseFloat(parts[2])
+      const height = parseFloat(parts[3])
+      return { format: "svg", width, height }
+    }
+  }
+
+  throw new Error("SVG size not found")
 }
 
 describe("HeadlessBrowser/build.js", () => {
@@ -777,6 +811,7 @@ const listFavIcons = [
   { "img_FavIcon_192x192.webp": "722c7462" },
   { "img_FavIcon_512x512.webp": "ccd2e9c" },
   { "img_FavIcon_512x512b.webp": "1ed3c523" },
+  { "img_FavIcon.svg": "2e976d87" },
 ]
 
 for (let i = 0; i < listFavIcons.length; i++) {
