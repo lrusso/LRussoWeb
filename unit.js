@@ -65,6 +65,7 @@ const langsCheckAmountKeys = (jsonData) => {
       }
     }
   } catch (err) {
+    console.log(err)
     sameAmount = false
   }
 
@@ -186,7 +187,7 @@ describe("404.html", () => {
   it("Redirects are valid", () => {
     const redirectsList = getVariable("404.html", "redirects")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
     let linksValid = true
 
     try {
@@ -244,7 +245,7 @@ describe("index.html", () => {
   it("All the languages have the same amount of keys", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const sameAmount = langsCheckAmountKeys(STR)
 
@@ -254,7 +255,7 @@ describe("index.html", () => {
   it("All the languages have the same keys", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveSameKeys = langsCheckSameKeys(STR)
 
@@ -264,7 +265,7 @@ describe("index.html", () => {
   it("All the languages have non-empty keys", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(STR)
 
@@ -274,7 +275,7 @@ describe("index.html", () => {
   it("Latest projects are showing titles", () => {
     let STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingLatestTitles = true
 
@@ -349,7 +350,7 @@ describe("index.html", () => {
   it("Latest projects are showing descriptions", () => {
     let STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingLatestDescriptions = true
 
@@ -382,7 +383,7 @@ describe("index.html", () => {
   it("Latest projects are showing buttons", () => {
     let LATEST = getVariable("index.html", "LATEST")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingLatestButtons = true
 
@@ -412,7 +413,7 @@ describe("index.html", () => {
   it("Latest projects are showing links", () => {
     let LATEST = getVariable("index.html", "LATEST")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingLatestLinks = true
 
@@ -448,7 +449,7 @@ describe("index.html", () => {
   it("The articles are showing titles", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingArticlesTitles = true
 
@@ -476,7 +477,7 @@ describe("index.html", () => {
   it("The articles are showing images", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingArticlesImages = true
 
@@ -504,7 +505,7 @@ describe("index.html", () => {
   it("The articles images exists", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let articleImagesExists = true
 
@@ -532,7 +533,7 @@ describe("index.html", () => {
   it("The articles are showing descriptions", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingArticlesDescriptions = true
 
@@ -562,7 +563,7 @@ describe("index.html", () => {
   it("The articles are showing buttons", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingArticlesButtons = true
 
@@ -672,7 +673,7 @@ describe("Intranet/index.html", () => {
   it("All the languages have the same amount of keys", () => {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const sameAmount = langsCheckAmountKeys(APP_STRINGS)
 
@@ -682,7 +683,7 @@ describe("Intranet/index.html", () => {
   it("All the languages have the same keys", () => {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
 
@@ -692,7 +693,7 @@ describe("Intranet/index.html", () => {
   it("All the languages have non-empty keys", () => {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
 
@@ -702,7 +703,7 @@ describe("Intranet/index.html", () => {
   it("Checking if the desktop variable is created", () => {
     let DESKTOP_FILES = getVariable("Intranet/index.html", "DESKTOP_FILES")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     DESKTOP_FILES = DESKTOP_FILES.replace(
       /<iframe[\s\S]*?<\/iframe>/gim,
@@ -723,7 +724,7 @@ describe("Intranet/index.html", () => {
   it("Checking if the desktop has valid shortcuts", () => {
     let DESKTOP_FILES = getVariable("Intranet/index.html", "DESKTOP_FILES")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     DESKTOP_FILES = DESKTOP_FILES.replace(
       /<iframe[\s\S]*?<\/iframe>/gim,
@@ -795,7 +796,7 @@ describe("Pool/index.html", () => {
   it("All the languages have the same amount of keys", () => {
     const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const sameAmount = langsCheckAmountKeys(APP_STRINGS)
 
@@ -805,7 +806,7 @@ describe("Pool/index.html", () => {
   it("All the languages have the same keys", () => {
     const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
 
@@ -815,7 +816,7 @@ describe("Pool/index.html", () => {
   it("All the languages have non-empty keys", () => {
     const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
-      .replace(/([\{\s,])([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
 
@@ -840,5 +841,46 @@ describe("ResumeChecker/index.html", () => {
     }
 
     expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("Spider/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("Spider/index.html")).toBe(true)
+  })
+
+  it("Internationalization variable exists", () => {
+    const variableExists = getVariable("Spider/index.html", "APP_STRINGS")
+    expect(variableExists).not.toBe("")
+  })
+
+  it("All the languages have the same amount of keys", () => {
+    const APP_STRINGS = getVariable("Spider/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const sameAmount = langsCheckAmountKeys(APP_STRINGS)
+
+    expect(sameAmount).toBe(true)
+  })
+
+  it("All the languages have the same keys", () => {
+    const APP_STRINGS = getVariable("Spider/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+
+  it("All the languages have non-empty keys", () => {
+    const APP_STRINGS = getVariable("Spider/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
 })
