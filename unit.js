@@ -905,7 +905,7 @@ describe("index.html", () => {
     }
 
     if (missingImages.length > 0) {
-      latestImageExists = "Missing projects image files: " + missingImages.join(", ")
+      latestImageExists = "Invalid projects image files: " + missingImages.join(", ")
     }
 
     expect(latestImageExists).toBe(true)
@@ -1092,6 +1092,37 @@ describe("index.html", () => {
     }
 
     expect(articleImagesExists).toBe(true)
+  })
+
+  it("Article images are valid", () => {
+    let PRESS = getVariable("index.html", "PRESS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    let articleImagesValid = true
+
+    try {
+      PRESS = JSON.parse(PRESS)
+      const missingImages = []
+
+      for (let i = 0; i < PRESS.length; i++) {
+        const imageFile = "img_Press_" + PRESS[i].i + ".webp"
+        try {
+          getImageSize(imageFile, "utf8")
+        } catch (err2) {
+          articleImagesValid =
+            "Invalid articles image files: " + missingImages.join(", ")
+        }
+      }
+
+      if (missingImages.length > 0) {
+        articleImagesValid = missingImages.join(", ")
+      }
+    } catch (err) {
+      articleImagesValid = false
+    }
+
+    expect(articleImagesValid).toBe(true)
   })
 
   it("The articles are showing descriptions", () => {
