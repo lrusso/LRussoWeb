@@ -53,6 +53,12 @@ const langsCheckAmountKeys = (jsonData) => {
   let sameAmount = true
 
   try {
+    jsonData = jsonData.replace(/:\s*'([^']*)'/g, ": \'$1\'")
+    jsonData = jsonData.replace(/:\s*'((?:\\'|[^'])*)'/g, (match, group) => {
+      const escaped = group.replace(/"/g, '\\"')
+      return ': "$' + escaped + '"'
+    })
+
     jsonData = JSON.parse(jsonData)
     const languages = Object.keys(jsonData)
     for (let i = 0; i < languages.length; i++) {
@@ -65,7 +71,6 @@ const langsCheckAmountKeys = (jsonData) => {
       }
     }
   } catch (err) {
-    console.log(err)
     sameAmount = false
   }
 
@@ -96,6 +101,11 @@ const langsCheckSameKeys = (jsonData) => {
   const differences = {}
 
   try {
+    jsonData = jsonData.replace(/:\s*'([^']*)'/g, ": \'$1\'")
+    jsonData = jsonData.replace(/:\s*'((?:\\'|[^'])*)'/g, (match, group) => {
+      const escaped = group.replace(/"/g, '\\"')
+      return ': "$' + escaped + '"'
+    })
     jsonData = JSON.parse(jsonData)
     const languages = Object.keys(jsonData)
 
@@ -133,6 +143,11 @@ const langsCheckEmptyKeys = (jsonData) => {
   const emptyKeys = {}
 
   try {
+    jsonData = jsonData.replace(/:\s*'([^']*)'/g, ": \'$1\'")
+    jsonData = jsonData.replace(/:\s*'((?:\\'|[^'])*)'/g, (match, group) => {
+      const escaped = group.replace(/"/g, '\\"')
+      return ': "$' + escaped + '"'
+    })
     jsonData = JSON.parse(jsonData)
     const languages = Object.keys(jsonData)
 
@@ -999,6 +1014,47 @@ describe("Tetris/index.html", () => {
 
   it("All the languages have non-empty keys", () => {
     const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
+  })
+})
+
+describe("TinyACE/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("TinyACE/index.html")).toBe(true)
+  })
+
+  it("Internationalization variable exists", () => {
+    const variableExists = getVariable("TinyACE/index.html", "APP_STRINGS")
+    expect(variableExists).not.toBe("")
+  })
+
+  it("All the languages have the same amount of keys", () => {
+    const APP_STRINGS = getVariable("TinyACE/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const sameAmount = langsCheckAmountKeys(APP_STRINGS)
+
+    expect(sameAmount).toBe(true)
+  })
+
+  it("All the languages have the same keys", () => {
+    const APP_STRINGS = getVariable("TinyACE/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+
+  it("All the languages have non-empty keys", () => {
+    const APP_STRINGS = getVariable("TinyACE/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
