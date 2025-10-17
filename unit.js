@@ -1213,6 +1213,16 @@ describe("index.html", () => {
 
     expect(coverImageExists).toBe(true)
   })
+
+  it("The cover image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("img_Cover.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
 })
 
 describe("privacy.html", () => {
@@ -1246,6 +1256,36 @@ describe("robots.txt", () => {
 
     try {
       const content = readFileSync("robots.txt", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("share.webp", () => {
+  it("File exists", () => {
+    expect(fileExists("share.webp")).toBe(true)
+  })
+
+  it("Image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("share.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
+
+  it("Image has not changed", () => {
+    const expectedHash = "5a84123e"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("share.webp", "utf8")
       currentHash = generateHash(content)
     } catch (err) {
       currentHash = ""
