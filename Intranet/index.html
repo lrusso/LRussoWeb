@@ -683,11 +683,10 @@
                 closeWindow()
               },
               function () {
-                // eslint-disable-next-line
-                var windowIframe = getIframe()
-                if (windowIframe) {
-                  windowIframe.focus()
-                  windowIframe.click()
+                var windowIframe2 = getIframe()
+                if (windowIframe2) {
+                  windowIframe2.focus()
+                  windowIframe2.click()
                 }
               }
             )
@@ -833,8 +832,7 @@
 
         // AFTER CLOSING A WINDOW, ACTIVATING THE LAST WINDOW (IF ANY)
         if (allWindows.length > 0) {
-          // eslint-disable-next-line
-          var highestZIndex = -1
+          var highestZIndex2 = -1
           var windowToActivate = null
 
           // FIND THE WINDOW WITH THE HIGHEST Z-INDEX AMONG THE REMAINING WINDOWS
@@ -842,8 +840,8 @@
             var window = allWindows[i]
             var currentZIndex = parseInt(window.style.zIndex || 0)
             // ENSURE WE DON'T TRY TO ACTIVATE THE WINDOW THAT WAS JUST CLOSED
-            if (window !== windowElement && currentZIndex > highestZIndex) {
-              highestZIndex = currentZIndex
+            if (window !== windowElement && currentZIndex > highestZIndex2) {
+              highestZIndex2 = currentZIndex
               windowToActivate = window
             }
           }

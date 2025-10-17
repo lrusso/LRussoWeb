@@ -109,6 +109,7 @@ for (const filePath of filesToFormat) {
           console.log(reportText)
         }
       } catch (error) {
+        passed = false
         // eslint-disable-next-line
         console.log(error)
       }
