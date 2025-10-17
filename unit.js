@@ -346,12 +346,12 @@ describe("Intranet/index.html", () => {
     expect(fileExists("Intranet/index.html")).toBe(true)
   })
 
-  it("i18n variable is defined", () => {
+  it("Should define the i18n variable", () => {
     const variableExists = getVariable("Intranet/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("i18n keys have equal counts across languages", () => {
+  it("Should have equal i18n key counts across languages", () => {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -361,7 +361,7 @@ describe("Intranet/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("i18n keys match across languages", () => {
+  it("Should have matching i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -371,7 +371,7 @@ describe("Intranet/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("i18n keys are non-empty across languages", () => {
+  it("Should have non-empty i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -469,12 +469,12 @@ describe("Pool/index.html", () => {
     expect(fileExists("Pool/index.html")).toBe(true)
   })
 
-  it("i18n variable is defined", () => {
+  it("Should define the i18n variable", () => {
     const variableExists = getVariable("Pool/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("i18n keys have equal counts across languages", () => {
+  it("Should have equal i18n key counts across languages", () => {
     const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -484,7 +484,7 @@ describe("Pool/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("i18n keys match across languages", () => {
+  it("Should have matching i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -494,7 +494,7 @@ describe("Pool/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("i18n keys are non-empty across languages", () => {
+  it("Should have non-empty i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Pool/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -530,12 +530,12 @@ describe("Spider/index.html", () => {
     expect(fileExists("Spider/index.html")).toBe(true)
   })
 
-  it("i18n variable is defined", () => {
+  it("Should define the i18n variable", () => {
     const variableExists = getVariable("Spider/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("i18n keys have equal counts across languages", () => {
+  it("Should have equal i18n key counts across languages", () => {
     const APP_STRINGS = getVariable("Spider/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -545,7 +545,7 @@ describe("Spider/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("i18n keys match across languages", () => {
+  it("Should have matching i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Spider/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -555,7 +555,7 @@ describe("Spider/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("i18n keys are non-empty across languages", () => {
+  it("Should have non-empty i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Spider/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -571,12 +571,12 @@ describe("Taipei/index.html", () => {
     expect(fileExists("Taipei/index.html")).toBe(true)
   })
 
-  it("i18n variable is defined", () => {
+  it("Should define the i18n variable", () => {
     const variableExists = getVariable("Taipei/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("i18n keys have equal counts across languages", () => {
+  it("Should have equal i18n key counts across languages", () => {
     const APP_STRINGS = getVariable("Taipei/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -586,7 +586,7 @@ describe("Taipei/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("i18n keys match across languages", () => {
+  it("Should have matching i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Taipei/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -596,7 +596,7 @@ describe("Taipei/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("i18n keys are non-empty across languages", () => {
+  it("Should have non-empty i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Taipei/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -612,12 +612,12 @@ describe("Tarot/index.html", () => {
     expect(fileExists("Tarot/index.html")).toBe(true)
   })
 
-  it("i18n variable is defined", () => {
+  it("Should define the i18n variable", () => {
     const variableExists = getVariable("Tarot/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("i18n keys have equal counts across languages", () => {
+  it("Should have equal i18n key counts across languages", () => {
     const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -627,7 +627,7 @@ describe("Tarot/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("i18n keys match across languages", () => {
+  it("Should have matching i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -637,7 +637,7 @@ describe("Tarot/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("i18n keys are non-empty across languages", () => {
+  it("Should have non-empty i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -653,12 +653,12 @@ describe("Tetris/index.html", () => {
     expect(fileExists("Tetris/index.html")).toBe(true)
   })
 
-  it("i18n variable is defined", () => {
+  it("Should define the i18n variable", () => {
     const variableExists = getVariable("Tetris/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("i18n keys have equal counts across languages", () => {
+  it("Should have equal i18n key counts across languages", () => {
     const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -668,7 +668,7 @@ describe("Tetris/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("i18n keys match across languages", () => {
+  it("Should have matching i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -678,7 +678,7 @@ describe("Tetris/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("i18n keys are non-empty across languages", () => {
+  it("Should have non-empty i18n keys across languages", () => {
     const APP_STRINGS = getVariable("Tetris/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -694,12 +694,12 @@ describe("TinyACE/index.html", () => {
     expect(fileExists("TinyACE/index.html")).toBe(true)
   })
 
-  it("i18n variable is defined", () => {
+  it("Should define the i18n variable", () => {
     const variableExists = getVariable("TinyACE/index.html", "APP_STRINGS")
     expect(variableExists).not.toBe("")
   })
 
-  it("i18n keys have equal counts across languages", () => {
+  it("Should have equal i18n key counts across languages", () => {
     const APP_STRINGS = getVariable("TinyACE/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -709,7 +709,7 @@ describe("TinyACE/index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("i18n keys match across languages", () => {
+  it("Should have matching i18n keys across languages", () => {
     const APP_STRINGS = getVariable("TinyACE/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -719,7 +719,7 @@ describe("TinyACE/index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("i18n keys are non-empty across languages", () => {
+  it("Should have non-empty i18n keys across languages", () => {
     const APP_STRINGS = getVariable("TinyACE/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -760,7 +760,7 @@ describe("404.html", () => {
     expect(variableExists).not.toBe("")
   })
 
-  it("The redirects list is a JSON", () => {
+  it("Should have a JSON redirects list", () => {
     const redirectsList = getVariable("404.html", "redirects").replace(
       /,\s*([}\]])/g,
       "$1"
@@ -776,7 +776,7 @@ describe("404.html", () => {
     expect(isValidJSON).toBe(true)
   })
 
-  it("Redirects are valid", () => {
+  it("Should have valid redirects", () => {
     const redirectsList = getVariable("404.html", "redirects")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -852,12 +852,12 @@ describe("index.html", () => {
     expect(fileExists("index.html")).toBe(true)
   })
 
-  it("i18n variable is defined", () => {
+  it("Should define the i18n variable", () => {
     const variableExists = getVariable("index.html", "STR")
     expect(variableExists).not.toBe("")
   })
 
-  it("i18n keys have equal counts across languages", () => {
+  it("Should have equal i18n key counts across languages", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -867,7 +867,7 @@ describe("index.html", () => {
     expect(sameAmount).toBe(true)
   })
 
-  it("i18n keys match across languages", () => {
+  it("Should have matching i18n keys across languages", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -877,7 +877,7 @@ describe("index.html", () => {
     expect(allLanguagesHaveSameKeys).toBe(true)
   })
 
-  it("i18n keys are non-empty across languages", () => {
+  it("Should have non-empty i18n keys across languages", () => {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -920,7 +920,7 @@ describe("index.html", () => {
     expect(showingLatestTitles).toBe(true)
   })
 
-  it("Latest projects are showing images", () => {
+  it("Should show images for latest projects", () => {
     let imageLoaderFound = true
 
     try {
@@ -937,7 +937,7 @@ describe("index.html", () => {
     expect(imageLoaderFound).toBe(true)
   })
 
-  it("Latest project images exist", () => {
+  it("Should have existing images for latest projects", () => {
     const imageFiles = [
       "img_Latest_1.webp",
       "img_Latest_2.webp",
@@ -963,7 +963,7 @@ describe("index.html", () => {
     expect(latestImagesAreValid).toBe(true)
   })
 
-  it("Latest projects images are valid", () => {
+  it("Should have valid images for latest projects", () => {
     const imageFiles = [
       "img_Latest_1.webp",
       "img_Latest_2.webp",
@@ -988,7 +988,7 @@ describe("index.html", () => {
     expect(latestImageExists).toBe(true)
   })
 
-  it("Latest projects are showing descriptions", () => {
+  it("Should show descriptions for latest projects", () => {
     let STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -1051,7 +1051,7 @@ describe("index.html", () => {
     expect(showingLatestButtons).toBe(true)
   })
 
-  it("Latest projects are showing links", () => {
+  it("Should show links for latest projects", () => {
     let LATEST = getVariable("index.html", "LATEST")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -1087,7 +1087,7 @@ describe("index.html", () => {
     expect(showingLatestLinks).toBe(true)
   })
 
-  it("The articles are showing titles", () => {
+  it("Should show titles for articles", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -1143,7 +1143,7 @@ describe("index.html", () => {
     expect(showingArticlesImages).toBe(true)
   })
 
-  it("The articles images exists", () => {
+  it("Should have existing images for articles", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -1171,7 +1171,7 @@ describe("index.html", () => {
     expect(articleImagesExists).toBe(true)
   })
 
-  it("Article images are valid", () => {
+  it("Should have valid images for articles", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -1202,7 +1202,7 @@ describe("index.html", () => {
     expect(articleImagesValid).toBe(true)
   })
 
-  it("The articles are showing descriptions", () => {
+  it("Should show descriptions for articles", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -1232,7 +1232,7 @@ describe("index.html", () => {
     expect(showingArticlesDescriptions).toBe(true)
   })
 
-  it("The articles are showing buttons", () => {
+  it("Should show buttons for articles", () => {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
@@ -1262,7 +1262,7 @@ describe("index.html", () => {
     expect(showingArticlesButtons).toBe(true)
   })
 
-  it("The cover image is loaded", () => {
+  it("Should load the cover image", () => {
     let imageCoverLoaderFound = true
 
     try {
@@ -1279,7 +1279,7 @@ describe("index.html", () => {
     expect(imageCoverLoaderFound).toBe(true)
   })
 
-  it("The cover image exists", () => {
+  it("Should have an existing cover image", () => {
     let coverImageExists = true
 
     try {
