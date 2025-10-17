@@ -24,7 +24,7 @@ eval(Buffer.from(B64_LOADER, "base64").toString("utf8"))
 //
 // THEN RUN:
 //
-// node jest
+// node unit
 //
 
 const fileExists = (path) => existsSync(path)
