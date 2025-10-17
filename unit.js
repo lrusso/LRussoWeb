@@ -1302,6 +1302,26 @@ describe("index.html", () => {
   })
 })
 
+describe("license.txt", () => {
+  it("File exists", () => {
+    expect(fileExists("license.txt")).toBe(true)
+  })
+
+  it("Content has not changed", () => {
+    const expectedHash = "792cf31f"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("license.txt", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
 describe("privacy.html", () => {
   it("File exists", () => {
     expect(fileExists("privacy.html")).toBe(true)
