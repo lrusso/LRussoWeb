@@ -38,7 +38,9 @@ function getVariable(filename, variableName) {
   try {
     const content = readFileSync(filename, "utf8")
     const regex = new RegExp(
-      `\\b(?:const|let|var)\\s+${variableName}\\s*=\\s*([\\s\\S]*?)(?=^\\s*(?:const|let|var|function|class|export|import|$))`,
+      "\\b(?:const|let|var)\\s+" +
+        variableName +
+        "\\s*=\\s*([\\s\\S]*?)(?=^\\s*(?:const|let|var|function|class|export|import|$))",
       "m"
     )
     const match = content.match(regex)
