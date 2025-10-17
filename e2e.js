@@ -42,36 +42,36 @@ const linkPlayStore = "#home > div:nth-child(12) > div:nth-child(3) > div > div 
 const linkGitHub = "#home > div:nth-child(12) > div:nth-child(4) > div > div > a"
 
 describe("Languages", () => {
-  it("Checking words in English", () => {
+  it("Verifies words are displayed in English", () => {
     const englishTest = browseTo(langEN, userAgent, url).text
     expect(englishTest.includes("projects")).toBe(true)
   })
 
-  it("Checking words in Spanish", () => {
+  it("Verifies words are displayed in Spanish", () => {
     const spanishTest = browseTo(langES, userAgent, url).text
     expect(spanishTest.includes("desarrollos")).toBe(true)
   })
 })
 
 describe("Links", () => {
-  it("Checking the Email link", () => {
+  it("Verifies the Email link navigates correctly", () => {
     const emailTest = browseTo(langEN, userAgent, url).html
     expect(emailTest.includes("mailto:info@lrusso.com")).toBe(true)
   })
 
-  it("Checking the LinkedIn link", () => {
+  it("Verifies the LinkedIn link navigates correctly", () => {
     const linkedInTest = browseTo(langEN, userAgent, url, [linkLinkedIn]).text
     expect(
       linkedInTest.includes("full profile") || linkedInTest.includes("Join LinkedIn")
     ).toBe(true)
   })
 
-  it("Checking the Play Store link", () => {
+  it("Verifies the Play Store link navigates correctly", () => {
     const playStoreTest = browseTo(langEN, userAgent, url, [linkPlayStore]).text
     expect(playStoreTest.includes("3D Object Viewer")).toBe(true)
   })
 
-  it("Checking the GitHub link", () => {
+  it("Verifies the GitHub link navigates correctly", () => {
     const githubTest = browseTo(langEN, userAgent, url, [linkGitHub]).text
     expect(githubTest.includes("Popular repositories")).toBe(true)
   })

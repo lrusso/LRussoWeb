@@ -82,7 +82,7 @@ const filesToFormat = allFiles.filter((file) => targetExts.includes(extname(file
 
 for (const filePath of filesToFormat) {
   describe(filePath.substring(startDir.length + 1), () => {
-    it("Checking the HTML structure", () => {
+    it("W3C structure validation", () => {
       let passed = true
       try {
         const nvuReport = execSync(
