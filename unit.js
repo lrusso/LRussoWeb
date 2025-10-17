@@ -34,7 +34,7 @@ const generateHash = (s) =>
     [...s].reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0)
   ).toString(16)
 
-function getVariable(filename, variableName) {
+const getVariable = (filename, variableName) => {
   try {
     const content = readFileSync(filename, "utf8")
     const regex = new RegExp(
@@ -173,6 +173,98 @@ const langsCheckEmptyKeys = (jsonData) => {
   }
 
   return allLanguagesHaveNoEmptyKeys
+}
+
+const getImageSize = (filePath) => {
+  const buffer = readFileSync(filePath)
+
+  if (isPng(buffer)) {
+    return getPngSize(buffer)
+  } else if (isJpeg(buffer)) {
+    return getJpegSize(buffer)
+  } else if (isWebp(buffer)) {
+    return getWebpSize(buffer)
+  } else {
+    throw new Error("Unsupported image format")
+  }
+}
+
+const isPng = (buf) => {
+  return buf[0] === 0x89 && buf.toString("ascii", 1, 4) === "PNG"
+}
+
+const getPngSize = (buf) => {
+  const width = buf.readUInt32BE(16)
+  const height = buf.readUInt32BE(20)
+  return { format: "png", width, height }
+}
+
+const isJpeg = (buf) => {
+  return buf[0] === 0xff && buf[1] === 0xd8
+}
+
+const getJpegSize = (buf) => {
+  let offset = 2
+  while (offset < buf.length) {
+    if (buf[offset] !== 0xff) throw new Error("Invalid JPEG marker")
+
+    const marker = buf[offset + 1]
+
+    if (
+      marker >= 0xc0 &&
+      marker <= 0xcf &&
+      marker !== 0xc4 &&
+      marker !== 0xc8 &&
+      marker !== 0xcc
+    ) {
+      const height = buf.readUInt16BE(offset + 5)
+      const width = buf.readUInt16BE(offset + 7)
+      return { format: "jpeg", width, height }
+    } else {
+      const segmentLength = buf.readUInt16BE(offset + 2)
+      offset += 2 + segmentLength
+    }
+  }
+  throw new Error("Size not found in JPEG file")
+}
+
+const isWebp = (buf) => {
+  return (
+    buf.toString("ascii", 0, 4) === "RIFF" && buf.toString("ascii", 8, 12) === "WEBP"
+  )
+}
+
+const getWebpSize = (buf) => {
+  const chunkType = buf.toString("ascii", 12, 16)
+
+  if (chunkType === "VP8 ") {
+    const start = 26
+    const width = buf.readUInt16LE(start) & 0x3fff
+    const height = buf.readUInt16LE(start + 2) & 0x3fff
+    return { format: "webp (lossy)", width, height }
+  }
+
+  if (chunkType === "VP8L") {
+    const start = 21
+    const b0 = buf[start + 1]
+    const b1 = buf[start + 2]
+    const b2 = buf[start + 3]
+    const b3 = buf[start + 4]
+
+    const width = 1 + (((b1 & 0x3f) << 8) | b0)
+    const height = 1 + (((b3 & 0x0f) << 10) | (b2 << 2) | ((b1 & 0xc0) >> 6))
+    return { format: "webp (lossless)", width, height }
+  }
+
+  if (chunkType === "VP8X") {
+    const start = 24
+    const width = 1 + buf[start] + (buf[start + 1] << 8) + (buf[start + 2] << 16)
+    const height =
+      1 + buf[start + 3] + (buf[start + 4] << 8) + (buf[start + 5] << 16)
+    return { format: "webp (extended)", width, height }
+  }
+
+  throw new Error("Unsupported WebP chunk type: " + chunkType)
 }
 
 describe("HeadlessBrowser/build.js", () => {
@@ -781,6 +873,31 @@ describe("index.html", () => {
     for (const file of imageFiles) {
       try {
         readFileSync(file, "utf8")
+      } catch {
+        missingImages.push(file)
+      }
+    }
+
+    if (missingImages.length > 0) {
+      latestImageExists = "Missing projects image files: " + missingImages.join(", ")
+    }
+
+    expect(latestImageExists).toBe(true)
+  })
+
+  it("Latest projects images are valid", () => {
+    const imageFiles = [
+      "img_Latest_1.webp",
+      "img_Latest_2.webp",
+      "img_Latest_3.webp",
+    ]
+
+    let latestImageExists = true
+    const missingImages = []
+
+    for (const file of imageFiles) {
+      try {
+        getImageSize(file, "utf8")
       } catch {
         missingImages.push(file)
       }
