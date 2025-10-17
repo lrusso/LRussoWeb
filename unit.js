@@ -106,7 +106,7 @@ const langsCheckSameKeys = (jsonData) => {
     jsonData = jsonData.replace(/:\s*'([^']*)'/g, ": \'$1\'")
     jsonData = jsonData.replace(/:\s*'((?:\\'|[^'])*)'/g, (match, group) => {
       const escaped = group.replace(/"/g, '\\"')
-      return ': "$' + escaped + '"'
+      return ': "' + escaped + '"'
     })
     jsonData = JSON.parse(jsonData)
     const languages = Object.keys(jsonData)
