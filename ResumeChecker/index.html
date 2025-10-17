@@ -423,8 +423,7 @@
           // Function to display resume preview
           function showResumePreview(file) {
             // Get the preview container
-            // eslint-disable-next-line
-            var previewContainer = document.getElementById(
+            var previewContainer2 = document.getElementById(
               "resume-preview-container"
             )
 
@@ -434,7 +433,7 @@
             var fileType = file.type === "application/pdf" ? "PDF" : "DOCX"
 
             // Create preview content
-            previewContainer.innerHTML =
+            previewContainer2.innerHTML =
               '<div class="preview-header"><i class="fas ' +
               fileIcon +
               '"></i><div class="preview-info"><h4>' +
@@ -446,7 +445,7 @@
               "</span></div></div>"
 
             // Make sure preview is visible
-            previewContainer.style.display = "block"
+            previewContainer2.style.display = "block"
           }
 
           // Function to format file size
@@ -465,9 +464,8 @@
               var fullText = ""
 
               // Extract text from all pages
-              // eslint-disable-next-line
-              for (var i = 1; i <= pdf.numPages; i++) {
-                var page = await pdf.getPage(i)
+              for (var j = 1; j <= pdf.numPages; j++) {
+                var page = await pdf.getPage(j)
                 var textContent = await page.getTextContent()
 
                 // Improved text extraction that preserves structure better
@@ -569,13 +567,12 @@
               analysis.format.score
 
             // Keep resume preview visible
-            // eslint-disable-next-line
-            var previewContainer = document.getElementById(
+            var previewContainer3 = document.getElementById(
               "resume-preview-container"
             )
-            if (previewContainer) {
+            if (previewContainer3) {
               // Make sure the preview stays visible
-              previewContainer.style.display = "block"
+              previewContainer3.style.display = "block"
             }
 
             // Update UI with results
@@ -1544,10 +1541,11 @@
             }
 
             // Filter for words that appear at least 3 times
-            // eslint-disable-next-line
-            var resultWords = Object.keys(repeatedWords).filter(function (word) {
-              return repeatedWords[word] >= 3
-            })
+            var resultWords = Object.keys(repeatedWords).filter(
+              function (foundWord) {
+                return repeatedWords[foundWord] >= 3
+              }
+            )
 
             if (hasLongParagraphs || hasEmptyBullets || resultWords.length > 0) {
               if (hasLongParagraphs) {
@@ -1883,12 +1881,11 @@
             }
 
             // Hide resume preview
-            // eslint-disable-next-line
-            var previewContainer = document.getElementById(
+            var previewContainer4 = document.getElementById(
               "resume-preview-container"
             )
-            if (previewContainer) {
-              previewContainer.style.display = "none"
+            if (previewContainer4) {
+              previewContainer4.style.display = "none"
             }
           }
 

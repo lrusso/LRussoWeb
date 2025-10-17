@@ -511,7 +511,7 @@ describe("ResumeChecker/index.html", () => {
   })
 
   it("Content has not changed", () => {
-    const expectedHash = "afc2b8d"
+    const expectedHash = "4af34ae9"
     let currentHash = ""
 
     try {
