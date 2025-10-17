@@ -1374,3 +1374,183 @@ describe("sitemap.xml", () => {
     expect(currentHash).toBe(expectedHash)
   })
 })
+
+describe("img_FavIcon_16x16.webp", () => {
+  it("File exists", () => {
+    expect(fileExists("img_FavIcon_16x16.webp")).toBe(true)
+  })
+
+  it("Image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("img_FavIcon_16x16.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
+
+  it("Image has not changed", () => {
+    const expectedHash = "47cf21c4"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("img_FavIcon_16x16.webp", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("img_FavIcon_32x32.webp", () => {
+  it("File exists", () => {
+    expect(fileExists("img_FavIcon_32x32.webp")).toBe(true)
+  })
+
+  it("Image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("img_FavIcon_32x32.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
+
+  it("Image has not changed", () => {
+    const expectedHash = "6d396933"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("img_FavIcon_32x32.webp", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("img_FavIcon_48x48.webp", () => {
+  it("File exists", () => {
+    expect(fileExists("img_FavIcon_48x48.webp")).toBe(true)
+  })
+
+  it("Image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("img_FavIcon_48x48.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
+
+  it("Image has not changed", () => {
+    const expectedHash = "437215da"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("img_FavIcon_48x48.webp", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("img_FavIcon_192x192.webp", () => {
+  it("File exists", () => {
+    expect(fileExists("img_FavIcon_192x192.webp")).toBe(true)
+  })
+
+  it("Image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("img_FavIcon_192x192.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
+
+  it("Image has not changed", () => {
+    const expectedHash = "722c7462"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("img_FavIcon_192x192.webp", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("img_FavIcon_512x512.webp", () => {
+  it("File exists", () => {
+    expect(fileExists("img_FavIcon_512x512.webp")).toBe(true)
+  })
+
+  it("Image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("img_FavIcon_512x512.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
+
+  it("Image has not changed", () => {
+    const expectedHash = "ccd2e9c"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("img_FavIcon_512x512.webp", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("img_FavIcon_512x512b.webp", () => {
+  it("File exists", () => {
+    expect(fileExists("img_FavIcon_512x512b.webp")).toBe(true)
+  })
+
+  it("Image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("img_FavIcon_512x512b.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
+
+  it("Image has not changed", () => {
+    const expectedHash = "1ed3c523"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("img_FavIcon_512x512b.webp", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
