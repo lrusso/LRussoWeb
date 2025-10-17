@@ -1063,3 +1063,23 @@ describe("TinyACE/index.html", () => {
     expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
 })
+
+describe("WebcamRecorder/index.html", () => {
+  it("File exists", () => {
+    expect(fileExists("WebcamRecorder/index.html")).toBe(true)
+  })
+
+  it("Content has not changed", () => {
+    const expectedHash = "477f1722"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("WebcamRecorder/index.html", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
