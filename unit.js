@@ -867,7 +867,7 @@ describe("index.html", () => {
       "img_Latest_3.webp",
     ]
 
-    let latestImageExists = true
+    let latestImagesAreValid = true
     const invalidImages = []
 
     for (const file of imageFiles) {
@@ -879,10 +879,11 @@ describe("index.html", () => {
     }
 
     if (invalidImages.length > 0) {
-      latestImageExists = "Invalid projects image files: " + invalidImages.join(", ")
+      latestImagesAreValid =
+        "Invalid projects image files: " + invalidImages.join(", ")
     }
 
-    expect(latestImageExists).toBe(true)
+    expect(latestImagesAreValid).toBe(true)
   })
 
   it("Latest projects images are valid", () => {
