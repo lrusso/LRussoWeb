@@ -1245,6 +1245,66 @@ describe("privacy.html", () => {
   })
 })
 
+describe("profile1.webp", () => {
+  it("File exists", () => {
+    expect(fileExists("profile1.webp")).toBe(true)
+  })
+
+  it("Image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("profile1.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
+
+  it("Image has not changed", () => {
+    const expectedHash = "14286336"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("profile1.webp", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("profile2.webp", () => {
+  it("File exists", () => {
+    expect(fileExists("profile2.webp")).toBe(true)
+  })
+
+  it("Image is valid", () => {
+    let imageValid = true
+    try {
+      getImageSize("profile2.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
+
+  it("Image has not changed", () => {
+    const expectedHash = "1242b837"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("profile2.webp", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
 describe("robots.txt", () => {
   it("File exists", () => {
     expect(fileExists("robots.txt")).toBe(true)
