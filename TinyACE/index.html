@@ -190,8 +190,7 @@
         es: {
           filename: "Sin nombre.html",
           dirty_title: "Mensaje",
-          dirty_message:
-            "\u00BFPerder cualquier cambio<br/>que no haya sido guardado?",
+          dirty_message: "\u00BFPerder cualquier cambio\nque no haya sido guardado?",
           dirty_yes: "S\u00ED",
           dirty_no: "No",
           welcome:
@@ -270,7 +269,7 @@
           confirmTitle.style.fontWeight = "bold"
           confirmTitle.style.color = "white"
           confirmTitle.style.lineHeight = 2.5
-          confirmTitle.innerHTML = title
+          confirmTitle.innerText = title
 
           // CREATING THE CONFIRM MESSAGE
           var confirmMessage = document.createElement("div")
@@ -280,7 +279,7 @@
           confirmMessage.style.color = "black"
           confirmMessage.style.textAlign = "center"
           confirmMessage.style.lineHeight = 2
-          confirmMessage.innerHTML = message
+          confirmMessage.innerText = message
 
           // CREATING THE CONFIRM YES BUTTON
           var confirmButtonYes = document.createElement("div")
@@ -309,7 +308,7 @@
             // EXECUTING THE CALLBACK FUNCTION
             myCallback()
           })
-          confirmButtonYes.innerHTML = yes
+          confirmButtonYes.innerText = yes
 
           // CREATING THE CONFIRM NO BUTTON
           var confirmButtonNo = document.createElement("div")
@@ -347,7 +346,7 @@
               //
             }
           })
-          confirmButtonNo.innerHTML = no
+          confirmButtonNo.innerText = no
 
           // ADDING ALL THE ELEMENTS TO THE CONFIRM CONTAINER
           confirmForm.appendChild(confirmTitle)
