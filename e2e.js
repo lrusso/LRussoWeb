@@ -33,12 +33,13 @@ const browseTo = (userLanguage, userAgent, url, selector) => {
   return { html: "", text: "" }
 }
 
-const url = "index.html"
+const homeURL = "index.html"
 const intranetURL = "Intranet/index.html"
 const langEN = "en-US"
 const langES = "es-AR"
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/117.0"
 const btnStart = "#start"
+const btnClock = "#clock"
 const btnLinkedIn = "#home > div:nth-child(12) > div:nth-child(2) > div > div > a"
 const btnPlayStore = "#home > div:nth-child(12) > div:nth-child(3) > div > div > a"
 const btnGitHub = "#home > div:nth-child(12) > div:nth-child(4) > div > div > a"
@@ -71,34 +72,34 @@ describe("404.html", () => {
 
 describe("index.html", () => {
   it("Should display words in English", () => {
-    const englishTest = browseTo(langEN, userAgent, url).text
+    const englishTest = browseTo(langEN, userAgent, homeURL).text
     expect(englishTest.includes("projects")).toBe(true)
   })
 
   it("Should display words in Spanish", () => {
-    const spanishTest = browseTo(langES, userAgent, url).text
+    const spanishTest = browseTo(langES, userAgent, homeURL).text
     expect(spanishTest.includes("desarrollos")).toBe(true)
   })
 
   it("Should navigate to the Email link correctly", () => {
-    const emailTest = browseTo(langEN, userAgent, url).html
+    const emailTest = browseTo(langEN, userAgent, homeURL).html
     expect(emailTest.includes("mailto:info@lrusso.com")).toBe(true)
   })
 
   it("Should navigate to the LinkedIn link correctly", () => {
-    const linkedInTest = browseTo(langEN, userAgent, url, [btnLinkedIn]).text
+    const linkedInTest = browseTo(langEN, userAgent, homeURL, [btnLinkedIn]).text
     expect(
       linkedInTest.includes("full profile") || linkedInTest.includes("Join LinkedIn")
     ).toBe(true)
   })
 
   it("Should navigate to the Play Store link correctly", () => {
-    const playStoreTest = browseTo(langEN, userAgent, url, [btnPlayStore]).text
+    const playStoreTest = browseTo(langEN, userAgent, homeURL, [btnPlayStore]).text
     expect(playStoreTest.includes("3D Object Viewer")).toBe(true)
   })
 
   it("Should navigate to the GitHub link correctly", () => {
-    const githubTest = browseTo(langEN, userAgent, url, [btnGitHub]).text
+    const githubTest = browseTo(langEN, userAgent, homeURL, [btnGitHub]).text
     expect(githubTest.includes("Popular repositories")).toBe(true)
   })
 })
