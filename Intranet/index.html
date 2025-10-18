@@ -363,26 +363,23 @@
 
         function getMonthData(year, month, day) {
           var calendar_gray =
-            "width:70px;height:70px;background-color:#f9f9fb;color:#f9f9fb;font-size:14px;text-align:center"
+            "width:70px;height:70px;background-color:#f9f9fb;color:#f9f9fb;font-size:14px;text-align:center;align-content:center"
           var calendar_normal =
-            "width:70px;height:70px;background-color:#fff;color:#000;font-size:14px;text-align:center"
+            "width:70px;height:70px;background-color:#fff;color:#000;font-size:14px;text-align:center;align-content:center"
           var calendar_current =
-            "width:70px;height:70px;background:#3a76b1;color:#fff;font-size:14px;text-align:center"
-
+            "width:70px;height:70px;background:#3a76b1;color:#fff;font-size:14px;text-align:center;align-content:center"
           var ret = []
 
           if (!year || !month) {
             var today = new Date()
             year = today.getFullYear()
             month = today.getMonth() + 1
-            day = today.getDay()
+            day = today.getDate()
           }
 
           var firstDay = new Date(year, month - 1, 1)
           var firstDayWeekDay = firstDay.getDay()
-          if (firstDayWeekDay === 0) {
-            firstDayWeekDay = 7
-          }
+          if (firstDayWeekDay === 0) firstDayWeekDay = 7
 
           year = firstDay.getFullYear()
           month = firstDay.getMonth() + 1
@@ -403,12 +400,12 @@
               styleCls = calendar_gray
             } else if (date > lastDate) {
               thisMonth = month + 1
-              showDate = showDate - lastDate
+              showDate = ""
               styleCls = "nothing"
             } else {
               var today = new Date()
               if (
-                showDate === day &&
+                showDate === today.getDate() &&
                 thisMonth === today.getMonth() + 1 &&
                 year === today.getFullYear()
               ) {
@@ -418,11 +415,8 @@
               }
             }
 
-            if (thisMonth === 13) {
-              thisMonth = 1
-            } else if (thisMonth === 0) {
-              thisMonth = 12
-            }
+            if (thisMonth === 13) thisMonth = 1
+            else if (thisMonth === 0) thisMonth = 12
 
             ret.push({
               month: thisMonth,
@@ -455,107 +449,105 @@
             }
           } else if (direction === "next") {
             month++
+            if (month === 13) {
+              month = 1
+              year++
+            }
           }
 
-          wrapper.innerHTML = buildUI(year, month, day)
+          while (wrapper.firstChild) wrapper.removeChild(wrapper.firstChild)
+          wrapper.appendChild(buildUI(year, month, day))
         }
 
         function buildUI(year, month, day) {
           monthData = getMonthData(year, month, day)
 
-          var calendar_date_picker_warpper =
-            "width:499px;background-color:#fff;font-family:Arial;border-top-left-radius:10px;border-left:thin solid silver;border-top:thin solid silver;border-bottom:thin solid silver;-webkit-user-select:none;-moz-user-select:none;user-select:none"
-          var calendar_date_picker_header =
-            "display:flex;justify-content:center;width:499px;height:64px;font-size:0"
-          var calendar_prev_date_btn =
+          var container = document.createElement("div")
+          container.setAttribute(
+            "style",
+            "width:490px;background-color:#fff;font-family:Arial;border-top-left-radius:10px;border-left:thin solid silver;border-top:thin solid silver;border-bottom:thin solid silver;-webkit-user-select:none;-moz-user-select:none;user-select:none"
+          )
+
+          var header = document.createElement("div")
+          header.setAttribute(
+            "style",
+            "display:flex;justify-content:center;width:490px;height:64px;font-size:0"
+          )
+
+          var prevBtn = document.createElement("a")
+          prevBtn.id = "calendar_prev_date_btn"
+          prevBtn.setAttribute(
+            "style",
             "display:flex;align-items:center;justify-content:left;width:40px;height:64px;padding-left:10px;padding-right:10px;color:#3a76b1;font-size:30px;text-align:center;text-decoration:none;cursor:pointer"
-          var calendar_prev_date_btn_2 =
-            "fill:#3a76b1;padding-left:5px;cursor:pointer"
-          var calendar_next_date_btn =
+          )
+          prevBtn.innerHTML =
+            "<svg height='24' width='24' style='fill:#3a76b1;padding-left:5px;cursor:pointer' id='calendar_prev_date_btn_2' viewbox='0 0 24 24'><path style='fill:#3a76b1;padding-left:5px;cursor:pointer' id='calendar_prev_date_btn_3' d='M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z'></path></svg>"
+
+          var nextBtn = document.createElement("a")
+          nextBtn.id = "calendar_next_date_btn"
+          nextBtn.setAttribute(
+            "style",
             "display:flex;align-items:center;justify-content:right;width:40px;height:64px;padding-left:10px;padding-right:10px;color:#3a76b1;font-size:30px;text-align:center;text-decoration:none;cursor:pointer"
-          var calendar_next_date_btn_2 =
-            "fill:#3a76b1;padding-right:5px;cursor:pointer"
-          var calendar_date_title =
+          )
+          nextBtn.innerHTML =
+            "<svg height='24' width='24' style='fill:#3a76b1;padding-right:5px;cursor:pointer' id='calendar_next_date_btn_2' viewbox='0 0 24 24'><path style='fill:#3a76b1;padding-right:5px;cursor:pointer' id='calendar_next_date_btn_3' d='M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z'></path></svg>"
+
+          var title = document.createElement("div")
+          title.setAttribute(
+            "style",
             "display:flex;align-items:center;justify-content:center;width:100%;color:#000;font-size:20px;font-weight:bold"
-          var calendar_date_picker_body = "width:499px"
+          )
+          title.textContent = monthsWords[monthData.month - 1] + " " + monthData.year
 
-          var calendar_date_picker_table =
-            "border-spacing:0;border-collapse:collapse;background-color:#fff"
-          var calendar_date_picker_table_th =
-            "height:70px;color:#000;text-align:center;font-size:14px;background-color:#E7E9ED;text-transform:uppercase"
-          var calendar_date_picker_table_td =
-            "width:70px;height:70px;font-size:14px;text-align:center;color:#f9f9fb;background-color:#f9f9fb"
+          header.appendChild(prevBtn)
+          header.appendChild(title)
+          header.appendChild(nextBtn)
+          container.appendChild(header)
 
-          var html =
-            "<div style='" +
-            calendar_date_picker_warpper +
-            "'><div style='" +
-            calendar_date_picker_header +
-            "'><a style='" +
-            calendar_prev_date_btn +
-            "' id='calendar_prev_date_btn'><svg height='24' width='24' style='" +
-            calendar_prev_date_btn_2 +
-            "' id='calendar_prev_date_btn_2' viewbox='0 0 24 24'><path style='" +
-            calendar_prev_date_btn_2 +
-            "' id='calendar_prev_date_btn_3' d='M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z'></path></svg></a><div style='" +
-            calendar_date_title +
-            "'>" +
-            monthsWords[monthData.month - 1] +
-            " " +
-            monthData.year +
-            "</div><a style='" +
-            calendar_next_date_btn +
-            "' id='calendar_next_date_btn'><svg height='24' width='24' style='" +
-            calendar_next_date_btn_2 +
-            "' id='calendar_next_date_btn_2' viewbox='0 0 24 24'><path style='" +
-            calendar_next_date_btn_2 +
-            "' id='calendar_next_date_btn_3' d='M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z'></path></svg></a></div><div style='" +
-            calendar_date_picker_body +
-            "'><table style='" +
-            calendar_date_picker_table +
-            "'><thead><tr>"
-
+          // Weekday header row (divs)
+          var weekdays = document.createElement("div")
+          weekdays.setAttribute(
+            "style",
+            "display:flex;width:490px;background-color:#E7E9ED"
+          )
           for (var i = 0; i < dayWords.length; i++) {
-            html +=
-              "<th style='" +
-              calendar_date_picker_table_th +
-              "'>" +
-              dayWords[i] +
-              "</th>"
+            var wd = document.createElement("div")
+            wd.setAttribute(
+              "style",
+              "width:70px;height:70px;color:#000;text-align:center;font-size:14px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;font-weight:bold"
+            )
+            wd.textContent = dayWords[i]
+            weekdays.appendChild(wd)
+          }
+          container.appendChild(weekdays)
+
+          // Days grid (no extra row)
+          var body = document.createElement("div")
+          body.setAttribute(
+            "style",
+            "width:490px;display:flex;flex-wrap:wrap;background-color:#f9f9fb"
+          )
+
+          var days = monthData.date
+          var rowHasDays = false
+          for (var i = 0; i < days.length; i++) {
+            if (days[i].styleCls === "nothing" && !rowHasDays) continue
+
+            if (days[i].showDate !== "") rowHasDays = true
+            var cell = document.createElement("div")
+            cell.setAttribute("style", days[i].styleCls)
+            cell.textContent = days[i].showDate ? days[i].showDate : ""
+            body.appendChild(cell)
+
+            if ((i + 1) % 7 === 0) {
+              if (!rowHasDays) break
+              rowHasDays = false
+            }
+            if (days[i].styleCls === "nothing" && i > 27 && !days[i].showDate) break
           }
 
-          html += "</tr></thead><tbody>"
-
-          var started = false
-          for (var i = 0; i < monthData.date.length; i++) {
-            if (i % 7 === 0) {
-              if (monthData.date[i].styleCls !== "nothing") {
-                html += "<tr>"
-                started = true
-              } else {
-                started = false
-              }
-            }
-
-            if (monthData.date[i].styleCls === "nothing" && started) {
-              html += "<td style='" + calendar_date_picker_table_td + "'></td>"
-            } else if (started) {
-              html +=
-                "<td style='" +
-                monthData.date[i].styleCls +
-                "'>" +
-                monthData.date[i].showDate +
-                "</td>"
-            }
-
-            if (i % 7 === 6 && started) {
-              html += "</tr>"
-            }
-          }
-
-          html += "</tbody></table></div></div>"
-
-          return html
+          container.appendChild(body)
+          return container
         }
 
         init(params)

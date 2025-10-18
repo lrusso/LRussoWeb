@@ -58,7 +58,8 @@ describe("Intranet/index.html", () => {
   })
 
   it("Should show the calendar", () => {
-    expect(true).toBe(true)
+    const calendarTest = browseTo(langEN, userAgent, intranetURL, [btnClock]).text
+    expect(calendarTest.includes("Wed")).toBe(true)
   })
 
   it("Should open the first shortcut", () => {
