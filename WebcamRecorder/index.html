@@ -71,10 +71,52 @@
       var mediaControls
       var errorImage
 
-      var recordIcon =
-        '<svg width="60" height="60" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="10" fill="red"/></svg>'
-      var stopIcon =
-        '<svg width="60" height="60" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="red" stroke="red" stroke-width="2"/><rect x="8" y="8" width="8" height="8" fill="white" rx="2" ry="2"/></svg>'
+      var recordIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+      recordIcon.setAttribute("width", "60")
+      recordIcon.setAttribute("height", "60")
+      recordIcon.setAttribute("viewBox", "0 0 24 24")
+      var outerCircle = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+      )
+      outerCircle.setAttribute("cx", "12")
+      outerCircle.setAttribute("cy", "12")
+      outerCircle.setAttribute("r", "11")
+      outerCircle.setAttribute("fill", "none")
+      outerCircle.setAttribute("stroke", "#fff")
+      outerCircle.setAttribute("stroke-width", "2")
+      recordIcon.appendChild(outerCircle)
+      var innerCircle = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+      )
+      innerCircle.setAttribute("cx", "12")
+      innerCircle.setAttribute("cy", "12")
+      innerCircle.setAttribute("r", "10")
+      innerCircle.setAttribute("fill", "red")
+      recordIcon.appendChild(innerCircle)
+
+      var stopIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+      stopIcon.setAttribute("width", "60")
+      stopIcon.setAttribute("height", "60")
+      stopIcon.setAttribute("viewBox", "0 0 24 24")
+      var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle")
+      circle.setAttribute("cx", "12")
+      circle.setAttribute("cy", "12")
+      circle.setAttribute("r", "11")
+      circle.setAttribute("fill", "red")
+      circle.setAttribute("stroke", "red")
+      circle.setAttribute("stroke-width", "2")
+      stopIcon.appendChild(circle)
+      var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect")
+      rect.setAttribute("x", "8")
+      rect.setAttribute("y", "8")
+      rect.setAttribute("width", "8")
+      rect.setAttribute("height", "8")
+      rect.setAttribute("fill", "white")
+      rect.setAttribute("rx", "2")
+      rect.setAttribute("ry", "2")
+      stopIcon.appendChild(rect)
 
       var startBtn
       var liveVideo
@@ -91,6 +133,16 @@
           window.navigator.userAgent.match(/iPad/i) ||
           window.navigator.userAgent.match(/iPod/i)
         )
+      }
+
+      function updateNode(nodeTarget, content) {
+        while (nodeTarget.firstChild) {
+          nodeTarget.removeChild(nodeTarget.firstChild)
+        }
+
+        if (content instanceof Node) {
+          nodeTarget.appendChild(content)
+        }
       }
 
       async function openCamera() {
@@ -189,11 +241,11 @@
         }
 
         if (isRecording) {
-          startBtn.innerHTML = recordIcon
+          updateNode(startBtn, recordIcon)
           startBtn.classList.remove("recording")
           stopRecording()
         } else {
-          startBtn.innerHTML = stopIcon
+          updateNode(startBtn, stopIcon)
           startRecording()
           startBtn.classList.add("recording")
         }
@@ -262,7 +314,7 @@
           startBtn = document.getElementById("startBtn")
           liveVideo = document.getElementById("liveVideo")
 
-          startBtn.innerHTML = recordIcon
+          updateNode(startBtn, recordIcon)
           startBtn.addEventListener("click", handleStartButton)
 
           openCamera()
