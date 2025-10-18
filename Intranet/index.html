@@ -377,7 +377,9 @@
 
           var firstDay = new Date(year, month - 1, 1)
           var firstDayWeekDay = firstDay.getDay()
-          if (firstDayWeekDay === 0) firstDayWeekDay = 7
+          if (firstDayWeekDay === 0) {
+            firstDayWeekDay = 7
+          }
 
           year = firstDay.getFullYear()
           month = firstDay.getMonth() + 1
@@ -413,8 +415,11 @@
               }
             }
 
-            if (thisMonth === 13) thisMonth = 1
-            else if (thisMonth === 0) thisMonth = 12
+            if (thisMonth === 13) {
+              thisMonth = 1
+            } else if (thisMonth === 0) {
+              thisMonth = 12
+            }
 
             ret.push({
               month: thisMonth,

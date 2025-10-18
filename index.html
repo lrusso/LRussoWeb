@@ -453,7 +453,9 @@
 
       function el(name) {
         var elems = document.getElementsByClassName(name)
-        if (elems.length > 0) return elems
+        if (elems.length > 0) {
+          return elems
+        }
         return document.getElementsByTagName(name)
       }
 

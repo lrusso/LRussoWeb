@@ -450,9 +450,13 @@
 
           // Function to format file size
           function formatFileSize(bytes) {
-            if (bytes < 1024) return bytes + " bytes"
-            else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB"
-            else return (bytes / 1048576).toFixed(1) + " MB"
+            if (bytes < 1024) {
+              return bytes + " bytes"
+            } else if (bytes < 1048576) {
+              return (bytes / 1024).toFixed(1) + " KB"
+            } else {
+              return (bytes / 1048576).toFixed(1) + " MB"
+            }
           }
 
           // Function to parse PDF resume
@@ -1712,7 +1716,9 @@
           // Function to update detailed analysis tab
           function updateDetailedAnalysis(containerId, details) {
             var container = document.getElementById(containerId)
-            if (!container) return
+            if (!container) {
+              return
+            }
 
             container.innerHTML = ""
 
