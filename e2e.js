@@ -94,10 +94,8 @@ describe("index.html", () => {
   })
 
   it("Should navigate to the LinkedIn link correctly", () => {
-    const linkedInTest = browseTo(langEN, userAgent, homeURL, [btnLinkedIn]).text
-    expect(
-      linkedInTest.includes("full profile") || linkedInTest.includes("Join LinkedIn")
-    ).toBe(true)
+    const linkedInTest = browseTo(langEN, userAgent, homeURL, [btnLinkedIn]).html
+    expect(linkedInTest.includes("licdn.com")).toBe(true)
   })
 
   it("Should navigate to the Play Store link correctly", () => {
