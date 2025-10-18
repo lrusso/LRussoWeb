@@ -34,6 +34,7 @@ const browseTo = (userLanguage, userAgent, url, selector) => {
 }
 
 const homeURL = "index.html"
+const redirectURL = "404.html"
 const intranetURL = "Intranet/index.html"
 const langEN = "en-US"
 const langES = "es-AR"
@@ -66,7 +67,8 @@ describe("Intranet/index.html", () => {
 
 describe("404.html", () => {
   it("Should redirect to index.html", () => {
-    expect(true).toBe(true)
+    const redirectTest = browseTo(langEN, userAgent, redirectURL).text
+    expect(redirectTest.includes("projects")).toBe(true)
   })
 })
 

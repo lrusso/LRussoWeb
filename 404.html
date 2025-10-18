@@ -19,7 +19,9 @@
       }
 
       var requestedURL = window.location.href.toLowerCase().trim()
-      var currentDomain = window.location.origin.toLowerCase()
+      var currentDomain = window.location.origin.toLowerCase().startsWith("file://")
+        ? "index.html"
+        : window.location.origin.toLowerCase()
       var mustRedirectToHome = true
 
       for (var path in redirects) {
