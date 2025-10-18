@@ -44,7 +44,6 @@ const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/117.0"
 const btnStart = "#start"
 const btnClock = "#clock"
 const btnShortcut = "#desktop-files > div:nth-child(1)"
-const btnLinkedIn = "#home > div:nth-child(12) > div:nth-child(2) > div > div > a"
 const btnPlayStore = "#home > div:nth-child(12) > div:nth-child(3) > div > div > a"
 const btnGitHub = "#home > div:nth-child(12) > div:nth-child(4) > div > div > a"
 
@@ -94,8 +93,10 @@ describe("index.html", () => {
   })
 
   it("Should navigate to the LinkedIn link correctly", () => {
-    const linkedInTest = browseTo(langEN, userAgent, homeURL, [btnLinkedIn]).html
-    expect(linkedInTest.includes("en_US")).toBe(true)
+    const linkedInTest = browseTo(langEN, userAgent, homeURL).html
+    expect(
+      linkedInTest.includes('href="https://www.linkedin.com/in/leonardojavierrusso"')
+    ).toBe(true)
   })
 
   it("Should navigate to the Play Store link correctly", () => {
