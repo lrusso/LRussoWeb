@@ -453,7 +453,9 @@
             }
           }
 
-          while (wrapper.firstChild) wrapper.removeChild(wrapper.firstChild)
+          while (wrapper.firstChild) {
+            wrapper.removeChild(wrapper.firstChild)
+          }
           wrapper.appendChild(buildUI(year, month, day))
         }
 

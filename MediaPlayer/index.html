@@ -160,22 +160,129 @@
       var prevMediaBtn = document.getElementById("prev-media-btn")
       var nextMediaBtn = document.getElementById("next-media-btn")
 
-      var playIcon =
-        '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>'
-      var pauseIcon =
-        '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>'
-      var fullscreenIcon =
-        '<svg width="24" height="24" viewBox="0 0 24 24"><path transform="translate(-2.4, -2.4),scale(1.2,1.2)" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" /></svg>'
-      var exitFullscreenIcon =
-        '<svg width="24" height="24" viewBox="0 0 48 48"><path d="M0 0h48v48h-48z" fill="none" transform="translate(-7,-7) scale(1.3, 1.3)"/><path d="M10 32h6v6h4v-10h-10v4zm6-16h-6v4h10v-10h-4v6zm12 22h4v-6h6v-4h-10v10zm4-22v-6h-4v10h10v-4h-6z" transform="translate(-7,-7) scale(1.3, 1.3)"/></svg>'
-      var volumeHighIcon =
-        '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/></svg>'
-      var volumeMediumIcon =
-        '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/></svg>'
-      var volumeLowIcon =
-        '<svg width="24" height="24" viewBox="0 0 24 24"><path transform="translate(-4, 0)" d="M7,9V15H11L16,20V4L11,9H7Z"/></svg>'
-      var volumeMutedIcon =
-        '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M12,4L9.91,6.09L12,8.18V4M4,3.27L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L20.73,20L4,3.27M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,12.22 16.47,12.43 16.43,12.64L14,10.21V7.97C15.5,8.71 16.5,10.23 16.5,12Z"/></svg>'
+      var playIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+      playIcon.setAttribute("width", "24")
+      playIcon.setAttribute("height", "24")
+      playIcon.setAttribute("viewBox", "0 0 24 24")
+      var pathPlay = document.createElementNS("http://www.w3.org/2000/svg", "path")
+      pathPlay.setAttribute("d", "M8,5.14V19.14L19,12.14L8,5.14Z")
+      playIcon.appendChild(pathPlay)
+
+      var pauseIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+      pauseIcon.setAttribute("width", "24")
+      pauseIcon.setAttribute("height", "24")
+      pauseIcon.setAttribute("viewBox", "0 0 24 24")
+      var pathPause = document.createElementNS("http://www.w3.org/2000/svg", "path")
+      pathPause.setAttribute("d", "M14,19H18V5H14M6,19H10V5H6V19Z")
+      pauseIcon.appendChild(pathPause)
+
+      var fullscreenIcon = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      )
+      fullscreenIcon.setAttribute("width", "24")
+      fullscreenIcon.setAttribute("height", "24")
+      fullscreenIcon.setAttribute("viewBox", "0 0 24 24")
+      var pathFullscreen = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      )
+      pathFullscreen.setAttribute(
+        "transform",
+        "translate(-2.4, -2.4),scale(1.2,1.2)"
+      )
+      pathFullscreen.setAttribute(
+        "d",
+        "M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"
+      )
+      fullscreenIcon.appendChild(pathFullscreen)
+
+      var exitFullscreenIcon = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      )
+      exitFullscreenIcon.setAttribute("width", "24")
+      exitFullscreenIcon.setAttribute("height", "24")
+      exitFullscreenIcon.setAttribute("viewBox", "0 0 48 48")
+      var pathExit1 = document.createElementNS("http://www.w3.org/2000/svg", "path")
+      pathExit1.setAttribute("fill", "none")
+      pathExit1.setAttribute("transform", "translate(-7,-7) scale(1.3, 1.3)")
+      pathExit1.setAttribute("d", "M0 0h48v48h-48z")
+      exitFullscreenIcon.appendChild(pathExit1)
+      var pathExit2 = document.createElementNS("http://www.w3.org/2000/svg", "path")
+      pathExit2.setAttribute("transform", "translate(-7,-7) scale(1.3, 1.3)")
+      pathExit2.setAttribute(
+        "d",
+        "M10 32h6v6h4v-10h-10v4zm6-16h-6v4h10v-10h-4v6zm12 22h4v-6h6v-4h-10v10zm4-22v-6h-4v10h10v-4h-6z"
+      )
+      exitFullscreenIcon.appendChild(pathExit2)
+
+      var volumeHighIcon = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      )
+      volumeHighIcon.setAttribute("width", "24")
+      volumeHighIcon.setAttribute("height", "24")
+      volumeHighIcon.setAttribute("viewBox", "0 0 24 24")
+      var pathVolumeHigh = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      )
+      pathVolumeHigh.setAttribute(
+        "d",
+        "M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
+      )
+      volumeHighIcon.appendChild(pathVolumeHigh)
+
+      var volumeMediumIcon = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      )
+      volumeMediumIcon.setAttribute("width", "24")
+      volumeMediumIcon.setAttribute("height", "24")
+      volumeMediumIcon.setAttribute("viewBox", "0 0 24 24")
+
+      var pathVolumeMedium = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      )
+      pathVolumeMedium.setAttribute(
+        "d",
+        "M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
+      )
+      volumeMediumIcon.appendChild(pathVolumeMedium)
+
+      var volumeLowIcon = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      )
+      volumeLowIcon.setAttribute("width", "24")
+      volumeLowIcon.setAttribute("height", "24")
+      volumeLowIcon.setAttribute("viewBox", "0 0 24 24")
+      var pathVolumeLow = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      )
+      pathVolumeLow.setAttribute("transform", "translate(-4, 0)")
+      pathVolumeLow.setAttribute("d", "M7,9V15H11L16,20V4L11,9H7Z")
+      volumeLowIcon.appendChild(pathVolumeLow)
+
+      var volumeMutedIcon = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      )
+      volumeMutedIcon.setAttribute("width", "24")
+      volumeMutedIcon.setAttribute("height", "24")
+      volumeMutedIcon.setAttribute("viewBox", "0 0 24 24")
+      var pathVolumeMuted = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      )
+      pathVolumeMuted.setAttribute(
+        "d",
+        "M12,4L9.91,6.09L12,8.18V4M4,3.27L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L20.73,20L4,3.27M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,12.22 16.47,12.43 16.43,12.64L14,10.21V7.97C15.5,8.71 16.5,10.23 16.5,12Z"
+      )
+      volumeMutedIcon.appendChild(pathVolumeMuted)
 
       function isMobileDevice() {
         return !!(
@@ -202,6 +309,16 @@
         return lastDotIndex === -1 ? filename : filename.substring(0, lastDotIndex)
       }
 
+      function updateNode(nodeTarget, content) {
+        while (nodeTarget.firstChild) {
+          nodeTarget.removeChild(nodeTarget.firstChild)
+        }
+
+        if (content instanceof Node) {
+          nodeTarget.appendChild(content)
+        }
+      }
+
       function loadMedia(index) {
         if (index < 0 || index >= mediaFiles.length) {
           return
@@ -217,7 +334,7 @@
         if (fileExtension === "mp3") {
           mediaPlayer.style.display = "none"
           audioInfoContainer.style.display = "flex"
-          subtitlesDisplay.innerHTML = ""
+          updateNode(subtitlesDisplay)
 
           // eslint-disable-next-line
           ID3.loadTags(
@@ -286,7 +403,7 @@
           loadSubtitles(srtFile)
         } else {
           subtitles = []
-          subtitlesDisplay.innerHTML = ""
+          updateNode(subtitlesDisplay)
           var existingTracks = mediaPlayer.querySelectorAll("track")
           for (var track of existingTracks) {
             track.remove()
@@ -532,7 +649,7 @@
       }
 
       function updatePlayIcon() {
-        playPauseBtn.innerHTML = mediaPlayer.paused ? playIcon : pauseIcon
+        updateNode(playPauseBtn, mediaPlayer.paused ? playIcon : pauseIcon)
       }
 
       function updateProgress() {
@@ -561,9 +678,9 @@
 
         if (!document.fullscreenElement) {
           mediaContainer.requestFullscreen().catch(function () {})
-          fullscreenBtn.innerHTML = exitFullscreenIcon
+          updateNode(fullscreenBtn, exitFullscreenIcon)
         } else {
-          fullscreenBtn.innerHTML = fullscreenIcon
+          updateNode(fullscreenBtn, fullscreenIcon)
           document.exitFullscreen()
         }
 
@@ -585,13 +702,13 @@
         volumeSliderLevel.style.height = isMuted ? "0%" : volume * 100 + "%"
 
         if (isMuted || volume === 0) {
-          volumeBtn.innerHTML = volumeMutedIcon
+          updateNode(volumeBtn, volumeMutedIcon)
         } else if (volume < 0.33) {
-          volumeBtn.innerHTML = volumeLowIcon
+          updateNode(volumeBtn, volumeLowIcon)
         } else if (volume < 0.66) {
-          volumeBtn.innerHTML = volumeMediumIcon
+          updateNode(volumeBtn, volumeMediumIcon)
         } else {
-          volumeBtn.innerHTML = volumeHighIcon
+          updateNode(volumeBtn, volumeHighIcon)
         }
       }
 
@@ -709,9 +826,15 @@
             })
 
             if (currentSubtitle) {
-              subtitlesDisplay.innerHTML = currentSubtitle.text
+              var subtitleElement = document.createElement("span")
+              currentSubtitle.text = currentSubtitle.text.replace(/<br>/gm, "\n")
+              currentSubtitle.text = currentSubtitle.text.replace(/<br \/>/gm, "\n")
+              currentSubtitle.text = currentSubtitle.text.replace(/<i>/gm, "")
+              currentSubtitle.text = currentSubtitle.text.replace(/<\/i>/gm, "")
+              subtitleElement.innerText = currentSubtitle.text
+              updateNode(subtitlesDisplay, subtitleElement)
             } else {
-              subtitlesDisplay.innerHTML = ""
+              updateNode(subtitlesDisplay)
             }
           })
 
@@ -785,7 +908,7 @@
           subtitlesDisplay.addEventListener("click", togglePlayPause)
           playPauseBtn.addEventListener("click", togglePlayPause)
           fullscreenBtn.addEventListener("click", toggleFullscreen)
-          fullscreenBtn.innerHTML = fullscreenIcon
+          updateNode(fullscreenBtn, fullscreenIcon)
           volumeBtn.addEventListener("click", toggleMute)
           repeatMediaBtn.addEventListener("click", toggleRepeat)
           prevMediaBtn.addEventListener("click", playPrevMedia)
