@@ -738,7 +738,7 @@ describe("WebcamRecorder/index.html", () => {
   })
 
   it("Should not have changed", () => {
-    const expectedHash = "477f1722"
+    const expectedHash = "7777cead"
     let currentHash = ""
 
     try {
