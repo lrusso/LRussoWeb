@@ -62,9 +62,8 @@ describe("Intranet/index.html", () => {
   })
 
   it("Should open the first shortcut", () => {
-    //const shortcutTest = browseTo(langEN, userAgent, intranetURL, [btnShortcut]).text
-    //expect(shortcutTest.split("Pool").length - 1 > 1 ? true : false).toBe(true)
-    expect(true).toBe(true)
+    const shortcutTest = browseTo(langEN, userAgent, intranetURL, [btnShortcut]).text
+    expect(shortcutTest.split("Pool").length - 1 > 1 ? true : false).toBe(true)
   })
 })
 

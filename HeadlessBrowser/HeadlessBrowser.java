@@ -46,9 +46,25 @@ public class HeadlessBrowser {
             // Inject a script BEFORE any page scripts execute
             webClient.setScriptPreProcessor((page, scriptSource, scriptName, lineNumber, htmlElement) -> {
                 String overrideScript =
+                    // forcing the navigator language
                     "try{"+
                     "Object.defineProperty(window.navigator, 'language', {get: function(){return '" + userLanguage + "';}});" +
                     "Object.defineProperty(window.navigator, 'languages', {get: function(){return ['" + userLanguage + "'];}});" +
+                    "}catch(e){}"+
+                    // mock for iframe
+                    "try{"+
+                    "const _createElement = Document.prototype.createElement;" +
+                    "Document.prototype.createElement = function(tagName, options) {" +
+                    "   if (String(tagName).toLowerCase() === 'iframe') {" +
+                    "       const div = _createElement.call(this, 'div');" +
+                    "       div.setAttribute('data-iframe-mock', 'true');" +
+                    "       div.style.width = '100%';" +
+                    "       div.style.height = '0';" +
+                    "       return div;" +
+                    "   }" +
+                    "   return _createElement.call(this, tagName, options);" +
+                    "};" +
+                    "Object.defineProperty(window, 'HTMLIFrameElement', { value: HTMLDivElement, configurable: true });" +
                     "}catch(e){}";
                 return overrideScript + "\n" + scriptSource;
             });
