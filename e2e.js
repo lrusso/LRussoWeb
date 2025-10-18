@@ -66,7 +66,7 @@ describe("Intranet/index.html", () => {
 })
 
 describe("404.html", () => {
-  it("Should redirect to index.html", () => {
+  it("Should redirect to the home page", () => {
     const redirectTest = browseTo(langEN, userAgent, redirectURL).text
     expect(redirectTest.includes("projects")).toBe(true)
   })
