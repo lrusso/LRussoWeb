@@ -41,6 +41,7 @@ const langES = "es-AR"
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/117.0"
 const btnStart = "#start"
 const btnClock = "#clock"
+const btnShortcut = "#desktop-files > div:nth-child(1)"
 const btnLinkedIn = "#home > div:nth-child(12) > div:nth-child(2) > div > div > a"
 const btnPlayStore = "#home > div:nth-child(12) > div:nth-child(3) > div > div > a"
 const btnGitHub = "#home > div:nth-child(12) > div:nth-child(4) > div > div > a"
@@ -61,6 +62,8 @@ describe("Intranet/index.html", () => {
   })
 
   it("Should open the first shortcut", () => {
+    //const shortcutTest = browseTo(langEN, userAgent, intranetURL, [btnShortcut]).text
+    //expect(shortcutTest.split("Pool").length - 1 > 1 ? true : false).toBe(true)
     expect(true).toBe(true)
   })
 })

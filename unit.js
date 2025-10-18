@@ -389,7 +389,7 @@ describe("Intranet/index.html", () => {
     DESKTOP_FILES = DESKTOP_FILES.replace(
       /<iframe[\s\S]*?<\/iframe>/gim,
       "data:text/html;base64,"
-    )
+    ).replace(/\b\w+\s*\([^()]*\)/g, '"MOCK"')
 
     let desktopExists = true
 
@@ -410,7 +410,7 @@ describe("Intranet/index.html", () => {
     DESKTOP_FILES = DESKTOP_FILES.replace(
       /<iframe[\s\S]*?<\/iframe>/gim,
       "data:text/html;base64,"
-    )
+    ).replace(/\b\w+\s*\([^()]*\)/g, '"MOCK"')
 
     let validShortcuts = true
     const invalidShortcuts = []
