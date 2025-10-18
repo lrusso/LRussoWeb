@@ -531,19 +531,29 @@
           var days = monthData.date
           var rowHasDays = false
           for (var i = 0; i < days.length; i++) {
-            if (days[i].styleCls === "nothing" && !rowHasDays) continue
+            if (days[i].styleCls === "nothing" && !rowHasDays) {
+              continue
+            }
 
-            if (days[i].showDate !== "") rowHasDays = true
+            if (days[i].showDate !== "") {
+              rowHasDays = true
+            }
+
             var cell = document.createElement("div")
             cell.setAttribute("style", days[i].styleCls)
             cell.textContent = days[i].showDate ? days[i].showDate : ""
             body.appendChild(cell)
 
             if ((i + 1) % 7 === 0) {
-              if (!rowHasDays) break
+              if (!rowHasDays) {
+                break
+              }
+
               rowHasDays = false
             }
-            if (days[i].styleCls === "nothing" && i > 27 && !days[i].showDate) break
+            if (days[i].styleCls === "nothing" && i > 27 && !days[i].showDate) {
+              break
+            }
           }
 
           container.appendChild(body)
