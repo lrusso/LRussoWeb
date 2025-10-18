@@ -458,11 +458,56 @@
       }
 
       function addRow(node) {
-        var c =
-          '<div class="col-md-4 mb-5"><div class="card h-70"><img src="img_Placeholder_2.webp" class="cardImg" alt="img" width="1" height="1"><div class="card-body"><h3 class="card-title"></h3><p class="card-text"></p></div><div class="card-footer text-center"><a href="#" target="_blank" class="btnWeb"></a></div></div></div>'
-        var r = document.createElement("div")
-        r.innerHTML = '<div class="row">' + c + c + c + "</div>"
-        node.parentNode.insertBefore(r, node.nextSibling)
+        var container = document.createElement("div")
+        container.className = "row"
+
+        function createCard() {
+          var col = document.createElement("div")
+          col.className = "col-md-4 mb-5"
+
+          var card = document.createElement("div")
+          card.className = "card h-70"
+
+          var img = document.createElement("img")
+          img.src = "img_Placeholder_2.webp"
+          img.className = "cardImg"
+          img.alt = "img"
+          img.width = 1
+          img.height = 1
+
+          var body = document.createElement("div")
+          body.className = "card-body"
+
+          var title = document.createElement("h3")
+          title.className = "card-title"
+          body.appendChild(title)
+
+          var text = document.createElement("p")
+          text.className = "card-text"
+          body.appendChild(text)
+
+          var footer = document.createElement("div")
+          footer.className = "card-footer text-center"
+
+          var link = document.createElement("a")
+          link.href = "#"
+          link.target = "_blank"
+          link.className = "btnWeb"
+          footer.appendChild(link)
+
+          card.appendChild(img)
+          card.appendChild(body)
+          card.appendChild(footer)
+          col.appendChild(card)
+
+          return col
+        }
+
+        container.appendChild(createCard())
+        container.appendChild(createCard())
+        container.appendChild(createCard())
+
+        node.parentNode.insertBefore(container, node.nextSibling)
       }
 
       var bars = el("my-4 py-0 text-left")
