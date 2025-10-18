@@ -478,8 +478,31 @@
             "style",
             "display:flex;align-items:center;justify-content:left;width:40px;height:64px;padding-left:10px;padding-right:10px;color:#3a76b1;font-size:30px;text-align:center;text-decoration:none;cursor:pointer"
           )
-          prevBtn.innerHTML =
-            "<svg height='24' width='24' style='fill:#3a76b1;padding-left:5px;cursor:pointer' id='calendar_prev_date_btn_2' viewbox='0 0 24 24'><path style='fill:#3a76b1;padding-left:5px;cursor:pointer' id='calendar_prev_date_btn_3' d='M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z'></path></svg>"
+
+          var svgPrev = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+          svgPrev.setAttribute("height", "24")
+          svgPrev.setAttribute("width", "24")
+          svgPrev.setAttribute("viewBox", "0 0 24 24")
+          svgPrev.setAttribute(
+            "style",
+            "fill:#3a76b1;padding-left:5px;cursor:pointer"
+          )
+          svgPrev.setAttribute("id", "calendar_prev_date_btn_2")
+          var pathPrev = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+          )
+          pathPrev.setAttribute("id", "calendar_prev_date_btn_3")
+          pathPrev.setAttribute(
+            "style",
+            "fill:#3a76b1;padding-left:5px;cursor:pointer"
+          )
+          pathPrev.setAttribute(
+            "d",
+            "M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
+          )
+          svgPrev.appendChild(pathPrev)
+          prevBtn.appendChild(svgPrev)
 
           var nextBtn = document.createElement("a")
           nextBtn.id = "calendar_next_date_btn"
@@ -487,8 +510,31 @@
             "style",
             "display:flex;align-items:center;justify-content:right;width:40px;height:64px;padding-left:10px;padding-right:10px;color:#3a76b1;font-size:30px;text-align:center;text-decoration:none;cursor:pointer"
           )
-          nextBtn.innerHTML =
-            "<svg height='24' width='24' style='fill:#3a76b1;padding-right:5px;cursor:pointer' id='calendar_next_date_btn_2' viewbox='0 0 24 24'><path style='fill:#3a76b1;padding-right:5px;cursor:pointer' id='calendar_next_date_btn_3' d='M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z'></path></svg>"
+
+          var svgNext = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+          svgNext.setAttribute("height", "24")
+          svgNext.setAttribute("width", "24")
+          svgNext.setAttribute("viewBox", "0 0 24 24")
+          svgNext.setAttribute(
+            "style",
+            "fill:#3a76b1;padding-right:5px;cursor:pointer"
+          )
+          svgNext.setAttribute("id", "calendar_next_date_btn_2")
+          var pathNext = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+          )
+          pathNext.setAttribute("id", "calendar_next_date_btn_3")
+          pathNext.setAttribute(
+            "style",
+            "fill:#3a76b1;padding-right:5px;cursor:pointer"
+          )
+          pathNext.setAttribute(
+            "d",
+            "M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"
+          )
+          svgNext.appendChild(pathNext)
+          nextBtn.appendChild(svgNext)
 
           var title = document.createElement("div")
           title.setAttribute(
@@ -611,8 +657,23 @@
 
         var closeButton = document.createElement("div")
         closeButton.classList.add("window-control-button")
-        closeButton.innerHTML =
-          '<svg width="24px" height="24px" viewBox="0 0 512 512" fill="#fff"><path d="M443.6,387.1L312.4,255.4l131.5-130c5.4-5.4,5.4-14.2,0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4  L256,197.8L124.9,68.3c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4L68,105.9c-5.4,5.4-5.4,14.2,0,19.6l131.5,130L68.4,387.1  c-2.6,2.6-4.1,6.1-4.1,9.8c0,3.7,1.4,7.2,4.1,9.8l37.4,37.6c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1L256,313.1l130.7,131.1  c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1l37.4-37.6c2.6-2.6,4.1-6.1,4.1-9.8C447.7,393.2,446.2,389.7,443.6,387.1z"/></svg>'
+
+        var svgClose = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgClose.setAttribute("width", "24px")
+        svgClose.setAttribute("height", "24px")
+        svgClose.setAttribute("viewBox", "0 0 512 512")
+        svgClose.setAttribute("fill", "#fff")
+        var pathClose = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        pathClose.setAttribute(
+          "d",
+          "M443.6,387.1L312.4,255.4l131.5-130c5.4-5.4,5.4-14.2,0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4  L256,197.8L124.9,68.3c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4L68,105.9c-5.4,5.4-5.4,14.2,0,19.6l131.5,130L68.4,387.1  c-2.6,2.6-4.1,6.1-4.1,9.8c0,3.7,1.4,7.2,4.1,9.8l37.4,37.6c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1L256,313.1l130.7,131.1  c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1l37.4-37.6c2.6-2.6,4.1-6.1,4.1-9.8C447.7,393.2,446.2,389.7,443.6,387.1z"
+        )
+        svgClose.appendChild(pathClose)
+        closeButton.appendChild(svgClose)
+
         closeButton.addEventListener("click", function () {
           var showDirtyConfirmBox = false
 
