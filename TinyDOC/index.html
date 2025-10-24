@@ -1,0 +1,2159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>TinyDOC Editor</title>
+    <link
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABZ0lEQVR4AYySu0sDQRDGl7MQ0UZ8YJMmFkGri3YXsFKwS2Njq0X+AyWgJEFQUMsUabQSLBREbQTFRwordYMImuJSiqAphCCIJpf5JsllSfYuOe63M8zj29m7NdYPHrKbR1L6MRM/3xAej/H7V/6JL5imF/NTAfO/XFmzVk6TOg1DF/SIJRZ3rjOtuY4C4eCQSMcijDUxGm0I0EROZPXshgVkoSj2r/KeyMIX902Pj5TgUDMfx3GcOxZAMBwcFn6gBtSbE/Dvt6NJFsCY3YAmhRR8FpB0hE6g+NH+HCDr7k6+YAE4fmA65A+z9hgswbuTrQmgwA8U4iPDEimcnSy/PAHGR4EOrqJl7zJPa/vLAu3hZgTiYHkuJCYDgyV1d1SxAMZfmg0JHchJugdPdhH5DzSpsICkv6AbHzHkIJyOWWqf67MAdkGRDuTcao1j9PX29O+ePL+BzMXrt46t41wO3L6881VWdaoAAAD//zq/vagAAAAGSURBVAMApy/rfLH2XD8AAAAASUVORK5CYII="
+    >
+    <meta name="theme-color" content="#000">
+    <meta name="keywords" content="document, editor, tiny">
+    <meta name="description" content="Tiny DOC Editor.">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    >
+    <style>
+      html,body{background-color:#000;height:100%;padding:0;margin:0;overflow:hidden;touch-action:none;user-select:none;-ms-user-select:none;-moz-user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}#content{position:fixed;height:100%;width:100%;margin:0;padding:0;z-index:99}.pleasewait{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto auto;border:0;z-index:9}.lds-spinner{color:#fff;display:inline-block;position:relative;width:64px;height:64px}.lds-spinner div{transform-origin:32px 32px;animation:lds-spinner 1.2s linear infinite}.lds-spinner div:after{content:" ";display:block;position:absolute;top:3px;left:29px;width:5px;height:14px;border-radius:20%;background:#fff}.lds-spinner div:nth-child(1){transform:rotate(0deg);animation-delay:-1.1s}.lds-spinner div:nth-child(2){transform:rotate(30deg);animation-delay:-1s}.lds-spinner div:nth-child(3){transform:rotate(60deg);animation-delay:-.9s}.lds-spinner div:nth-child(4){transform:rotate(90deg);animation-delay:-.8s}.lds-spinner div:nth-child(5){transform:rotate(120deg);animation-delay:-.7s}.lds-spinner div:nth-child(6){transform:rotate(150deg);animation-delay:-.6s}.lds-spinner div:nth-child(7){transform:rotate(180deg);animation-delay:-.5s}.lds-spinner div:nth-child(8){transform:rotate(210deg);animation-delay:-.4s}.lds-spinner div:nth-child(9){transform:rotate(240deg);animation-delay:-.3s}.lds-spinner div:nth-child(10){transform:rotate(270deg);animation-delay:-.2s}.lds-spinner div:nth-child(11){transform:rotate(300deg);animation-delay:-.1s}.lds-spinner div:nth-child(12){transform:rotate(330deg);animation-delay:0s}@keyframes lds-spinner{0%{opacity:1}to{opacity:0}}#myContainer{position:fixed;left:0;top:0;right:0;bottom:0}
+    </style>
+  </head>
+  <body>
+    <div class="pleasewait">
+      <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div id="myContainer"></div>
+
+    <script>
+      var APP_STRINGS = {
+        en: {
+          welcome:
+            "Welcome to <b>TinyDOC Editor</b> by Leonardo Russo / <a href='https://www.lrusso.com'>https://www.lrusso.com</a><br><br>This is a WYSIWYG (<span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>What You See Is What You Get</span>) editor developed in <b>HTML5</b> with simplified functions like:<br><ul><li>Save &amp; Print.</li><li>Undo &amp; Redo.</li><li>Templates feature.</li><li>Simplified formatting tools.</li></ul>The idea of this project is to provide a lightweight text editor with simple and easy-to-use features.<ol><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li><li>Sed in pellentesque eros, id luctus purus.</li><li>Curabitur gravida posuere lorem, eget finibus odio vehicula at.</li><li>Phasellus nisi diam, laoreet non enim at, lacinia egestas justo.</li></ol>Pellentesque bibendum metus vel interdum dignissim. Sed tempor augue eu felis elementum tincidunt. Cras ac ante id elit viverra hendrerit in vitae quam. Ut varius, ligula in volutpat tempus, enim nunc volutpat dolor, nec ultrices arcu lorem quis metus. Nulla pharetra dignissim vestibulum. Aliquam auctor tortor sodales, vehicula purus vel, tristique nibh. Aenean in mi purus. Phasellus consectetur leo enim, id rutrum leo egestas nec. <span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>Praesent fermentum, eros quis vehicula semper, nisi quam aliquam elit</span>, in consequat nulla ante quis tellus. Mauris ultrices dui et turpis semper, ac viverra lacus interdum. In aliquam est eu leo placerat vulputate. Praesent imperdiet sit amet libero eget ullamcorper.",
+          wordCount: "{WORD_COUNT} words and {CHARACTER_COUNT} characters",
+          templates: [
+            "<b>[project name]</b><br><br><b><u>To Mr. XXXX:</u></b><br><br>My name is [full name], and I am writing to you regarding a project I am currently working on and its potential for dissemination.<br><br>The project is called [project name], a [Website/App] that allows [project description].<br><br>To make this possible, [detailed description of the project].<br><br>Additionally, the project is free and open-source, allowing any developer to make corrections, suggest improvements, or even create their own version.<br><br>Finally, to reach a wider audience, the [Website/App] includes a promotional video and is available on [Play/App Store or through any modern web browser].<br><br>Website:<br>App:<br>Promotional video:<br>Source code:<br><br>Best regards, and please feel free to contact me with any questions or inquiries.",
+          ],
+        },
+        es: {
+          welcome:
+            "Bienvenido a <b>TinyDOC Editor</b> por Leonardo Russo / <a href='https://www.lrusso.com'>https://www.lrusso.com</a><br><br>Este es un editor WYSIWYG (<span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>What You See Is What You Get</span>) desarrollado en <b>HTML5</b> con funciones simplificadas, tales como:<br><ul><li>Guardar e Imprimir.</li><li>Deshacer y Rehacer.</li><li>Función para plantillas.</li><li>Herramientas de formato simplificadas.</li></ul>La idea de este proyecto es la de brindar un editor de textos liviano con funciones sencillas e intuitivas.<ol><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li><li>Sed in pellentesque eros, id luctus purus.</li><li>Curabitur gravida posuere lorem, eget finibus odio vehicula at.</li><li>Phasellus nisi diam, laoreet non enim at, lacinia egestas justo.</li></ol>Pellentesque bibendum metus vel interdum dignissim. Sed tempor augue eu felis elementum tincidunt. Cras ac ante id elit viverra hendrerit in vitae quam. Ut varius, ligula in volutpat tempus, enim nunc volutpat dolor, nec ultrices arcu lorem quis metus. Nulla pharetra dignissim vestibulum. Aliquam auctor tortor sodales, vehicula purus vel, tristique nibh. Aenean in mi purus. Phasellus consectetur leo enim, id rutrum leo egestas nec. <span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>Praesent fermentum, eros quis vehicula semper, nisi quam aliquam elit</span>, in consequat nulla ante quis tellus. Mauris ultrices dui et turpis semper, ac viverra lacus interdum. In aliquam est eu leo placerat vulputate. Praesent imperdiet sit amet libero eget ullamcorper.",
+          wordCount: "{WORD_COUNT} palabras y {CHARACTER_COUNT} caracteres",
+          templates: [
+            "<b>[nombre del proyecto]</b><br><br><b><u>Al Sr. XXXX:</u></b><br><br>Mi nombre es [nombre completo] y le escribo en esta ocasión por un proyecto en el cual estoy trabajando y sus posibilidades de difusión.<br><br>Se trata de [nombre del proyecto], una [Web/App] que permite [descripción del proyecto].<br><br>Para que esto sea posible, [descripción detallada del proyecto].<br><br>Por otro lado, el proyecto es gratuito y de código libre, lo que permite que cualquier desarrollador pueda realizar correcciones, sugerir mejoras e incluso hacer su propia versión.<br><br>Por último y a los efectos de alcanzar un mayor público, la [Web/App] cuenta con un vídeo publicitario y se encuentra disponible en [Play/App Store o a través de cualquier navegador Web moderno].<br><br>Web:<br>App:<br>Vídeo publicitario:<br>Código fuente:<br><br>Saludos y ante cualquier duda o consulta, me encuentro a su disposición.",
+          ],
+        },
+      }
+
+      var USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      var GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
+
+      function t(stringName) {
+        return GET_APP_STRING[stringName] || ""
+      }
+
+      window.isDirty = false
+
+      // -----------------------------------------------------
+      // STARTS TINYDOC.JS
+      // -----------------------------------------------------
+
+      function tinyDOC(editorConfig) {
+        var self = this
+        self.editorConfig = editorConfig || {}
+
+        if (self.editorConfig.useCtrlSForSaving === undefined) {
+          self.editorConfig.useCtrlSForSaving = true
+        }
+        if (self.editorConfig.useCtrlPForPrinting === undefined) {
+          self.editorConfig.useCtrlPForPrinting = true
+        }
+        if (self.editorConfig.replaceTabWithSpaces === undefined) {
+          self.editorConfig.replaceTabWithSpaces = true
+        }
+        if (self.editorConfig.linkColor === undefined) {
+          self.editorConfig.linkColor = "#3A76B1"
+        }
+        if (self.editorConfig.wordCount === undefined) {
+          self.editorConfig.wordCount =
+            "{WORD_COUNT} words and {CHARACTER_COUNT} characters"
+        }
+
+        self.styleSheet = document.createElement("style")
+        self.styleSheet.innerText =
+          ".tinydoc_menu_container{height:40px;background-color:#F2F2F2;border-bottom:thin solid #D3D3D3;overflow-y:hidden}" +
+          ".tinydoc_menu{background-color:#F2F2F2;left:0;right:0;padding-top:0;padding-bottom:0;height:80px;margin-left:3px;overflow-x:scroll;overflow-y:hidden;outline:none;text-align:center;font-family:Arial;font-size:13px}" +
+          ".tinydoc_menu::-webkit-scrollbar{display:none}" +
+          ".tinydoc_menu_size{float:left;width:800px}" +
+          ".tinydoc_holder{float:left;padding-top:3px;padding-bottom:3px;padding-right:3px;margin:0}" +
+          ".tinydoc_separator{float:left;border-left:thin solid #D3D3D3;margin-left:1px;margin-right:3px;height:100px;width:1px}" +
+          ".tinydoc_separator2{float:left;border-left:thin solid #D3D3D3;margin-left:135px;height:100px;width:1px}" +
+          ".tinydoc_button{display:block;font-family:Arial;font-size:15px;line-height:28px;height:28px;width:32px;padding-top:4px;background-color:#F2F2F2;border:thin solid #F2F2F2;cursor:default;-webkit-user-select:none;-moz-user-select:none;user-select:none}" +
+          ".tinydoc_button:hover{background-color:#E3E3E3;border:thin solid #D3D3D3}" +
+          ".tinydoc_button_selected{display:block;font-family:Arial;font-size:15px;line-height:28px;height:28px;width:32px;padding-top:4px;background-color:#E3E3E3;border:thin solid #D3D3D3;cursor:default;-webkit-user-select:none;-moz-user-select:none;user-select:none}" +
+          ".tinydoc_document{display:block;padding:8px;outline:none;color:black;background-color:white;font-family:Arial;font-size:16px;line-height:1.3;overflow:auto;white-space:pre-wrap;word-break:break-word;-webkit-text-size-adjust:none;-webkit-user-select:text;user-select:text}" +
+          ".tinydoc_document a{text-decoration:underline;color:" +
+          self.editorConfig.linkColor +
+          "}" +
+          ".tinydoc_contentviewer{display:inline-block;font-family:Arial;font-size:13px;line-height:2.6;margin-left:11px;cursor:default;-webkit-user-select:none;-moz-user-select:none;user-select:none;width:1px;white-space:nowrap}" +
+          ".tinydoc_contentviewer a{text-decoration:none;color:" +
+          self.editorConfig.linkColor +
+          ";margin-right:11px}" +
+          "@media (pointer: coarse){.tinydoc_button:hover{background-color:#F2F2F2;border:thin solid #F2F2F2}}"
+
+        document.getElementsByTagName("head")[0].appendChild(self.styleSheet)
+        self.myContainer = editorConfig.container
+
+        self.menuContainer = document.createElement("div")
+        self.menuContainer.className = "tinydoc_menu_container"
+        self.menuWrapper = document.createElement("div")
+        self.menuWrapper.className = "tinydoc_menu"
+        self.menuContainer.appendChild(self.menuWrapper)
+        self.menu = document.createElement("div")
+        self.menu.className = "tinydoc_menu_size"
+        self.menuWrapper.appendChild(self.menu)
+        self.myContainer.appendChild(self.menuContainer)
+
+        if (self.editorConfig.saveCallback) {
+          self.holder1 = document.createElement("div")
+          self.holder1.className = "tinydoc_holder"
+          self.menu.appendChild(self.holder1)
+          self.buttonSave = document.createElement("div")
+          self.buttonSave.className = "tinydoc_button"
+          var svgSave = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+          svgSave.setAttribute("width", "16")
+          svgSave.setAttribute("height", "16")
+          svgSave.setAttribute("viewBox", "0 0 1000 1000")
+          var svgSavePath = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+          )
+          svgSavePath.setAttribute(
+            "d",
+            "M896 960h-896v-1024h1024v896zM512 832h128v-256h-128v256zM896 64h-768v768h64v-320h576v320h75l53 -53v-715z"
+          )
+          svgSavePath.setAttribute(
+            "transform",
+            "translate(-10 930) scale(-1,1) rotate(180)"
+          )
+          svgSave.appendChild(svgSavePath)
+          self.buttonSave.appendChild(svgSave)
+          self.buttonSave.addEventListener("mousedown", function (event) {
+            self.save()
+            event.preventDefault()
+          })
+          self.holder1.appendChild(self.buttonSave)
+
+          self.separator1 = document.createElement("div")
+          self.separator1.className = "tinydoc_separator"
+          self.menu.appendChild(self.separator1)
+        }
+
+        self.holder2 = document.createElement("div")
+        self.holder2.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder2)
+        self.buttonPrint = document.createElement("div")
+        self.buttonPrint.className = "tinydoc_button"
+        var svgPrint = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgPrint.setAttribute("width", "16")
+        svgPrint.setAttribute("height", "16")
+        svgPrint.setAttribute("viewBox", "0 0 1000 1000")
+        var svgPrintPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgPrintPath.setAttribute(
+          "d",
+          "M256 896h512v-128h-512v128zM960 704h-896q-26 0 -45 -19t-19 -45v-320q0 -26 19 -45t45 -19h192v-256h512v256h192q26 0 45 19t19 45v320q0 26 -19 45t-45 19zM704 64h-384v320h384v-320zM974 608q0 -19 -13.5 -32.5t-32.5 -13.5t-32.5 13.5t-13.5 32.5t13.5 32.5 t32.5 13.5t32.5 -13.5t13.5 -32.5z"
+        )
+        svgPrintPath.setAttribute(
+          "transform",
+          "translate(0 930) scale(-0.97,0.97) rotate(180)"
+        )
+        svgPrint.appendChild(svgPrintPath)
+        self.buttonPrint.appendChild(svgPrint)
+        self.buttonPrint.addEventListener("mousedown", function (event) {
+          self.print()
+          event.preventDefault()
+        })
+        self.holder2.appendChild(self.buttonPrint)
+
+        self.separator2 = document.createElement("div")
+        self.separator2.className = "tinydoc_separator"
+        self.menu.appendChild(self.separator2)
+
+        self.holder3 = document.createElement("div")
+        self.holder3.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder3)
+        self.buttonUndo = document.createElement("div")
+        self.buttonUndo.className = "tinydoc_button"
+        var svgUndo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgUndo.setAttribute("width", "16")
+        svgUndo.setAttribute("height", "16")
+        svgUndo.setAttribute("viewBox", "0 0 1000 1000")
+        var svgUndoPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgUndoPath.setAttribute(
+          "d",
+          "M762 -64q43 77 62 168t-9 168t-113.5 127.5t-253.5 46.5v-254l-384 384l384 384v-248q201 5 314.5 -73t148.5 -196t-4.5 -255.5t-144.5 -251.5z"
+        )
+        svgUndoPath.setAttribute(
+          "transform",
+          "translate(0 960) scale(-1,1) rotate(180)"
+        )
+        svgUndo.appendChild(svgUndoPath)
+        self.buttonUndo.appendChild(svgUndo)
+        self.buttonUndo.addEventListener("mousedown", function (event) {
+          self.formatDoc("undo")
+          event.preventDefault()
+        })
+        self.holder3.appendChild(self.buttonUndo)
+
+        self.holder4 = document.createElement("div")
+        self.holder4.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder4)
+        self.buttonRedo = document.createElement("div")
+        self.buttonRedo.className = "tinydoc_button"
+        var svgRedo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgRedo.setAttribute("width", "16")
+        svgRedo.setAttribute("height", "16")
+        svgRedo.setAttribute("viewBox", "0 0 1000 1000")
+        var svgRedoPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgRedoPath.setAttribute(
+          "d",
+          "M576 712v248l384 -384l-384 -384v254q-168 4 -253.5 -46.5t-113.5 -127.5t-9 -168t62 -168q-105 114 -144.5 251.5t-4.5 255.5t148.5 196t314.5 73v0z"
+        )
+        svgRedoPath.setAttribute(
+          "transform",
+          "translate(0 960) scale(-1,1) rotate(180)"
+        )
+        svgRedo.appendChild(svgRedoPath)
+        self.buttonRedo.appendChild(svgRedo)
+        self.buttonRedo.addEventListener("mousedown", function (event) {
+          self.formatDoc("redo")
+          event.preventDefault()
+        })
+        self.holder4.appendChild(self.buttonRedo)
+
+        self.separator3 = document.createElement("div")
+        self.separator3.className = "tinydoc_separator"
+        self.menu.appendChild(self.separator3)
+
+        self.holder5 = document.createElement("div")
+        self.holder5.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder5)
+        self.buttonBold = document.createElement("div")
+        self.buttonBold.className = "tinydoc_button"
+        var svgBold = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgBold.setAttribute("width", "16")
+        svgBold.setAttribute("height", "16")
+        svgBold.setAttribute("viewBox", "0 0 1000 1000")
+        var svgBoldPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgBoldPath.setAttribute(
+          "d",
+          "M708 475q28 34 44 76t16 89q0 53 -20 99.5t-55 81.5t-81.5 55t-99.5 20h-320v-896h384q53 0 99.5 20t81.5 55t55 81.5t20 99.5q0 70 -34 128t-90 91zM384 768h101q42 0 72 -37.5t30 -90.5t-30 -90.5t-71 -37.5h-102v256zM543 128h-159v256h159q44 0 75 -37.5t31 -90.5 t-31 -90.5t-75 -37.5z"
+        )
+        svgBoldPath.setAttribute(
+          "transform",
+          "translate(0 960) scale(-1,1) rotate(180)"
+        )
+        svgBold.appendChild(svgBoldPath)
+        self.buttonBold.appendChild(svgBold)
+        self.buttonBold.addEventListener("mousedown", function (event) {
+          self.formatDoc("bold")
+          event.preventDefault()
+        })
+        self.holder5.appendChild(self.buttonBold)
+
+        self.holder6 = document.createElement("div")
+        self.holder6.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder6)
+        self.buttonItalic = document.createElement("div")
+        self.buttonItalic.className = "tinydoc_button"
+        var svgItalic = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgItalic.setAttribute("width", "16")
+        svgItalic.setAttribute("height", "16")
+        svgItalic.setAttribute("viewBox", "0 0 1000 1000")
+        var svgItalicPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgItalicPath.setAttribute(
+          "d",
+          "M896 896v-64h-128l-320 -768h128v-64h-448v64h128l320 768h-128v64h448z"
+        )
+        svgItalicPath.setAttribute(
+          "transform",
+          "translate(0 955) scale(-1,1) rotate(180)"
+        )
+        svgItalic.appendChild(svgItalicPath)
+        self.buttonItalic.appendChild(svgItalic)
+        self.buttonItalic.addEventListener("mousedown", function (event) {
+          self.formatDoc("italic")
+          event.preventDefault()
+        })
+        self.holder6.appendChild(self.buttonItalic)
+
+        self.holder7 = document.createElement("div")
+        self.holder7.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder7)
+        self.buttonUnderline = document.createElement("div")
+        self.buttonUnderline.className = "tinydoc_button"
+        var svgUnderline = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        svgUnderline.setAttribute("width", "16")
+        svgUnderline.setAttribute("height", "16")
+        svgUnderline.setAttribute("viewBox", "0 0 1000 1000")
+        var svgUnderlinePath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgUnderlinePath.setAttribute(
+          "d",
+          "M704 896h128v-416q0 -60 -25 -112.5t-68.5 -91.5t-102 -61.5t-124.5 -22.5t-124.5 22.5t-102 61.5t-68.5 91.5t-25 112.5v416h128v-416q0 -30 13.5 -58t37.5 -51q28 -24 64.5 -37.5t76.5 -13.5t76.5 13.5t64.5 37.5q24 23 37.5 51t13.5 58v416zM192 128h640v-128h-640 v128z"
+        )
+        svgUnderlinePath.setAttribute(
+          "transform",
+          "translate(0 975) scale(-1,1) rotate(180)"
+        )
+        svgUnderline.appendChild(svgUnderlinePath)
+        self.buttonUnderline.appendChild(svgUnderline)
+        self.buttonUnderline.addEventListener("mousedown", function (event) {
+          self.formatDoc("underline")
+          event.preventDefault()
+        })
+        self.holder7.appendChild(self.buttonUnderline)
+
+        self.holder8 = document.createElement("div")
+        self.holder8.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder8)
+        self.buttonStrikethrough = document.createElement("div")
+        self.buttonStrikethrough.className = "tinydoc_button"
+        var svgStrikethrough = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        svgStrikethrough.setAttribute("width", "16")
+        svgStrikethrough.setAttribute("height", "16")
+        svgStrikethrough.setAttribute("viewBox", "0 0 1000 1000")
+        var svgStrikethroughPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgStrikethroughPath.setAttribute(
+          "d",
+          "M731 443q48 -36 74.5 -85t26.5 -102t-26.5 -102t-74.5 -85q-44 -33 -100.5 -51t-118.5 -18t-118.5 18t-100.5 51q-48 36 -74.5 85t-26.5 102h128q0 -52 57 -90t135 -38t135 38t57 90t-57 90t-135 38q-62 0 -118.5 18t-100.5 51q-48 36 -74.5 85t-26.5 102t26.5 102 t74.5 85q44 33 100.5 51t118.5 18t118.5 -18t100.5 -51q48 -36 74.5 -85t26.5 -102h-128q0 52 -57 90t-135 38t-135 -38t-57 -90t57 -90t135 -38q62 0 118.5 -18t100.5 -51v0zM0 448h1024v-64h-1024v64z"
+        )
+        svgStrikethroughPath.setAttribute(
+          "transform",
+          "translate(0 960) scale(-1,1) rotate(180)"
+        )
+        svgStrikethrough.appendChild(svgStrikethroughPath)
+        self.buttonStrikethrough.appendChild(svgStrikethrough)
+        self.buttonStrikethrough.addEventListener("mousedown", function (event) {
+          self.formatDoc("strikethrough")
+          event.preventDefault()
+        })
+        self.holder8.appendChild(self.buttonStrikethrough)
+
+        self.separator4 = document.createElement("div")
+        self.separator4.className = "tinydoc_separator"
+        self.menu.appendChild(self.separator4)
+
+        self.holder9 = document.createElement("div")
+        self.holder9.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder9)
+        self.buttonDotted = document.createElement("div")
+        self.buttonDotted.className = "tinydoc_button"
+        var svgDotted = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgDotted.setAttribute("width", "16")
+        svgDotted.setAttribute("height", "16")
+        svgDotted.setAttribute("viewBox", "0 0 1000 1000")
+        var svgDottedPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgDottedPath.setAttribute(
+          "d",
+          "M384 896h640v-128h-640v128zM384 512h640v-128h-640v128zM384 128h640v-128h-640v128zM0 832q0 53 37.5 90.5t90.5 37.5t90.5 -37.5t37.5 -90.5t-37.5 -90.5t-90.5 -37.5t-90.5 37.5t-37.5 90.5zM0 448q0 53 37.5 90.5t90.5 37.5t90.5 -37.5t37.5 -90.5t-37.5 -90.5 t-90.5 -37.5t-90.5 37.5t-37.5 90.5zM0 64q0 53 37.5 90.5t90.5 37.5t90.5 -37.5t37.5 -90.5t-37.5 -90.5t-90.5 -37.5t-90.5 37.5t-37.5 90.5z"
+        )
+        svgDottedPath.setAttribute(
+          "transform",
+          "translate(0 940) scale(-0.97,0.97) rotate(180)"
+        )
+        svgDotted.appendChild(svgDottedPath)
+        self.buttonDotted.appendChild(svgDotted)
+        self.buttonDotted.addEventListener("mousedown", function (event) {
+          self.formatDoc("insertunorderedlist")
+          event.preventDefault()
+        })
+        self.holder9.appendChild(self.buttonDotted)
+
+        self.holder10 = document.createElement("div")
+        self.holder10.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder10)
+        self.buttonNumbered = document.createElement("div")
+        self.buttonNumbered.className = "tinydoc_button"
+        var svgNumbered = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        svgNumbered.setAttribute("width", "16")
+        svgNumbered.setAttribute("height", "16")
+        svgNumbered.setAttribute("viewBox", "0 0 1000 1000")
+        var svgNumberedPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgNumberedPath.setAttribute(
+          "d",
+          "M384 128h640v-128h-640v128zM384 512h640v-128h-640v128zM384 896h640v-128h-640v128zM192 960v-256h-64v192h-64v64h128zM128 434v-50h128v-64h-192v146l128 60v50h-128v64h192v-146zM256 256v-320h-192v64h128v64h-128v64h128v64h-128v64h192z"
+        )
+        svgNumberedPath.setAttribute(
+          "transform",
+          "translate(-50 940) scale(-0.97,0.97) rotate(180)"
+        )
+        svgNumbered.appendChild(svgNumberedPath)
+        self.buttonNumbered.appendChild(svgNumbered)
+        self.buttonNumbered.addEventListener("mousedown", function (event) {
+          self.formatDoc("insertorderedlist")
+          event.preventDefault()
+        })
+        self.holder10.appendChild(self.buttonNumbered)
+
+        self.holder11 = document.createElement("div")
+        self.holder11.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder11)
+        self.buttonHighlight = document.createElement("div")
+        self.buttonHighlight.className = "tinydoc_button"
+        var svgHighlight = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        svgHighlight.setAttribute("width", "16")
+        svgHighlight.setAttribute("height", "16")
+        svgHighlight.setAttribute("viewBox", "0 0 1000 1000")
+        var svgHighlightPath1 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgHighlightPath1.setAttribute(
+          "d",
+          "M739 627l-502 -502h-186v185l503 503l185 -186v0zM803 688l-185 186l67 67q17 17 38.5 17t38.5 -17l108 -109q17 -17 17 -38.5t-17 -38.5l-67 -67v0zM42 0"
+        )
+        svgHighlightPath1.setAttribute(
+          "transform",
+          "translate(0 950) scale(-0.97,0.97) rotate(180)"
+        )
+        var svgHighlightPath2 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgHighlightPath2.setAttribute("fill", "#FFFF00")
+        svgHighlightPath2.setAttribute(
+          "d",
+          "M-739 627l-502 -17 17 -38.5t-17 -38.5l-67 -67v0zM42 48h940v-112h-940v112v0z"
+        )
+        svgHighlightPath2.setAttribute(
+          "transform",
+          "translate(0 950) scale(-0.97,0.97) rotate(180)"
+        )
+        svgHighlight.appendChild(svgHighlightPath1)
+        svgHighlight.appendChild(svgHighlightPath2)
+        self.buttonHighlight.appendChild(svgHighlight)
+        self.buttonHighlight.addEventListener("mousedown", function (event) {
+          self.formatDoc("BackColor", "#FFFF00")
+          event.preventDefault()
+        })
+        self.holder11.appendChild(self.buttonHighlight)
+
+        self.holder12 = document.createElement("div")
+        self.holder12.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder12)
+        self.buttonLink = document.createElement("div")
+        self.buttonLink.className = "tinydoc_button"
+        var svgLink = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgLink.setAttribute("width", "16")
+        svgLink.setAttribute("height", "16")
+        svgLink.setAttribute("viewBox", "0 0 1000 1000")
+        var svgLinkPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgLinkPath.setAttribute(
+          "d",
+          "M320 256q13 -13 32.5 -12.5t33.5 14.5l316 316q14 14 14.5 33.5t-12.5 32.5t-32.5 12.5t-33.5 -14.5l-316 -316q-14 -14 -14.5 -33.5t12.5 -32.5zM477 285q3 -7 5 -14.5t2 -15.5q0 -13 -5 -25t-14 -21l-163 -163q-10 -10 -22 -14.5t-25 -4.5t-25 4.5t-21 14.5l-99 99 q-10 9 -14.5 21t-4.5 25t4.5 25t14.5 21l163 164q9 9 21 14t25 5q8 0 15.5 -2t14.5 -5l65 65q-21 16 -45.5 24t-49.5 8q-30 0 -58.5 -11t-51.5 -34l-163 -163q-46 -46 -46 -111t46 -110l99 -99q23 -23 51.5 -34.5t58.5 -11.5t59 11.5t52 34.5l163 163q42 42 45 100.5 t-32 104.5l-65 -65v0zM978 815l-99 99q-23 23 -51.5 34.5t-58.5 11.5t-59 -11.5t-51 -34.5l-164 -163q-42 -42 -45 -100.5t32 -104.5l65 65q-3 7 -5 14.5t-2 15.5q0 13 5 25t14 21l163 163q10 10 22 14.5t25 4.5t25 -4.5t21 -14.5l99 -99q10 -9 14.5 -21t4.5 -25t-4.5 -25 t-14.5 -21l-163 -164q-9 -9 -21 -14t-25 -5q-8 0 -15.5 2t-14.5 5l-65 -65q21 -16 45.5 -24t49.5 -8q30 0 58.5 11t51.5 34l163 164q46 45 46 110t-46 110z"
+        )
+        svgLinkPath.setAttribute(
+          "transform",
+          "translate(0 930) scale(-0.97,0.97) rotate(180)"
+        )
+        svgLink.appendChild(svgLinkPath)
+        self.buttonLink.appendChild(svgLink)
+        self.buttonLink.addEventListener("mousedown", function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+          self.insertLink()
+          event.preventDefault()
+        })
+        self.holder12.appendChild(self.buttonLink)
+
+        self.separator5 = document.createElement("div")
+        self.separator5.className = "tinydoc_separator"
+        self.menu.appendChild(self.separator5)
+
+        try {
+          if (self.editorConfig.templates) {
+            if (self.editorConfig.templates.length) {
+              for (var i = 0; i < self.editorConfig.templates.length; i++) {
+                var templateContent = self.editorConfig.templates[i]
+
+                var btnHolder = document.createElement("div")
+                btnHolder.className = "tinydoc_holder"
+                self.menu.appendChild(btnHolder)
+                var btnTemplate = document.createElement("div")
+                btnTemplate.className = "tinydoc_button"
+                var svgTemplate = document.createElementNS(
+                  "http://www.w3.org/2000/svg",
+                  "svg"
+                )
+                svgTemplate.setAttribute("width", "16")
+                svgTemplate.setAttribute("height", "16")
+                svgTemplate.setAttribute("viewBox", "0 0 1000 1000")
+                var svgTemplatePath = document.createElementNS(
+                  "http://www.w3.org/2000/svg",
+                  "path"
+                )
+                svgTemplatePath.setAttribute(
+                  "d",
+                  "M384 768h128v-64h-128v64zM576 768h128v-64h-128v64zM896 768v-256h-192v64h128v128h-64v64h128zM320 576h128v-64h-128v64zM512 576h128v-64h-128v64zM192 704v-128h64v-64h-128v256h192v-64h-128zM384 384h128v-64h-128v64zM576 384h128v-64h-128v64zM896 384v-256 h-192v64h128v128h-64v64h128zM320 192h128v-64h-128v64zM512 192h128v-64h-128v64zM192 320v-128h64v-64h-128v256h192v-64h-128zM960 896h-896v-896h896v896zM1024 960v0v-1024h-1024v1024h1024z"
+                )
+                svgTemplatePath.setAttribute(
+                  "transform",
+                  "translate(0 940) scale(-0.97,0.97) rotate(180)"
+                )
+                svgTemplate.appendChild(svgTemplatePath)
+                btnTemplate.appendChild(svgTemplate)
+                ;(function (data) {
+                  btnTemplate.addEventListener("mousedown", function (event) {
+                    if (!self.documentEnabled) {
+                      return
+                    }
+                    self.insertHtmlAtCaret(data, false)
+                    event.preventDefault()
+                  })
+                })(templateContent)
+
+                btnHolder.appendChild(btnTemplate)
+              }
+            }
+          }
+        } catch (err) {
+          //
+        }
+
+        if (self.editorConfig.calcEnabled) {
+          self.holder16 = document.createElement("div")
+          self.holder16.className = "tinydoc_holder"
+          self.menu.appendChild(self.holder16)
+          self.buttonCalc = document.createElement("div")
+          self.buttonCalc.className = "tinydoc_button"
+          var svgCalc = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+          svgCalc.setAttribute("width", "16")
+          svgCalc.setAttribute("height", "16")
+          svgCalc.setAttribute("viewBox", "0 0 512.001 512.001")
+          var svgCalcPathsData = [
+            "M403.432,0H108.57C86.583,0,68.695,17.887,68.695,39.874v432.253c0,21.987,17.887,39.874,39.874,39.874h294.862 c21.987,0,39.874-17.887,39.874-39.874V39.874C443.305,17.887,425.417,0,403.432,0z M424.297,472.127h-0.001 c0,11.505-9.36,20.865-20.865,20.865H108.57c-11.505,0-20.865-9.36-20.865-20.865V39.874c0-11.505,9.36-20.865,20.865-20.865 h294.862c11.505,0,20.865,9.36,20.865,20.865V472.127z",
+            "M382.1,51.081H129.901c-5.25,0-9.504,4.255-9.504,9.504v82.322c0,5.249,4.254,9.504,9.504,9.504H382.1 c5.25,0,9.504-4.255,9.504-9.504V60.585C391.604,55.336,387.349,51.081,382.1,51.081z M372.596,133.403h-233.19V70.089h233.19 V133.403z",
+            "M185.115,181.553h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C194.62,185.809,190.366,181.553,185.115,181.553z M175.611,240.889h-36.205v-40.327 h36.205V240.889z",
+            "M185.115,283.696h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C194.62,287.952,190.366,283.696,185.115,283.696z M175.611,343.032h-36.205v-40.327 h36.205V343.032z",
+            "M185.115,385.84h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C194.62,390.095,190.366,385.84,185.115,385.84z M175.611,445.175h-36.205v-40.327h36.205 V445.175z",
+            "M283.608,181.553h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C293.112,185.809,288.857,181.553,283.608,181.553z M274.103,240.889h-36.205v-40.327 h36.205V240.889z",
+            "M283.608,283.696h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C293.112,287.952,288.857,283.696,283.608,283.696z M274.103,343.032h-36.205v-40.327 h36.205V343.032z",
+            "M283.608,385.84h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C293.112,390.095,288.857,385.84,283.608,385.84z M274.103,445.175h-36.205v-40.327 h36.205V445.175z",
+            "M382.1,181.553h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504H382.1 c5.25,0,9.504-4.255,9.504-9.504v-59.335C391.604,185.809,387.349,181.553,382.1,181.553z M372.596,240.889H336.39v-40.327h36.205 V240.889z",
+            "M382.1,283.696h-55.214c-5.25,0-9.504,4.255-9.504,9.504V454.68c0,5.249,4.254,9.504,9.504,9.504H382.1 c5.25,0,9.504-4.255,9.504-9.504V293.201C391.604,287.952,387.349,283.696,382.1,283.696z M372.596,445.175H336.39v-142.47h36.205 V445.175z",
+          ]
+          for (var i = 0; i < svgCalcPathsData.length; i++) {
+            var newSvgCalcPath = svgCalcPathsData[i]
+            var path = document.createElementNS("http://www.w3.org/2000/svg", "path")
+            path.setAttribute("d", newSvgCalcPath)
+            svgCalc.appendChild(path)
+          }
+          self.buttonCalc.appendChild(svgCalc)
+          self.buttonCalc.addEventListener("mousedown", function (event) {
+            self.insertCalc()
+            event.preventDefault()
+          })
+          self.holder16.appendChild(self.buttonCalc)
+        }
+
+        self.holder17 = document.createElement("div")
+        self.holder17.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder17)
+        self.buttonWordCount = document.createElement("div")
+        self.buttonWordCount.className = "tinydoc_button"
+        var svgWordCount = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        svgWordCount.setAttribute("width", "16")
+        svgWordCount.setAttribute("height", "16")
+        svgWordCount.setAttribute("viewBox", "0 0 1000 1000")
+        var svgWordCountPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgWordCountPath.setAttribute(
+          "d",
+          "M0 480h1024v-64h-1024v64zM304 912v-339h-67v272h-67v67h134zM445 694v-54h134v-67h-201v153l134 64v55h-134v67h201v-154zM854 912v-339h-204v67h137v67h-137v71h137v67h-137v67h204zM115 166q3 44 29.5 64t79.5 20q29 0 50.5 -7t35.5 -19q15 -12 20.5 -28t5.5 -42v-112 q0 -20 1 -26t9 -16h-74q-2 7 -3 9.5t-3 9.5q-17 -14 -33 -19.5t-38 -5.5q-41 0 -65 21.5t-24 54.5q0 34 23 53.5t76 26.5l38 7q12 2 17.5 5.5t5.5 10.5q0 9 -10 15.5t-29 6.5t-30.5 -7t-14.5 -22h-67v0zM262 115q-4 -2 -10 -4t-15 -2l-26 -7q-19 -4 -28.5 -11.5t-9.5 -16.5 q0 -12 9 -19t26 -7t31 7.5t23 24.5v35v0zM390 336h74v-112q17 12 32.5 17t34.5 5q48 0 77 -34.5t29 -89.5q0 -58 -30.5 -96.5t-78.5 -38.5q-24 0 -38.5 8t-28.5 27v-28h-71v342v0zM461 122q0 -32 14.5 -51.5t36.5 -19.5t36.5 19.5t14.5 51.5q0 33 -13.5 51.5t-37.5 18.5 q-22 0 -36.5 -19.5t-14.5 -50.5zM851 154q-2 16 -13.5 25.5t-31.5 9.5q-24 0 -37.5 -18.5t-13.5 -52.5q0 -36 13.5 -54.5t37.5 -18.5q20 0 31.5 10t13.5 31l71 -3q-8 -45 -39.5 -70.5t-79.5 -25.5q-55 0 -88 35.5t-33 92.5q0 60 33.5 95.5t90.5 35.5q48 0 79 -25t33 -71h-67 v4z"
+        )
+        svgWordCountPath.setAttribute(
+          "transform",
+          "translate(-10 930) scale(-1,1) rotate(180)"
+        )
+        svgWordCount.appendChild(svgWordCountPath)
+        self.buttonWordCount.appendChild(svgWordCount)
+        self.buttonWordCount.addEventListener("mousedown", function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+          self.wordCount()
+          event.preventDefault()
+        })
+        self.holder17.appendChild(self.buttonWordCount)
+
+        self.separator6 = document.createElement("div")
+        self.separator6.className = "tinydoc_separator"
+        self.menu.appendChild(self.separator6)
+
+        self.holder18 = document.createElement("div")
+        self.holder18.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder18)
+        self.buttonRemoveFormat = document.createElement("div")
+        self.buttonRemoveFormat.className = "tinydoc_button"
+        var svgRemoveFormat = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        svgRemoveFormat.setAttribute("width", "16")
+        svgRemoveFormat.setAttribute("height", "16")
+        svgRemoveFormat.setAttribute("viewBox", "0 0 1000 1000")
+        var svgRemoveFormatPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        svgRemoveFormatPath.setAttribute(
+          "d",
+          "M0 64h576v-128h-576v128zM192 960h704v-128h-704v128zM277 128l205 784l124 -32l-196 -752h-133zM930 -64l-130 130l-130 -130l-62 62l130 130l-130 130l62 62l130 -130l130 130l62 -62l-130 -130l130 -130z"
+        )
+        svgRemoveFormatPath.setAttribute(
+          "transform",
+          "translate(0 915) scale(-0.97,0.97) rotate(180)"
+        )
+        svgRemoveFormat.appendChild(svgRemoveFormatPath)
+        self.buttonRemoveFormat.appendChild(svgRemoveFormat)
+        self.buttonRemoveFormat.addEventListener("mousedown", function (event) {
+          self.formatDoc("removeFormat")
+          event.preventDefault()
+        })
+        self.holder18.appendChild(self.buttonRemoveFormat)
+
+        self.separator7 = document.createElement("div")
+        self.separator7.className = "tinydoc_separator"
+        self.menu.appendChild(self.separator7)
+
+        self.holder19 = document.createElement("div")
+        self.holder19.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder19)
+        self.contentViewer = document.createElement("div")
+        self.contentViewer.className = "tinydoc_contentviewer"
+        self.holder19.appendChild(self.contentViewer)
+
+        self.document = document.createElement("div")
+        self.document.className = "tinydoc_document"
+        self.document.contentEditable = true
+
+        self.myContainer.appendChild(self.document)
+
+        if (editorConfig.content) {
+          self.document.innerHTML = editorConfig.content
+        } else {
+          var emptyContent = document.createElement("div")
+          self.document.appendChild(emptyContent)
+        }
+
+        self.documentEnabled = true
+        self.canUndoRedo = true
+        self.undoSaveTimeout = null
+        self.keyEnterPressed = false
+        self.settingNewText = false
+        self.isUsingSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        )
+        self.isUsingChrome = /.*chrome/i.test(navigator.userAgent)
+        self.isMobileDevice = !!(
+          window.navigator.userAgent.match(/Android/i) ||
+          window.navigator.userAgent.match(/webOS/i) ||
+          window.navigator.userAgent.match(/iPhone/i) ||
+          window.navigator.userAgent.match(/iPad/i) ||
+          window.navigator.userAgent.match(/iPod/i) ||
+          window.navigator.userAgent.match(/BlackBerry/i) ||
+          window.navigator.userAgent.match(/Windows Phone/i)
+        )
+
+        self.document.addEventListener("input", function () {
+          if (self.editorConfig.dirtyCallback) {
+            self.editorConfig.dirtyCallback()
+          }
+        })
+
+        self.document.addEventListener("mousedown", function (event) {
+          try {
+            if (!self.documentEnabled) {
+              event.preventDefault()
+            }
+          } catch (err) {
+            //
+          }
+        })
+
+        self.document.addEventListener("keydown", function (event) {
+          try {
+            if (!self.documentEnabled) {
+              event.preventDefault()
+            } else {
+              var KEY_TAB = event.key === "Tab"
+              var KEY_ENTER = event.key === "Enter"
+              var KEY_CTRL_S = (event.ctrlKey || event.metaKey) && event.key === "s"
+              var KEY_CTRL_P = (event.ctrlKey || event.metaKey) && event.key === "p"
+              var KEY_UNDO_MAC = event.ctrlKey && event.shiftKey && event.key === "z"
+              var KEY_UNDO_WINDOWS =
+                (event.ctrlKey || event.metaKey) &&
+                !event.shiftKey &&
+                event.key === "z"
+              var KEY_REDO_MAC = event.shiftKey && event.metaKey && event.key === "z"
+              var KEY_REDO_WINDOWS = event.ctrlKey && event.key === "y"
+
+              if (KEY_TAB) {
+                event.preventDefault()
+
+                if (self.editorConfig.replaceTabWithSpaces) {
+                  self.insertHtmlAtCaret(
+                    "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+                    false
+                  )
+                } else {
+                  self.insertHtmlAtCaret("&#009", false)
+                }
+
+                setTimeout(function () {
+                  self.document.focus()
+                }, 100)
+              } else if (KEY_ENTER) {
+                self.handleBreakline(event)
+              } else if (KEY_CTRL_S) {
+                if (
+                  self.editorConfig.saveCallback &&
+                  self.editorConfig.useCtrlSForSaving
+                ) {
+                  event.preventDefault()
+                  self.save()
+                }
+              } else if (KEY_CTRL_P) {
+                if (self.editorConfig.useCtrlPForPrinting) {
+                  event.preventDefault()
+                  self.print()
+                }
+              } else if (KEY_UNDO_MAC || KEY_UNDO_WINDOWS) {
+                event.preventDefault()
+                self.undo(true)
+              } else if (KEY_REDO_MAC || KEY_REDO_WINDOWS) {
+                event.preventDefault()
+                self.redo(true)
+              }
+            }
+          } catch (err) {
+            //
+          }
+        })
+
+        self.document.addEventListener("keyup", function (event) {
+          if (!self.documentEnabled) {
+            event.preventDefault()
+          } else {
+            self.checkForURL()
+
+            if (self.undoSaveTimeout !== null) {
+              clearTimeout(self.undoSaveTimeout)
+            }
+
+            self.undoSaveTimeout = setTimeout(function () {
+              self.saveUndo()
+            }, 100)
+          }
+        })
+
+        self.document.addEventListener("click", function (event) {
+          if (!self.documentEnabled) {
+            event.preventDefault()
+          } else {
+            self.checkForURL()
+          }
+        })
+
+        self.document.addEventListener("contextmenu", function (event) {
+          if (!self.documentEnabled) {
+            event.preventDefault()
+          } else {
+            self.checkForURL()
+          }
+        })
+
+        self.document.addEventListener("paste", function (event) {
+          try {
+            event.preventDefault()
+
+            var text = (event.originalEvent || event).clipboardData.getData(
+              "text/plain"
+            )
+
+            text = text.replace(/&/gm, "&amp;")
+            text = text.replace(/</gm, "&lt;")
+            text = text.replace(/>/gm, "&gt;")
+            text = text.replace(/ {2}/gm, "&nbsp;&nbsp;")
+            text = text.replace(/\n/gm, "<br />")
+
+            self.document.focus()
+
+            self.insertHtmlAtCaret(text, false)
+          } catch (err) {
+            //
+          }
+        })
+
+        self.clearUndoRedo()
+        self.resize()
+        self.scrollToTop()
+      }
+
+      tinyDOC.prototype.new = function () {
+        try {
+          try {
+            while (this.document.firstChild) {
+              this.document.removeChild(this.document.firstChild)
+            }
+          } catch (err) {
+            //
+          }
+
+          this.clearUndoRedo()
+          this.setCaretPosition(this.document, 0)
+          this.scrollToTop()
+          this.focus()
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.save = function () {
+        try {
+          if (this.documentEnabled) {
+            if (this.editorConfig.saveCallback) {
+              this.editorConfig.saveCallback(this.document.innerHTML.toString())
+            }
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.resize = function () {
+        try {
+          this.document.style.width = this.myContainer.offsetWidth - 16 + "px"
+          this.document.style.height = this.myContainer.offsetHeight - 57 + "px"
+
+          setTimeout(function () {
+            try {
+              this.document.style.width = this.myContainer.offsetWidth - 16 + "px"
+              this.document.style.height = this.myContainer.offsetHeight - 57 + "px"
+            } catch (err) {
+              //
+            }
+          }, 100)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.scrollToTop = function () {
+        try {
+          this.document.scrollTop = 0
+        } catch (err) {
+          //
+        }
+      }
+
+      // https://stackoverflow.com/questions/47361276/javascript-scroll-to-cursor-post-a-paste-in-contenteditable-div
+      tinyDOC.prototype.scrollToCaret = function () {
+        try {
+          var currentSelection = this.saveSelection(this.document)
+          var caretPositionY = this.getCaretY() - this.document.offsetTop + 16
+
+          if (caretPositionY < 0 || caretPositionY > this.document.offsetHeight) {
+            var selection = window.getSelection()
+
+            if (!selection.rangeCount) {
+              return
+            }
+
+            var firstRange = selection.getRangeAt(0)
+
+            if (firstRange.commonAncestorContainer === document) {
+              return
+            }
+
+            var tempAnchorEl = document.createElement("br")
+
+            firstRange.insertNode(tempAnchorEl)
+
+            if (caretPositionY < 0) {
+              tempAnchorEl.scrollIntoView({ block: "start" })
+            } else {
+              tempAnchorEl.scrollIntoView({ block: "end" })
+            }
+
+            tempAnchorEl.remove()
+          }
+
+          if (currentSelection.start !== currentSelection.end) {
+            this.restoreSelection(this.document, currentSelection)
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      // https://stackoverflow.com/questions/6846230/coordinates-of-selected-text-in-browser-page
+      tinyDOC.prototype.getCaretY = function () {
+        try {
+          var sel = document.selection
+          var range
+          var rect
+          var x = 0
+          var y = 0
+
+          if (sel) {
+            if (sel.type !== "Control") {
+              range = sel.createRange()
+              range.collapse(true)
+              x = range.boundingLeft
+              y = range.boundingTop
+            }
+          } else if (window.getSelection) {
+            sel = window.getSelection()
+
+            if (sel.rangeCount) {
+              range = sel.getRangeAt(0).cloneRange()
+
+              if (range.getClientRects) {
+                range.collapse(true)
+
+                if (range.getClientRects().length > 0) {
+                  rect = range.getClientRects()[0]
+                  x = rect.left
+                  y = rect.top
+                }
+              }
+
+              if (x === 0 && y === 0) {
+                var span = document.createElement("span")
+                if (span.getClientRects) {
+                  span.appendChild(document.createTextNode("\u200b"))
+                  range.insertNode(span)
+                  rect = span.getClientRects()[0]
+                  x = rect.left
+                  y = rect.top
+
+                  var spanParent = span.parentNode
+                  spanParent.removeChild(span)
+
+                  spanParent.normalize()
+                }
+              }
+            }
+          }
+          return y
+        } catch (err) {
+          //
+        }
+        return 0
+      }
+
+      tinyDOC.prototype.setText = function (myText) {
+        try {
+          this.new()
+          this.settingNewText = true
+          this.insertHtmlAtCaret(myText, false)
+          this.clearUndoRedo()
+
+          setTimeout(function () {
+            this.setCaretPosition(this.document, 0)
+          }, 25)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.encodeText = function (str) {
+        var i = str.length
+        var aRet = []
+        while (i > 0) {
+          i -= 1
+          var tempChar = str[i].charCodeAt()
+          if (
+            tempChar > 126 ||
+            tempChar === 34 ||
+            tempChar === 39 ||
+            tempChar === 60 ||
+            tempChar === 62
+          ) {
+            aRet[i] = "&#" + tempChar + ";"
+          } else {
+            aRet[i] = str[i]
+          }
+        }
+        return aRet.join("")
+      }
+
+      tinyDOC.prototype.enable = function () {
+        this.documentEnabled = true
+        this.document.style.caretColor = "black"
+      }
+
+      tinyDOC.prototype.disable = function () {
+        this.documentEnabled = false
+        this.document.style.caretColor = "transparent"
+      }
+
+      tinyDOC.prototype.focus = function () {
+        try {
+          var _this = this
+          this.document.focus()
+
+          setTimeout(function () {
+            _this.document.focus()
+          }, 100)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.formatDoc = function (myCommand, myParameter) {
+        try {
+          if (!this.documentEnabled) {
+            return
+          }
+
+          this.document.focus()
+          var _this = this
+
+          if (myCommand === "bold") {
+            this.formatStyle("b", myParameter)
+          } else if (myCommand === "italic") {
+            this.formatStyle("i", myParameter)
+          } else if (myCommand === "underline") {
+            this.formatStyle("u", myParameter)
+          } else if (myCommand === "strikethrough") {
+            this.formatStyle("strike", myParameter)
+          } else if (myCommand === "BackColor") {
+            this.formatStyle("span", myParameter)
+          } else if (myCommand === "insertunorderedlist") {
+            this.formatList("ul", "li")
+          } else if (myCommand === "insertorderedlist") {
+            this.formatList("ol", "li")
+          } else if (myCommand === "removeFormat") {
+            this.removeFormat()
+          } else if (myCommand === "undo") {
+            this.undo(false)
+          } else if (myCommand === "redo") {
+            this.redo(false)
+          }
+
+          setTimeout(function () {
+            _this.document.focus()
+          }, 100)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.formatStyle = function (myTag, myParameter) {
+        try {
+          var currentSelection = this.saveSelection(this.document)
+
+          if (!this.isDocumentSelected()) {
+            return
+          }
+
+          var _this = this
+
+          if (
+            (this.getParentTag("LI") !== null ||
+              this.getParentTag("UL") !== null ||
+              this.getParentTag("OL") !== null) &&
+            window.getSelection().toString().indexOf("\n") > -1
+          ) {
+            setTimeout(function () {
+              _this.restoreSelection(_this.document, currentSelection)
+
+              if (_this.isUsingChrome || _this.isUsingSafari) {
+                if (window.getSelection().toString().indexOf("\n") === -1) {
+                  _this.formatStyleExecute(myTag, myParameter)
+                }
+              }
+            }, 25)
+
+            return
+          }
+
+          this.formatStyleExecute(myTag, myParameter)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.formatStyleExecute = function (myTag, myParameter) {
+        try {
+          this.saveUndo()
+          var _this = this
+
+          var selection = window.getSelection()
+          var range = selection.getRangeAt(0)
+
+          var selectedContent = range.extractContents()
+          var newTag = document.createElement(myTag)
+
+          newTag.appendChild(selectedContent)
+
+          if (myTag === "span") {
+            newTag.style.backgroundColor = myParameter
+            newTag.style.boxShadow = "inset 0 0 0 1000px " + myParameter
+          }
+
+          range.deleteContents()
+          range.insertNode(newTag)
+
+          setTimeout(function () {
+            range = range.cloneRange()
+            range.setStartBefore(newTag)
+            selection.removeAllRanges()
+            selection.addRange(range)
+
+            _this.saveUndo()
+
+            if (_this.editorConfig.dirtyCallback) {
+              _this.editorConfig.dirtyCallback()
+            }
+          }, 25)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.formatList = function (tag1, tag2) {
+        try {
+          if (!this.isDocumentSelected()) {
+            return
+          }
+
+          if (
+            this.getParentTag("LI") === null &&
+            this.getParentTag("UL") === null &&
+            this.getParentTag("OL") === null
+          ) {
+            var selectedText = window.getSelection().toString()
+
+            if (selectedText === "") {
+              selectedText = "<br />"
+            }
+
+            this.insertHtmlAtCaret(
+              "<" +
+                tag1 +
+                "><" +
+                tag2 +
+                ">" +
+                selectedText +
+                "</" +
+                tag2 +
+                "></" +
+                tag1 +
+                ">",
+              false
+            )
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.getParentTag = function (tagToFind) {
+        try {
+          var range = window.getSelection().getRangeAt(0)
+
+          var upperNode = range.startContainer
+
+          while (upperNode.parentNode !== this.document) {
+            upperNode = upperNode.parentNode
+
+            if (upperNode.nodeName === tagToFind) {
+              return upperNode
+            }
+          }
+        } catch (err) {
+          //
+        }
+        return null
+      }
+
+      tinyDOC.prototype.getCurrentTag = function () {
+        var currentNode = null
+
+        try {
+          var range = window.getSelection().getRangeAt(0)
+          currentNode = range.startContainer
+        } catch (err) {
+          //
+        }
+
+        return currentNode
+      }
+
+      // https://stackoverflow.com/questions/16736680/get-caret-index-in-contenteditable-div-including-tags
+      tinyDOC.prototype.getCaretCharacterOffsetWithin = function (element) {
+        var caretOffset = 0
+        try {
+          var range = window.getSelection().getRangeAt(0)
+          var preCaretRange = range.cloneRange()
+          preCaretRange.selectNodeContents(element)
+          preCaretRange.setEnd(range.endContainer, range.endOffset)
+          caretOffset = preCaretRange.toString().length
+        } catch (err) {
+          //
+        }
+        return caretOffset
+      }
+
+      tinyDOC.prototype.handleBreakline = function (event) {
+        try {
+          var tagLI = this.getParentTag("LI")
+          var tagUL = this.getParentTag("UL")
+          var tagOL = this.getParentTag("OL")
+
+          if (tagLI === null && (tagUL !== null || tagOL !== null)) {
+            event.preventDefault()
+
+            var initialNode = window.getSelection().focusNode
+            var upperNode = window.getSelection().focusNode
+            var listNode = null
+
+            while (upperNode.parentNode) {
+              upperNode = upperNode.parentNode
+
+              if (upperNode.nodeName === "UL" || upperNode.nodeName === "OL") {
+                listNode = upperNode
+              }
+            }
+
+            if (listNode !== null) {
+              if (listNode.lastChild === initialNode) {
+                if (!this.handleBreaklineInLink()) {
+                  this.addBreakLineAfter(listNode)
+                }
+              }
+            }
+          } else if (tagLI === null) {
+            event.preventDefault()
+
+            if (!this.handleBreaklineInLink()) {
+              this.keyEnterPressed = true
+              this.insertHtmlAtCaret("<br />", false)
+            }
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.handleBreaklineInLink = function () {
+        try {
+          var linkTag = this.getParentTag("A")
+
+          if (linkTag !== null) {
+            if (
+              this.getCaretCharacterOffsetWithin(linkTag) === linkTag.text.length
+            ) {
+              this.addBreakLineAfter(linkTag)
+              return true
+            }
+          }
+        } catch (err) {
+          //
+        }
+        return false
+      }
+
+      tinyDOC.prototype.addBreakLineAfter = function (currentNode) {
+        try {
+          this.saveUndo()
+          var _this = this
+
+          var tempAnchorEl = document.createElement("br")
+          currentNode.parentNode.insertBefore(tempAnchorEl, currentNode.nextSibling)
+
+          var startBefore = true
+
+          if (currentNode.nodeName !== "UL" && currentNode.nodeName !== "OL") {
+            startBefore = false
+          }
+
+          setTimeout(function () {
+            var range = document.createRange()
+            range.selectNodeContents(tempAnchorEl)
+            if (startBefore) {
+              range.setStartBefore(tempAnchorEl)
+            } else {
+              range.setStartAfter(tempAnchorEl)
+            }
+            range.collapse(true)
+            var sel = window.getSelection()
+            sel.removeAllRanges()
+            sel.addRange(range)
+
+            _this.saveUndo()
+          }, 25)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.isDocumentSelected = function () {
+        try {
+          var docFound = false
+          var upperNode = window.getSelection().focusNode
+
+          if (upperNode === this.document) {
+            docFound = true
+          }
+
+          while (upperNode.parentNode) {
+            upperNode = upperNode.parentNode
+            if (upperNode === this.document) {
+              docFound = true
+            }
+          }
+
+          return docFound
+        } catch (err) {
+          return false
+        }
+      }
+
+      tinyDOC.prototype.wordCount = function () {
+        if (!this.documentEnabled) {
+          return
+        }
+
+        try {
+          var _this = this
+          var textPlain = this.document.innerText
+          var wordCounter = textPlain.split(" ").filter(function (n) {
+            return n !== ""
+          }).length
+          var charCount = textPlain.length
+          var finalWordCountText = this.editorConfig.wordCount
+          finalWordCountText = finalWordCountText.replace(
+            /\{WORD\_COUNT\}/gm,
+            wordCounter
+          )
+          finalWordCountText = finalWordCountText.replace(
+            /\{CHARACTER\_COUNT\}/gm,
+            charCount
+          )
+          this.insertHtmlAtCaret(finalWordCountText + "<br />")
+          setTimeout(function () {
+            _this.document.focus()
+          }, 25)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.removeFormat = function () {
+        try {
+          if (window.getSelection().toString()) {
+            var plainText = window.getSelection().toString()
+
+            plainText = plainText.replace(/&/gm, "&amp;")
+            plainText = plainText.replace(/</gm, "&lt;")
+            plainText = plainText.replace(/>/gm, "&gt;")
+            plainText = plainText.replace(/ {2}/gm, "&nbsp;&nbsp;")
+            plainText = plainText.replace(/\n/gm, "<br />")
+
+            try {
+              var range = window.getSelection().getRangeAt(0)
+
+              if (
+                range.startOffset === 0 &&
+                (range.endOffset === 0 ||
+                  range.endOffset === window.getSelection().toString().length)
+              ) {
+                var upperNode = range.startContainer
+
+                while (
+                  upperNode.parentNode !== this.document &&
+                  upperNode.parentNode.nodeName !== "LI"
+                ) {
+                  upperNode = upperNode.parentNode
+                }
+
+                var lowerNode = upperNode
+                var foundListItem = false
+
+                while (lowerNode.firstChild) {
+                  lowerNode = lowerNode.firstChild
+                  if (lowerNode.nodeName === "LI") {
+                    foundListItem = true
+                  }
+                }
+
+                if (!foundListItem) {
+                  if (upperNode.innerText.length === range.endOffset) {
+                    upperNode.parentNode.removeChild(upperNode)
+                  }
+                }
+              }
+            } catch (err) {
+              //
+            }
+
+            this.insertHtmlAtCaret(plainText, true)
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.print = function () {
+        if (!this.isMobileDevice) {
+          try {
+            var _this = this
+            var newIframe = document.createElement("iframe")
+            newIframe.width = "0"
+            newIframe.height = "0"
+            newIframe.src = "about:blank"
+            document.body.appendChild(newIframe)
+            newIframe.contentWindow.document.write(
+              "<!DOCTYPE html><html><head><title>" +
+                this.encodeText(window.location.href) +
+                "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:" +
+                this.editorConfig.linkColor +
+                "}</style></head><body>" +
+                this.document.innerHTML +
+                "</body></html>"
+            )
+            newIframe.contentWindow.document.close()
+            newIframe.contentWindow.focus()
+            newIframe.contentWindow.print()
+            document.body.removeChild(newIframe)
+
+            setTimeout(function () {
+              _this.document.focus()
+            }, 25)
+          } catch (err) {
+            //
+          }
+        } else {
+          try {
+            var printingWindow = window.open("about:blank", "_blank")
+            printingWindow.document.write(
+              "<!DOCTYPE html><html><head><title>" +
+                this.encodeText(window.location.href) +
+                "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:" +
+                this.editorConfig.linkColor +
+                "}</style></head><body>" +
+                this.document.innerHTML +
+                "</body></html>"
+            )
+            printingWindow.document.close()
+            printingWindow.focus()
+            setTimeout(function () {
+              printingWindow.print()
+            }, 500)
+          } catch (err) {
+            //
+          }
+        }
+      }
+
+      tinyDOC.prototype.undo = function (keyboardRequest) {
+        var _this = this
+
+        try {
+          if (!this.canUndoRedo) {
+            return
+          }
+
+          if (!this.isDocumentSelected() && !keyboardRequest) {
+            return
+          }
+
+          this.document.style.caretColor = "transparent"
+          this.canUndoRedo = false
+          this.document_history_lastCaret = this.getCaretPosition(this.document)
+
+          if (this.document_history_index > 0) {
+            while (this.document.firstChild) {
+              this.document.removeChild(this.document.firstChild)
+            }
+
+            this.insertHtmlAtCaret(
+              this.document_history[this.document_history_index - 1],
+              false
+            )
+
+            setTimeout(function () {
+              _this.setCaretPosition(
+                _this.document,
+                _this.document_history_caret[_this.document_history_index - 1]
+              )
+
+              _this.document_history_index = _this.document_history_index - 1
+              _this.scrollToCaret()
+              _this.document.style.caretColor = "black"
+              _this.canUndoRedo = true
+            }, 25)
+          } else {
+            setTimeout(function () {
+              _this.setCaretPosition(
+                _this.document,
+                _this.document_history_lastCaret
+              )
+              _this.document.style.caretColor = "black"
+              _this.canUndoRedo = true
+            }, 25)
+          }
+        } catch (err) {
+          setTimeout(function () {
+            _this.setCaretPosition(_this.document, 0)
+            _this.document.style.caretColor = "black"
+            _this.canUndoRedo = true
+          }, 25)
+        }
+      }
+
+      tinyDOC.prototype.redo = function (keyboardRequest) {
+        var _this = this
+
+        try {
+          if (!this.canUndoRedo) {
+            return
+          }
+
+          if (!this.isDocumentSelected() && !keyboardRequest) {
+            return
+          }
+
+          this.document.style.caretColor = "transparent"
+          this.canUndoRedo = false
+          this.document_history_lastCaret = this.getCaretPosition(this.document)
+
+          if (this.document_history[this.document_history_index + 1]) {
+            while (this.document.firstChild) {
+              this.document.removeChild(this.document.firstChild)
+            }
+
+            this.insertHtmlAtCaret(
+              this.document_history[this.document_history_index + 1],
+              false
+            )
+
+            setTimeout(function () {
+              _this.setCaretPosition(
+                _this.document,
+                _this.document_history_caret[_this.document_history_index + 1]
+              )
+
+              _this.document_history_index = _this.document_history_index + 1
+              _this.scrollToCaret()
+              _this.document.style.caretColor = "black"
+              _this.canUndoRedo = true
+            }, 25)
+          } else {
+            setTimeout(function () {
+              _this.setCaretPosition(
+                _this.document,
+                _this.document_history_lastCaret
+              )
+              _this.document.style.caretColor = "black"
+              _this.canUndoRedo = true
+            }, 25)
+          }
+        } catch (err) {
+          setTimeout(function () {
+            _this.setCaretPosition(_this.document, 0)
+            _this.document.style.caretColor = "black"
+            _this.canUndoRedo = true
+          }, 25)
+        }
+      }
+
+      tinyDOC.prototype.saveUndo = function () {
+        try {
+          var current_state = this.document.innerHTML
+
+          if (current_state !== this.document_history[this.document_history_index]) {
+            if (this.document_history_index <= this.document_history.length - 1) {
+              this.document_history = this.document_history.slice(
+                0,
+                this.document_history_index + 1
+              )
+              this.document_history_caret = this.document_history_caret.slice(
+                0,
+                this.document_history_index + 1
+              )
+
+              this.document_history_index = this.document_history_index + 1
+            }
+
+            this.document_history.push(current_state)
+            this.document_history_caret.push(this.getCaretPosition(this.document))
+            this.document_history_index = this.document_history.length - 1
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.clearUndoRedo = function () {
+        this.document_history = []
+        this.document_history_caret = []
+        this.document_history_index = 0
+        this.document_history_lastCaret = 0
+
+        this.saveUndo()
+      }
+
+      // https://gist.github.com/isLishude/6ccd1fbf42d1eaac667d6873e7b134f8
+      // https://codepen.io/jeffward/pen/OJjPKYo
+      tinyDOC.prototype.setCaretPosition = function (container, position) {
+        try {
+          if (position === null) {
+            position = 0
+          }
+
+          function createRange(node, chars, range) {
+            if (range === null || typeof range === "undefined") {
+              range = window.document.createRange()
+              range.selectNode(node)
+              range.setStart(node, 0)
+            }
+
+            if (chars.count === 0) {
+              range.setEnd(node, chars.count)
+            } else if (node !== null && chars.count > 0) {
+              if (node.nodeType === 3) {
+                if (node.textContent.length < chars.count) {
+                  chars.count -= node.textContent.length
+                } else {
+                  range.setEnd(node, chars.count)
+                  chars.count = 0
+                }
+              } else {
+                var _g = 0
+                var _g1 = node.childNodes.length
+                while (_g < _g1) {
+                  var lp = _g + 1
+                  range = createRange(node.childNodes[lp], chars, range)
+                  if (chars.count === 0) {
+                    break
+                  }
+                }
+              }
+            }
+            return range
+          }
+
+          if (position >= 0) {
+            var selection = window.getSelection()
+            var range = createRange(container, { count: position })
+            if (range !== null) {
+              range.collapse(false)
+              selection.removeAllRanges()
+              selection.addRange(range)
+            }
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      // https://stackoverflow.com/questions/3972014/get-contenteditable-caret-position
+      tinyDOC.prototype.getCaretPosition = function (element) {
+        try {
+          if (!this.isDocumentSelected()) {
+            return 0
+          }
+
+          var caretOffset = 0
+
+          var range = window.getSelection().getRangeAt(0)
+          var preCaretRange = range.cloneRange()
+          preCaretRange.selectNodeContents(element)
+          preCaretRange.setEnd(range.endContainer, range.endOffset)
+
+          caretOffset = preCaretRange.toString().length
+
+          return caretOffset
+        } catch (err) {
+          return 0
+        }
+      }
+
+      tinyDOC.prototype.insertLink = function () {
+        try {
+          function checkForEmail(email) {
+            var re =
+              /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return re.test(String(email).toLowerCase())
+          }
+
+          var _this = this
+
+          var selectedText = window.getSelection().toString()
+
+          if (selectedText !== null) {
+            if (selectedText.length > 0) {
+              var selectedTextURLChecker1 = selectedText.toLowerCase().indexOf(" ")
+              var selectedTextURLChecker2 = selectedText
+                .toLowerCase()
+                .indexOf("http://")
+              var selectedTextURLChecker3 = selectedText
+                .toLowerCase()
+                .indexOf("https://")
+              var selectedTextURLChecker4 = checkForEmail(selectedText)
+
+              if (
+                selectedTextURLChecker1 === -1 &&
+                (selectedTextURLChecker2 === 0 ||
+                  selectedTextURLChecker3 === 0 ||
+                  selectedTextURLChecker4)
+              ) {
+                if (selectedTextURLChecker4) {
+                  this.insertHtmlAtCaret(
+                    "<a href='mailto:" +
+                      selectedText.toLowerCase() +
+                      "' target='_blank'>" +
+                      selectedText +
+                      "</a>",
+                    false
+                  )
+                } else {
+                  this.insertHtmlAtCaret(
+                    "<a href='" +
+                      selectedText +
+                      "' target='_blank'>" +
+                      selectedText +
+                      "</a>",
+                    false
+                  )
+                }
+              }
+            }
+          }
+
+          setTimeout(function () {
+            _this.document.focus()
+          }, 100)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.insertCalc = function () {
+        var _this = this
+
+        try {
+          if (!this.documentEnabled) {
+            return
+          }
+
+          var selectedText = window.getSelection().toString()
+
+          if (selectedText !== null) {
+            if (selectedText.length > 0) {
+              try {
+                document.getSelection().collapseToEnd()
+              } catch (err) {
+                //
+              }
+
+              var splitted = selectedText.split("\n")
+
+              var finalResult
+
+              if (splitted.length === 1) {
+                selectedText = selectedText.replace(/[^0-9.*/()+-]/g, "")
+
+                try {
+                  // eslint-disable-next-line no-eval
+                  finalResult = eval(selectedText)
+
+                  if (isNaN(finalResult)) {
+                    this.insertHtmlAtCaret(" = ERROR", false)
+                  } else {
+                    finalResult = parseFloat(finalResult).toFixed(2)
+
+                    if (finalResult.indexOf(".00") > -1) {
+                      finalResult = parseFloat(finalResult).toFixed(0)
+                    }
+
+                    this.insertHtmlAtCaret(" = " + finalResult, false)
+                  }
+                } catch (err) {
+                  this.insertHtmlAtCaret(" = ERROR", false)
+                }
+              } else {
+                finalResult = 0
+
+                var lastLineBR = ""
+
+                for (var i = 0; i < splitted.length; i++) {
+                  try {
+                    var currentLine = splitted[i]
+
+                    if (currentLine.length > 0) {
+                      currentLine = currentLine.trim()
+
+                      if (currentLine.lastIndexOf(" ") > -1) {
+                        currentLine = currentLine.substr(
+                          currentLine.lastIndexOf(" ") + 1,
+                          currentLine.length
+                        )
+                      }
+
+                      currentLine = currentLine.replace(/[^0-9.]/g, "")
+
+                      finalResult = parseFloat(finalResult) + parseFloat(currentLine)
+                    }
+
+                    if (currentLine !== "" && i === splitted.length - 1) {
+                      lastLineBR = "<br>"
+                    }
+                  } catch (err) {
+                    //
+                  }
+                }
+
+                try {
+                  if (isNaN(finalResult)) {
+                    this.insertHtmlAtCaret(
+                      lastLineBR + "----------<br />ERROR",
+                      false
+                    )
+                  } else {
+                    finalResult = parseFloat(finalResult).toFixed(2)
+
+                    if (finalResult.indexOf(".00") > -1) {
+                      finalResult = parseFloat(finalResult).toFixed(0)
+                    }
+
+                    this.insertHtmlAtCaret(
+                      lastLineBR + "----------<br />" + finalResult,
+                      false
+                    )
+                  }
+                } catch (err) {
+                  this.insertHtmlAtCaret(lastLineBR + "----------<br />ERROR", false)
+                }
+              }
+            }
+          }
+        } catch (err) {
+          //
+        }
+
+        setTimeout(function () {
+          _this.document.focus()
+        }, 100)
+      }
+
+      tinyDOC.prototype.checkForURL = function () {
+        try {
+          var linkTag = this.getParentTag("A")
+
+          if (linkTag === null) {
+            linkTag = this.getCurrentTag()
+          }
+
+          while (this.contentViewer.firstChild) {
+            this.contentViewer.removeChild(this.contentViewer.firstChild)
+          }
+
+          if (linkTag.nodeName === "A") {
+            var finalURL = linkTag.href
+            var newLink = document.createElement("a")
+            newLink.href = finalURL
+            newLink.target = "_blank"
+            newLink.textContent = finalURL
+            this.contentViewer.appendChild(newLink)
+            return true
+          }
+        } catch (err) {
+          //
+        }
+        return false
+      }
+
+      // https://stackoverflow.com/questions/6690752/insert-html-at-caret-in-a-contenteditable-div
+      tinyDOC.prototype.insertHtmlAtCaret = function (html, selectPastedContent) {
+        var _this = this
+
+        try {
+          if (!this.isDocumentSelected()) {
+            return
+          }
+
+          if (this.canUndoRedo) {
+            this.saveUndo()
+          }
+
+          var selection = window.getSelection()
+
+          if (selection.getRangeAt && selection.rangeCount) {
+            var range = selection.getRangeAt(0)
+            range.deleteContents()
+
+            var el = document.createElement("div")
+            el.innerHTML = html
+
+            var frag = document.createDocumentFragment()
+            var node
+            var lastNode
+
+            while ((node = el.firstChild)) {
+              lastNode = frag.appendChild(node)
+            }
+
+            var firstNode = frag.firstChild
+            range.insertNode(frag)
+
+            if (lastNode) {
+              range = range.cloneRange()
+              range.setStartAfter(lastNode)
+              if (selectPastedContent) {
+                range.setStartBefore(firstNode)
+              } else {
+                range.collapse(true)
+              }
+              selection.removeAllRanges()
+              selection.addRange(range)
+            }
+
+            if (this.settingNewText) {
+              this.settingNewText = false
+
+              this.setCaretPosition(this.document, 0)
+            } else if (this.keyEnterPressed) {
+              this.keyEnterPressed = false
+
+              this.scrollToCaret()
+
+              if (this.editorConfig.dirtyCallback) {
+                this.editorConfig.dirtyCallback()
+              }
+            } else {
+              setTimeout(function () {
+                if (lastNode) {
+                  range = range.cloneRange()
+                  range.setStartAfter(lastNode)
+                  if (selectPastedContent) {
+                    range.setStartBefore(firstNode)
+                  } else {
+                    range.collapse(true)
+                  }
+                  selection.removeAllRanges()
+                  selection.addRange(range)
+                }
+
+                if (_this.canUndoRedo) {
+                  _this.scrollToCaret()
+
+                  _this.saveUndo()
+                }
+
+                if (_this.editorConfig.dirtyCallback) {
+                  _this.editorConfig.dirtyCallback()
+                }
+              }, 25)
+            }
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      // https://stackoverflow.com/questions/17678843/cant-restore-selection-after-html-modify-even-if-its-the-same-html
+      tinyDOC.prototype.saveSelection = function (containerEl) {
+        try {
+          var doc = containerEl.ownerDocument
+          var win = doc.defaultView
+          var range = win.getSelection().getRangeAt(0)
+          var preSelectionRange = range.cloneRange()
+          preSelectionRange.selectNodeContents(containerEl)
+          preSelectionRange.setEnd(range.startContainer, range.startOffset)
+          var start = preSelectionRange.toString().length
+          return { start: start, end: start + range.toString().length }
+        } catch (err) {
+          return { start: 0, end: 0 }
+        }
+      }
+
+      // https://stackoverflow.com/questions/17678843/cant-restore-selection-after-html-modify-even-if-its-the-same-html
+      tinyDOC.prototype.restoreSelection = function (containerEl, savedSel) {
+        try {
+          var doc = containerEl.ownerDocument
+          var win = doc.defaultView
+          var charIndex = 0
+          var range = doc.createRange()
+          range.setStart(containerEl, 0)
+          range.collapse(true)
+          var nodeStack = [containerEl]
+          var node
+          var foundStart = false
+          var stop = false
+
+          while (!stop && (node = nodeStack.pop())) {
+            if (node.nodeType === 3) {
+              var nextCharIndex = charIndex + node.length
+              if (
+                !foundStart &&
+                savedSel.start >= charIndex &&
+                savedSel.start < nextCharIndex
+              ) {
+                range.setStart(node, savedSel.start - charIndex)
+                foundStart = true
+              }
+              if (
+                foundStart &&
+                savedSel.end >= charIndex &&
+                savedSel.end <= nextCharIndex
+              ) {
+                range.setEnd(node, savedSel.end - charIndex)
+                stop = true
+              }
+              charIndex = nextCharIndex
+            } else {
+              for (var i = node.childNodes.length - 1; i >= 0; i -= 1) {
+                nodeStack.push(node.childNodes[i])
+              }
+            }
+          }
+
+          var sel = win.getSelection()
+          sel.removeAllRanges()
+          sel.addRange(range)
+        } catch (err) {
+          //
+        }
+      }
+
+      // -----------------------------------------------------
+      // ENDS TINYDOC.JS
+      // -----------------------------------------------------
+
+      var myTinyDOC
+
+      window.addEventListener("load", function () {
+        // CHECKING IF THE APP IS LOADED PROPERLY
+        var secSameDomain = false
+        var secNotIframe = window.top === window.self
+        var secLocalFile = window.self.location.protocol === "file:"
+        try {
+          secSameDomain =
+            window.top !== window.self &&
+            window.top.location.hostname === window.self.location.hostname
+        } catch (err) {
+          //
+        }
+        if (
+          secNotIframe || // NOT RUNNING IN AN IFRAME AT ALL
+          secSameDomain || // RUNNING IN AN IFRAME IN THE SAME DOMAIN
+          secLocalFile // RUNNING IN A LOCAL FILE
+        ) {
+          // HIDING THE SPINNER
+          document.querySelector(".pleasewait").style.display = "none"
+          document.getElementsByTagName("body")[0].style.backgroundColor = "#fff"
+
+          // eslint-disable-next-line
+          myTinyDOC = new tinyDOC({
+            container: document.getElementById("myContainer"),
+            content: t("welcome"),
+            /*
+            saveCallback: function (e) {
+              console.log(e)
+            },
+            */
+            dirtyCallback: function () {
+              window.isDirty = true
+              window.onbeforeunload = function () {
+                return "Dirty"
+              }
+            },
+            templates: t("templates"),
+            calcEnabled: true,
+            useCtrlSForSaving: true,
+            useCtrlPForPrinting: true,
+            replaceTabWithSpaces: false,
+            linkColor: "#3A76B1",
+            wordCount: t("wordCount"),
+          })
+
+          myTinyDOC.focus()
+        }
+      })
+
+      window.addEventListener("resize", function () {
+        if (myTinyDOC) {
+          myTinyDOC.resize()
+        }
+      })
+    </script>
+  </body>
+</html>

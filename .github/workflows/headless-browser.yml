@@ -1,0 +1,25 @@
+name: "Headless Browser"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-jar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - name: Setting up the environment
+        uses: actions/setup-java@v3
+        with:
+          distribution: "zulu"
+          java-version: 17
+      - name: Building the JAR file
+        run: cd HeadlessBrowser && node build.js
+      - name: Attaching the JAR file to this workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: HeadlessBrowser
+          path: "HeadlessBrowser/HeadlessBrowser.jar"

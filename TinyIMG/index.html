@@ -1,0 +1,1015 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>TinyIMG Editor</title>
+    <link
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABX0lEQVR4AZySv0vDQBTH3x1qjaUGpeAg+A/oX+DiLeKsS7v6P+jaxl+Tf4RDHSpUuujkkFhBXOIgaqEq6mJBqxIzxFDlvHdyMbE/CAl8717uve/nvQuhkPBp5/MMlQjQri8ZhH2bojdLBCDAizD3BYPlskHvXc7uHG7ElfuwjZ3B02YtMQFQzsEkBIpxpXmnzE/NwMv4ChPNzeAKE60C6O4eQntK5T9T00GNBAz7V5DyL0H/6A/YqR6BM5oDJ5OLApCIiefshkw0vWs4f6/IOLygERU+kxPgASYQhOaDp3Ww3yodkOXFeSyNKADgqTJjjOoGqd3swubhAjy+XmAJRAB2l7HDEDTXGiVpLJ2tQr158gfAsXECmf23IKR6WwBlVul9e+sXgB+sl1kVt0gDhkYG1GuwUzRjh+CkTzA2lemA0LhmxU1nNRXKnRIgayLC/zqWxDUsfTJtCZ/FgR//AAAA//8AWlArAAAABklEQVQDACmTvcxXtNMdAAAAAElFTkSuQmCC"
+    >
+    <meta name="theme-color" content="#000">
+    <meta name="keywords" content="image, editor, tiny">
+    <meta name="description" content="Tiny IMG Editor.">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    >
+    <style>
+      *{font-family:Arial;font-size:14px;box-sizing:border-box}body{margin:0;background:#000;display:flex;height:100vh;overflow:hidden}.toolbar{position:fixed;top:0;left:0;width:165px;height:100%;background:#efefef;border-right:1px solid #5a5a5a;padding:5px;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:stretch;text-align:left;display:none}.toolbar strong{margin-top:10px;margin-bottom:5px}.toolbar hr{border:0;height:1px;background:#c4c4c4;margin:10px 0}.toolbar input[type=file],.toolbar input[type=number],.toolbar button{margin:5px 5px;padding:5px 5px}button,label{cursor:pointer}button{border:0;background-color:#efefef}button:hover{background-color:#d6d6d6}label{display:inline-flex;align-items:center;gap:5px;margin-top:10px;margin-left:10px;margin-right:10px;margin-bottom:5px}.toolbar input[type=checkbox]{margin-right:6px;cursor:pointer}.toolbar input[type=checkbox]:disabled{cursor:default}.containerResize{display:flex;justify-content:center;flex-direction:column}.title{display:flex;justify-content:center;cursor:default;margin-top:15px;margin-bottom:10px;-webkit-user-select:none;-moz-user-select:none;user-select:none}.workspace{flex:1;display:flex;justify-content:center;align-items:center;margin-left:165px;overflow:auto}canvas{background:#fff;max-width:100%;max-height:100%;display:none}input[type=file]{display:none}input[type=number]{background-color:#fff;border:1px solid #c4c4c4}input[type=number]:disabled{background-color:#efefef;opacity:.4}.disabled{opacity:.2;cursor:default!important}.disabled:hover{background-color:transparent!important}@media (pointer:coarse){button:hover{border:0;background-color:#efefef}}.pleasewait{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto;border:0;z-index:9}.lds-spinner{color:#fff;display:inline-block;position:relative;width:64px;height:64px}.lds-spinner div{transform-origin:32px 32px;animation:lds-spinner 1.2s linear infinite}.lds-spinner div:after{content:" ";display:block;position:absolute;top:3px;left:29px;width:5px;height:14px;border-radius:20%;background:#fff}.lds-spinner div:nth-child(1){transform:rotate(0deg);animation-delay:-1.1s}.lds-spinner div:nth-child(2){transform:rotate(30deg);animation-delay:-1s}.lds-spinner div:nth-child(3){transform:rotate(60deg);animation-delay:-.9s}.lds-spinner div:nth-child(4){transform:rotate(90deg);animation-delay:-.8s}.lds-spinner div:nth-child(5){transform:rotate(120deg);animation-delay:-.7s}.lds-spinner div:nth-child(6){transform:rotate(150deg);animation-delay:-.6s}.lds-spinner div:nth-child(7){transform:rotate(180deg);animation-delay:-.5s}.lds-spinner div:nth-child(8){transform:rotate(210deg);animation-delay:-.4s}.lds-spinner div:nth-child(9){transform:rotate(240deg);animation-delay:-.3s}.lds-spinner div:nth-child(10){transform:rotate(270deg);animation-delay:-.2s}.lds-spinner div:nth-child(11){transform:rotate(300deg);animation-delay:-.1s}.lds-spinner div:nth-child(12){transform:rotate(330deg);animation-delay:0s}@keyframes lds-spinner{0%{opacity:1}to{opacity:0}}
+    </style>
+  </head>
+  <body>
+    <div class="pleasewait">
+      <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <input type="file" id="fileSelector" accept="image/*,.svg,.svg+xml">
+      <button id="btnOpen">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 576 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M147.8 192H480V144C480 117.5 458.5 96 432 96h-160l-64-64h-160C21.49 32 0 53.49 0 80v328.4l90.54-181.1C101.4 205.6 123.4 192 147.8 192zM543.1 224H147.8C135.7 224 124.6 230.8 119.2 241.7L0 480h447.1c12.12 0 23.2-6.852 28.62-17.69l96-192C583.2 249 567.7 224 543.1 224z"
+          ></path>
+        </svg>
+      </button>
+      <button id="btnFlipH" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 512 417.79"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M333.55 16.79 511 392.75c2.46 5.22.22 11.45-4.99 13.91-1.45.68-2.97 1.01-4.46 1l-177.77.03c-5.78 0-10.47-4.7-10.47-10.48V20.58c0-5.78 4.69-10.47 10.47-10.47 4.44 0 8.25 2.77 9.77 6.68zM240.3 402.16c0 18.18 26.25 21.89 30.98 3.74.28-1.29.45-2.4.45-3.74v-9.45c0-18.18-26.25-21.89-30.98-3.74-.28 1.29-.45 2.4-.45 3.74v9.45zm0-72.3c0 18.18 26.25 21.89 30.98 3.74.28-1.29.45-2.4.45-3.74v-31.42c0-18.18-26.25-21.89-30.98-3.74-.28 1.29-.45 2.4-.45 3.74v31.42zm0-94.27c0 18.18 26.25 21.89 30.98 3.74.28-1.29.45-2.4.45-3.74v-31.42c0-18.18-26.25-21.89-30.98-3.73-.28 1.28-.45 2.39-.45 3.73v31.42zm0-94.26c0 18.17 26.25 21.88 30.98 3.73.28-1.28.45-2.39.45-3.73V109.9c0-18.17-26.25-21.89-30.98-3.73-.28 1.28-.45 2.39-.45 3.73v31.43zm0-94.27c0 18.17 26.25 21.89 30.98 3.73.28-1.28.45-2.39.45-3.73V15.63c0-18.17-26.25-21.88-30.98-3.73-.28 1.29-.45 2.39-.45 3.73v31.43zM1.33 392.11 178.79 16.12c2.46-5.21 8.7-7.45 13.91-4.99 3.78 1.78 5.99 5.54 5.99 9.45l.04 376.63c0 5.78-4.7 10.48-10.48 10.48H10.48c-5.79 0-10.48-4.7-10.48-10.48 0-1.85.48-3.59 1.33-5.1zm483.72-5.37L334.26 67.26v319.48h150.79z"
+          />
+        </svg>
+      </button>
+      <button id="btnFlipV" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 428 512.54"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m72.21 334.61 319.82 150.95V334.61H72.21zm-56.56-94.06c-18.2 0-21.91 26.27-3.74 31.01 1.29.28 2.4.45 3.74.45h19.23c18.2 0 21.91-26.27 3.74-31.01-1.29-.28-2.4-.45-3.74-.45H15.65zm82.14 0c-18.2 0-21.91 26.27-3.74 31.01 1.29.28 2.4.45 3.74.45h31.46c18.19 0 21.91-26.27 3.74-31.01-1.29-.28-2.4-.45-3.74-.45H97.79zm94.37 0c-18.2 0-21.91 26.27-3.74 31.01 1.29.28 2.4.45 3.74.45h31.45c18.2 0 21.92-26.27 3.74-31.01-1.28-.28-2.39-.45-3.74-.45h-31.45zm94.37 0c-18.2 0-21.92 26.27-3.74 31.01 1.28.28 2.39.45 3.74.45h31.45c18.2 0 21.91-26.27 3.74-31.01-1.29-.28-2.4-.45-3.74-.45h-31.45zm94.36 0c-18.19 0-21.91 26.27-3.74 31.01 1.29.28 2.4.45 3.74.45h31.46c18.2 0 21.91-26.27 3.74-31.01-1.29-.28-2.4-.45-3.74-.45h-31.46zM21.02 178.98 397.41 1.33c1.51-.85 3.25-1.33 5.1-1.33C408.3 0 413 4.7 413 10.49v177.96c0 5.79-4.7 10.48-10.49 10.48H25.49c-3.92-.03-7.68-2.25-9.47-6.03-2.46-5.22-.22-11.46 5-13.92zm377.03 332.56L21.69 333.9c-3.91-1.53-6.69-5.33-6.69-9.78 0-5.79 4.7-10.48 10.49-10.48h377.02c5.79 0 10.49 4.69 10.49 10.48v177.95c-.02 1.5-.35 3.02-1.03 4.47-2.46 5.22-8.7 7.46-13.92 5z"
+          />
+        </svg>
+      </button>
+      <button id="btnRotateRight" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m446 136.6h-275.3c-27.6 0-50 22.4-50 50v275.4c0 27.6 22.4 50 50 50h275.3c27.6 0 50-22.4 50-50v-275.4c0-27.6-22.3-50-50-50z"
+          />
+          <path
+            d="m342.5 80.2-.9 20.8c-.5 12 15 17.1 21.7 7.2l33.3-48.9c3.9-5.7 3.3-13.4-1.5-18.5l-35-37c-7.8-8.3-21.7-1.9-20.4 9.5l2.1 18.7h-187.4c-76.5-.1-138.4 61.9-138.4 138.3v180.9c0 13.3 10.8 24.1 24.2 24.1 13.3 0 24.1-10.8 24.2-24.1v-181.5c0-49.4 40-89.4 89.4-89.4h188.7z"
+          />
+        </svg>
+      </button>
+      <button id="btnRotateLeft" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m341.3 136.6h-275.3c-27.6 0-50 22.4-50 50v275.4c0 27.6 22.4 50 50 50h275.4c27.6 0 50-22.4 50-50v-275.4c-.1-27.6-22.4-50-50.1-50z"
+          />
+          <path
+            d="m357.6 31.9h-187.4l2.1-18.7c1.3-11.3-12.6-17.8-20.4-9.5l-34.9 37.1c-4.8 5-5.4 12.7-1.5 18.5l33.3 48.9c6.7 9.9 22.2 4.8 21.7-7.2l-.9-20.8h188.8c49.4 0 89.5 40 89.5 89.4v181.6c0 13.3 10.8 24.1 24.1 24.1 13.3 0 24.2-10.8 24.2-24.1v-180.9c-.2-76.4-62.1-138.4-138.6-138.4z"
+          />
+        </svg>
+      </button>
+      <button id="btnCrop" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m373.4 512c-18.9 0-34.2-15.3-34.2-34.2v-70.1h-200.6c-18.9 0-34.2-15.3-34.2-34.2v-200.6h-70.2c-18.9.3-34.5-14.7-34.8-33.6s14.7-34.5 33.6-34.8h1.2 70.1v-70.3c-.2-18.9 14.8-34.5 33.7-34.8s34.5 14.7 34.8 33.6v1.2 70.1h200.5c18.9 0 34.2 15.3 34.2 34.2v200.5h70.1c18.9 0 34.2 15.3 34.2 34.2s-15.3 34.2-34.2 34.2h-70.1v70.1c.1 19.2-15.2 34.5-34.1 34.5zm-34.3-172.9v-166.2h-166.2v166.3h166.2z"
+          />
+        </svg>
+      </button>
+      <input type="file" id="mergeFileSelector" accept="image/*,.svg,.svg+xml">
+      <button id="btnMergeH" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 64 64"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect height="56" rx="1.077" width="22.077" x="6.423" y="4" />
+          <rect height="56" rx="1.077" width="22.077" x="35.5" y="4" />
+        </svg>
+      </button>
+      <button id="btnMergeV" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 64 64"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect height="22.077" rx="1.077" width="56" x="4" y="35.5" />
+          <rect height="22.077" rx="1.077" width="56" x="4" y="6.423" />
+        </svg>
+      </button>
+      <button id="btnResize" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            transform="scale(0.85, 0.85) translate(55, 55)"
+            d="M496,0H304c-8.832,0-16,7.168-16,16v32c0,8.832,7.168,16,16,16h98.752L64,402.752V304c0-8.832-7.168-16-16-16H16 c-8.832,0-16,7.168-16,16v192c0,8.832,7.168,16,16,16h192c8.832,0,16-7.168,16-16v-32c0-8.832-7.168-16-16-16h-98.752L448,109.248 V208c0,8.832,7.168,16,16,16h32c8.832,0,16-7.168,16-16V16C512,7.168,504.832,0,496,0z"
+          />
+        </svg>
+      </button>
+      <hr>
+      <div class="containerResize">
+        <input type="number" id="inputWidth" min="1" disabled>
+        <input type="number" id="inputHeight" min="1" disabled>
+        <label class="disabled"
+          ><input type="checkbox" id="checkKeepRatio" checked disabled>
+          <span id="labelKeepRatio"></span
+        ></label>
+      </div>
+      <hr>
+      <div class="title disabled"></div>
+      <button id="btnDownloadJPG" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 50 51"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            transform="translate(0,4)"
+            d="m27.0833 17.3945c.863 0 1.5625.6996 1.5625 1.5625v6.25c0 .4144-.1646.8119-.4576 1.1049s-.6905.4576-1.1049.4576h-4.6875v4.6875c0 .863-.6995 1.5625-1.5625 1.5625-.8629 0-1.5625-.6995-1.5625-1.5625v-12.5c0-.4144.1647-.8118.4577-1.1048s.6904-.4577 1.1048-.4577zm-4.6875 6.25h3.125v-3.125h-3.125z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m32.2285 32.5619c-.293-.293-.4577-.6905-.4577-1.1049v-12.5c0-.8629.6996-1.5625 1.5625-1.5625h6.25c.863 0 1.5625.6996 1.5625 1.5625 0 .863-.6995 1.5625-1.5625 1.5625h-4.6875v9.375h3.125v-3.4375c0-.8629.6996-1.5625 1.5625-1.5625.863 0 1.5625.6996 1.5625 1.5625v5c0 .863-.6995 1.5625-1.5625 1.5625h-6.25c-.4144 0-.8118-.1646-1.1048-.4576z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m10.4067 29.8946c-.85836.0053-1.55254.7028-1.55253 1.5624.00001.863.69957 1.5625 1.56253 1.5625v-1.5625 1.5625h.0029.0034.0079l.0204-.0002.059-.0014c.0471-.0014.1097-.004.1857-.0089.1513-.0097.3585-.0286.6035-.0654.4822-.0723 1.1515-.2198 1.8417-.5304.6923-.3116 1.4556-.8102 2.0466-1.6082.6046-.8161.958-1.8509.958-3.0979v-8.748c0-.863-.6995-1.5646-1.5625-1.5646-.8629 0-1.5625.6996-1.5625 1.5625v8.7501c0 .6279-.1674.9993-.3441 1.2379-.1902.2567-.4685.4612-.8179.6184-.3514.1581-.7238.245-1.0229.2898-.1456.0219-.2639.0323-.3404.0372-.0381.0025-.065.0035-.0789.0039z"
+          />
+        </svg>
+      </button>
+      <button id="btnDownloadPNG" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 50 51"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            transform="translate(0,4)"
+            d="m15.625 17.3945c.8629 0 1.5625.6996 1.5625 1.5625v6.25c0 .4144-.1646.8119-.4577 1.1049-.293.293-.6904.4576-1.1048.4576h-4.6875v4.6875c0 .863-.6996 1.5625-1.56252 1.5625-.86295 0-1.5625-.6995-1.5625-1.5625v-12.5c0-.4144.16462-.8118.45765-1.1048.29302-.293.69045-.4577 1.10485-.4577zm-4.6875 6.25h3.125v-3.125h-3.125z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m21.875 33.0195c-.863 0-1.5625-.6995-1.5625-1.5625v-12.5c0-.7246.4982-1.3542 1.2035-1.5207s1.4324.1738 1.7565.822l3.29 6.5799v-5.8812c0-.8629.6995-1.5625 1.5625-1.5625.8629 0 1.5625.6996 1.5625 1.5625v12.5c0 .7247-.4983 1.3542-1.2035 1.5207-.7053.1665-1.4325-.1737-1.7566-.8219l-3.2899-6.5799v5.8811c0 .863-.6996 1.5625-1.5625 1.5625z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m33.2701 32.5619c-.293-.293-.4576-.6905-.4576-1.1049v-12.5c0-.8629.6995-1.5625 1.5625-1.5625h6.25c.8629 0 1.5625.6996 1.5625 1.5625 0 .863-.6996 1.5625-1.5625 1.5625h-4.6875v9.375h3.125v-3.4375c0-.8629.6995-1.5625 1.5625-1.5625.8629 0 1.5625.6996 1.5625 1.5625v5c0 .863-.6996 1.5625-1.5625 1.5625h-6.25c-.4144 0-.8118-.1646-1.1049-.4576z"
+          />
+        </svg>
+      </button>
+      <button id="btnDownloadWEBP" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 50 51"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            transform="translate(0,4)"
+            d="m33.125 17.3945c1.5533 0 2.8125 1.2592 2.8125 2.8125v1.875c0 2.5889-2.0987 4.6875-4.6875 4.6875v-3.125c.8629 0 1.5625-.6995 1.5625-1.5625v-1.5625h-3.125v10.9375c0 .863-.6996 1.5625-1.5625 1.5625s-1.5625-.6995-1.5625-1.5625v-12.5c0-.4144.1646-.8118.4576-1.1048.2931-.293.6905-.4577 1.1049-.4577z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m33.125 33.0195c1.5533 0 2.8125-1.2592 2.8125-2.8125v-1.875c0-2.5888-2.0987-4.6875-4.6875-4.6875h-3.125c-.8629 0-1.5625.6996-1.5625 1.5625 0 .863.6996 1.5625 1.5625 1.5625h3.125c.8629 0 1.5625.6996 1.5625 1.5625v1.5625h-4.6875c-.8629 0-1.5625.6996-1.5625 1.5625 0 .863.6996 1.5625 1.5625 1.5625z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m46.875 17.3945c.8629 0 1.5625.6996 1.5625 1.5625v6.25c0 .4144-.1646.8119-.4576 1.1049-.2931.293-.6905.4576-1.1049.4576h-4.6875v4.6875c0 .863-.6996 1.5625-1.5625 1.5625s-1.5625-.6995-1.5625-1.5625v-12.5c0-.4144.1646-.8118.4576-1.1048.2931-.293.6905-.4577 1.1049-.4577zm-4.6875 6.25h3.125v-3.125h-3.125z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m3.125 17.3945c.86294 0 1.5625.6996 1.5625 1.5625v5.8812l.16496-.3299c.26467-.5294.80571-.8638 1.39754-.8638s1.13287.3344 1.39754.8638l.16496.3299v-5.8812c0-.8629.69955-1.5625 1.5625-1.5625.8629 0 1.5625.6996 1.5625 1.5625v12.5c0 .7247-.4982 1.3542-1.20351 1.5207-.70527.1665-1.43246-.1737-1.75653-.8219l-1.72746-3.4549-1.72746 3.4549c-.32407.6482-1.05126.9884-1.75653.8219s-1.20351-.796-1.20351-1.5207v-12.5c0-.8629.69956-1.5625 1.5625-1.5625z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m14.5201 32.5619c-.293-.293-.4576-.6905-.4576-1.1049v-12.5c0-.8629.6996-1.5625 1.5625-1.5625h6.25c.8629 0 1.5625.6996 1.5625 1.5625 0 .863-.6996 1.5625-1.5625 1.5625h-4.6875v9.375h4.6875c.8629 0 1.5625.6996 1.5625 1.5625 0 .863-.6996 1.5625-1.5625 1.5625h-6.25c-.4144 0-.8118-.1646-1.1049-.4576z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m14.0625 25.207c0-.8629.6996-1.5625 1.5625-1.5625h4.1667c.8629 0 1.5625.6996 1.5625 1.5625 0 .863-.6996 1.5625-1.5625 1.5625h-4.1667c-.8629 0-1.5625-.6995-1.5625-1.5625z"
+          />
+        </svg>
+      </button>
+      <hr>
+      <div class="title disabled">Base64</div>
+      <button id="btnDownloadJPGBase64" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 50 51"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            transform="translate(0,4)"
+            d="m27.0833 17.3945c.863 0 1.5625.6996 1.5625 1.5625v6.25c0 .4144-.1646.8119-.4576 1.1049s-.6905.4576-1.1049.4576h-4.6875v4.6875c0 .863-.6995 1.5625-1.5625 1.5625-.8629 0-1.5625-.6995-1.5625-1.5625v-12.5c0-.4144.1647-.8118.4577-1.1048s.6904-.4577 1.1048-.4577zm-4.6875 6.25h3.125v-3.125h-3.125z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m32.2285 32.5619c-.293-.293-.4577-.6905-.4577-1.1049v-12.5c0-.8629.6996-1.5625 1.5625-1.5625h6.25c.863 0 1.5625.6996 1.5625 1.5625 0 .863-.6995 1.5625-1.5625 1.5625h-4.6875v9.375h3.125v-3.4375c0-.8629.6996-1.5625 1.5625-1.5625.863 0 1.5625.6996 1.5625 1.5625v5c0 .863-.6995 1.5625-1.5625 1.5625h-6.25c-.4144 0-.8118-.1646-1.1048-.4576z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m10.4067 29.8946c-.85836.0053-1.55254.7028-1.55253 1.5624.00001.863.69957 1.5625 1.56253 1.5625v-1.5625 1.5625h.0029.0034.0079l.0204-.0002.059-.0014c.0471-.0014.1097-.004.1857-.0089.1513-.0097.3585-.0286.6035-.0654.4822-.0723 1.1515-.2198 1.8417-.5304.6923-.3116 1.4556-.8102 2.0466-1.6082.6046-.8161.958-1.8509.958-3.0979v-8.748c0-.863-.6995-1.5646-1.5625-1.5646-.8629 0-1.5625.6996-1.5625 1.5625v8.7501c0 .6279-.1674.9993-.3441 1.2379-.1902.2567-.4685.4612-.8179.6184-.3514.1581-.7238.245-1.0229.2898-.1456.0219-.2639.0323-.3404.0372-.0381.0025-.065.0035-.0789.0039z"
+          />
+        </svg>
+      </button>
+      <button id="btnDownloadPNGBase64" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 50 51"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            transform="translate(0,4)"
+            d="m15.625 17.3945c.8629 0 1.5625.6996 1.5625 1.5625v6.25c0 .4144-.1646.8119-.4577 1.1049-.293.293-.6904.4576-1.1048.4576h-4.6875v4.6875c0 .863-.6996 1.5625-1.56252 1.5625-.86295 0-1.5625-.6995-1.5625-1.5625v-12.5c0-.4144.16462-.8118.45765-1.1048.29302-.293.69045-.4577 1.10485-.4577zm-4.6875 6.25h3.125v-3.125h-3.125z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m21.875 33.0195c-.863 0-1.5625-.6995-1.5625-1.5625v-12.5c0-.7246.4982-1.3542 1.2035-1.5207s1.4324.1738 1.7565.822l3.29 6.5799v-5.8812c0-.8629.6995-1.5625 1.5625-1.5625.8629 0 1.5625.6996 1.5625 1.5625v12.5c0 .7247-.4983 1.3542-1.2035 1.5207-.7053.1665-1.4325-.1737-1.7566-.8219l-3.2899-6.5799v5.8811c0 .863-.6996 1.5625-1.5625 1.5625z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m33.2701 32.5619c-.293-.293-.4576-.6905-.4576-1.1049v-12.5c0-.8629.6995-1.5625 1.5625-1.5625h6.25c.8629 0 1.5625.6996 1.5625 1.5625 0 .863-.6996 1.5625-1.5625 1.5625h-4.6875v9.375h3.125v-3.4375c0-.8629.6995-1.5625 1.5625-1.5625.8629 0 1.5625.6996 1.5625 1.5625v5c0 .863-.6996 1.5625-1.5625 1.5625h-6.25c-.4144 0-.8118-.1646-1.1049-.4576z"
+          />
+        </svg>
+      </button>
+      <button id="btnDownloadWEBPBase64" class="disabled">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 50 51"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            transform="translate(0,4)"
+            d="m33.125 17.3945c1.5533 0 2.8125 1.2592 2.8125 2.8125v1.875c0 2.5889-2.0987 4.6875-4.6875 4.6875v-3.125c.8629 0 1.5625-.6995 1.5625-1.5625v-1.5625h-3.125v10.9375c0 .863-.6996 1.5625-1.5625 1.5625s-1.5625-.6995-1.5625-1.5625v-12.5c0-.4144.1646-.8118.4576-1.1048.2931-.293.6905-.4577 1.1049-.4577z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m33.125 33.0195c1.5533 0 2.8125-1.2592 2.8125-2.8125v-1.875c0-2.5888-2.0987-4.6875-4.6875-4.6875h-3.125c-.8629 0-1.5625.6996-1.5625 1.5625 0 .863.6996 1.5625 1.5625 1.5625h3.125c.8629 0 1.5625.6996 1.5625 1.5625v1.5625h-4.6875c-.8629 0-1.5625.6996-1.5625 1.5625 0 .863.6996 1.5625 1.5625 1.5625z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m46.875 17.3945c.8629 0 1.5625.6996 1.5625 1.5625v6.25c0 .4144-.1646.8119-.4576 1.1049-.2931.293-.6905.4576-1.1049.4576h-4.6875v4.6875c0 .863-.6996 1.5625-1.5625 1.5625s-1.5625-.6995-1.5625-1.5625v-12.5c0-.4144.1646-.8118.4576-1.1048.2931-.293.6905-.4577 1.1049-.4577zm-4.6875 6.25h3.125v-3.125h-3.125z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m3.125 17.3945c.86294 0 1.5625.6996 1.5625 1.5625v5.8812l.16496-.3299c.26467-.5294.80571-.8638 1.39754-.8638s1.13287.3344 1.39754.8638l.16496.3299v-5.8812c0-.8629.69955-1.5625 1.5625-1.5625.8629 0 1.5625.6996 1.5625 1.5625v12.5c0 .7247-.4982 1.3542-1.20351 1.5207-.70527.1665-1.43246-.1737-1.75653-.8219l-1.72746-3.4549-1.72746 3.4549c-.32407.6482-1.05126.9884-1.75653.8219s-1.20351-.796-1.20351-1.5207v-12.5c0-.8629.69956-1.5625 1.5625-1.5625z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m14.5201 32.5619c-.293-.293-.4576-.6905-.4576-1.1049v-12.5c0-.8629.6996-1.5625 1.5625-1.5625h6.25c.8629 0 1.5625.6996 1.5625 1.5625 0 .863-.6996 1.5625-1.5625 1.5625h-4.6875v9.375h4.6875c.8629 0 1.5625.6996 1.5625 1.5625 0 .863-.6996 1.5625-1.5625 1.5625h-6.25c-.4144 0-.8118-.1646-1.1049-.4576z"
+          />
+          <path
+            transform="translate(0,4)"
+            d="m14.0625 25.207c0-.8629.6996-1.5625 1.5625-1.5625h4.1667c.8629 0 1.5625.6996 1.5625 1.5625 0 .863-.6996 1.5625-1.5625 1.5625h-4.1667c-.8629 0-1.5625-.6995-1.5625-1.5625z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="workspace">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      var APP_STRINGS = {
+        en: {
+          width: "Width",
+          height: "Height",
+          binary: "Binary",
+          keepRatio: "Keep ratio",
+        },
+        es: {
+          width: "Ancho",
+          height: "Alto",
+          binary: "Binario",
+          keepRatio: "Proporci\u00F3n fija",
+        },
+      }
+
+      var USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      var GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
+
+      function t(stringName) {
+        return GET_APP_STRING[stringName] || ""
+      }
+
+      var btnOpen
+      var btnDownloadJPG
+      var btnDownloadPNG
+      var btnDownloadWEBP
+      var btnDownloadJPGBase64
+      var btnDownloadPNGBase64
+      var btnDownloadWEBPBase64
+      var btnRotateLeft
+      var btnRotateRight
+      var btnCrop
+      var btnResize
+      var btnFlipH
+      var btnFlipV
+      var btnMergeH
+      var btnMergeV
+      var inputWidth
+      var inputHeight
+      var labelKeepRatio
+      var checkKeepRatio
+      var labelBinary
+      var fileSelector
+      var mergeFileSelector
+
+      var canvas
+      var ctx
+
+      var img = new Image()
+      var mergeImg = new Image()
+      var startX
+      var startY
+      var endX
+      var endY
+      var updating
+      var displayScaleX = 1
+      var displayScaleY = 1
+      var isCropping = false
+      var ratio = 1
+      var currentSelection = null
+      var originalFileName = null
+      var mustMergeHorizontal = false
+
+      function drawPreviewRect(x, y) {
+        var w = Math.abs(x - startX)
+        var h = Math.abs(y - startY)
+        var rectX = Math.min(x, startX)
+        var rectY = Math.min(y, startY)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(img, 0, 0)
+        ctx.strokeStyle = "#3A76B1"
+        ctx.lineWidth = 2
+        ctx.strokeRect(rectX, rectY, w, h)
+        ctx.fillStyle = "rgba(58,118,177, 0.2)"
+        ctx.fillRect(rectX, rectY, w, h)
+      }
+
+      function clearSelection() {
+        if (currentSelection) {
+          currentSelection = null
+          ctx.clearRect(0, 0, canvas.width, canvas.height)
+          ctx.drawImage(img, 0, 0)
+        }
+      }
+
+      function rotate(deg) {
+        var tmp = document.createElement("canvas")
+        var tctx = tmp.getContext("2d")
+
+        // SWAP WIDTH/HEIGHT FOR 90° OR 270° ROTATIONS
+        if (Math.abs(deg) === 90 || Math.abs(deg) === 270) {
+          tmp.width = canvas.height
+          tmp.height = canvas.width
+        } else {
+          tmp.width = canvas.width
+          tmp.height = canvas.height
+        }
+
+        // MOVE ORIGIN TO CENTER AND ROTATE
+        tctx.translate(tmp.width / 2, tmp.height / 2)
+        tctx.rotate((deg * Math.PI) / 180)
+
+        // DRAW THE IMAGE OFFSET TO CENTER
+        tctx.drawImage(canvas, -canvas.width / 2, -canvas.height / 2)
+
+        // REPLACE THE MAIN CANVAS CONTENT
+        canvas.width = tmp.width
+        canvas.height = tmp.height
+        ctx.drawImage(tmp, 0, 0)
+
+        // UPDATE IMAGE SOURCE
+        img.src = canvas.toDataURL()
+
+        // UPDATE RATIO AND INPUT VALUES
+        ratio = canvas.width / canvas.height
+        inputWidth.value = canvas.width
+        inputHeight.value = canvas.height
+      }
+
+      function flip(horizontal, vertical) {
+        var tmp = document.createElement("canvas")
+        tmp.width = canvas.width
+        tmp.height = canvas.height
+        var tctx = tmp.getContext("2d")
+        tctx.translate(horizontal ? tmp.width : 0, vertical ? tmp.height : 0)
+        tctx.scale(horizontal ? -1 : 1, vertical ? -1 : 1)
+        tctx.drawImage(canvas, 0, 0)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(tmp, 0, 0)
+        img.src = canvas.toDataURL()
+      }
+
+      function mergeImages(horizontal) {
+        if (!img.src || !mergeImg.src) {
+          return
+        }
+
+        var newCanvas = document.createElement("canvas")
+        var newCtx = newCanvas.getContext("2d")
+
+        var mergeW = mergeImg.width
+        var mergeH = mergeImg.height
+        var scale
+
+        if (horizontal) {
+          // SCALE MERGEIMG TO MATCH IMG HEIGHT
+          scale = img.height / mergeImg.height
+          mergeW = mergeImg.width * scale
+          mergeH = img.height
+
+          newCanvas.width = img.width + mergeW
+          newCanvas.height = img.height
+
+          newCtx.drawImage(img, 0, 0)
+          newCtx.drawImage(mergeImg, img.width, 0, mergeW, mergeH)
+        } else {
+          // SCALE MERGEIMG TO MATCH IMG WIDTH
+          scale = img.width / mergeImg.width
+          mergeW = img.width
+          mergeH = mergeImg.height * scale
+
+          newCanvas.width = img.width
+          newCanvas.height = img.height + mergeH
+
+          newCtx.drawImage(img, 0, 0)
+          newCtx.drawImage(mergeImg, 0, img.height, mergeW, mergeH)
+        }
+
+        canvas.width = newCanvas.width
+        canvas.height = newCanvas.height
+        ctx.drawImage(newCanvas, 0, 0)
+        img.src = canvas.toDataURL()
+        ratio = canvas.width / canvas.height
+        inputWidth.value = canvas.width
+        inputHeight.value = canvas.height
+
+        mergeFileSelector.value = null
+      }
+
+      function downloadImage(format, convertToBase64) {
+        if (!originalFileName) {
+          return
+        }
+
+        clearSelection()
+        var link = document.createElement("a")
+        var canvasToUse = canvas
+
+        if (format === "jpeg") {
+          var tmp = document.createElement("canvas")
+          tmp.width = canvas.width
+          tmp.height = canvas.height
+          var tctx = tmp.getContext("2d")
+          tctx.fillStyle = "#fff"
+          tctx.fillRect(0, 0, tmp.width, tmp.height)
+          tctx.drawImage(canvas, 0, 0)
+          canvasToUse = tmp
+        }
+
+        if (convertToBase64) {
+          var base64String = canvasToUse.toDataURL("image/" + format)
+          var blob = new Blob([base64String], { type: "text/plain" })
+          link.download =
+            originalFileName +
+            "-base64-" +
+            (format === "jpeg" ? "jpg" : format) +
+            ".txt"
+          link.href = URL.createObjectURL(blob)
+        } else {
+          link.href = canvasToUse.toDataURL("image/" + format)
+          if (format === "jpeg") {
+            format = "jpg"
+          }
+          link.download = originalFileName + "." + format
+        }
+
+        link.click()
+        URL.revokeObjectURL(link.href)
+        link.remove()
+      }
+
+      window.addEventListener("load", function () {
+        // CHECKING IF THE APP IS LOADED PROPERLY
+        var secSameDomain = false
+        var secNotIframe = window.top === window.self
+        var secLocalFile = window.self.location.protocol === "file:"
+        try {
+          secSameDomain =
+            window.top !== window.self &&
+            window.top.location.hostname === window.self.location.hostname
+        } catch (err) {
+          //
+        }
+        if (
+          secNotIframe || // NOT RUNNING IN AN IFRAME AT ALL
+          secSameDomain || // RUNNING IN AN IFRAME IN THE SAME DOMAIN
+          secLocalFile // RUNNING IN A LOCAL FILE
+        ) {
+          // HIDING THE SPINNER
+          document.querySelector(".pleasewait").style.display = "none"
+          document.getElementsByTagName("body")[0].style.backgroundColor = "#808080"
+
+          // SHOWING THE IMAGE EDITOR
+          document.querySelector(".toolbar").style.display = "inline-block"
+
+          // LOCATING THE ELEMENTS
+          btnOpen = document.getElementById("btnOpen")
+          btnDownloadJPG = document.getElementById("btnDownloadJPG")
+          btnDownloadPNG = document.getElementById("btnDownloadPNG")
+          btnDownloadWEBP = document.getElementById("btnDownloadWEBP")
+          btnDownloadJPGBase64 = document.getElementById("btnDownloadJPGBase64")
+          btnDownloadPNGBase64 = document.getElementById("btnDownloadPNGBase64")
+          btnDownloadWEBPBase64 = document.getElementById("btnDownloadWEBPBase64")
+          btnRotateLeft = document.getElementById("btnRotateLeft")
+          btnRotateRight = document.getElementById("btnRotateRight")
+          btnCrop = document.getElementById("btnCrop")
+          btnResize = document.getElementById("btnResize")
+          btnFlipH = document.getElementById("btnFlipH")
+          btnFlipV = document.getElementById("btnFlipV")
+          btnMergeH = document.getElementById("btnMergeH")
+          btnMergeV = document.getElementById("btnMergeV")
+          inputWidth = document.getElementById("inputWidth")
+          inputHeight = document.getElementById("inputHeight")
+          labelKeepRatio = document.getElementById("labelKeepRatio")
+          checkKeepRatio = document.getElementById("checkKeepRatio")
+          labelBinary = document.querySelectorAll(".title")[0]
+          fileSelector = document.getElementById("fileSelector")
+          mergeFileSelector = document.getElementById("mergeFileSelector")
+          canvas = document.getElementById("canvas")
+          ctx = canvas.getContext("2d")
+
+          // ADDING TEXTS TO ELEMENTS
+          inputWidth.placeholder = t("width")
+          inputHeight.placeholder = t("height")
+          labelKeepRatio.innerText = t("keepRatio")
+          labelBinary.innerText = t("binary")
+
+          fileSelector.addEventListener("change", function (e) {
+            var file = e.target.files[0]
+            if (!file) {
+              return
+            }
+
+            var nameWithoutExt = file.name.replace(/\.[^/.]+$/, "")
+            originalFileName = nameWithoutExt
+
+            var reader = new FileReader()
+            reader.onload = function (evt) {
+              var fileType = file.type.toLowerCase()
+
+              if (fileType.includes("svg")) {
+                var svgText = evt.target.result
+
+                var blob = new Blob([svgText], { type: "image/svg+xml" })
+                var url = URL.createObjectURL(blob)
+
+                var svgImg = new Image()
+                svgImg.onload = function () {
+                  var w = 16
+                  var h = 16
+                  canvas.style.display = "block"
+                  canvas.width = w
+                  canvas.height = h
+                  ctx.clearRect(0, 0, w, h)
+                  ctx.drawImage(svgImg, 0, 0, w, h)
+                  inputWidth.value = w
+                  inputHeight.value = h
+                  ratio = w / h
+                  displayScaleX = canvas.clientWidth / w
+                  displayScaleY = canvas.clientHeight / h
+                  img.src = canvas.toDataURL()
+                  URL.revokeObjectURL(url)
+                }
+                svgImg.src = url
+              } else {
+                img = new Image()
+                img.onload = function () {
+                  canvas.style.display = "block"
+                  canvas.width = img.width
+                  canvas.height = img.height
+                  ctx.drawImage(img, 0, 0)
+                  inputWidth.value = img.width
+                  inputHeight.value = img.height
+                  ratio = img.width / img.height
+                  displayScaleX = canvas.clientWidth / img.width
+                  displayScaleY = canvas.clientHeight / img.height
+                }
+                img.src = evt.target.result
+              }
+              fileSelector.value = null
+
+              inputHeight.disabled = false
+              inputWidth.disabled = false
+              checkKeepRatio.disabled = false
+
+              // ENABLING ALL THE ELEMENTS
+              var elements = document.getElementsByClassName("disabled")
+              var i
+              var el
+              var elems = []
+              for (i = 0; i < elements.length; i++) {
+                elems.push(elements[i])
+              }
+              for (i = 0; i < elems.length; i++) {
+                el = elems[i]
+                var classes = el.className.split(/\s+/)
+                var newClasses = []
+                for (var j = 0; j < classes.length; j++) {
+                  if (classes[j] !== "disabled") {
+                    newClasses.push(classes[j])
+                  }
+                }
+                el.className = newClasses.join(" ")
+              }
+            }
+
+            if (file.type.toLowerCase().includes("svg")) {
+              reader.readAsText(file)
+            } else {
+              reader.readAsDataURL(file)
+            }
+          })
+
+          btnDownloadJPG.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            downloadImage("jpeg", false)
+          })
+
+          btnDownloadPNG.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            downloadImage("png", false)
+          })
+
+          btnDownloadWEBP.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            downloadImage("webp", false)
+          })
+
+          btnDownloadJPGBase64.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            downloadImage("jpeg", true)
+          })
+
+          btnDownloadPNGBase64.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            downloadImage("png", true)
+          })
+
+          btnDownloadWEBPBase64.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            downloadImage("webp", true)
+          })
+
+          btnRotateLeft.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            clearSelection()
+            rotate(-90)
+          })
+
+          btnRotateRight.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            clearSelection()
+            rotate(90)
+          })
+
+          btnCrop.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            if (!currentSelection) {
+              return
+            }
+
+            // CREATE A NEW CANVAS FOR THE CROPPED AREA
+            var croppedCanvas = document.createElement("canvas")
+            croppedCanvas.width = currentSelection.width
+            croppedCanvas.height = currentSelection.height
+            var croppedCtx = croppedCanvas.getContext("2d")
+
+            // DRAW FROM THE ORIGINAL IMAGE (NOT FROM CURRENT CANVAS)
+            croppedCtx.drawImage(
+              img,
+              currentSelection.x,
+              currentSelection.y,
+              currentSelection.width,
+              currentSelection.height,
+              0,
+              0,
+              currentSelection.width,
+              currentSelection.height
+            )
+
+            // REPLACE THE MAIN CANVAS CONTENT
+            canvas.width = currentSelection.width
+            canvas.height = currentSelection.height
+            ctx.drawImage(croppedCanvas, 0, 0)
+
+            // UPDATE THE IMAGE SOURCE TO THE NEW CROPPED IMAGE
+            img.src = canvas.toDataURL()
+
+            // CLEAR THE SELECTION AND ENSURE NO RED RECTANGLE REMAINS
+            currentSelection = null
+          })
+
+          btnResize.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            clearSelection()
+            var newW = parseInt(inputWidth.value)
+            var newH = parseInt(inputHeight.value)
+            if (checkKeepRatio.checked) {
+              if (newW && !newH) {
+                newH = Math.round(newW / ratio)
+              }
+              if (newH && !newW) {
+                newW = Math.round(newH * ratio)
+              }
+            }
+
+            if (!newW || !newH) {
+              return
+            }
+
+            var tmp = document.createElement("canvas")
+            tmp.width = newW
+            tmp.height = newH
+            var tctx = tmp.getContext("2d")
+            tctx.drawImage(canvas, 0, 0, newW, newH)
+            canvas.width = newW
+            canvas.height = newH
+            ctx.drawImage(tmp, 0, 0)
+            img.src = canvas.toDataURL()
+            ratio = newW / newH
+          })
+
+          btnFlipH.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            clearSelection()
+            flip(true, false)
+          })
+
+          btnFlipV.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            clearSelection()
+            flip(false, true)
+          })
+
+          btnMergeH.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            clearSelection()
+            mustMergeHorizontal = true
+            mergeFileSelector.click()
+          })
+
+          btnMergeV.addEventListener("click", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            clearSelection()
+            mustMergeHorizontal = false
+            mergeFileSelector.click()
+          })
+
+          inputWidth.addEventListener("input", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            if (updating || !checkKeepRatio.checked) {
+              return
+            }
+
+            updating = true
+            var newW = parseInt(inputWidth.value)
+            if (newW > 0) {
+              inputHeight.value = Math.round(newW / ratio)
+            }
+            updating = false
+          })
+
+          inputHeight.addEventListener("input", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            if (updating || !checkKeepRatio.checked) {
+              return
+            }
+
+            updating = true
+            var newH = parseInt(inputHeight.value)
+            if (newH > 0) {
+              inputWidth.value = Math.round(newH * ratio)
+            }
+            updating = false
+          })
+
+          mergeFileSelector.addEventListener("change", function (e) {
+            if (!originalFileName) {
+              return
+            }
+
+            var file = e.target.files[0]
+            if (!file) {
+              return
+            }
+
+            var reader = new FileReader()
+            reader.onload = function (evt) {
+              var fileType = file.type.toLowerCase()
+
+              if (fileType.includes("svg")) {
+                var svgText = evt.target.result
+
+                var blob = new Blob([svgText], { type: "image/svg+xml" })
+                var url = URL.createObjectURL(blob)
+
+                var svgImg = new Image()
+                svgImg.onload = function () {
+                  var tmpCanvas = document.createElement("canvas")
+                  var w = 2000
+                  var h = 2000
+                  tmpCanvas.width = w
+                  tmpCanvas.height = h
+                  var tctx = tmpCanvas.getContext("2d")
+                  tctx.drawImage(svgImg, 0, 0, w, h)
+
+                  mergeImg = new Image()
+                  mergeImg.src = tmpCanvas.toDataURL()
+                  mergeImg.onload = function () {
+                    mergeImages(mustMergeHorizontal)
+                  }
+                  URL.revokeObjectURL(url)
+                }
+                svgImg.src = url
+              } else {
+                mergeImg = new Image()
+                mergeImg.src = evt.target.result
+                mergeImg.onload = function () {
+                  mergeImages(mustMergeHorizontal)
+                }
+              }
+            }
+
+            if (file.type.toLowerCase().includes("svg")) {
+              reader.readAsText(file)
+            } else {
+              reader.readAsDataURL(file)
+            }
+          })
+
+          canvas.addEventListener("mousedown", function (e) {
+            if (!originalFileName) {
+              return
+            }
+
+            if (!img.src) {
+              return
+            }
+
+            if (e.button !== 0) {
+              return
+            }
+
+            isCropping = true
+            var rect = canvas.getBoundingClientRect()
+            startX = (e.clientX - rect.left) / displayScaleX
+            startY = (e.clientY - rect.top) / displayScaleY
+          })
+
+          canvas.addEventListener("mousemove", function (e) {
+            if (!originalFileName) {
+              return
+            }
+
+            if (!isCropping) {
+              return
+            }
+
+            var rect = canvas.getBoundingClientRect()
+            var x = (e.clientX - rect.left) / displayScaleX
+            var y = (e.clientY - rect.top) / displayScaleY
+            drawPreviewRect(x, y)
+          })
+
+          canvas.addEventListener("mouseup", function (e) {
+            if (!originalFileName) {
+              return
+            }
+
+            if (!isCropping) {
+              return
+            }
+
+            var rect = canvas.getBoundingClientRect()
+            endX = (e.clientX - rect.left) / displayScaleX
+            endY = (e.clientY - rect.top) / displayScaleY
+            isCropping = false
+            currentSelection = {
+              x: Math.min(startX, endX),
+              y: Math.min(startY, endY),
+              width: Math.abs(endX - startX),
+              height: Math.abs(endY - startY),
+            }
+            drawPreviewRect(endX, endY)
+          })
+
+          btnOpen.addEventListener("click", function () {
+            fileSelector.click()
+          })
+        }
+      })
+    </script>
+  </body>
+</html>
