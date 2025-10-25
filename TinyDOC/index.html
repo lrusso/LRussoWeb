@@ -43,6 +43,10 @@
     <script>
       var APP_STRINGS = {
         en: {
+          dirty_title: "Message",
+          dirty_message: "Lose any unsaved changes?",
+          dirty_yes: "Yes",
+          dirty_no: "No",
           welcome:
             "Welcome to <b>TinyDOC Editor</b> by Leonardo Russo / <a href='https://www.lrusso.com'>https://www.lrusso.com</a><br><br>This is a WYSIWYG (<span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>What You See Is What You Get</span>) editor developed in <b>HTML5</b> with simplified functions like:<br><ul><li>Save &amp; Print.</li><li>Undo &amp; Redo.</li><li>Templates feature.</li><li>Simplified formatting tools.</li></ul>The idea of this project is to provide a lightweight text editor with simple and easy-to-use features.<ol><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li><li>Sed in pellentesque eros, id luctus purus.</li><li>Curabitur gravida posuere lorem, eget finibus odio vehicula at.</li><li>Phasellus nisi diam, laoreet non enim at, lacinia egestas justo.</li></ol>Pellentesque bibendum metus vel interdum dignissim. Sed tempor augue eu felis elementum tincidunt. Cras ac ante id elit viverra hendrerit in vitae quam. Ut varius, ligula in volutpat tempus, enim nunc volutpat dolor, nec ultrices arcu lorem quis metus. Nulla pharetra dignissim vestibulum. Aliquam auctor tortor sodales, vehicula purus vel, tristique nibh. Aenean in mi purus. Phasellus consectetur leo enim, id rutrum leo egestas nec. <span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>Praesent fermentum, eros quis vehicula semper, nisi quam aliquam elit</span>, in consequat nulla ante quis tellus. Mauris ultrices dui et turpis semper, ac viverra lacus interdum. In aliquam est eu leo placerat vulputate. Praesent imperdiet sit amet libero eget ullamcorper.",
           wordCount: "{WORD_COUNT} words and {CHARACTER_COUNT} characters",
@@ -51,6 +55,10 @@
           ],
         },
         es: {
+          dirty_title: "Mensaje",
+          dirty_message: "\u00BFPerder cualquier cambio\nque no haya sido guardado?",
+          dirty_yes: "S\u00ED",
+          dirty_no: "No",
           welcome:
             "Bienvenido a <b>TinyDOC Editor</b> por Leonardo Russo / <a href='https://www.lrusso.com'>https://www.lrusso.com</a><br><br>Este es un editor WYSIWYG (<span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>What You See Is What You Get</span>) desarrollado en <b>HTML5</b> con funciones simplificadas, tales como:<br><ul><li>Guardar e Imprimir.</li><li>Deshacer y Rehacer.</li><li>Función para plantillas.</li><li>Herramientas de formato simplificadas.</li></ul>La idea de este proyecto es la de brindar un editor de textos liviano con funciones sencillas e intuitivas.<ol><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li><li>Sed in pellentesque eros, id luctus purus.</li><li>Curabitur gravida posuere lorem, eget finibus odio vehicula at.</li><li>Phasellus nisi diam, laoreet non enim at, lacinia egestas justo.</li></ol>Pellentesque bibendum metus vel interdum dignissim. Sed tempor augue eu felis elementum tincidunt. Cras ac ante id elit viverra hendrerit in vitae quam. Ut varius, ligula in volutpat tempus, enim nunc volutpat dolor, nec ultrices arcu lorem quis metus. Nulla pharetra dignissim vestibulum. Aliquam auctor tortor sodales, vehicula purus vel, tristique nibh. Aenean in mi purus. Phasellus consectetur leo enim, id rutrum leo egestas nec. <span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>Praesent fermentum, eros quis vehicula semper, nisi quam aliquam elit</span>, in consequat nulla ante quis tellus. Mauris ultrices dui et turpis semper, ac viverra lacus interdum. In aliquam est eu leo placerat vulputate. Praesent imperdiet sit amet libero eget ullamcorper.",
           wordCount: "{WORD_COUNT} palabras y {CHARACTER_COUNT} caracteres",
@@ -2112,7 +2120,141 @@
       // ENDS TINYDOC.JS
       // -----------------------------------------------------
 
+      function confirmCustom(title, message, yes, no, callbackYes, callbackNo) {
+        try {
+          function blockKeyboard(e) {
+            e.stopPropagation()
+            e.preventDefault()
+          }
+
+          // BLOCKING THE KEYBOARD
+          document.addEventListener("keydown", blockKeyboard, true)
+
+          // CREATING THE CONFIRM CONTAINER
+          var confirmContainer = document.createElement("div")
+          confirmContainer.style.position = "fixed"
+          confirmContainer.style.top = 0
+          confirmContainer.style.bottom = 0
+          confirmContainer.style.left = 0
+          confirmContainer.style.right = 0
+          confirmContainer.style.zIndex = 9999
+          confirmContainer.style.backgroundColor = "rgba(0,0,0,0.5)"
+
+          // CREATING THE CONFIRM FORM
+          var confirmForm = document.createElement("div")
+          confirmForm.style.position = "relative"
+          confirmForm.style.top = "50%"
+          confirmForm.style.left = 0
+          confirmForm.style.right = 0
+          confirmForm.style.marginLeft = "auto"
+          confirmForm.style.marginRight = "auto"
+          confirmForm.style.transform = "translateY(-50%)"
+          confirmForm.style.borderRadius = "8px"
+          confirmForm.style.overflow = "hidden"
+          confirmForm.style.width = "300px"
+          confirmForm.style.backgroundColor = "#f2f2f2"
+          confirmForm.style.textAlign = "center"
+
+          // CREATING THE CONFIRM TITLE
+          var confirmTitle = document.createElement("div")
+          confirmTitle.style.textAlign = "left"
+          confirmTitle.style.paddingLeft = "10px"
+          confirmTitle.style.backgroundColor = "#3a76b1"
+          confirmTitle.style.fontFamily = "Arial"
+          confirmTitle.style.fontSize = "16px"
+          confirmTitle.style.fontWeight = "bold"
+          confirmTitle.style.color = "white"
+          confirmTitle.style.lineHeight = 2.5
+          confirmTitle.innerText = title
+
+          // CREATING THE CONFIRM MESSAGE
+          var confirmMessage = document.createElement("div")
+          confirmMessage.style.padding = "20px"
+          confirmMessage.style.fontFamily = "Arial"
+          confirmMessage.style.fontSize = "16px"
+          confirmMessage.style.color = "black"
+          confirmMessage.style.textAlign = "center"
+          confirmMessage.style.lineHeight = 2
+          confirmMessage.innerText = message
+
+          // CREATING THE CONFIRM YES BUTTON
+          var confirmButtonYes = document.createElement("div")
+          confirmButtonYes.style.padding = "10px"
+          confirmButtonYes.style.backgroundColor = "#d2d2d2"
+          confirmButtonYes.style.border = "1px solid #b2b2b2"
+          confirmButtonYes.style.fontFamily = "Arial"
+          confirmButtonYes.style.fontSize = "16px"
+          confirmButtonYes.style.color = "black"
+          confirmButtonYes.style.textAlign = "center"
+          confirmButtonYes.style.lineHeight = 1.5
+          confirmButtonYes.style.display = "inline-block"
+          confirmButtonYes.style.borderRadius = "8px"
+          confirmButtonYes.style.overflow = "hidden"
+          confirmButtonYes.style.marginBottom = "10px"
+          confirmButtonYes.style.paddingLeft = "40px"
+          confirmButtonYes.style.paddingRight = "40px"
+          confirmButtonYes.style.cursor = "pointer"
+          confirmButtonYes.addEventListener("click", function () {
+            // UNBLOCKING THE KEYBOARD
+            document.removeEventListener("keydown", blockKeyboard, true)
+
+            // REMOVING THE CONFIRM CONTAINER
+            document.body.removeChild(confirmContainer)
+
+            // EXECUTING THE CALLBACK FUNCTION
+            if (typeof callbackYes === "function") {
+              callbackYes()
+            }
+          })
+          confirmButtonYes.innerText = yes
+
+          // CREATING THE CONFIRM NO BUTTON
+          var confirmButtonNo = document.createElement("div")
+          confirmButtonNo.style.padding = "10px"
+          confirmButtonNo.style.backgroundColor = "#d2d2d2"
+          confirmButtonNo.style.border = "1px solid #b2b2b2"
+          confirmButtonNo.style.fontFamily = "Arial"
+          confirmButtonNo.style.fontSize = "16px"
+          confirmButtonNo.style.color = "black"
+          confirmButtonNo.style.textAlign = "center"
+          confirmButtonNo.style.lineHeight = 1.5
+          confirmButtonNo.style.display = "inline-block"
+          confirmButtonNo.style.borderRadius = "8px"
+          confirmButtonNo.style.overflow = "hidden"
+          confirmButtonNo.style.marginLeft = "20px"
+          confirmButtonNo.style.marginBottom = "10px"
+          confirmButtonNo.style.paddingLeft = "40px"
+          confirmButtonNo.style.paddingRight = "40px"
+          confirmButtonNo.style.cursor = "pointer"
+          confirmButtonNo.addEventListener("click", function () {
+            // UNBLOCKING THE KEYBOARD
+            document.removeEventListener("keydown", blockKeyboard, true)
+
+            // REMOVING THE CONFIRM CONTAINER
+            document.body.removeChild(confirmContainer)
+
+            if (typeof callbackNo === "function") {
+              callbackNo()
+            }
+          })
+          confirmButtonNo.innerText = no
+
+          // ADDING ALL THE ELEMENTS TO THE CONFIRM CONTAINER
+          confirmForm.appendChild(confirmTitle)
+          confirmForm.appendChild(confirmMessage)
+          confirmForm.appendChild(confirmButtonYes)
+          confirmForm.appendChild(confirmButtonNo)
+          confirmContainer.appendChild(confirmForm)
+
+          // ADDING THE CONFIRM CONTAINER TO THE DOCUMENT
+          document.body.appendChild(confirmContainer)
+        } catch (err) {
+          //
+        }
+      }
+
       var myTinyDOC
+      var myFilename = null
 
       window.addEventListener("load", function () {
         // CHECKING IF THE APP IS LOADED PROPERLY
@@ -2140,9 +2282,33 @@
             container: document.getElementById("myContainer"),
             content: t("welcome"),
             newCallback: function () {
-              myTinyDOC.setText("")
-              window.isDirty = false
-              window.onbeforeunload = null
+              if (window.isDirty) {
+                myTinyDOC.disable()
+                confirmCustom(
+                  t("dirty_title"),
+                  t("dirty_message"),
+                  t("dirty_yes"),
+                  t("dirty_no"),
+                  function () {
+                    myTinyDOC.enable()
+                    myFilename = null
+                    myTinyDOC.setText("")
+                    window.isDirty = false
+                    window.onbeforeunload = null
+                  },
+                  function () {
+                    myTinyDOC.enable()
+                    setTimeout(function () {
+                      myTinyDOC.focus()
+                    }, 25)
+                  }
+                )
+              } else {
+                myFilename = null
+                myTinyDOC.setText("")
+                window.isDirty = false
+                window.onbeforeunload = null
+              }
             },
             openCallback: function () {
               document.getElementById("myUploader").click()
@@ -2153,8 +2319,9 @@
                 }
 
                 var reader = new FileReader()
-                reader.onload = function (e) {
-                  var textContent = e.target.result
+                reader.onload = function (event) {
+                  var textContent = event.target.result
+                  myFilename = file.name
                   myTinyDOC.setText(textContent)
 
                   window.isDirty = false
@@ -2169,7 +2336,7 @@
               var url = URL.createObjectURL(blob)
               var link = document.createElement("a")
               link.href = url
-              link.download = "Document.lr"
+              link.download = myFilename ? myFilename : "Document.lr"
               link.click()
               URL.revokeObjectURL(url)
             },
