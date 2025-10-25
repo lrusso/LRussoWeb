@@ -912,7 +912,7 @@
         return null
       }
 
-      function confirmCustom(title, message, yes, no, yesCallback, noCallback) {
+      function confirmCustom(title, message, yes, no, callbackYes, callbackNo) {
         try {
           function blockKeyboard(e) {
             e.stopPropagation()
@@ -941,8 +941,8 @@
           confirmButtonYes.addEventListener("click", function () {
             document.removeEventListener("keydown", blockKeyboard, true)
             document.body.removeChild(confirmContainer)
-            if (yesCallback) {
-              yesCallback()
+            if (callbackYes) {
+              callbackYes()
             }
           })
 
@@ -952,8 +952,8 @@
           confirmButtonNo.addEventListener("click", function () {
             document.removeEventListener("keydown", blockKeyboard, true)
             document.body.removeChild(confirmContainer)
-            if (noCallback) {
-              noCallback()
+            if (callbackNo) {
+              callbackNo()
             }
           })
 
