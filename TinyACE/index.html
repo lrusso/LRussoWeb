@@ -522,7 +522,19 @@
               t("dirty_message"),
               t("dirty_yes"),
               t("dirty_no"),
-              menuOpenFileSelect
+              menuOpenFileSelect,
+              function () {
+                try {
+                  // UNLOCKING THE EDITOR AND SHOWING THE POINTER
+                  editor.setOptions({ readOnly: false, highlightGutterLine: true })
+                  editor.renderer.$cursorLayer.element.style.display = "block"
+
+                  // FOCUSING THE EDITOR
+                  editor.focus()
+                } catch (err) {
+                  //
+                }
+              }
             )
           } else {
             // EXECUTING THE OPEN FILE FUNCTION
@@ -826,7 +838,7 @@
       })
 
       window.addEventListener("focus", function () {
-        if (editor) {
+        if (editor && document.body.innerText.indexOf(t("dirty_message")) === -1) {
           editor.setReadOnly(false)
           editor.setOptions({
             readOnly: false,
