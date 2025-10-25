@@ -1114,7 +1114,7 @@ describe("TinyDOC/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "ac3530b"
+    const expectedHash = "1e94b0ad"
     let currentHash = ""
 
     try {

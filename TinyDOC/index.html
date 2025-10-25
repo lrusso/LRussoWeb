@@ -17,7 +17,7 @@
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
     >
     <style>
-      html,body{background-color:#000;height:100%;padding:0;margin:0;overflow:hidden;touch-action:none;user-select:none;-ms-user-select:none;-moz-user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}#content{position:fixed;height:100%;width:100%;margin:0;padding:0;z-index:99}.pleasewait{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto auto;border:0;z-index:9}.lds-spinner{color:#fff;display:inline-block;position:relative;width:64px;height:64px}.lds-spinner div{transform-origin:32px 32px;animation:lds-spinner 1.2s linear infinite}.lds-spinner div:after{content:" ";display:block;position:absolute;top:3px;left:29px;width:5px;height:14px;border-radius:20%;background:#fff}.lds-spinner div:nth-child(1){transform:rotate(0deg);animation-delay:-1.1s}.lds-spinner div:nth-child(2){transform:rotate(30deg);animation-delay:-1s}.lds-spinner div:nth-child(3){transform:rotate(60deg);animation-delay:-.9s}.lds-spinner div:nth-child(4){transform:rotate(90deg);animation-delay:-.8s}.lds-spinner div:nth-child(5){transform:rotate(120deg);animation-delay:-.7s}.lds-spinner div:nth-child(6){transform:rotate(150deg);animation-delay:-.6s}.lds-spinner div:nth-child(7){transform:rotate(180deg);animation-delay:-.5s}.lds-spinner div:nth-child(8){transform:rotate(210deg);animation-delay:-.4s}.lds-spinner div:nth-child(9){transform:rotate(240deg);animation-delay:-.3s}.lds-spinner div:nth-child(10){transform:rotate(270deg);animation-delay:-.2s}.lds-spinner div:nth-child(11){transform:rotate(300deg);animation-delay:-.1s}.lds-spinner div:nth-child(12){transform:rotate(330deg);animation-delay:0s}@keyframes lds-spinner{0%{opacity:1}to{opacity:0}}#myContainer{position:fixed;left:0;top:0;right:0;bottom:0}
+      html,body{background-color:#000;height:100%;padding:0;margin:0;overflow:hidden;touch-action:none;user-select:none;-ms-user-select:none;-moz-user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}#content{position:fixed;height:100%;width:100%;margin:0;padding:0;z-index:99}.pleasewait{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto auto;border:0;z-index:9}.lds-spinner{color:#fff;display:inline-block;position:relative;width:64px;height:64px}.lds-spinner div{transform-origin:32px 32px;animation:lds-spinner 1.2s linear infinite}.lds-spinner div:after{content:" ";display:block;position:absolute;top:3px;left:29px;width:5px;height:14px;border-radius:20%;background:#fff}.lds-spinner div:nth-child(1){transform:rotate(0deg);animation-delay:-1.1s}.lds-spinner div:nth-child(2){transform:rotate(30deg);animation-delay:-1s}.lds-spinner div:nth-child(3){transform:rotate(60deg);animation-delay:-.9s}.lds-spinner div:nth-child(4){transform:rotate(90deg);animation-delay:-.8s}.lds-spinner div:nth-child(5){transform:rotate(120deg);animation-delay:-.7s}.lds-spinner div:nth-child(6){transform:rotate(150deg);animation-delay:-.6s}.lds-spinner div:nth-child(7){transform:rotate(180deg);animation-delay:-.5s}.lds-spinner div:nth-child(8){transform:rotate(210deg);animation-delay:-.4s}.lds-spinner div:nth-child(9){transform:rotate(240deg);animation-delay:-.3s}.lds-spinner div:nth-child(10){transform:rotate(270deg);animation-delay:-.2s}.lds-spinner div:nth-child(11){transform:rotate(300deg);animation-delay:-.1s}.lds-spinner div:nth-child(12){transform:rotate(330deg);animation-delay:0s}@keyframes lds-spinner{0%{opacity:1}to{opacity:0}}#myContainer{position:fixed;left:0;top:0;right:0;bottom:0}input[type=file]{display:none}
     </style>
   </head>
   <body>
@@ -38,6 +38,7 @@
       </div>
     </div>
     <div id="myContainer"></div>
+    <input type="file" id="myUploader">
 
     <script>
       var APP_STRINGS = {
@@ -159,7 +160,7 @@
               return
             }
 
-            self.setText("")
+            self.editorConfig.newCallback()
             event.preventDefault()
           })
         }
@@ -185,8 +186,7 @@
               return
             }
 
-            // eslint-disable-next-line
-            alert("todo")
+            self.editorConfig.openCallback()
             event.preventDefault()
           })
         }
@@ -1712,7 +1712,8 @@
                 var _g = 0
                 var _g1 = node.childNodes.length
                 while (_g < _g1) {
-                  var lp = _g + 1
+                  // eslint-disable-next-line
+                  var lp = _g++
                   range = createRange(node.childNodes[lp], chars, range)
                   if (chars.count === 0) {
                     break
@@ -2139,15 +2140,38 @@
             container: document.getElementById("myContainer"),
             content: t("welcome"),
             newCallback: function () {
+              myTinyDOC.setText("")
               window.isDirty = false
               window.onbeforeunload = null
             },
             openCallback: function () {
-              //
+              document.getElementById("myUploader").click()
+              document.getElementById("myUploader").onchange = function () {
+                var file = document.getElementById("myUploader").files[0]
+                if (!file) {
+                  return
+                }
+
+                var reader = new FileReader()
+                reader.onload = function (e) {
+                  var textContent = e.target.result
+                  myTinyDOC.setText(textContent)
+
+                  window.isDirty = false
+                  window.onbeforeunload = null
+                }
+
+                reader.readAsText(file)
+              }
             },
-            saveCallback: function (e) {
-              // eslint-disable-next-line
-              console.log(e)
+            saveCallback: function (textContent) {
+              var blob = new Blob([textContent], { type: "text/plain" })
+              var url = URL.createObjectURL(blob)
+              var link = document.createElement("a")
+              link.href = url
+              link.download = "Document.lr"
+              link.click()
+              URL.revokeObjectURL(url)
             },
             dirtyCallback: function () {
               window.isDirty = true
