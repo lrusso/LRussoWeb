@@ -51,7 +51,7 @@
           ></path>
         </svg>
       </button>
-      <button id="btnFlipH" class="disabled">
+      <button id="btnFlipH">
         <svg
           width="28"
           height="28"
@@ -63,7 +63,7 @@
           />
         </svg>
       </button>
-      <button id="btnFlipV" class="disabled">
+      <button id="btnFlipV">
         <svg
           width="28"
           height="28"
@@ -75,7 +75,7 @@
           />
         </svg>
       </button>
-      <button id="btnRotateRight" class="disabled">
+      <button id="btnRotateRight">
         <svg
           width="28"
           height="28"
@@ -90,7 +90,7 @@
           />
         </svg>
       </button>
-      <button id="btnRotateLeft" class="disabled">
+      <button id="btnRotateLeft">
         <svg
           width="28"
           height="28"
@@ -105,7 +105,7 @@
           />
         </svg>
       </button>
-      <button id="btnCrop" class="disabled">
+      <button id="btnCrop">
         <svg
           width="28"
           height="28"
@@ -118,7 +118,7 @@
         </svg>
       </button>
       <input type="file" id="mergeFileSelector" accept="image/*,.svg,.svg+xml">
-      <button id="btnMergeH" class="disabled">
+      <button id="btnMergeH">
         <svg
           width="28"
           height="28"
@@ -129,7 +129,7 @@
           <rect height="56" rx="1.077" width="22.077" x="35.5" y="4" />
         </svg>
       </button>
-      <button id="btnMergeV" class="disabled">
+      <button id="btnMergeV">
         <svg
           width="28"
           height="28"
@@ -140,7 +140,7 @@
           <rect height="22.077" rx="1.077" width="56" x="4" y="6.423" />
         </svg>
       </button>
-      <button id="btnResize" class="disabled">
+      <button id="btnResize">
         <svg
           width="28"
           height="28"
@@ -155,16 +155,16 @@
       </button>
       <hr>
       <div class="containerResize">
-        <input type="number" id="inputWidth" min="1" disabled>
-        <input type="number" id="inputHeight" min="1" disabled>
-        <label class="disabled"
-          ><input type="checkbox" id="checkKeepRatio" checked disabled>
+        <input type="number" id="inputWidth" min="1">
+        <input type="number" id="inputHeight" min="1">
+        <label>
+          <input type="checkbox" id="checkKeepRatio" checked>
           <span id="labelKeepRatio"></span
         ></label>
       </div>
       <hr>
-      <div class="title disabled"></div>
-      <button id="btnDownloadJPG" class="disabled">
+      <div id="labelBinary" class="title"></div>
+      <button id="btnDownloadJPG">
         <svg
           width="28"
           height="28"
@@ -185,7 +185,7 @@
           />
         </svg>
       </button>
-      <button id="btnDownloadPNG" class="disabled">
+      <button id="btnDownloadPNG">
         <svg
           width="28"
           height="28"
@@ -206,7 +206,7 @@
           />
         </svg>
       </button>
-      <button id="btnDownloadWEBP" class="disabled">
+      <button id="btnDownloadWEBP">
         <svg
           width="28"
           height="28"
@@ -240,8 +240,8 @@
         </svg>
       </button>
       <hr>
-      <div class="title disabled">Base64</div>
-      <button id="btnDownloadJPGBase64" class="disabled">
+      <div id="labelBase64" class="title">Base64</div>
+      <button id="btnDownloadJPGBase64">
         <svg
           width="28"
           height="28"
@@ -262,7 +262,7 @@
           />
         </svg>
       </button>
-      <button id="btnDownloadPNGBase64" class="disabled">
+      <button id="btnDownloadPNGBase64">
         <svg
           width="28"
           height="28"
@@ -283,7 +283,7 @@
           />
         </svg>
       </button>
-      <button id="btnDownloadWEBPBase64" class="disabled">
+      <button id="btnDownloadWEBPBase64">
         <svg
           width="28"
           height="28"
@@ -350,25 +350,26 @@
       }
 
       var btnOpen
+      var btnFlipH
+      var btnFlipV
+      var btnRotateRight
+      var btnRotateLeft
+      var btnCrop
+      var btnMergeH
+      var btnMergeV
+      var btnResize
+      var inputWidth
+      var inputHeight
+      var checkKeepRatio
+      var labelKeepRatio
+      var labelBinary
       var btnDownloadJPG
       var btnDownloadPNG
       var btnDownloadWEBP
+      var labelBase64
       var btnDownloadJPGBase64
       var btnDownloadPNGBase64
       var btnDownloadWEBPBase64
-      var btnRotateLeft
-      var btnRotateRight
-      var btnCrop
-      var btnResize
-      var btnFlipH
-      var btnFlipV
-      var btnMergeH
-      var btnMergeV
-      var inputWidth
-      var inputHeight
-      var labelKeepRatio
-      var checkKeepRatio
-      var labelBinary
       var fileSelector
       var mergeFileSelector
 
@@ -549,24 +550,78 @@
       }
 
       function enableAll() {
-        var elements = document.getElementsByClassName("disabled")
-        var i
-        var el
-        var elems = []
-        for (i = 0; i < elements.length; i++) {
-          elems.push(elements[i])
-        }
-        for (i = 0; i < elems.length; i++) {
-          el = elems[i]
-          var classes = el.className.split(/\s+/)
-          var newClasses = []
-          for (var j = 0; j < classes.length; j++) {
-            if (classes[j] !== "disabled") {
-              newClasses.push(classes[j])
-            }
-          }
-          el.className = newClasses.join(" ")
-        }
+        disableAll()
+        btnFlipH.disabled = false
+        btnFlipH.classList.remove("disabled")
+        btnFlipV.disabled = false
+        btnFlipV.classList.remove("disabled")
+        btnRotateRight.disabled = false
+        btnRotateRight.classList.remove("disabled")
+        btnRotateLeft.disabled = false
+        btnRotateLeft.classList.remove("disabled")
+        btnCrop.disabled = false
+        btnCrop.classList.remove("disabled")
+        btnMergeH.disabled = false
+        btnMergeH.classList.remove("disabled")
+        btnMergeV.disabled = false
+        btnMergeV.classList.remove("disabled")
+        btnResize.disabled = false
+        btnResize.classList.remove("disabled")
+        inputWidth.disabled = false
+        inputHeight.disabled = false
+        document.querySelectorAll("label")[0].classList.remove("disabled")
+        checkKeepRatio.disabled = false
+        labelBinary.classList.remove("disabled")
+        btnDownloadJPG.disabled = false
+        btnDownloadJPG.classList.remove("disabled")
+        btnDownloadPNG.disabled = false
+        btnDownloadPNG.classList.remove("disabled")
+        btnDownloadWEBP.disabled = false
+        btnDownloadWEBP.classList.remove("disabled")
+        labelBase64.classList.remove("disabled")
+        btnDownloadJPGBase64.disabled = false
+        btnDownloadJPGBase64.classList.remove("disabled")
+        btnDownloadPNGBase64.disabled = false
+        btnDownloadPNGBase64.classList.remove("disabled")
+        btnDownloadWEBPBase64.disabled = false
+        btnDownloadWEBPBase64.classList.remove("disabled")
+      }
+
+      function disableAll() {
+        btnFlipH.disabled = true
+        btnFlipH.classList.add("disabled")
+        btnFlipV.disabled = true
+        btnFlipV.classList.add("disabled")
+        btnRotateRight.disabled = true
+        btnRotateRight.classList.add("disabled")
+        btnRotateLeft.disabled = true
+        btnRotateLeft.classList.add("disabled")
+        btnCrop.disabled = true
+        btnCrop.classList.add("disabled")
+        btnMergeH.disabled = true
+        btnMergeH.classList.add("disabled")
+        btnMergeV.disabled = true
+        btnMergeV.classList.add("disabled")
+        btnResize.disabled = true
+        btnResize.classList.add("disabled")
+        inputWidth.disabled = true
+        inputHeight.disabled = true
+        document.querySelectorAll("label")[0].classList.add("disabled")
+        checkKeepRatio.disabled = true
+        labelBinary.classList.add("disabled")
+        btnDownloadJPG.disabled = true
+        btnDownloadJPG.classList.add("disabled")
+        btnDownloadPNG.disabled = true
+        btnDownloadPNG.classList.add("disabled")
+        btnDownloadWEBP.disabled = true
+        btnDownloadWEBP.classList.add("disabled")
+        labelBase64.classList.add("disabled")
+        btnDownloadJPGBase64.disabled = true
+        btnDownloadJPGBase64.classList.add("disabled")
+        btnDownloadPNGBase64.disabled = true
+        btnDownloadPNGBase64.classList.add("disabled")
+        btnDownloadWEBPBase64.disabled = true
+        btnDownloadWEBPBase64.classList.add("disabled")
       }
 
       function inputCustom(title, width, height, yes, no, callbackYes, callbackNo) {
@@ -610,6 +665,7 @@
 
           // CREATING THE INPUT WIDTH
           var inputTextWidth = document.createElement("input")
+          inputTextWidth.id = "inputTextWidth"
           inputTextWidth.type = "number"
           inputTextWidth.style.display = "block"
           inputTextWidth.style.borderRadius = "8px"
@@ -631,6 +687,7 @@
 
           // CREATING THE INPUT HEIGHT
           var inputTextHeight = document.createElement("input")
+          inputTextHeight.id = "inputTextHeight"
           inputTextHeight.type = "number"
           inputTextHeight.style.display = "block"
           inputTextHeight.style.borderRadius = "8px"
@@ -748,25 +805,26 @@
 
           // LOCATING THE ELEMENTS
           btnOpen = document.getElementById("btnOpen")
+          btnFlipH = document.getElementById("btnFlipH")
+          btnFlipV = document.getElementById("btnFlipV")
+          btnRotateRight = document.getElementById("btnRotateRight")
+          btnRotateLeft = document.getElementById("btnRotateLeft")
+          btnCrop = document.getElementById("btnCrop")
+          btnMergeH = document.getElementById("btnMergeH")
+          btnMergeV = document.getElementById("btnMergeV")
+          btnResize = document.getElementById("btnResize")
+          inputWidth = document.getElementById("inputWidth")
+          inputHeight = document.getElementById("inputHeight")
+          checkKeepRatio = document.getElementById("checkKeepRatio")
+          labelKeepRatio = document.getElementById("labelKeepRatio")
+          labelBinary = document.getElementById("labelBinary")
           btnDownloadJPG = document.getElementById("btnDownloadJPG")
           btnDownloadPNG = document.getElementById("btnDownloadPNG")
           btnDownloadWEBP = document.getElementById("btnDownloadWEBP")
+          labelBase64 = document.getElementById("labelBase64")
           btnDownloadJPGBase64 = document.getElementById("btnDownloadJPGBase64")
           btnDownloadPNGBase64 = document.getElementById("btnDownloadPNGBase64")
           btnDownloadWEBPBase64 = document.getElementById("btnDownloadWEBPBase64")
-          btnRotateLeft = document.getElementById("btnRotateLeft")
-          btnRotateRight = document.getElementById("btnRotateRight")
-          btnCrop = document.getElementById("btnCrop")
-          btnResize = document.getElementById("btnResize")
-          btnFlipH = document.getElementById("btnFlipH")
-          btnFlipV = document.getElementById("btnFlipV")
-          btnMergeH = document.getElementById("btnMergeH")
-          btnMergeV = document.getElementById("btnMergeV")
-          inputWidth = document.getElementById("inputWidth")
-          inputHeight = document.getElementById("inputHeight")
-          labelKeepRatio = document.getElementById("labelKeepRatio")
-          checkKeepRatio = document.getElementById("checkKeepRatio")
-          labelBinary = document.querySelectorAll(".title")[0]
           fileSelector = document.getElementById("fileSelector")
           mergeFileSelector = document.getElementById("mergeFileSelector")
           canvas = document.getElementById("canvas")
@@ -777,6 +835,8 @@
           inputHeight.placeholder = t("height")
           labelKeepRatio.innerText = t("keepRatio")
           labelBinary.innerText = t("binary")
+
+          disableAll()
 
           fileSelector.addEventListener("change", function (e) {
             var file = e.target.files[0]
@@ -791,6 +851,10 @@
               var fileType = file.type.toLowerCase()
 
               if (fileType.includes("svg")) {
+                btnOpen.disabled = true
+                btnOpen.classList.remove("disabled")
+                btnOpen.classList.add("disabled")
+                disableAll()
                 inputCustom(
                   t("setSize"),
                   t("width"),
@@ -824,9 +888,18 @@
                       displayScaleY = canvas.clientHeight / h
                       img.src = canvas.toDataURL()
                       URL.revokeObjectURL(url)
+                      btnOpen.disabled = false
+                      btnOpen.classList.remove("disabled")
                       enableAll()
                     }
                     svgImg.src = url
+                  },
+                  function () {
+                    btnOpen.disabled = false
+                    btnOpen.classList.remove("disabled")
+                    if (originalFileName) {
+                      enableAll()
+                    }
                   }
                 )
               } else {
@@ -847,9 +920,6 @@
                 img.src = evt.target.result
               }
               fileSelector.value = null
-              inputHeight.disabled = false
-              inputWidth.disabled = false
-              checkKeepRatio.disabled = false
             }
 
             if (file.type.toLowerCase().includes("svg")) {
