@@ -2233,6 +2233,7 @@
             // REMOVING THE CONFIRM CONTAINER
             document.body.removeChild(confirmContainer)
 
+            // EXECUTING THE CALLBACK FUNCTION
             if (typeof callbackNo === "function") {
               callbackNo()
             }

@@ -224,7 +224,7 @@
       var openFile = document.getElementsByClassName("buttonHidden")[0]
       var insertFile = document.getElementsByClassName("buttonHidden")[1]
 
-      function confirmCustom(title, message, yes, no, myCallback) {
+      function confirmCustom(title, message, yes, no, callbackYes, callbackNo) {
         try {
           function blockKeyboard(e) {
             e.stopPropagation()
@@ -306,7 +306,9 @@
             document.body.removeChild(confirmContainer)
 
             // EXECUTING THE CALLBACK FUNCTION
-            myCallback()
+            if (typeof callbackYes === "function") {
+              callbackYes()
+            }
           })
           confirmButtonYes.innerText = yes
 
@@ -335,15 +337,9 @@
             // REMOVING THE CONFIRM CONTAINER
             document.body.removeChild(confirmContainer)
 
-            try {
-              // UNLOCKING THE EDITOR AND SHOWING THE POINTER
-              editor.setOptions({ readOnly: false, highlightGutterLine: true })
-              editor.renderer.$cursorLayer.element.style.display = "block"
-
-              // FOCUSING THE EDITOR
-              editor.focus()
-            } catch (err) {
-              //
+            // EXECUTING THE CALLBACK FUNCTION
+            if (typeof callbackNo === "function") {
+              callbackNo()
             }
           })
           confirmButtonNo.innerText = no
@@ -440,7 +436,19 @@
               t("dirty_message"),
               t("dirty_yes"),
               t("dirty_no"),
-              menuNewFileExecute
+              menuNewFileExecute,
+              function () {
+                try {
+                  // UNLOCKING THE EDITOR AND SHOWING THE POINTER
+                  editor.setOptions({ readOnly: false, highlightGutterLine: true })
+                  editor.renderer.$cursorLayer.element.style.display = "block"
+
+                  // FOCUSING THE EDITOR
+                  editor.focus()
+                } catch (err) {
+                  //
+                }
+              }
             )
           } else {
             // EXECUTING THE NEW FILE FUNCTION
