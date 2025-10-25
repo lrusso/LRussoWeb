@@ -128,12 +128,70 @@
         self.menuWrapper.appendChild(self.menu)
         self.myContainer.appendChild(self.menuContainer)
 
-        if (self.editorConfig.saveCallback) {
-          self.holder1 = document.createElement("div")
-          self.holder1.className = "tinydoc_holder"
-          self.menu.appendChild(self.holder1)
-          self.buttonSave = document.createElement("div")
-          self.buttonSave.className = "tinydoc_button"
+        function addMenuItem(svgIcon, callback) {
+          var holder = document.createElement("div")
+          holder.className = "tinydoc_holder"
+          self.menu.appendChild(holder)
+          var buttonSave = document.createElement("div")
+          buttonSave.className = "tinydoc_button"
+          buttonSave.appendChild(svgIcon)
+          buttonSave.addEventListener("mousedown", callback)
+          holder.appendChild(buttonSave)
+        }
+
+        if (typeof self.editorConfig.newCallback === "function") {
+          var svgNew = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+          svgNew.setAttribute("width", "16")
+          svgNew.setAttribute("height", "16")
+          svgNew.setAttribute("viewBox", "0 0 512 512")
+          svgNew.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+          var svgNewPath = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+          )
+          svgNewPath.setAttribute(
+            "d",
+            "M298.699,42.5h-213.5v427h341.602V170.61L298.699,42.5z M309.375,83.369l76.543,76.556h-76.543V83.369z M405.449,448.15   H106.551V63.85h181.475v117.426h117.424V448.15z"
+          )
+          svgNew.appendChild(svgNewPath)
+          addMenuItem(svgNew, function (event) {
+            if (!self.documentEnabled) {
+              return
+            }
+
+            self.setText("")
+            event.preventDefault()
+          })
+        }
+
+        if (typeof self.editorConfig.openCallback === "function") {
+          var svgOpen = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+          svgOpen.setAttribute("id", "open")
+          svgOpen.setAttribute("width", "16")
+          svgOpen.setAttribute("height", "16")
+          svgOpen.setAttribute("viewBox", "0 0 576 512")
+          svgOpen.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+          var svgOpenPath = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+          )
+          svgOpenPath.setAttribute(
+            "d",
+            "M147.8 192H480V144C480 117.5 458.5 96 432 96h-160l-64-64h-160C21.49 32 0 53.49 0 80v328.4l90.54-181.1C101.4 205.6 123.4 192 147.8 192zM543.1 224H147.8C135.7 224 124.6 230.8 119.2 241.7L0 480h447.1c12.12 0 23.2-6.852 28.62-17.69l96-192C583.2 249 567.7 224 543.1 224z"
+          )
+          svgOpen.appendChild(svgOpenPath)
+          addMenuItem(svgOpen, function (event) {
+            if (!self.documentEnabled) {
+              return
+            }
+
+            // eslint-disable-next-line
+            alert("todo")
+            event.preventDefault()
+          })
+        }
+
+        if (typeof self.editorConfig.saveCallback === "function") {
           var svgSave = document.createElementNS("http://www.w3.org/2000/svg", "svg")
           svgSave.setAttribute("width", "16")
           svgSave.setAttribute("height", "16")
@@ -151,23 +209,26 @@
             "translate(-10 930) scale(-1,1) rotate(180)"
           )
           svgSave.appendChild(svgSavePath)
-          self.buttonSave.appendChild(svgSave)
-          self.buttonSave.addEventListener("mousedown", function (event) {
+          addMenuItem(svgSave, function (event) {
+            if (!self.documentEnabled) {
+              return
+            }
+
             self.save()
             event.preventDefault()
           })
-          self.holder1.appendChild(self.buttonSave)
+        }
 
+        if (
+          self.editorConfig.newCallback ||
+          self.editorConfig.openCallback ||
+          self.editorConfig.saveCallback
+        ) {
           self.separator1 = document.createElement("div")
           self.separator1.className = "tinydoc_separator"
           self.menu.appendChild(self.separator1)
         }
 
-        self.holder2 = document.createElement("div")
-        self.holder2.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder2)
-        self.buttonPrint = document.createElement("div")
-        self.buttonPrint.className = "tinydoc_button"
         var svgPrint = document.createElementNS("http://www.w3.org/2000/svg", "svg")
         svgPrint.setAttribute("width", "16")
         svgPrint.setAttribute("height", "16")
@@ -185,22 +246,19 @@
           "translate(0 930) scale(-0.97,0.97) rotate(180)"
         )
         svgPrint.appendChild(svgPrintPath)
-        self.buttonPrint.appendChild(svgPrint)
-        self.buttonPrint.addEventListener("mousedown", function (event) {
+        addMenuItem(svgPrint, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.print()
           event.preventDefault()
         })
-        self.holder2.appendChild(self.buttonPrint)
 
         self.separator2 = document.createElement("div")
         self.separator2.className = "tinydoc_separator"
         self.menu.appendChild(self.separator2)
 
-        self.holder3 = document.createElement("div")
-        self.holder3.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder3)
-        self.buttonUndo = document.createElement("div")
-        self.buttonUndo.className = "tinydoc_button"
         var svgUndo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
         svgUndo.setAttribute("width", "16")
         svgUndo.setAttribute("height", "16")
@@ -218,18 +276,15 @@
           "translate(0 960) scale(-1,1) rotate(180)"
         )
         svgUndo.appendChild(svgUndoPath)
-        self.buttonUndo.appendChild(svgUndo)
-        self.buttonUndo.addEventListener("mousedown", function (event) {
+        addMenuItem(svgUndo, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("undo")
           event.preventDefault()
         })
-        self.holder3.appendChild(self.buttonUndo)
 
-        self.holder4 = document.createElement("div")
-        self.holder4.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder4)
-        self.buttonRedo = document.createElement("div")
-        self.buttonRedo.className = "tinydoc_button"
         var svgRedo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
         svgRedo.setAttribute("width", "16")
         svgRedo.setAttribute("height", "16")
@@ -247,22 +302,19 @@
           "translate(0 960) scale(-1,1) rotate(180)"
         )
         svgRedo.appendChild(svgRedoPath)
-        self.buttonRedo.appendChild(svgRedo)
-        self.buttonRedo.addEventListener("mousedown", function (event) {
+        addMenuItem(svgRedo, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("redo")
           event.preventDefault()
         })
-        self.holder4.appendChild(self.buttonRedo)
 
         self.separator3 = document.createElement("div")
         self.separator3.className = "tinydoc_separator"
         self.menu.appendChild(self.separator3)
 
-        self.holder5 = document.createElement("div")
-        self.holder5.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder5)
-        self.buttonBold = document.createElement("div")
-        self.buttonBold.className = "tinydoc_button"
         var svgBold = document.createElementNS("http://www.w3.org/2000/svg", "svg")
         svgBold.setAttribute("width", "16")
         svgBold.setAttribute("height", "16")
@@ -280,18 +332,15 @@
           "translate(0 960) scale(-1,1) rotate(180)"
         )
         svgBold.appendChild(svgBoldPath)
-        self.buttonBold.appendChild(svgBold)
-        self.buttonBold.addEventListener("mousedown", function (event) {
+        addMenuItem(svgBold, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("bold")
           event.preventDefault()
         })
-        self.holder5.appendChild(self.buttonBold)
 
-        self.holder6 = document.createElement("div")
-        self.holder6.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder6)
-        self.buttonItalic = document.createElement("div")
-        self.buttonItalic.className = "tinydoc_button"
         var svgItalic = document.createElementNS("http://www.w3.org/2000/svg", "svg")
         svgItalic.setAttribute("width", "16")
         svgItalic.setAttribute("height", "16")
@@ -309,18 +358,15 @@
           "translate(0 955) scale(-1,1) rotate(180)"
         )
         svgItalic.appendChild(svgItalicPath)
-        self.buttonItalic.appendChild(svgItalic)
-        self.buttonItalic.addEventListener("mousedown", function (event) {
+        addMenuItem(svgItalic, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("italic")
           event.preventDefault()
         })
-        self.holder6.appendChild(self.buttonItalic)
 
-        self.holder7 = document.createElement("div")
-        self.holder7.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder7)
-        self.buttonUnderline = document.createElement("div")
-        self.buttonUnderline.className = "tinydoc_button"
         var svgUnderline = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "svg"
@@ -341,18 +387,15 @@
           "translate(0 975) scale(-1,1) rotate(180)"
         )
         svgUnderline.appendChild(svgUnderlinePath)
-        self.buttonUnderline.appendChild(svgUnderline)
-        self.buttonUnderline.addEventListener("mousedown", function (event) {
+        addMenuItem(svgUnderline, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("underline")
           event.preventDefault()
         })
-        self.holder7.appendChild(self.buttonUnderline)
 
-        self.holder8 = document.createElement("div")
-        self.holder8.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder8)
-        self.buttonStrikethrough = document.createElement("div")
-        self.buttonStrikethrough.className = "tinydoc_button"
         var svgStrikethrough = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "svg"
@@ -373,22 +416,19 @@
           "translate(0 960) scale(-1,1) rotate(180)"
         )
         svgStrikethrough.appendChild(svgStrikethroughPath)
-        self.buttonStrikethrough.appendChild(svgStrikethrough)
-        self.buttonStrikethrough.addEventListener("mousedown", function (event) {
+        addMenuItem(svgStrikethrough, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("strikethrough")
           event.preventDefault()
         })
-        self.holder8.appendChild(self.buttonStrikethrough)
 
         self.separator4 = document.createElement("div")
         self.separator4.className = "tinydoc_separator"
         self.menu.appendChild(self.separator4)
 
-        self.holder9 = document.createElement("div")
-        self.holder9.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder9)
-        self.buttonDotted = document.createElement("div")
-        self.buttonDotted.className = "tinydoc_button"
         var svgDotted = document.createElementNS("http://www.w3.org/2000/svg", "svg")
         svgDotted.setAttribute("width", "16")
         svgDotted.setAttribute("height", "16")
@@ -406,18 +446,15 @@
           "translate(0 940) scale(-0.97,0.97) rotate(180)"
         )
         svgDotted.appendChild(svgDottedPath)
-        self.buttonDotted.appendChild(svgDotted)
-        self.buttonDotted.addEventListener("mousedown", function (event) {
+        addMenuItem(svgDotted, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("insertunorderedlist")
           event.preventDefault()
         })
-        self.holder9.appendChild(self.buttonDotted)
 
-        self.holder10 = document.createElement("div")
-        self.holder10.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder10)
-        self.buttonNumbered = document.createElement("div")
-        self.buttonNumbered.className = "tinydoc_button"
         var svgNumbered = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "svg"
@@ -438,18 +475,15 @@
           "translate(-50 940) scale(-0.97,0.97) rotate(180)"
         )
         svgNumbered.appendChild(svgNumberedPath)
-        self.buttonNumbered.appendChild(svgNumbered)
-        self.buttonNumbered.addEventListener("mousedown", function (event) {
+        addMenuItem(svgNumbered, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("insertorderedlist")
           event.preventDefault()
         })
-        self.holder10.appendChild(self.buttonNumbered)
 
-        self.holder11 = document.createElement("div")
-        self.holder11.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder11)
-        self.buttonHighlight = document.createElement("div")
-        self.buttonHighlight.className = "tinydoc_button"
         var svgHighlight = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "svg"
@@ -484,18 +518,15 @@
         )
         svgHighlight.appendChild(svgHighlightPath1)
         svgHighlight.appendChild(svgHighlightPath2)
-        self.buttonHighlight.appendChild(svgHighlight)
-        self.buttonHighlight.addEventListener("mousedown", function (event) {
+        addMenuItem(svgHighlight, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("BackColor", "#FFFF00")
           event.preventDefault()
         })
-        self.holder11.appendChild(self.buttonHighlight)
 
-        self.holder12 = document.createElement("div")
-        self.holder12.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder12)
-        self.buttonLink = document.createElement("div")
-        self.buttonLink.className = "tinydoc_button"
         var svgLink = document.createElementNS("http://www.w3.org/2000/svg", "svg")
         svgLink.setAttribute("width", "16")
         svgLink.setAttribute("height", "16")
@@ -513,76 +544,64 @@
           "translate(0 930) scale(-0.97,0.97) rotate(180)"
         )
         svgLink.appendChild(svgLinkPath)
-        self.buttonLink.appendChild(svgLink)
-        self.buttonLink.addEventListener("mousedown", function (event) {
+        addMenuItem(svgLink, function (event) {
           if (!self.documentEnabled) {
             return
           }
+
           self.insertLink()
           event.preventDefault()
         })
-        self.holder12.appendChild(self.buttonLink)
 
         self.separator5 = document.createElement("div")
         self.separator5.className = "tinydoc_separator"
         self.menu.appendChild(self.separator5)
 
-        try {
-          if (self.editorConfig.templates) {
-            if (self.editorConfig.templates.length) {
-              for (var i = 0; i < self.editorConfig.templates.length; i++) {
-                var templateContent = self.editorConfig.templates[i]
+        if (Array.isArray(self.editorConfig.templates)) {
+          for (var i = 0; i < self.editorConfig.templates.length; i++) {
+            var templateContent = self.editorConfig.templates[i]
 
-                var btnHolder = document.createElement("div")
-                btnHolder.className = "tinydoc_holder"
-                self.menu.appendChild(btnHolder)
-                var btnTemplate = document.createElement("div")
-                btnTemplate.className = "tinydoc_button"
-                var svgTemplate = document.createElementNS(
-                  "http://www.w3.org/2000/svg",
-                  "svg"
-                )
-                svgTemplate.setAttribute("width", "16")
-                svgTemplate.setAttribute("height", "16")
-                svgTemplate.setAttribute("viewBox", "0 0 1000 1000")
-                var svgTemplatePath = document.createElementNS(
-                  "http://www.w3.org/2000/svg",
-                  "path"
-                )
-                svgTemplatePath.setAttribute(
-                  "d",
-                  "M384 768h128v-64h-128v64zM576 768h128v-64h-128v64zM896 768v-256h-192v64h128v128h-64v64h128zM320 576h128v-64h-128v64zM512 576h128v-64h-128v64zM192 704v-128h64v-64h-128v256h192v-64h-128zM384 384h128v-64h-128v64zM576 384h128v-64h-128v64zM896 384v-256 h-192v64h128v128h-64v64h128zM320 192h128v-64h-128v64zM512 192h128v-64h-128v64zM192 320v-128h64v-64h-128v256h192v-64h-128zM960 896h-896v-896h896v896zM1024 960v0v-1024h-1024v1024h1024z"
-                )
-                svgTemplatePath.setAttribute(
-                  "transform",
-                  "translate(0 940) scale(-0.97,0.97) rotate(180)"
-                )
-                svgTemplate.appendChild(svgTemplatePath)
-                btnTemplate.appendChild(svgTemplate)
-                ;(function (data) {
-                  btnTemplate.addEventListener("mousedown", function (event) {
-                    if (!self.documentEnabled) {
-                      return
-                    }
-                    self.insertHtmlAtCaret(data, false)
-                    event.preventDefault()
-                  })
-                })(templateContent)
+            var btnHolder = document.createElement("div")
+            btnHolder.className = "tinydoc_holder"
+            self.menu.appendChild(btnHolder)
+            var btnTemplate = document.createElement("div")
+            btnTemplate.className = "tinydoc_button"
+            var svgTemplate = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "svg"
+            )
+            svgTemplate.setAttribute("width", "16")
+            svgTemplate.setAttribute("height", "16")
+            svgTemplate.setAttribute("viewBox", "0 0 1000 1000")
+            var svgTemplatePath = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "path"
+            )
+            svgTemplatePath.setAttribute(
+              "d",
+              "M384 768h128v-64h-128v64zM576 768h128v-64h-128v64zM896 768v-256h-192v64h128v128h-64v64h128zM320 576h128v-64h-128v64zM512 576h128v-64h-128v64zM192 704v-128h64v-64h-128v256h192v-64h-128zM384 384h128v-64h-128v64zM576 384h128v-64h-128v64zM896 384v-256 h-192v64h128v128h-64v64h128zM320 192h128v-64h-128v64zM512 192h128v-64h-128v64zM192 320v-128h64v-64h-128v256h192v-64h-128zM960 896h-896v-896h896v896zM1024 960v0v-1024h-1024v1024h1024z"
+            )
+            svgTemplatePath.setAttribute(
+              "transform",
+              "translate(0 940) scale(-0.97,0.97) rotate(180)"
+            )
+            svgTemplate.appendChild(svgTemplatePath)
+            btnTemplate.appendChild(svgTemplate)
+            ;(function (data) {
+              btnTemplate.addEventListener("mousedown", function (event) {
+                if (!self.documentEnabled) {
+                  return
+                }
+                self.insertHtmlAtCaret(data, false)
+                event.preventDefault()
+              })
+            })(templateContent)
 
-                btnHolder.appendChild(btnTemplate)
-              }
-            }
+            btnHolder.appendChild(btnTemplate)
           }
-        } catch (err) {
-          //
         }
 
-        if (self.editorConfig.calcEnabled) {
-          self.holder16 = document.createElement("div")
-          self.holder16.className = "tinydoc_holder"
-          self.menu.appendChild(self.holder16)
-          self.buttonCalc = document.createElement("div")
-          self.buttonCalc.className = "tinydoc_button"
+        if (self.editorConfig.calcEnabled === true) {
           var svgCalc = document.createElementNS("http://www.w3.org/2000/svg", "svg")
           svgCalc.setAttribute("width", "16")
           svgCalc.setAttribute("height", "16")
@@ -605,19 +624,16 @@
             path.setAttribute("d", newSvgCalcPath)
             svgCalc.appendChild(path)
           }
-          self.buttonCalc.appendChild(svgCalc)
-          self.buttonCalc.addEventListener("mousedown", function (event) {
+          addMenuItem(svgCalc, function (event) {
+            if (!self.documentEnabled) {
+              return
+            }
+
             self.insertCalc()
             event.preventDefault()
           })
-          self.holder16.appendChild(self.buttonCalc)
         }
 
-        self.holder17 = document.createElement("div")
-        self.holder17.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder17)
-        self.buttonWordCount = document.createElement("div")
-        self.buttonWordCount.className = "tinydoc_button"
         var svgWordCount = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "svg"
@@ -638,25 +654,19 @@
           "translate(-10 930) scale(-1,1) rotate(180)"
         )
         svgWordCount.appendChild(svgWordCountPath)
-        self.buttonWordCount.appendChild(svgWordCount)
-        self.buttonWordCount.addEventListener("mousedown", function (event) {
+        addMenuItem(svgWordCount, function (event) {
           if (!self.documentEnabled) {
             return
           }
+
           self.wordCount()
           event.preventDefault()
         })
-        self.holder17.appendChild(self.buttonWordCount)
 
         self.separator6 = document.createElement("div")
         self.separator6.className = "tinydoc_separator"
         self.menu.appendChild(self.separator6)
 
-        self.holder18 = document.createElement("div")
-        self.holder18.className = "tinydoc_holder"
-        self.menu.appendChild(self.holder18)
-        self.buttonRemoveFormat = document.createElement("div")
-        self.buttonRemoveFormat.className = "tinydoc_button"
         var svgRemoveFormat = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "svg"
@@ -677,12 +687,14 @@
           "translate(0 915) scale(-0.97,0.97) rotate(180)"
         )
         svgRemoveFormat.appendChild(svgRemoveFormatPath)
-        self.buttonRemoveFormat.appendChild(svgRemoveFormat)
-        self.buttonRemoveFormat.addEventListener("mousedown", function (event) {
+        addMenuItem(svgRemoveFormat, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
           self.formatDoc("removeFormat")
           event.preventDefault()
         })
-        self.holder18.appendChild(self.buttonRemoveFormat)
 
         self.separator7 = document.createElement("div")
         self.separator7.className = "tinydoc_separator"
@@ -1017,13 +1029,14 @@
 
       tinyDOC.prototype.setText = function (myText) {
         try {
+          var _this = this
           this.new()
           this.settingNewText = true
           this.insertHtmlAtCaret(myText, false)
           this.clearUndoRedo()
 
           setTimeout(function () {
-            this.setCaretPosition(this.document, 0)
+            _this.setCaretPosition(_this.document, 0)
           }, 25)
         } catch (err) {
           //
@@ -1832,7 +1845,7 @@
                 selectedText = selectedText.replace(/[^0-9.*/()+-]/g, "")
 
                 try {
-                  // eslint-disable-next-line no-eval
+                  // eslint-disable-next-line
                   finalResult = eval(selectedText)
 
                   if (isNaN(finalResult)) {
@@ -2125,11 +2138,17 @@
           myTinyDOC = new tinyDOC({
             container: document.getElementById("myContainer"),
             content: t("welcome"),
-            /*
+            newCallback: function () {
+              window.isDirty = false
+              window.onbeforeunload = null
+            },
+            openCallback: function () {
+              //
+            },
             saveCallback: function (e) {
+              // eslint-disable-next-line
               console.log(e)
             },
-            */
             dirtyCallback: function () {
               window.isDirty = true
               window.onbeforeunload = function () {
