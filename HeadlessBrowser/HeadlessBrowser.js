@@ -2,7 +2,7 @@ import { execSync } from "child_process"
 
 function browseTo(userLanguage, userAgent, url, selector) {
   try {
-    if (selector) {
+    if (typeof selector === "string") {
       selector = JSON.parse(selector)
     }
 
@@ -15,7 +15,8 @@ function browseTo(userLanguage, userAgent, url, selector) {
         url +
         '" "' +
         selector +
-        '"'
+        '"',
+      { maxBuffer: 1024 * 1024 * 50 }
     )
       .toString()
       .trim()

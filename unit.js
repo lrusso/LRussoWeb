@@ -529,7 +529,7 @@ describe("HeadlessBrowser/HeadlessBrowser.js", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "628c1322"
+    const expectedHash = "194d64c8"
     let currentHash = ""
 
     try {
@@ -1359,7 +1359,7 @@ describe("e2e.js", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "4f4094a7"
+    const expectedHash = "f9735f4"
     let currentHash = ""
 
     try {

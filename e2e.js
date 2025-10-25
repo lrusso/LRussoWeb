@@ -10,6 +10,10 @@ new Function(
 
 function browseTo(userLanguage, userAgent, url, selector) {
   try {
+    if (typeof selector === "string") {
+      selector = JSON.parse(selector)
+    }
+
     const result = execSync(
       'java -jar e2e.jar "' +
         userLanguage +
