@@ -326,12 +326,18 @@
           width: "Width",
           height: "Height",
           binary: "Binary",
+          setSize: "Set the image size",
+          accept: "Accept",
+          cancel: "Cancel",
           keepRatio: "Keep ratio",
         },
         es: {
           width: "Ancho",
           height: "Alto",
           binary: "Binario",
+          setSize: "Fijar tama\u00F1o de imagen",
+          accept: "Aceptar",
+          cancel: "Cancelar",
           keepRatio: "Proporci\u00F3n fija",
         },
       }
@@ -542,6 +548,180 @@
         link.remove()
       }
 
+      function enableAll() {
+        var elements = document.getElementsByClassName("disabled")
+        var i
+        var el
+        var elems = []
+        for (i = 0; i < elements.length; i++) {
+          elems.push(elements[i])
+        }
+        for (i = 0; i < elems.length; i++) {
+          el = elems[i]
+          var classes = el.className.split(/\s+/)
+          var newClasses = []
+          for (var j = 0; j < classes.length; j++) {
+            if (classes[j] !== "disabled") {
+              newClasses.push(classes[j])
+            }
+          }
+          el.className = newClasses.join(" ")
+        }
+      }
+
+      function inputCustom(title, width, height, yes, no, callbackYes, callbackNo) {
+        try {
+          // CREATING THE INPUT CONTAINER
+          var inputContainer = document.createElement("div")
+          inputContainer.style.position = "fixed"
+          inputContainer.style.top = 0
+          inputContainer.style.bottom = 0
+          inputContainer.style.left = 0
+          inputContainer.style.right = 0
+          inputContainer.style.zIndex = 9999
+          inputContainer.style.backgroundColor = "rgba(0,0,0,0.5)"
+
+          // CREATING THE INPUT FORM
+          var inputForm = document.createElement("div")
+          inputForm.style.position = "relative"
+          inputForm.style.top = "50%"
+          inputForm.style.left = 0
+          inputForm.style.right = 0
+          inputForm.style.marginLeft = "auto"
+          inputForm.style.marginRight = "auto"
+          inputForm.style.transform = "translateY(-50%)"
+          inputForm.style.borderRadius = "8px"
+          inputForm.style.overflow = "hidden"
+          inputForm.style.width = "300px"
+          inputForm.style.backgroundColor = "#f2f2f2"
+          inputForm.style.textAlign = "center"
+
+          // CREATING THE INPUT TITLE
+          var inputTitle = document.createElement("div")
+          inputTitle.style.textAlign = "left"
+          inputTitle.style.paddingLeft = "10px"
+          inputTitle.style.backgroundColor = "#3a76b1"
+          inputTitle.style.fontFamily = "Arial"
+          inputTitle.style.fontSize = "16px"
+          inputTitle.style.fontWeight = "bold"
+          inputTitle.style.color = "white"
+          inputTitle.style.lineHeight = 2.5
+          inputTitle.innerText = title
+
+          // CREATING THE INPUT WIDTH
+          var inputTextWidth = document.createElement("input")
+          inputTextWidth.type = "number"
+          inputTextWidth.style.display = "block"
+          inputTextWidth.style.borderRadius = "8px"
+          inputTextWidth.style.overflow = "hidden"
+          inputTextWidth.style.marginLeft = "auto"
+          inputTextWidth.style.marginRight = "auto"
+          inputTextWidth.style.marginTop = "15px"
+          inputTextWidth.style.marginBottom = "15px"
+          inputTextWidth.style.paddingLeft = "10px"
+          inputTextWidth.style.paddingRight = "10px"
+          inputTextWidth.style.border = "1px solid #b2b2b2"
+          inputTextWidth.style.fontFamily = "Arial"
+          inputTextWidth.style.fontSize = "16px"
+          inputTextWidth.style.color = "black"
+          inputTextWidth.style.textAlign = "left"
+          inputTextWidth.style.lineHeight = 2
+          inputTextWidth.style.width = "50%"
+          inputTextWidth.placeholder = width
+
+          // CREATING THE INPUT HEIGHT
+          var inputTextHeight = document.createElement("input")
+          inputTextHeight.type = "number"
+          inputTextHeight.style.display = "block"
+          inputTextHeight.style.borderRadius = "8px"
+          inputTextHeight.style.overflow = "hidden"
+          inputTextHeight.style.marginLeft = "auto"
+          inputTextHeight.style.marginRight = "auto"
+          inputTextHeight.style.marginTop = "15px"
+          inputTextHeight.style.marginBottom = "15px"
+          inputTextHeight.style.paddingLeft = "10px"
+          inputTextHeight.style.paddingRight = "10px"
+          inputTextHeight.style.border = "1px solid #b2b2b2"
+          inputTextHeight.style.fontFamily = "Arial"
+          inputTextHeight.style.fontSize = "16px"
+          inputTextHeight.style.color = "black"
+          inputTextHeight.style.textAlign = "left"
+          inputTextHeight.style.lineHeight = 2
+          inputTextHeight.style.width = "50%"
+          inputTextHeight.placeholder = height
+
+          // CREATING THE INPUT YES BUTTON
+          var inputButtonYes = document.createElement("div")
+          inputButtonYes.style.padding = "10px"
+          inputButtonYes.style.backgroundColor = "#d2d2d2"
+          inputButtonYes.style.border = "1px solid #b2b2b2"
+          inputButtonYes.style.fontFamily = "Arial"
+          inputButtonYes.style.fontSize = "16px"
+          inputButtonYes.style.color = "black"
+          inputButtonYes.style.textAlign = "center"
+          inputButtonYes.style.lineHeight = 1.5
+          inputButtonYes.style.display = "inline-block"
+          inputButtonYes.style.borderRadius = "8px"
+          inputButtonYes.style.overflow = "hidden"
+          inputButtonYes.style.marginBottom = "10px"
+          inputButtonYes.style.paddingLeft = "30px"
+          inputButtonYes.style.paddingRight = "30px"
+          inputButtonYes.style.cursor = "pointer"
+          inputButtonYes.addEventListener("click", function () {
+            // REMOVING THE INPUT CONTAINER
+            document.body.removeChild(inputContainer)
+
+            // EXECUTING THE CALLBACK FUNCTION
+            if (typeof callbackYes === "function") {
+              callbackYes(inputTextWidth.value, inputTextHeight.value)
+            }
+          })
+          inputButtonYes.innerText = yes
+
+          // CREATING THE INPUT NO BUTTON
+          var inputButtonNo = document.createElement("div")
+          inputButtonNo.style.padding = "10px"
+          inputButtonNo.style.backgroundColor = "#d2d2d2"
+          inputButtonNo.style.border = "1px solid #b2b2b2"
+          inputButtonNo.style.fontFamily = "Arial"
+          inputButtonNo.style.fontSize = "16px"
+          inputButtonNo.style.color = "black"
+          inputButtonNo.style.textAlign = "center"
+          inputButtonNo.style.lineHeight = 1.5
+          inputButtonNo.style.display = "inline-block"
+          inputButtonNo.style.borderRadius = "8px"
+          inputButtonNo.style.overflow = "hidden"
+          inputButtonNo.style.marginLeft = "20px"
+          inputButtonNo.style.marginBottom = "10px"
+          inputButtonNo.style.paddingLeft = "30px"
+          inputButtonNo.style.paddingRight = "30px"
+          inputButtonNo.style.cursor = "pointer"
+          inputButtonNo.addEventListener("click", function () {
+            // REMOVING THE INPUT CONTAINER
+            document.body.removeChild(inputContainer)
+
+            // EXECUTING THE CALLBACK FUNCTION
+            if (typeof callbackNo === "function") {
+              callbackNo()
+            }
+          })
+          inputButtonNo.innerText = no
+
+          // ADDING ALL THE ELEMENTS TO THE INPUT CONTAINER
+          inputForm.appendChild(inputTitle)
+          inputForm.appendChild(inputTextWidth)
+          inputForm.appendChild(inputTextHeight)
+          inputForm.appendChild(inputButtonYes)
+          inputForm.appendChild(inputButtonNo)
+          inputContainer.appendChild(inputForm)
+
+          // ADDING THE INPUT CONTAINER TO THE DOCUMENT
+          document.body.appendChild(inputContainer)
+        } catch (err) {
+          //
+        }
+      }
+
       window.addEventListener("load", function () {
         // CHECKING IF THE APP IS LOADED PROPERLY
         var secSameDomain = false
@@ -605,39 +785,54 @@
             }
 
             var nameWithoutExt = file.name.replace(/\.[^/.]+$/, "")
-            originalFileName = nameWithoutExt
 
             var reader = new FileReader()
             reader.onload = function (evt) {
               var fileType = file.type.toLowerCase()
 
               if (fileType.includes("svg")) {
-                var svgText = evt.target.result
+                inputCustom(
+                  t("setSize"),
+                  t("width"),
+                  t("height"),
+                  t("accept"),
+                  t("cancel"),
+                  function (width, height) {
+                    originalFileName = nameWithoutExt
 
-                var blob = new Blob([svgText], { type: "image/svg+xml" })
-                var url = URL.createObjectURL(blob)
+                    width = parseInt(width)
+                    height = parseInt(height)
 
-                var svgImg = new Image()
-                svgImg.onload = function () {
-                  var w = 2000
-                  var h = 2000
-                  canvas.style.display = "block"
-                  canvas.width = w
-                  canvas.height = h
-                  ctx.clearRect(0, 0, w, h)
-                  ctx.drawImage(svgImg, 0, 0, w, h)
-                  inputWidth.value = w
-                  inputHeight.value = h
-                  ratio = w / h
-                  displayScaleX = canvas.clientWidth / w
-                  displayScaleY = canvas.clientHeight / h
-                  img.src = canvas.toDataURL()
-                  URL.revokeObjectURL(url)
-                }
-                svgImg.src = url
+                    var svgText = evt.target.result
+
+                    var blob = new Blob([svgText], { type: "image/svg+xml" })
+                    var url = URL.createObjectURL(blob)
+
+                    var svgImg = new Image()
+                    svgImg.onload = function () {
+                      var w = width || 16
+                      var h = height || 16
+                      canvas.style.display = "block"
+                      canvas.width = w
+                      canvas.height = h
+                      ctx.clearRect(0, 0, w, h)
+                      ctx.drawImage(svgImg, 0, 0, w, h)
+                      inputWidth.value = w
+                      inputHeight.value = h
+                      ratio = w / h
+                      displayScaleX = canvas.clientWidth / w
+                      displayScaleY = canvas.clientHeight / h
+                      img.src = canvas.toDataURL()
+                      URL.revokeObjectURL(url)
+                      enableAll()
+                    }
+                    svgImg.src = url
+                  }
+                )
               } else {
                 img = new Image()
                 img.onload = function () {
+                  originalFileName = nameWithoutExt
                   canvas.style.display = "block"
                   canvas.width = img.width
                   canvas.height = img.height
@@ -647,34 +842,14 @@
                   ratio = img.width / img.height
                   displayScaleX = canvas.clientWidth / img.width
                   displayScaleY = canvas.clientHeight / img.height
+                  enableAll()
                 }
                 img.src = evt.target.result
               }
               fileSelector.value = null
-
               inputHeight.disabled = false
               inputWidth.disabled = false
               checkKeepRatio.disabled = false
-
-              // ENABLING ALL THE ELEMENTS
-              var elements = document.getElementsByClassName("disabled")
-              var i
-              var el
-              var elems = []
-              for (i = 0; i < elements.length; i++) {
-                elems.push(elements[i])
-              }
-              for (i = 0; i < elems.length; i++) {
-                el = elems[i]
-                var classes = el.className.split(/\s+/)
-                var newClasses = []
-                for (var j = 0; j < classes.length; j++) {
-                  if (classes[j] !== "disabled") {
-                    newClasses.push(classes[j])
-                  }
-                }
-                el.className = newClasses.join(" ")
-              }
             }
 
             if (file.type.toLowerCase().includes("svg")) {
