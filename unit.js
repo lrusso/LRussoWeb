@@ -1243,6 +1243,20 @@ describe("404.html", function () {
     expect(fileExists("404.html")).toBe(true)
   })
 
+  it("Should not have changed", function () {
+    const expectedHash = "547dc73"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("404.html", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+
   it("Should contain redirects", function () {
     const variableExists = getVariable("404.html", "redirects")
     expect(variableExists).not.toBe("")
@@ -1316,6 +1330,66 @@ describe("404.html", function () {
     }
 
     expect(linksValid).toBe(true)
+  })
+})
+
+describe("e2e.jar", function () {
+  it("Should exist", function () {
+    expect(fileExists("e2e.jar")).toBe(true)
+  })
+
+  it("Should not have changed", function () {
+    const expectedHash = "6cfda030"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("e2e.jar", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("e2e.js", function () {
+  it("Should exist", function () {
+    expect(fileExists("e2e.js")).toBe(true)
+  })
+
+  it("Should not have changed", function () {
+    const expectedHash = "552090a3"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("e2e.js", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("eslint.js", function () {
+  it("Should exist", function () {
+    expect(fileExists("eslint.js")).toBe(true)
+  })
+
+  it("Should not have changed", function () {
+    const expectedHash = "2cdd43e8"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("eslint.js", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
   })
 })
 
@@ -1840,6 +1914,26 @@ describe("license.txt", function () {
   })
 })
 
+describe("prettier.js", function () {
+  it("Should exist", function () {
+    expect(fileExists("prettier.js")).toBe(true)
+  })
+
+  it("Should not have changed", function () {
+    const expectedHash = "522f54be"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("prettier.js", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
 describe("privacy.html", function () {
   it("Should exist", function () {
     expect(fileExists("privacy.html")).toBe(true)
@@ -1981,6 +2075,46 @@ describe("sitemap.xml", function () {
 
     try {
       const content = readFileSync("sitemap.xml", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("w3c.jar", function () {
+  it("Should exist", function () {
+    expect(fileExists("w3c.jar")).toBe(true)
+  })
+
+  it("Should not have changed", function () {
+    const expectedHash = "2fca3bd8"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("w3c.jar", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
+describe("w3c.js", function () {
+  it("Should exist", function () {
+    expect(fileExists("w3c.js")).toBe(true)
+  })
+
+  it("Should not have changed", function () {
+    const expectedHash = "4710397e"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("w3c.js", "utf8")
       currentHash = generateHash(content)
     } catch (err) {
       currentHash = ""
