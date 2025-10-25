@@ -918,8 +918,20 @@
                 var svgImg = new Image()
                 svgImg.onload = function () {
                   var tmpCanvas = document.createElement("canvas")
-                  var w = 2000
-                  var h = 2000
+
+                  var svgW = svgImg.naturalWidth || svgImg.width || 2000
+                  var svgH = svgImg.naturalHeight || svgImg.height || 2000
+
+                  var svgScale
+                  if (mustMergeHorizontal) {
+                    svgScale = img.height / svgH
+                  } else {
+                    svgScale = img.width / svgW
+                  }
+
+                  var w = svgW * svgScale
+                  var h = svgH * svgScale
+
                   tmpCanvas.width = w
                   tmpCanvas.height = h
                   var tctx = tmpCanvas.getContext("2d")
