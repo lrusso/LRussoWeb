@@ -19,7 +19,8 @@ function browseTo(userLanguage, userAgent, url, selector) {
         url +
         '" "' +
         selector +
-        '"'
+        '"',
+      { maxBuffer: 1024 * 1024 * 50 }
     )
       .toString()
       .trim()
@@ -31,9 +32,12 @@ function browseTo(userLanguage, userAgent, url, selector) {
   return { url: "", html: "", text: "" }
 }
 
-const homeURL = "index.html"
-const redirectURL = "404.html"
 const intranetURL = "Intranet/index.html"
+const tinyACEURL = "TinyACE/index.html"
+const tinyDOCURL = "TinyDOC/index.html"
+const tinyIMGURL = "TinyIMG/index.html"
+const redirectURL = "404.html"
+const homeURL = "index.html"
 const langEN = "en-US"
 const langES = "es-AR"
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/117.0"
@@ -43,7 +47,7 @@ const btnShortcut = "#desktop-files > div:nth-child(1)"
 const btnPlayStore = "#home > div:nth-child(12) > div:nth-child(3) > div > div > a"
 const btnGitHub = "#home > div:nth-child(12) > div:nth-child(4) > div > div > a"
 
-describe("Intranet/index.html", function () {
+describe(intranetURL, function () {
   it("Should show the desktop", function () {
     const desktopTest = browseTo(langEN, userAgent, intranetURL).text
     expect(desktopTest.includes("Pool")).toBe(true)
@@ -65,7 +69,30 @@ describe("Intranet/index.html", function () {
   })
 })
 
-describe("404.html", function () {
+describe(tinyACEURL, function () {
+  it("Should show the editor", function () {
+    const editorResult = browseTo(langEN, userAgent, tinyACEURL).html
+    expect(editorResult.includes('<div class="ace_layer ace_marker-layer">')).toBe(
+      true
+    )
+  })
+})
+
+describe(tinyDOCURL, function () {
+  it("Should show the editor", function () {
+    const editorResult = browseTo(langEN, userAgent, tinyDOCURL).text
+    expect(editorResult.includes("TinyDOC Editor")).toBe(true)
+  })
+})
+
+describe(tinyIMGURL, function () {
+  it("Should show the editor", function () {
+    const editorResult = browseTo(langEN, userAgent, tinyIMGURL).text
+    expect(editorResult.includes("Keep ratio")).toBe(true)
+  })
+})
+
+describe(redirectURL, function () {
   it("Should redirect to the home page", function () {
     const redirectTest = browseTo(langEN, userAgent, redirectURL).text
     expect(redirectTest.includes("projects")).toBe(true)
