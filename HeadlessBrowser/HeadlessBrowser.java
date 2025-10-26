@@ -47,12 +47,12 @@ public class HeadlessBrowser {
             webClient.setScriptPreProcessor((page, scriptSource, scriptName, lineNumber, htmlElement) -> {
                 String overrideScript =
                     // forcing the navigator language
-                    "try{"+
+                    "try{" +
                     "Object.defineProperty(window.navigator, 'language', {get: function(){return '" + userLanguage + "';}});" +
                     "Object.defineProperty(window.navigator, 'languages', {get: function(){return ['" + userLanguage + "'];}});" +
-                    "}catch(e){}"+
+                    "}catch(e){}" +
                     // mock for iframe
-                    "try{"+
+                    "try{" +
                     "const _createElement = Document.prototype.createElement;" +
                     "Document.prototype.createElement = function(tagName, options) {" +
                     "   if (String(tagName).toLowerCase() === 'iframe') {" +
@@ -69,17 +69,26 @@ public class HeadlessBrowser {
                 return overrideScript + "\n" + scriptSource;
             });
 
-            HtmlPage page;
+            Page rawPage;
 
             if (input.startsWith("http://") || input.startsWith("https://")) {
                 // Case 1: Remote URL
-                page = webClient.getPage(input);
+                rawPage = webClient.getPage(input);
             } else {
                 // Case 2: Local file
                 URL fileUrl = Paths.get(input).toUri().toURL();
-                page = webClient.getPage(fileUrl);
+                rawPage = webClient.getPage(fileUrl);
             }
 
+            String currentUrl = rawPage.getUrl().toString();
+
+            if (!(rawPage instanceof HtmlPage)) {
+                String jsonResult = "{\"url\":\"" + currentUrl.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "") + "\"}";
+                System.out.println(jsonResult);
+                return;
+            }
+
+            HtmlPage page = (HtmlPage) rawPage;
             HtmlElement lastElement = null;
 
             // Execute each optional selector sequentially with a 5-second delay
@@ -99,15 +108,23 @@ public class HeadlessBrowser {
                 } else {
                     // Normal selector: find and click
                     DomElement element = page.querySelector(trimmed);
-                    if (element != null) {
+                    if (element != null && element instanceof HtmlElement) {
                         lastElement = (HtmlElement) element;
-                        page = lastElement.click();
+                        Page nextPage = lastElement.click();
                         webClient.waitForBackgroundJavaScriptStartingBefore(15000);
                         try {
                             Thread.sleep(5000); // 5 seconds delay between selectors
                         } catch (InterruptedException ie) {
                             Thread.currentThread().interrupt();
                         }
+
+                        if (!(nextPage instanceof HtmlPage)) {
+                            String jsonResult = "{\"url\":\"" + nextPage.getUrl().toString().replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "") + "\"}";
+                            System.out.println(jsonResult);
+                            return;
+                        }
+
+                        page = (HtmlPage) nextPage;
                     }
                 }
             }
@@ -115,7 +132,7 @@ public class HeadlessBrowser {
             // Extract HTML, visible text and current URL
             String html = page.asXml();
             String innerText = page.getBody().asNormalizedText();
-            String currentUrl = page.getUrl().toString();
+            currentUrl = page.getUrl().toString();
 
             // Escape special characters for valid JSON string values
             html = html.replace("\\", "\\\\")

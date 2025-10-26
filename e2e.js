@@ -37,6 +37,7 @@ function browseTo(userLanguage, userAgent, url, selector) {
 }
 
 const intranetURL = "Intranet/index.html"
+const resourcesURL = "Resources/index.html"
 const tinyACEURL = "TinyACE/index.html"
 const tinyDOCURL = "TinyDOC/index.html"
 const tinyIMGURL = "TinyIMG/index.html"
@@ -70,6 +71,18 @@ describe(intranetURL, function () {
   it("Should open the first shortcut", function () {
     const shortcutTest = browseTo(langEN, userAgent, intranetURL, [btnShortcut]).text
     expect(shortcutTest.split("Pool").length - 1 > 1 ? true : false).toBe(true)
+  })
+})
+
+describe(resourcesURL, function () {
+  it("Should download the SVG icon", function () {
+    const resourcesResult = browseTo(langEN, userAgent, resourcesURL, ["svg"]).url
+    expect(resourcesResult.startsWith("blob:file://")).toBe(true)
+  })
+
+  it("Should download the IMG icon", function () {
+    const resourcesResult = browseTo(langEN, userAgent, resourcesURL, ["img"]).url
+    expect(resourcesResult.startsWith("data:image/png;base64")).toBe(true)
   })
 })
 

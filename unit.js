@@ -1339,7 +1339,7 @@ describe("e2e.jar", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "6cfda030"
+    const expectedHash = "4f06dc04"
     let currentHash = ""
 
     try {
@@ -1359,7 +1359,7 @@ describe("e2e.js", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "f9735f4"
+    const expectedHash = "4413c02"
     let currentHash = ""
 
     try {
