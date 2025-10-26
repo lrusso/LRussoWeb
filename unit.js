@@ -2232,9 +2232,9 @@ describe("No comments in HTML files", function () {
 
       const comments = []
 
-      const singleLine = content.match(/<!--[\s\S]*?-->/gm)
-      if (singleLine) {
-        const cleaned = singleLine.map(function (c) {
+      const htmlComments = content.match(/<!--[\s\S]*?-->/gm)
+      if (htmlComments) {
+        const cleaned = htmlComments.map(function (c) {
           return c.replace(/\n/g, " ")
         })
         comments.push(...cleaned)
