@@ -834,7 +834,7 @@ describe("ResumeChecker/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "7984e5f7"
+    const expectedHash = "5f1ef5f7"
     let currentHash = ""
 
     try {
@@ -2193,7 +2193,7 @@ describe("No uppercase comments", function () {
       }
 
       const commentAfterCodeLine = content.match(
-        /^(?=.{1,300}$)(?:(?!.*data:[^ ]*base64)(?!.*https?:\/\/)[^"\n]*?)\/\/(?!\s*(?:https?:|data:))(.+)$/gm
+        /^(?=.{1,300}$)(?:(?!.*data:[^ ]*base64)(?!.*https?:\/\/)(?!.*blob:[^ ]*)(?:(?!\/\/).)*?)\/\/(?!\s*(?:https?:|data:|blob:))(.+)$/gm
       )
       if (commentAfterCodeLine) {
         const cleaned = commentAfterCodeLine.map(function (item) {

@@ -2014,10 +2014,10 @@
             svg.classList.add("score-border")
             svg.setAttribute("viewBox", "0 0 100 100")
             svg.style.position = "absolute"
-            svg.style.top = "-10px" // Adjusted for thicker border
-            svg.style.left = "-10px" // Adjusted for thicker border
-            svg.style.width = "calc(100% + 20px)" // Adjusted for thicker border
-            svg.style.height = "calc(100% + 20px)" // Adjusted for thicker border
+            svg.style.top = "-10px" // adjusted for thicker border
+            svg.style.left = "-10px" // adjusted for thicker border
+            svg.style.width = "calc(100% + 20px)" // adjusted for thicker border
+            svg.style.height = "calc(100% + 20px)" // adjusted for thicker border
             svg.style.zIndex = "1"
 
             // create background circle with thicker stroke
@@ -2027,10 +2027,10 @@
             )
             bgCircle.setAttribute("cx", "50")
             bgCircle.setAttribute("cy", "50")
-            bgCircle.setAttribute("r", "42") // Slightly reduced radius to accommodate thicker stroke
+            bgCircle.setAttribute("r", "42") // slightly reduced radius to accommodate thicker stroke
             bgCircle.setAttribute("fill", "none")
             bgCircle.setAttribute("stroke", "rgba(255, 255, 255, 0.3)")
-            bgCircle.setAttribute("stroke-width", "10") // Increased from 6 to 10
+            bgCircle.setAttribute("stroke-width", "10") // increased from 6 to 10
             svg.appendChild(bgCircle)
 
             // create progress circle with thicker stroke
@@ -2040,21 +2040,21 @@
             )
             circle.setAttribute("cx", "50")
             circle.setAttribute("cy", "50")
-            circle.setAttribute("r", "42") // Slightly reduced radius to accommodate thicker stroke
+            circle.setAttribute("r", "42") // slightly reduced radius to accommodate thicker stroke
             circle.setAttribute("fill", "none")
-            circle.setAttribute("stroke-width", "10") // Increased from 6 to 10
+            circle.setAttribute("stroke-width", "10") // increased from 6 to 10
             circle.setAttribute("stroke-linecap", "round")
 
             // set color based on score - always apply a color
             var color
             if (score >= 80) {
-              color = "#4caf50" // Green
+              color = "#4caf50" // green
             } else if (score >= 60) {
-              color = "#2196f3" // Blue
+              color = "#2196f3" // blue
             } else if (score >= 40) {
-              color = "#ff9800" // Orange
+              color = "#ff9800" // orange
             } else {
-              color = "#f44336" // Red
+              color = "#f44336" // red
             }
 
             circle.setAttribute("stroke", color)
