@@ -116,7 +116,7 @@ describe(redirectURL, function () {
   })
 })
 
-describe("index.html", function () {
+describe(homeURL, function () {
   it("Should display words in English", function () {
     const englishTest = browseTo(langEN, userAgent, homeURL).text
     expect(englishTest.includes("projects")).toBe(true)

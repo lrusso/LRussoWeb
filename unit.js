@@ -1379,7 +1379,7 @@ describe("e2e.js", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "4413c02"
+    const expectedHash = "7a95d397"
     let currentHash = ""
 
     try {
