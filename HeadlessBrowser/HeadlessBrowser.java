@@ -83,7 +83,7 @@ public class HeadlessBrowser {
             String currentUrl = rawPage.getUrl().toString();
 
             if (!(rawPage instanceof HtmlPage)) {
-                String jsonResult = "{\"url\":\"" + currentUrl.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "") + "\"}";
+                String jsonResult = "{\"url\":\"" + currentUrl.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t").replace("\r", "") + "\"}";
                 System.out.println(jsonResult);
                 return;
             }
@@ -119,7 +119,7 @@ public class HeadlessBrowser {
                         }
 
                         if (!(nextPage instanceof HtmlPage)) {
-                            String jsonResult = "{\"url\":\"" + nextPage.getUrl().toString().replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "") + "\"}";
+                            String jsonResult = "{\"url\":\"" + nextPage.getUrl().toString().replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t").replace("\r", "") + "\"}";
                             System.out.println(jsonResult);
                             return;
                         }
@@ -135,18 +135,9 @@ public class HeadlessBrowser {
             currentUrl = page.getUrl().toString();
 
             // Escape special characters for valid JSON string values
-            html = html.replace("\\", "\\\\")
-                       .replace("\"", "\\\"")
-                       .replace("\n", "\\n")
-                       .replace("\r", "");
-
-            innerText = innerText.replace("\\", "\\\\")
-                                 .replace("\"", "\\\"")
-                                 .replace("\n", "\\n")
-                                 .replace("\r", "");
-
-            currentUrl = currentUrl.replace("\\", "\\\\")
-                                   .replace("\"", "\\\"");
+            html = html.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t").replace("\r", "");
+            innerText = innerText.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t").replace("\r", "");
+            currentUrl = currentUrl.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\t", "\\t").replace("\r", "");
 
             // Build JSON as a single string
             String jsonResult = "{"

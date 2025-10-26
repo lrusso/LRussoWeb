@@ -523,6 +523,26 @@ describe("HeadlessBrowser/build.js", function () {
   })
 })
 
+describe("HeadlessBrowser/HeadlessBrowser.java", function () {
+  it("Should exist", function () {
+    expect(fileExists("HeadlessBrowser/HeadlessBrowser.java")).toBe(true)
+  })
+
+  it("Should not have changed", function () {
+    const expectedHash = "52c388a2"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("HeadlessBrowser/HeadlessBrowser.java", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+})
+
 describe("HeadlessBrowser/HeadlessBrowser.js", function () {
   it("Should exist", function () {
     expect(fileExists("HeadlessBrowser/HeadlessBrowser.js")).toBe(true)
@@ -1339,7 +1359,7 @@ describe("e2e.jar", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "4f06dc04"
+    const expectedHash = "76e1923"
     let currentHash = ""
 
     try {
