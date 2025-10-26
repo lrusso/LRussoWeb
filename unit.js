@@ -698,7 +698,7 @@ describe("Pool/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "72c80750"
+    const expectedHash = "55075890"
     let currentHash = ""
 
     try {
@@ -834,7 +834,7 @@ describe("ResumeChecker/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "1cf8fe17"
+    const expectedHash = "7984e5f7"
     let currentHash = ""
 
     try {
@@ -1019,7 +1019,7 @@ describe("Tetris/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "210f3183"
+    const expectedHash = "43a6e2e3"
     let currentHash = ""
 
     try {
@@ -2184,27 +2184,32 @@ describe("No uppercase comments", function () {
 
       const comments = []
 
-      if (file.endsWith(".js")) {
-        const singleLine = content.match(/^[ \t]*(?<!:)\/\/(?!\/).*$/gm)
-        if (singleLine) {
-          comments.push(...singleLine)
-        }
+      const singleLine = content.match(/^[ \t]*(?<!:)\/\/(?!\/).*$/gm)
+      if (singleLine) {
+        const cleaned = singleLine.map(function (item) {
+          return item.substring(item.indexOf("//")).trim()
+        })
+        comments.push(...cleaned)
       }
 
-      if (file.endsWith(".html") || file.endsWith(".htm")) {
-        const singleLine = content.match(/^[ \t]*(?<!:)\/\/(?!\/).*$/gm)
-        if (singleLine) {
-          comments.push(...singleLine)
-        }
+      const commentAfterCodeLine = content.match(
+        /^(?=.{1,300}$)(?:(?!.*data:[^ ]*base64)(?!.*https?:\/\/)[^"\n]*?)\/\/(?!\s*(?:https?:|data:))(.+)$/gm
+      )
+      if (commentAfterCodeLine) {
+        const cleaned = commentAfterCodeLine.map(function (item) {
+          return item.substring(item.indexOf("//")).trim()
+        })
+        comments.push(...cleaned)
       }
 
-      const upperCaseComments = comments.filter(function (c) {
+      let upperCaseComments = comments.filter(function (c) {
         return c !== c.toLowerCase()
       })
 
       let fileResult = false
 
       if (upperCaseComments.length > 0) {
+        upperCaseComments = [...new Set(upperCaseComments)]
         fileResult = upperCaseComments.join(", ")
       }
 
@@ -2213,7 +2218,7 @@ describe("No uppercase comments", function () {
   })
 })
 
-describe("No comments in HTML", function () {
+describe("No comments in HTML files", function () {
   const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
   const targetExts = [".html", ".htm"]
   const filesToCheck = allFiles.filter(function (file) {

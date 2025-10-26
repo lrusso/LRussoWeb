@@ -657,18 +657,18 @@
 
       Tetris.Game.prototype = {
         init: function () {
-          this.numBlocksY = 17 // MAKE THE GRID 17 BLOCKS HIGH
-          this.numBlocksX = 10 // MAKE THE GRID 10 BLOCKS WIDE
+          this.numBlocksY = 17 // make the grid 17 blocks high
+          this.numBlocksX = 10 // make the grid 10 blocks wide
 
-          this.movementLag = 100 // DELAY IN MS BELOW WHICH TWO CONSECUTIVE KEY PRESSES ARE COUNTED AS THE SAME ONE (TO AVOID SUPER FAST MOVEMENT)
+          this.movementLag = 100 // delay in ms below which two consecutive key presses are counted as the same one (to avoid super fast movement)
 
-          this.blockValue = 1 // VALUE IN THE GRID OF A CELL OCCUPIED BY A BLOCK OF A FALLEN TETROMINO
-          this.occupiedValue = 2 // VALUE IN THE GRID OF A CELL OCCUPIED BY A BLOCK OF THE CURRENTLY FALLKING TETROMINO
+          this.blockValue = 1 // value in the grid of a cell occupied by a block of a fallen tetromino
+          this.occupiedValue = 2 // value in the grid of a cell occupied by a block of the currently fallking tetromino
 
-          this.scoreValue = 0 // SCORE OF THE PLAYER
-          this.timeOut = Phaser.Timer.SECOND // FALLING SPEED OF THE FALLING TETROMINO (ONE BLOCK PER SECOND INITIALLY)
+          this.scoreValue = 0 // score of the player
+          this.timeOut = Phaser.Timer.SECOND // falling speed of the falling tetromino (one block per second initially)
 
-          this.queue = [] // CONTAINS THE LIST THE NBNEXT NEXT TETROMINOES TO DISPLAY
+          this.queue = [] // contains the list the nbnext next tetrominoes to display
 
           // the positions of each block of a tetromino with respect to its center (in cell coordinates)
           this.offsets = {
@@ -942,7 +942,7 @@
           // will contains 1 if there is already a block from the current tetromino.
           // will contains 2 if there is a block from a fallen tetromino.
           this.scene = []
-          this.sceneSprites = [] // SAME BUT STORES SPRITES INSTEAD
+          this.sceneSprites = [] // same but stores sprites instead
 
           // fills the two arrays with empty cells
           for (var i = 0; i < this.numBlocksX; i++) {
@@ -1124,7 +1124,7 @@
         },
 
         manageTetrominos: function () {
-          var nbNext = 1 // NUMBER OF NEXT TETROMINOES TO DISPLAY
+          var nbNext = 1 // number of next tetrominoes to display
 
           // keeping the queue filled with as many tetrominos as needed
           while (this.queue.length < nbNext + 1) {
@@ -1209,7 +1209,7 @@
 
         canMove: function (coordinatesCallback, dir) {
           for (var i = 0; i < this.tetromino.cells.length; i++) {
-            var new_coord = coordinatesCallback(i, dir) // RETURN COORDS IN TERMS OF CELLS, NOT PIXELS
+            var new_coord = coordinatesCallback(i, dir) // return coords in terms of cells, not pixels
             var new_x = new_coord[0]
             var new_y = new_coord[1]
             if (!this.validateCoordinates(new_x, new_y)) {
@@ -1576,8 +1576,8 @@
           this.myContext = myContext
           this.shape = Math.floor(Math.random() * 7)
           this.color = Math.floor(Math.random() * 7)
-          this.sprites = [] // LIST OF THE SPRITES OF EACH BLOCK
-          this.cells = [] // LIST OF THE CELLS OCCUPIED BY THE TETROMINO
+          this.sprites = [] // list of the sprites of each block
+          this.cells = [] // list of the cells occupied by the tetromino
           this.center = [0, 0]
         }
 
@@ -1593,7 +1593,7 @@
           }
           this.sprites = []
 
-          var conflict = false // ARE THERE OCCUPIED CELLS WHERE THE TETROMINON WILL APPEAR? IF SO, GAME OVER
+          var conflict = false // are there occupied cells where the tetrominon will appear? if so, game over
 
           for (var i = 0; i < 4; i++) {
             // compute the coordinates of each block of the tetromino, using it's offset from the center
@@ -1612,7 +1612,7 @@
               if (!this.myContext.validateCoordinates(x, y)) {
                 conflict = true
               }
-              this.myContext.scene[x][y] = 1 // 1 FOR BLOCKS OF CURRENT TETROMINO, 2 FOR FALLEN BLOCKS
+              this.myContext.scene[x][y] = 1 // 1 for blocks of current tetromino, 2 for fallen blocks
             } else {
               sprite.scale.x = 0.25
               sprite.scale.y = 0.25

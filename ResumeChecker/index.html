@@ -933,7 +933,7 @@
             var companyPatterns = [
               /\bcompany\s*:\s*[a-z0-9\s&,\.]+/i,
               /\b(at|with|for)\s+[a-z0-9\s&,\.]+/i,
-              /\b[a-z0-9\s&,\.]+\s+\(?\d{4}/i, // Company name followed by year
+              /\b[a-z0-9\s&,\.]+\s+\(?\d{4}/i, // company name followed by year
             ]
 
             var hasCompanyIndicators = companyIndicators.some(function (indicator) {
@@ -963,13 +963,13 @@
 
             // check for dates - enhanced date detection
             var datePatterns = [
-              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // Month Year
-              /\b\d{4}\s*-\s*\d{4}\b/, // Year - Year
-              /\b\d{4}\s*-\s*(present|current|now)\b/i, // Year - Present
-              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\s*-\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // Month Year - Month Year
-              /\b\d{1,2}\/\d{4}\s*-\s*\d{1,2}\/\d{4}\b/, // MM/YYYY - MM/YYYY
-              /\b\d{1,2}\/\d{4}\s*-\s*(present|current|now)\b/i, // MM/YYYY - Present
-              /\bsince\s+\d{4}\b/i, // Since Year
+              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year
+              /\b\d{4}\s*-\s*\d{4}\b/, // year - year
+              /\b\d{4}\s*-\s*(present|current|now)\b/i, // year - present
+              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\s*-\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year - month year
+              /\b\d{1,2}\/\d{4}\s*-\s*\d{1,2}\/\d{4}\b/, // mm/yyyy - mm/yyyy
+              /\b\d{1,2}\/\d{4}\s*-\s*(present|current|now)\b/i, // mm/yyyy - present
+              /\bsince\s+\d{4}\b/i, // since year
             ]
 
             var hasDates = datePatterns.some(function (pattern) {
@@ -1028,16 +1028,16 @@
               "streamlined",
             ]
             var metricPatterns = [
-              /\d+\s*%/, // Percentage
-              /\$\s*\d+/, // Dollar amount
-              /\d+\s*million/i, // Millions
-              /\d+\s*k\b/i, // Thousands
-              /\d+\s*users/i, // Users
-              /\d+\s*customers/i, // Customers
-              /\d+\s*clients/i, // Clients
-              /\d+\s*projects/i, // Projects
-              /\d+\s*teams/i, // Teams
-              /\d+\s*people/i, // People
+              /\d+\s*%/, // percentage
+              /\$\s*\d+/, // dollar amount
+              /\d+\s*million/i, // millions
+              /\d+\s*k\b/i, // thousands
+              /\d+\s*users/i, // users
+              /\d+\s*customers/i, // customers
+              /\d+\s*clients/i, // clients
+              /\d+\s*projects/i, // projects
+              /\d+\s*teams/i, // teams
+              /\d+\s*people/i, // people
             ]
 
             var hasAccomplishments = accomplishmentKeywords.some(function (keyword) {
@@ -1543,7 +1543,7 @@
             var hasLongParagraphs =
               text.split("\n").filter(function (p) {
                 return p.length > 100
-              }).length > 1 // > It considers the summary as a valid long paragraph
+              }).length > 1 // > it considers the summary as a valid long paragraph
             var hasEmptyBullets = text.split("\n").some(function (line) {
               return line.trim() === "\u2022"
             })
@@ -1622,10 +1622,10 @@
           function checkConsistentDateFormats(text) {
             // common date formats
             var datePatterns = [
-              /\b\d{2}\/\d{2}\/\d{4}\b/g, // MM/DD/YYYY
-              /\b\d{2}-\d{2}-\d{4}\b/g, // MM-DD-YYYY
-              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/gi, // Month YYYY
-              /\b\d{4}\b/g, // YYYY
+              /\b\d{2}\/\d{2}\/\d{4}\b/g, // mm/dd/yyyy
+              /\b\d{2}-\d{2}-\d{4}\b/g, // mm-dd-yyyy
+              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/gi, // month yyyy
+              /\b\d{4}\b/g, // yyyy
             ]
 
             // count occurrences of each format
@@ -2060,7 +2060,7 @@
             circle.setAttribute("stroke", color)
 
             // calculate stroke dash array and offset
-            var circumference = 2 * Math.PI * 42 // Updated to match the new radius
+            var circumference = 2 * Math.PI * 42 // updated to match the new radius
             circle.setAttribute("stroke-dasharray", circumference)
             circle.setAttribute("stroke-dashoffset", circumference)
 
