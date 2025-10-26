@@ -1529,7 +1529,7 @@
 
     <script>
       window.addEventListener("load", function () {
-        // CHECKING IF THE APP IS LOADED PROPERLY
+        // checking if the app is loaded properly
         var secSameDomain = false
         var secNotIframe = window.top === window.self
         var secLocalFile = window.self.location.protocol === "file:"
@@ -1540,11 +1540,7 @@
         } catch (err) {
           //
         }
-        if (
-          secNotIframe || // NOT RUNNING IN AN IFRAME AT ALL
-          secSameDomain || // RUNNING IN AN IFRAME IN THE SAME DOMAIN
-          secLocalFile // RUNNING IN A LOCAL FILE
-        ) {
+        if (secNotIframe || secSameDomain || secLocalFile) {
           document.querySelector(".pleasewait").style.display = "none"
           document.getElementById("container").style.display = "block"
 

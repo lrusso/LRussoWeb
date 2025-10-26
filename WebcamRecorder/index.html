@@ -157,7 +157,7 @@
 
           var videoConstraints
 
-          // TRYING 1080p FIRST
+          // trying 1080p first
           if (isUsingiOS()) {
             videoConstraints = { width: 1920, height: 1080 }
           } else {
@@ -172,7 +172,7 @@
             audio: true,
           })
 
-          // IF SUCCESS, UPDATING UI FOR 1080p
+          // if success, updating ui for 1080p
           document.querySelector(".media-container").style.width = "1920px"
           document.querySelector(".media-container").style.height = "1080px"
         } catch (err) {
@@ -182,7 +182,7 @@
             return
           }
 
-          // FALLBACK TO 720p
+          // fallback to 720p
           var fallbackConstraints
 
           if (isUsingiOS()) {
@@ -199,7 +199,7 @@
             audio: true,
           })
 
-          // UPDATING UI FOR 720P
+          // updating ui for 720p
           document.querySelector(".media-container").style.width = "1280px"
           document.querySelector(".media-container").style.height = "720px"
         }
@@ -283,7 +283,7 @@
       }
 
       window.addEventListener("load", function () {
-        // CHECKING IF THE APP IS LOADED PROPERLY
+        // checking if the app is loaded properly
         var secSameDomain = false
         var secNotIframe = window.top === window.self
         var secLocalFile = window.self.location.protocol === "file:"
@@ -294,11 +294,7 @@
         } catch (err) {
           //
         }
-        if (
-          secNotIframe || // NOT RUNNING IN AN IFRAME AT ALL
-          secSameDomain || // RUNNING IN AN IFRAME IN THE SAME DOMAIN
-          secLocalFile // RUNNING IN A LOCAL FILE
-        ) {
+        if (secNotIframe || secSameDomain || secLocalFile) {
           loadingScreen = document.querySelector(".pleasewait")
           mediaError = document.querySelector(".media-error")
           mediaContainer = document.querySelector(".media-container")

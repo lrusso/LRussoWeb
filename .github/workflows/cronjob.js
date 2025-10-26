@@ -86,29 +86,29 @@ async function customFetch(url) {
   }
 }
 
-// TASK 1 - CHECKING IF THE URLS ARE SHOWING A DIFFERENT CONTENT
+// task 1 - checking if the urls are showing a different content
 async function task1(urlsArray) {
   let taskURL = ""
 
-  // GETTING EVERY URL
+  // getting every url
   for (const url of urlsArray) {
     try {
-      // GETTING EVERY OBJECT
+      // getting every object
       for (const [key, value] of Object.entries(url)) {
-        // SETTING THE CURRENT TASK URL
+        // setting the current task url
         taskURL = key
 
-        // BROWSING TO THE URL AND GETTING THE WEB CONTENT
+        // browsing to the url and getting the web content
         const result = await customFetch(key)
 
-        // IF VALUE IS A STRING, IT WILL CHECK IF THE STRING IS NOT FOUND IN THE WEB CONTENT
+        // if value is a string, it will check if the string is not found in the web content
         if (typeof value === "string") {
           if (result.indexOf(value) === -1) {
             report.push("Website content has changed at " + key)
           }
         }
 
-        // IF VALUE IS AN ARRAY, IT WILL CHECK IF AT LEAST ONE STRING IS FOUND IN THE WEB CONTENT
+        // if value is an array, it will check if at least one string is found in the web content
         if (Array.isArray(value)) {
           for (let i = 0; i < value.length; i++) {
             const toFind = value[i]
@@ -118,7 +118,7 @@ async function task1(urlsArray) {
           }
         }
 
-        // IF VALUE IS A NUMBER, IT WILL CHECK THE WEB CONTENT LENGTH
+        // if value is a number, it will check the web content length
         else if (typeof value === "number") {
           if (result.length !== value) {
             report.push("Website content has changed at " + key)
@@ -131,18 +131,18 @@ async function task1(urlsArray) {
   }
 }
 
-// TASK 2 - CHECKING IF IMPORTANT DATES ARE CLOSE
+// task 2 - checking if important dates are close
 function task2(datesArray, currentDate) {
   let taskDate = ""
 
-  // GETTING EVERY DATE
+  // getting every date
   if (Array.isArray(datesArray)) {
     for (let i = 0; i < datesArray.length; i++) {
       const event = datesArray[i]
       try {
-        // GETTING EVERY EVENT
+        // getting every event
         for (const [key, value] of Object.entries(event)) {
-          // GETTING THE DIFFERENCE BETWEEN THE TWO DATES
+          // getting the difference between the two dates
           taskDate = key.split("-")
           const eventDate = new Date(
             taskDate[0] + "-" + taskDate[1] + "-" + taskDate[2]
@@ -150,9 +150,9 @@ function task2(datesArray, currentDate) {
           const diffTime = currentDate - eventDate
           const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
 
-          // CHECKING IF THE DIFFERENCE IS LESS THAN 1 MONTH
+          // checking if the difference is less than 1 month
           if (diffDays >= -31) {
-            // ADDING THE EVENT AS SOMETHING TO REPORT
+            // adding the event as something to report
             report.push(value)
           }
         }
@@ -163,21 +163,21 @@ function task2(datesArray, currentDate) {
   }
 }
 
-// TASK 3 - CHECKING IF REGISTERED DOMAINS CAN BE RENEWED
+// task 3 - checking if registered domains can be renewed
 function task3(domainsArray, currentDate) {
   let taskDomain = ""
 
-  // GETTING EVERY DOMAIN
+  // getting every domain
   if (Array.isArray(domainsArray)) {
     for (let i = 0; i < domainsArray.length; i++) {
       const event = domainsArray[i]
       try {
-        // GETTING EVERY ENTRY
+        // getting every entry
         for (const [key, value] of Object.entries(event)) {
-          // GETTING THE DOMAIN TO CHECK
+          // getting the domain to check
           taskDomain = value.toLowerCase().trim()
 
-          // GETTING THE DATES
+          // getting the dates
           const expirationDate = key.split("-")
           const expirationDay = expirationDate[2]
           const expirationMonth = expirationDate[1]
@@ -186,7 +186,7 @@ function task3(domainsArray, currentDate) {
           const currentMonth = currentDate.getMonth()
           const currentDay = currentDate.getDate()
 
-          // GETTING THE DIFFERENCE BETWEEN THE TWO DATES
+          // getting the difference between the two dates
           let diffYears = currentYear - expirationYear
           if (currentMonth < expirationMonth - 1) {
             diffYears = diffYears - 1
@@ -196,7 +196,7 @@ function task3(domainsArray, currentDate) {
           }
           diffYears = Math.abs(diffYears)
 
-          // CHECKING IF THE DIFFERENCE IS LESS THAN 10 YEARS (SO THE DOMAIN CAN BE RENEWED)
+          // checking if the difference is less than 10 years (so the domain can be renewed)
           if (diffYears < 10) {
             report.push(taskDomain + " can be renewed.")
           }
@@ -208,7 +208,7 @@ function task3(domainsArray, currentDate) {
   }
 }
 
-// TASK 4 - READING NEWSPAPERS AND SENDING AN EMAIL
+// task 4 - reading newspapers and sending an email
 async function task4(newspapers) {
   let result = ""
 
@@ -268,7 +268,7 @@ async function task4(newspapers) {
   result =
     '<span style\u003D"font-size:16px;line-height:1.8">' + result.trim() + "</b>"
 
-  // SENDING AN EMAIL WITH THE NEWSPAPER HEADLINES
+  // sending an email with the newspaper headlines
   await sendEmail(settings.emailSubjects.newspaperHeadlines, result)
 }
 
@@ -289,13 +289,13 @@ async function runTasks() {
       report[i] = report[i].replace(/(\r?\n)/g, "<br>")
     }
 
-    // SENDING AN EMAIL WITH THE SYSTEM REPORT
+    // sending an email with the system report
     await sendEmail(
       settings.emailSubjects.systemReport,
       report.join("<br><br>").toString()
     )
 
-    // EXITING THE PROCESS WITH AN ERROR IN ORDER TO TRIGGER A GITHUB NOTIFICATION
+    // exiting the process with an error in order to trigger a github notification
     process.exit(1)
   }
 }

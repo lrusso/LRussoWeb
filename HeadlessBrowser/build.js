@@ -13,7 +13,7 @@ function run(cmd) {
   }
 }
 
-// 1. Deleting any previous temporary folder
+// 1. deleting any previous temporary folder
 if (fs.existsSync("classes")) {
   fs.rmSync("classes", { recursive: true, force: true })
 }
@@ -21,29 +21,29 @@ if (fs.existsSync("jar-temp")) {
   fs.rmSync("jar-temp", { recursive: true, force: true })
 }
 
-// 2. Create output directories
+// 2. create output directories
 fs.mkdirSync("classes")
 fs.mkdirSync("jar-temp")
 
-// 3. Deleting the initial HeadlessBrowser.jar file
+// 3. deleting the initial headlessbrowser.jar file
 if (fs.existsSync("HeadlessBrowser.jar")) {
   fs.unlinkSync("HeadlessBrowser.jar")
 }
 
-// 4. Compile the Java source file
+// 4. compile the java source file
 run(
   'javac --release 9 -cp "htmlunit-4.17.0/htmlunit-4.17.0.jar:htmlunit-4.17.0/lib/*" HeadlessBrowser.java -d classes'
 )
 
-// 5. Unpack the main JAR and its dependencies
+// 5. unpack the main jar and its dependencies
 process.chdir("jar-temp")
 run("jar xf ../htmlunit-4.17.0/htmlunit-4.17.0.jar")
 run("sh -c 'for f in ../htmlunit-4.17.0/lib/*.jar; do jar xf \"$f\"; done'")
 
-// 6. Copy compiled class file into the temp jar folder
+// 6. copy compiled class file into the temp jar folder
 fs.copyFileSync("../classes/HeadlessBrowser.class", "HeadlessBrowser.class")
 
-// 7. Clean META-INF except MANIFEST.MF
+// 7. clean meta-inf except manifest.mf
 if (fs.existsSync("META-INF")) {
   const metaFiles = fs.readdirSync("META-INF")
   for (const file of metaFiles) {
@@ -53,16 +53,16 @@ if (fs.existsSync("META-INF")) {
   }
 }
 
-// 8. Create custom MANIFEST.MF
+// 8. create custom manifest.mf
 fs.writeFileSync("MANIFEST.MF", "Main-Class: HeadlessBrowser\n")
 
-// 9. Repack everything into a runnable JAR
+// 9. repack everything into a runnable jar
 run("jar cfm ../HeadlessBrowser.jar MANIFEST.MF .")
 
-// 10. Going back to the original folder
+// 10. going back to the original folder
 process.chdir("..")
 
-// 11. Deleting the temporary folders
+// 11. deleting the temporary folders
 if (fs.existsSync("classes")) {
   fs.rmSync("classes", { recursive: true, force: true })
 }
@@ -70,7 +70,7 @@ if (fs.existsSync("jar-temp")) {
   fs.rmSync("jar-temp", { recursive: true, force: true })
 }
 
-// 12. Checking if the jar was created
+// 12. checking if the jar was created
 if (fs.existsSync("HeadlessBrowser.jar")) {
   // eslint-disable-next-line
   console.log("A new HeadlessBrowser.jar file was generated")

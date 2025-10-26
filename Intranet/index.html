@@ -69,7 +69,7 @@
     <div id="calendar"></div>
     <script>
       // ---------------------------------------------------------------------------------------------------
-      // DESKTOP CONTENT
+      // desktop content
       // ---------------------------------------------------------------------------------------------------
 
       function createIframe(url) {
@@ -133,7 +133,7 @@
       ]
 
       // ---------------------------------------------------------------------------------------------------
-      // INTERNATIONALIZATION
+      // internationalization
       // ---------------------------------------------------------------------------------------------------
 
       var APP_STRINGS = {
@@ -197,7 +197,7 @@
       document.title = t("title")
 
       // -----------------------------------------------------
-      // STARTS SCREENSAVER.JS
+      // starts screensaver.js
       // -----------------------------------------------------
 
       function createScreensaver(params) {
@@ -322,11 +322,11 @@
       }
 
       // -----------------------------------------------------
-      // ENDS SCREENSAVER.JS
+      // ends screensaver.js
       // -----------------------------------------------------
 
       // -----------------------------------------------------
-      // STARTS CALENDAR.JS
+      // starts calendar.js
       // -----------------------------------------------------
 
       function createCalendar(params) {
@@ -562,7 +562,7 @@
           header.appendChild(nextBtn)
           container.appendChild(header)
 
-          // Weekday header row (divs)
+          // weekday header row (divs)
           var weekdays = document.createElement("div")
           weekdays.setAttribute(
             "style",
@@ -579,7 +579,7 @@
           }
           container.appendChild(weekdays)
 
-          // Days grid (no extra row)
+          // days grid (no extra row)
           var body = document.createElement("div")
           body.setAttribute(
             "style",
@@ -622,7 +622,7 @@
       }
 
       // -----------------------------------------------------
-      // ENDS CALENDAR.JS
+      // ends calendar.js
       // -----------------------------------------------------
 
       var desktop = null
@@ -638,7 +638,8 @@
 
         var windowSentToFront = false
 
-        // CHECKING IF THE WINDOW WAS ALREADY CREATED, IF SO, IT WILL BRING IT BACK TO THE FRONT
+        // checking if the window was already created,
+        // if so, it will bring it back to the front.
         var allWindowsTitles = document.querySelectorAll(".window-title-text")
         for (var i = 0; i < allWindowsTitles.length; i++) {
           var windowTitle = allWindowsTitles[i]
@@ -748,8 +749,8 @@
         createTaskbarButton(windowId, title)
         activateWindow(windowElement)
 
-        // IF THE WINDOW CONTENT DOESN'T CONTAIN A IFRAME,
-        // IT MEANS THAT THE WINDOW MUST NOT BE MAXIMIZED
+        // if the window content doesn't contain a iframe,
+        // it means that the window must not be maximized.
         if (content.nodeName !== "IFRAME") {
           windowElement.style.position = "fixed"
           windowElement.style.left = undefined
@@ -796,16 +797,16 @@
           }
         }
 
-        // GETTING ALL THE WINDOWS
+        // getting all the windows
         var allWindows = document.querySelectorAll(".window")
 
-        // DEACTIVATING ALL THE WINDOW TITLES
+        // deactivating all the window titles
         for (var i = 0; i < allWindows.length; i++) {
           var windowElement = allWindows[i]
           windowElement.children[0].classList.add("inactive")
         }
 
-        // ACTIVATING THE WINDOW TITLE
+        // activating the window title
         windowEl.children[0].classList.remove("inactive")
 
         activeWindow = windowEl
@@ -850,26 +851,26 @@
           activeWindow = null
         }
 
-        // GETTING ALL THE WINDOWS
+        // getting all the windows
         var allWindows = document.querySelectorAll(".window")
 
-        // AFTER CLOSING A WINDOW, ACTIVATING THE LAST WINDOW (IF ANY)
+        // after closing a window, activating the last window (if any)
         if (allWindows.length > 0) {
           var highestZIndex2 = -1
           var windowToActivate = null
 
-          // FIND THE WINDOW WITH THE HIGHEST Z-INDEX AMONG THE REMAINING WINDOWS
+          // find the window with the highest z-index among the remaining windows
           for (var i = 0; i < allWindows.length; i++) {
             var window = allWindows[i]
             var currentZIndex = parseInt(window.style.zIndex || 0)
-            // ENSURE WE DON'T TRY TO ACTIVATE THE WINDOW THAT WAS JUST CLOSED
+            // ensure we don't try to activate the window that was just closed
             if (window !== windowElement && currentZIndex > highestZIndex2) {
               highestZIndex2 = currentZIndex
               windowToActivate = window
             }
           }
 
-          // IF A WINDOW TO ACTIVATE IS FOUND, CLICK IT TO BRING IT TO THE FRONT
+          // if a window to activate is found, click it to bring it to the front
           if (windowToActivate) {
             setTimeout(function () {
               windowToActivate.click()
@@ -880,10 +881,9 @@
 
       function isIframeDirty(iframe) {
         try {
-          // IF THE HTML FILE THAT WILL BE LOADED IN THE IFRAME IS DIRTY
-          // AT SOME MOMENT, YOU CAN ADD THE FOLLOWING LINE TO THAT FILE
-          // IN ORDER TO LET KNOW TO THE INTRANET ABOUT THE DIRTY STATE:
-          // window.isDirty = true
+          // if the contenet in the iframe becomes modified,
+          // set to true the variable below to notify
+          // the intranet about it's dirty state.
           return iframe.contentWindow.isDirty
         } catch (err) {
           return false
@@ -1067,10 +1067,10 @@
       }
 
       window.addEventListener("resize", function () {
-        // GETTING ALL THE WINDOWS
+        // getting all the windows
         var allWindows = document.querySelectorAll(".window")
 
-        // CENTERING ALL THE WINDOWS THAT ARE NOT MAXIMIZED
+        // centering all the windows that are not maximized
         for (var i = 0; i < allWindows.length; i++) {
           var windowElement = allWindows[i]
           if (windowElement.style.width === "auto") {

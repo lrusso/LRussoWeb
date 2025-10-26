@@ -525,10 +525,8 @@
 
           vttContent = vttContent + timeLine + "\n"
           vttContent = vttContent + textLines.join("\n") + "\n\n"
-          // NOTE: iOS has a beatiful bug that shows an additional breakline
-          // when showing a two lines subtitle. If you remove the extra breakline
-          // in that case, it won't be a valid VTT subtitle.
-          // Only happens on iOS. Thank you iOS.
+          // note: ios has a bug that adds an extra line break in two-line subtitles,
+          // and removing it makes the vtt subtitle invalid.
         }
 
         return vttContent
@@ -546,7 +544,7 @@
       }
 
       function detectEncoding(view) {
-        // Check for UTF-8 BOM
+        // check for utf-8 bom
         if (
           view.length >= 3 &&
           view[0] === 0xef &&
@@ -556,17 +554,17 @@
           return "UTF-8"
         }
 
-        // Check for UTF-16 BOM (Little Endian)
+        // check for utf-16 bom (little endian)
         if (view.length >= 2 && view[0] === 0xff && view[1] === 0xfe) {
           return "UTF-16LE"
         }
 
-        // Check for UTF-16 BOM (Big Endian)
+        // check for utf-16 bom (big endian)
         if (view.length >= 2 && view[0] === 0xfe && view[1] === 0xff) {
           return "UTF-16BE"
         }
 
-        // Heuristic check for UTF-8 vs ISO-8859-1
+        // heuristic check for utf-8 vs iso-8859-1
         for (var i = 0; i < view.length; i++) {
           if (view[i] < 0x80) {
             continue
@@ -763,7 +761,7 @@
       }
 
       window.addEventListener("load", function () {
-        // CHECKING IF THE APP IS LOADED PROPERLY
+        // checking if the app is loaded properly
         var secSameDomain = false
         var secNotIframe = window.top === window.self
         var secLocalFile = window.self.location.protocol === "file:"
@@ -774,11 +772,7 @@
         } catch (err) {
           //
         }
-        if (
-          secNotIframe || // NOT RUNNING IN AN IFRAME AT ALL
-          secSameDomain || // RUNNING IN AN IFRAME IN THE SAME DOMAIN
-          secLocalFile // RUNNING IN A LOCAL FILE
-        ) {
+        if (secNotIframe || secSameDomain || secLocalFile) {
           pleaseWait.style.display = "none"
           fileLoaderContainer.style.display = "block"
 
@@ -899,7 +893,7 @@
             controlsContainer.style.display = "none"
             return
           } else {
-            // thank you iOS
+            // thank you ios
             mediaFileInput.accept = ".mp4,.mp3,.srt"
           }
 

@@ -78,7 +78,7 @@
       window.isDirty = false
 
       // -----------------------------------------------------
-      // STARTS TINYDOC.JS
+      // starts tinydoc.js
       // -----------------------------------------------------
 
       function tinyDOC(editorConfig) {
@@ -1691,8 +1691,7 @@
         this.saveUndo()
       }
 
-      // https://gist.github.com/isLishude/6ccd1fbf42d1eaac667d6873e7b134f8
-      // https://codepen.io/jeffward/pen/OJjPKYo
+      // https://gist.github.com/islishude/6ccd1fbf42d1eaac667d6873e7b134f8
       tinyDOC.prototype.setCaretPosition = function (container, position) {
         try {
           if (position === null) {
@@ -2117,7 +2116,7 @@
       }
 
       // -----------------------------------------------------
-      // ENDS TINYDOC.JS
+      // ends tinydoc.js
       // -----------------------------------------------------
 
       function confirmCustom(title, message, yes, no, callbackYes, callbackNo) {
@@ -2127,10 +2126,10 @@
             e.preventDefault()
           }
 
-          // BLOCKING THE KEYBOARD
+          // blocking the keyboard
           document.addEventListener("keydown", blockKeyboard, true)
 
-          // CREATING THE CONFIRM CONTAINER
+          // creating the confirm container
           var confirmContainer = document.createElement("div")
           confirmContainer.style.position = "fixed"
           confirmContainer.style.top = 0
@@ -2140,7 +2139,7 @@
           confirmContainer.style.zIndex = 9999
           confirmContainer.style.backgroundColor = "rgba(0,0,0,0.5)"
 
-          // CREATING THE CONFIRM FORM
+          // creating the confirm form
           var confirmForm = document.createElement("div")
           confirmForm.style.position = "relative"
           confirmForm.style.top = "50%"
@@ -2155,7 +2154,7 @@
           confirmForm.style.backgroundColor = "#f2f2f2"
           confirmForm.style.textAlign = "center"
 
-          // CREATING THE CONFIRM TITLE
+          // creating the confirm title
           var confirmTitle = document.createElement("div")
           confirmTitle.style.textAlign = "left"
           confirmTitle.style.paddingLeft = "10px"
@@ -2167,7 +2166,7 @@
           confirmTitle.style.lineHeight = 2.5
           confirmTitle.innerText = title
 
-          // CREATING THE CONFIRM MESSAGE
+          // creating the confirm message
           var confirmMessage = document.createElement("div")
           confirmMessage.style.padding = "20px"
           confirmMessage.style.fontFamily = "Arial"
@@ -2177,7 +2176,7 @@
           confirmMessage.style.lineHeight = 2
           confirmMessage.innerText = message
 
-          // CREATING THE CONFIRM YES BUTTON
+          // creating the confirm yes button
           var confirmButtonYes = document.createElement("div")
           confirmButtonYes.style.padding = "10px"
           confirmButtonYes.style.backgroundColor = "#d2d2d2"
@@ -2195,20 +2194,20 @@
           confirmButtonYes.style.paddingRight = "40px"
           confirmButtonYes.style.cursor = "pointer"
           confirmButtonYes.addEventListener("click", function () {
-            // UNBLOCKING THE KEYBOARD
+            // unblocking the keyboard
             document.removeEventListener("keydown", blockKeyboard, true)
 
-            // REMOVING THE CONFIRM CONTAINER
+            // removing the confirm container
             document.body.removeChild(confirmContainer)
 
-            // EXECUTING THE CALLBACK FUNCTION
+            // executing the callback function
             if (typeof callbackYes === "function") {
               callbackYes()
             }
           })
           confirmButtonYes.innerText = yes
 
-          // CREATING THE CONFIRM NO BUTTON
+          // creating the confirm no button
           var confirmButtonNo = document.createElement("div")
           confirmButtonNo.style.padding = "10px"
           confirmButtonNo.style.backgroundColor = "#d2d2d2"
@@ -2227,27 +2226,27 @@
           confirmButtonNo.style.paddingRight = "40px"
           confirmButtonNo.style.cursor = "pointer"
           confirmButtonNo.addEventListener("click", function () {
-            // UNBLOCKING THE KEYBOARD
+            // unblocking the keyboard
             document.removeEventListener("keydown", blockKeyboard, true)
 
-            // REMOVING THE CONFIRM CONTAINER
+            // removing the confirm container
             document.body.removeChild(confirmContainer)
 
-            // EXECUTING THE CALLBACK FUNCTION
+            // executing the callback function
             if (typeof callbackNo === "function") {
               callbackNo()
             }
           })
           confirmButtonNo.innerText = no
 
-          // ADDING ALL THE ELEMENTS TO THE CONFIRM CONTAINER
+          // adding all the elements to the confirm container
           confirmForm.appendChild(confirmTitle)
           confirmForm.appendChild(confirmMessage)
           confirmForm.appendChild(confirmButtonYes)
           confirmForm.appendChild(confirmButtonNo)
           confirmContainer.appendChild(confirmForm)
 
-          // ADDING THE CONFIRM CONTAINER TO THE DOCUMENT
+          // adding the confirm container to the document
           document.body.appendChild(confirmContainer)
         } catch (err) {
           //
@@ -2258,7 +2257,7 @@
       var myFilename = null
 
       window.addEventListener("load", function () {
-        // CHECKING IF THE APP IS LOADED PROPERLY
+        // checking if the app is loaded properly
         var secSameDomain = false
         var secNotIframe = window.top === window.self
         var secLocalFile = window.self.location.protocol === "file:"
@@ -2269,12 +2268,8 @@
         } catch (err) {
           //
         }
-        if (
-          secNotIframe || // NOT RUNNING IN AN IFRAME AT ALL
-          secSameDomain || // RUNNING IN AN IFRAME IN THE SAME DOMAIN
-          secLocalFile // RUNNING IN A LOCAL FILE
-        ) {
-          // HIDING THE SPINNER
+        if (secNotIframe || secSameDomain || secLocalFile) {
+          // hiding the spinner
           document.querySelector(".pleasewait").style.display = "none"
           document.getElementsByTagName("body")[0].style.backgroundColor = "#fff"
 

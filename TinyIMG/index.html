@@ -417,7 +417,7 @@
         var tmp = document.createElement("canvas")
         var tctx = tmp.getContext("2d")
 
-        // SWAP WIDTH/HEIGHT FOR 90° OR 270° ROTATIONS
+        // swap width/height for 90 or 270 degrees rotations
         if (Math.abs(deg) === 90 || Math.abs(deg) === 270) {
           tmp.width = canvas.height
           tmp.height = canvas.width
@@ -426,22 +426,22 @@
           tmp.height = canvas.height
         }
 
-        // MOVE ORIGIN TO CENTER AND ROTATE
+        // move origin to center and rotate
         tctx.translate(tmp.width / 2, tmp.height / 2)
         tctx.rotate((deg * Math.PI) / 180)
 
-        // DRAW THE IMAGE OFFSET TO CENTER
+        // draw the image offset to center
         tctx.drawImage(canvas, -canvas.width / 2, -canvas.height / 2)
 
-        // REPLACE THE MAIN CANVAS CONTENT
+        // replace the main canvas content
         canvas.width = tmp.width
         canvas.height = tmp.height
         ctx.drawImage(tmp, 0, 0)
 
-        // UPDATE IMAGE SOURCE
+        // update image source
         img.src = canvas.toDataURL()
 
-        // UPDATE RATIO AND INPUT VALUES
+        // update ratio and input values
         ratio = canvas.width / canvas.height
         inputWidth.value = canvas.width
         inputHeight.value = canvas.height
@@ -473,7 +473,7 @@
         var scale
 
         if (horizontal) {
-          // SCALE MERGEIMG TO MATCH IMG HEIGHT
+          // scale mergeimg to match img height
           scale = img.height / mergeImg.height
           mergeW = mergeImg.width * scale
           mergeH = img.height
@@ -484,7 +484,7 @@
           newCtx.drawImage(img, 0, 0)
           newCtx.drawImage(mergeImg, img.width, 0, mergeW, mergeH)
         } else {
-          // SCALE MERGEIMG TO MATCH IMG WIDTH
+          // scale mergeimg to match img width
           scale = img.width / mergeImg.width
           mergeW = img.width
           mergeH = mergeImg.height * scale
@@ -626,7 +626,7 @@
 
       function inputCustom(title, width, height, yes, no, callbackYes, callbackNo) {
         try {
-          // CREATING THE INPUT CONTAINER
+          // creating the input container
           var inputContainer = document.createElement("div")
           inputContainer.style.position = "fixed"
           inputContainer.style.top = 0
@@ -636,7 +636,7 @@
           inputContainer.style.zIndex = 9999
           inputContainer.style.backgroundColor = "rgba(0,0,0,0.5)"
 
-          // CREATING THE INPUT FORM
+          // creating the input form
           var inputForm = document.createElement("div")
           inputForm.style.position = "relative"
           inputForm.style.top = "50%"
@@ -651,7 +651,7 @@
           inputForm.style.backgroundColor = "#f2f2f2"
           inputForm.style.textAlign = "center"
 
-          // CREATING THE INPUT TITLE
+          // creating the input title
           var inputTitle = document.createElement("div")
           inputTitle.style.textAlign = "left"
           inputTitle.style.paddingLeft = "10px"
@@ -663,7 +663,7 @@
           inputTitle.style.lineHeight = 2.5
           inputTitle.innerText = title
 
-          // CREATING THE INPUT WIDTH
+          // creating the input width
           var inputTextWidth = document.createElement("input")
           inputTextWidth.id = "inputTextWidth"
           inputTextWidth.type = "number"
@@ -685,7 +685,7 @@
           inputTextWidth.style.width = "50%"
           inputTextWidth.placeholder = width
 
-          // CREATING THE INPUT HEIGHT
+          // creating the input height
           var inputTextHeight = document.createElement("input")
           inputTextHeight.id = "inputTextHeight"
           inputTextHeight.type = "number"
@@ -707,7 +707,7 @@
           inputTextHeight.style.width = "50%"
           inputTextHeight.placeholder = height
 
-          // CREATING THE INPUT YES BUTTON
+          // creating the input yes button
           var inputButtonYes = document.createElement("div")
           inputButtonYes.style.padding = "10px"
           inputButtonYes.style.backgroundColor = "#d2d2d2"
@@ -725,17 +725,17 @@
           inputButtonYes.style.paddingRight = "30px"
           inputButtonYes.style.cursor = "pointer"
           inputButtonYes.addEventListener("click", function () {
-            // REMOVING THE INPUT CONTAINER
+            // removing the input container
             document.body.removeChild(inputContainer)
 
-            // EXECUTING THE CALLBACK FUNCTION
+            // executing the callback function
             if (typeof callbackYes === "function") {
               callbackYes(inputTextWidth.value, inputTextHeight.value)
             }
           })
           inputButtonYes.innerText = yes
 
-          // CREATING THE INPUT NO BUTTON
+          // creating the input no button
           var inputButtonNo = document.createElement("div")
           inputButtonNo.style.padding = "10px"
           inputButtonNo.style.backgroundColor = "#d2d2d2"
@@ -754,17 +754,17 @@
           inputButtonNo.style.paddingRight = "30px"
           inputButtonNo.style.cursor = "pointer"
           inputButtonNo.addEventListener("click", function () {
-            // REMOVING THE INPUT CONTAINER
+            // removing the input container
             document.body.removeChild(inputContainer)
 
-            // EXECUTING THE CALLBACK FUNCTION
+            // executing the callback function
             if (typeof callbackNo === "function") {
               callbackNo()
             }
           })
           inputButtonNo.innerText = no
 
-          // ADDING ALL THE ELEMENTS TO THE INPUT CONTAINER
+          // adding all the elements to the input container
           inputForm.appendChild(inputTitle)
           inputForm.appendChild(inputTextWidth)
           inputForm.appendChild(inputTextHeight)
@@ -772,7 +772,7 @@
           inputForm.appendChild(inputButtonNo)
           inputContainer.appendChild(inputForm)
 
-          // ADDING THE INPUT CONTAINER TO THE DOCUMENT
+          // adding the input container to the document
           document.body.appendChild(inputContainer)
         } catch (err) {
           //
@@ -780,7 +780,7 @@
       }
 
       window.addEventListener("load", function () {
-        // CHECKING IF THE APP IS LOADED PROPERLY
+        // checking if the app is loaded properly
         var secSameDomain = false
         var secNotIframe = window.top === window.self
         var secLocalFile = window.self.location.protocol === "file:"
@@ -791,19 +791,15 @@
         } catch (err) {
           //
         }
-        if (
-          secNotIframe || // NOT RUNNING IN AN IFRAME AT ALL
-          secSameDomain || // RUNNING IN AN IFRAME IN THE SAME DOMAIN
-          secLocalFile // RUNNING IN A LOCAL FILE
-        ) {
-          // HIDING THE SPINNER
+        if (secNotIframe || secSameDomain || secLocalFile) {
+          // hiding the spinner
           document.querySelector(".pleasewait").style.display = "none"
           document.getElementsByTagName("body")[0].style.backgroundColor = "#808080"
 
-          // SHOWING THE IMAGE EDITOR
+          // showing the image editor
           document.querySelector(".toolbar").style.display = "inline-block"
 
-          // LOCATING THE ELEMENTS
+          // locating the elements
           btnOpen = document.getElementById("btnOpen")
           btnFlipH = document.getElementById("btnFlipH")
           btnFlipV = document.getElementById("btnFlipV")
@@ -830,7 +826,7 @@
           canvas = document.getElementById("canvas")
           ctx = canvas.getContext("2d")
 
-          // ADDING TEXTS TO ELEMENTS
+          // adding texts to elements
           inputWidth.placeholder = t("width")
           inputHeight.placeholder = t("height")
           labelKeepRatio.innerText = t("keepRatio")
@@ -1004,13 +1000,13 @@
               return
             }
 
-            // CREATE A NEW CANVAS FOR THE CROPPED AREA
+            // create a new canvas for the cropped area
             var croppedCanvas = document.createElement("canvas")
             croppedCanvas.width = currentSelection.width
             croppedCanvas.height = currentSelection.height
             var croppedCtx = croppedCanvas.getContext("2d")
 
-            // DRAW FROM THE ORIGINAL IMAGE (NOT FROM CURRENT CANVAS)
+            // draw from the original image (not from current canvas)
             croppedCtx.drawImage(
               img,
               currentSelection.x,
@@ -1023,15 +1019,15 @@
               currentSelection.height
             )
 
-            // REPLACE THE MAIN CANVAS CONTENT
+            // replace the main canvas content
             canvas.width = currentSelection.width
             canvas.height = currentSelection.height
             ctx.drawImage(croppedCanvas, 0, 0)
 
-            // UPDATE THE IMAGE SOURCE TO THE NEW CROPPED IMAGE
+            // update the image source to the new cropped image
             img.src = canvas.toDataURL()
 
-            // CLEAR THE SELECTION AND ENSURE NO RED RECTANGLE REMAINS
+            // clear the selection and ensure no red rectangle remains
             currentSelection = null
           })
 
