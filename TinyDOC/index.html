@@ -1700,53 +1700,21 @@
         this.saveUndo()
       }
 
-      // https://gist.github.com/islishude/6ccd1fbf42d1eaac667d6873e7b134f8
       tinyDOC.prototype.setCaretPosition = function (container, position) {
         try {
-          if (position === null) {
-            position = 0
-          }
+          var sel = window.getSelection()
 
-          function createRange(node, chars, range) {
-            if (range === null || typeof range === "undefined") {
-              range = window.document.createRange()
-              range.selectNode(node)
-              range.setStart(node, 0)
-            }
+          // put caret at the very beginning
+          sel.removeAllRanges()
+          var range = document.createRange()
+          range.setStart(container, 0)
+          range.collapse(true)
+          sel.addRange(range)
 
-            if (chars.count === 0) {
-              range.setEnd(node, chars.count)
-            } else if (node !== null && chars.count > 0) {
-              if (node.nodeType === 3) {
-                if (node.textContent.length < chars.count) {
-                  chars.count -= node.textContent.length
-                } else {
-                  range.setEnd(node, chars.count)
-                  chars.count = 0
-                }
-              } else {
-                var _g = 0
-                var _g1 = node.childNodes.length
-                while (_g < _g1) {
-                  // eslint-disable-next-line
-                  var lp = _g++
-                  range = createRange(node.childNodes[lp], chars, range)
-                  if (chars.count === 0) {
-                    break
-                  }
-                }
-              }
-            }
-            return range
-          }
-
-          if (position >= 0) {
-            var selection = window.getSelection()
-            var range = createRange(container, { count: position })
-            if (range !== null) {
-              range.collapse(false)
-              selection.removeAllRanges()
-              selection.addRange(range)
+          // move visually to the right "position" times
+          if (typeof sel.modify === "function") {
+            for (var i = 0; i < position; i++) {
+              sel.modify("move", "right", "character")
             }
           }
         } catch (err) {
@@ -1768,7 +1736,17 @@
           preCaretRange.selectNodeContents(element)
           preCaretRange.setEnd(range.endContainer, range.endOffset)
 
-          caretOffset = preCaretRange.toString().length
+          var tempDiv = document.createElement("div")
+          tempDiv.appendChild(preCaretRange.cloneContents())
+          caretOffset = tempDiv.textContent.replace(/\n+/g, "").length
+          caretOffset = caretOffset + tempDiv.getElementsByTagName("br").length
+          caretOffset = caretOffset + tempDiv.getElementsByTagName("li").length
+          caretOffset = caretOffset + tempDiv.getElementsByTagName("ul").length
+          caretOffset = caretOffset + tempDiv.getElementsByTagName("ol").length
+
+          if (this.getParentTag("LI")) {
+            caretOffset = caretOffset - 2
+          }
 
           return caretOffset
         } catch (err) {
