@@ -1702,21 +1702,67 @@
 
       tinyDOC.prototype.setCaretPosition = function (container, position) {
         try {
+          if (!container || position < 0) {
+            return
+          }
+
+          var remaining = position
           var sel = window.getSelection()
-
-          // put caret at the very beginning
-          sel.removeAllRanges()
           var range = document.createRange()
-          range.setStart(container, 0)
-          range.collapse(true)
-          sel.addRange(range)
 
-          // move visually to the right "position" times
-          if (typeof sel.modify === "function") {
-            for (var i = 0; i < position; i++) {
-              sel.modify("move", "right", "character")
+          // helper: count visible length
+          function getNodeLength(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+              return node.textContent.replace(/\n+/g, "").length
+            }
+            if (node.tagName === "BR" || node.tagName === "LI") {
+              return 1
+            }
+            if (node.tagName === "UL" || node.tagName === "OL") {
+              return 1
+            }
+            return 0
+          }
+
+          // walk through nodes in dom order
+          var walker = document.createTreeWalker(
+            container,
+            NodeFilter.SHOW_ALL,
+            null
+          )
+
+          var found = false
+          var node
+
+          while ((node = walker.nextNode())) {
+            var len = getNodeLength(node)
+            if (node.nodeType === Node.TEXT_NODE) {
+              if (remaining <= len) {
+                range.setStart(node, remaining)
+                found = true
+                break
+              }
+              remaining = remaining - len
+            } else if (len > 0) {
+              if (remaining <= len) {
+                // put caret just after this element
+                range.setStartAfter(node)
+                found = true
+                break
+              }
+              remaining = remaining - len
             }
           }
+
+          // fallback: end of element
+          if (!found) {
+            range.selectNodeContents(container)
+            range.collapse(false)
+          }
+
+          sel.removeAllRanges()
+          sel.addRange(range)
+          container.focus()
         } catch (err) {
           //
         }
@@ -1743,10 +1789,6 @@
           caretOffset = caretOffset + tempDiv.getElementsByTagName("li").length
           caretOffset = caretOffset + tempDiv.getElementsByTagName("ul").length
           caretOffset = caretOffset + tempDiv.getElementsByTagName("ol").length
-
-          if (this.getParentTag("LI")) {
-            caretOffset = caretOffset - 2
-          }
 
           return caretOffset
         } catch (err) {
