@@ -122,7 +122,8 @@
           ".tinydoc_contentviewer a{text-decoration:none;color:" +
           self.editorConfig.linkColor +
           ";margin-right:11px}" +
-          "@media (pointer: coarse){.tinydoc_button:hover{background-color:#F2F2F2;border:thin solid #F2F2F2}}"
+          "@media (pointer: coarse){.tinydoc_button:hover{background-color:#F2F2F2;border:thin solid #F2F2F2}}" +
+          "@media screen and (min-width: 1281px){svg{width:22px;height:22px}.tinydoc_button{padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:7px}.tinydoc_menu_container{height:53px}.tinydoc_menu_size{width:1500px}.tinydoc_document{font-size:20px}.tinydoc_contentviewer{font-size:20px;line-height:2.3}}"
 
         document.getElementsByTagName("head")[0].appendChild(self.styleSheet)
         self.myContainer = editorConfig.container
