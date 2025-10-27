@@ -1990,6 +1990,8 @@
             var range = selection.getRangeAt(0)
             range.deleteContents()
 
+            var fragment = document.createDocumentFragment()
+
             var el = document.createElement("div")
             el.innerHTML = html
 
@@ -2004,17 +2006,34 @@
             var firstNode = frag.firstChild
             range.insertNode(frag)
 
-            if (lastNode) {
-              range = range.cloneRange()
-              range.setStartAfter(lastNode)
-              if (selectPastedContent) {
-                range.setStartBefore(firstNode)
-              } else {
-                range.collapse(true)
-              }
-              selection.removeAllRanges()
-              selection.addRange(range)
+            var insertedRange = range.cloneRange()
+            insertedRange.insertNode(fragment)
+
+            var newRange = document.createRange()
+
+            function isJustBR() {
+              return (
+                html.trim().toLowerCase() === "<br>" ||
+                html.trim().toLowerCase() === "<br/>" ||
+                html.trim().toLowerCase() === "<br />" ||
+                (firstNode && firstNode.nodeName === "BR" && !firstNode.nextSibling)
+              )
             }
+
+            if (isJustBR() && lastNode) {
+              var zwsp = document.createTextNode("\u200B") // zero-width space
+              lastNode.parentNode.insertBefore(zwsp, lastNode.nextSibling)
+              newRange.setStartBefore(zwsp)
+            } else if (selectPastedContent && firstNode && lastNode) {
+              newRange.setStartBefore(firstNode)
+              newRange.setEndAfter(lastNode)
+            } else if (lastNode) {
+              newRange.setStartAfter(lastNode)
+              newRange.collapse(true)
+            }
+
+            selection.removeAllRanges()
+            selection.addRange(newRange)
 
             if (this.settingNewText) {
               this.settingNewText = false
@@ -2330,6 +2349,7 @@
 
                   window.isDirty = false
                   window.onbeforeunload = null
+                  document.getElementById("myUploader").value = null
                 }
 
                 reader.readAsText(file)
