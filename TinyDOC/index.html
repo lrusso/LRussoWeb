@@ -2305,6 +2305,13 @@
             container: document.getElementById("myContainer"),
             content: t("welcome"),
             newCallback: function () {
+              function doNew() {
+                myFilename = null
+                myTinyDOC.setText("")
+                window.isDirty = false
+                window.onbeforeunload = null
+              }
+
               if (window.isDirty) {
                 myTinyDOC.disable()
                 confirmCustom(
@@ -2314,10 +2321,7 @@
                   t("dirty_no"),
                   function () {
                     myTinyDOC.enable()
-                    myFilename = null
-                    myTinyDOC.setText("")
-                    window.isDirty = false
-                    window.onbeforeunload = null
+                    doNew()
                   },
                   function () {
                     myTinyDOC.enable()
@@ -2327,32 +2331,53 @@
                   }
                 )
               } else {
-                myFilename = null
-                myTinyDOC.setText("")
-                window.isDirty = false
-                window.onbeforeunload = null
+                doNew()
               }
             },
             openCallback: function () {
-              document.getElementById("myUploader").click()
-              document.getElementById("myUploader").onchange = function () {
-                var file = document.getElementById("myUploader").files[0]
-                if (!file) {
-                  return
+              function doOpen() {
+                document.getElementById("myUploader").click()
+                document.getElementById("myUploader").onchange = function () {
+                  var file = document.getElementById("myUploader").files[0]
+                  if (!file) {
+                    return
+                  }
+
+                  var reader = new FileReader()
+                  reader.onload = function (event) {
+                    var textContent = event.target.result
+                    myFilename = file.name
+                    myTinyDOC.setText(textContent)
+
+                    window.isDirty = false
+                    window.onbeforeunload = null
+                    document.getElementById("myUploader").value = null
+                  }
+
+                  reader.readAsText(file)
                 }
+              }
 
-                var reader = new FileReader()
-                reader.onload = function (event) {
-                  var textContent = event.target.result
-                  myFilename = file.name
-                  myTinyDOC.setText(textContent)
-
-                  window.isDirty = false
-                  window.onbeforeunload = null
-                  document.getElementById("myUploader").value = null
-                }
-
-                reader.readAsText(file)
+              if (window.isDirty) {
+                myTinyDOC.disable()
+                confirmCustom(
+                  t("dirty_title"),
+                  t("dirty_message"),
+                  t("dirty_yes"),
+                  t("dirty_no"),
+                  function () {
+                    myTinyDOC.enable()
+                    doOpen()
+                  },
+                  function () {
+                    myTinyDOC.enable()
+                    setTimeout(function () {
+                      myTinyDOC.focus()
+                    }, 25)
+                  }
+                )
+              } else {
+                doOpen()
               }
             },
             saveCallback: function (textContent) {
@@ -2374,7 +2399,7 @@
             calcEnabled: true,
             useCtrlSForSaving: true,
             useCtrlPForPrinting: true,
-            replaceTabWithSpaces: false,
+            replaceTabWithSpaces: true,
             linkColor: "#3A76B1",
             wordCount: t("wordCount"),
           })
