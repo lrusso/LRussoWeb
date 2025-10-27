@@ -917,12 +917,20 @@
       tinyDOC.prototype.resize = function () {
         try {
           this.document.style.width = this.myContainer.offsetWidth - 16 + "px"
-          this.document.style.height = this.myContainer.offsetHeight - 57 + "px"
+          this.document.style.height =
+            this.myContainer.offsetHeight -
+            this.menuContainer.offsetHeight -
+            16 +
+            "px"
 
           setTimeout(function () {
             try {
               this.document.style.width = this.myContainer.offsetWidth - 16 + "px"
-              this.document.style.height = this.myContainer.offsetHeight - 57 + "px"
+              this.document.style.height =
+                this.myContainer.offsetHeight -
+                this.menuContainer.offsetHeight -
+                16 +
+                "px"
             } catch (err) {
               //
             }
