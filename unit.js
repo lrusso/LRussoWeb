@@ -564,7 +564,7 @@ describe("Intranet/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "198fc007"
+    const expectedHash = "1c53ac0a"
     let currentHash = ""
 
     try {
@@ -753,7 +753,7 @@ describe("Resources/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "386e323f"
+    const expectedHash = "2f24300a"
     let currentHash = ""
 
     try {
@@ -1074,7 +1074,7 @@ describe("TinyACE/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "659e39b2"
+    const expectedHash = "4bff2b22"
     let currentHash = ""
 
     try {
