@@ -71,10 +71,26 @@
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="button" id="undo">
-              <svg width="16" height="16" viewBox="0 0 1000 1000" fill="#A9A9A9">
+            <div class="button" id="print">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 1000 1000"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
-                  transform="translate(0 930) scale(-1,1) rotate(180)"
+                  d="M256 896h512v-128h-512v128zM960 704h-896q-26 0 -45 -19t-19 -45v-320q0 -26 19 -45t45 -19h192v-256h512v256h192q26 0 45 19t19 45v320q0 26 -19 45t-45 19zM704 64h-384v320h384v-320zM974 608q0 -19 -13.5 -32.5t-32.5 -13.5t-32.5 13.5t-13.5 32.5t13.5 32.5 t32.5 13.5t32.5 -13.5t13.5 -32.5z"
+                  transform="translate(0 930) scale(-0.97,0.97) rotate(180)"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="separator"></div>
+          <div class="holder">
+            <div class="button" id="undo">
+              <svg width="16" height="16" viewBox="0 0 1000 1000">
+                <path
+                  transform="translate(0 960) scale(-1,1) rotate(180)"
                   d="M762 -64q43 77 62 168t-9 168t-113.5 127.5t-253.5 46.5v-254l-384 384l384 384v-248q201 5 314.5 -73t148.5 -196t-4.5 -255.5t-144.5 -251.5z"
                 />
               </svg>
@@ -82,9 +98,9 @@
           </div>
           <div class="holder">
             <div class="button" id="redo">
-              <svg width="16" height="16" viewBox="0 0 1000 1000" fill="#A9A9A9">
+              <svg width="16" height="16" viewBox="0 0 1000 1000">
                 <path
-                  transform="translate(0 930) scale(-1,1) rotate(180)"
+                  transform="translate(0 960) scale(-1,1) rotate(180)"
                   d="M576 712v248l384 -384l-384 -384v254q-168 4 -253.5 -46.5t-113.5 -127.5t-9 -168t62 -168q-105 114 -144.5 251.5t-4.5 255.5t148.5 196t314.5 73v0z"
                 />
               </svg>
@@ -213,6 +229,7 @@
       var aceContainer = document.getElementsByClassName("ace_container")[0]
       var newBtn = document.getElementById("new")
       var openBtn = document.getElementById("open")
+      var printBtn = document.getElementById("print")
       var saveBtn = document.getElementById("save")
       var undoBtn = document.getElementById("undo")
       var undoIcon = undoBtn.children[0]
@@ -223,6 +240,18 @@
       var filenameLabel = document.getElementsByClassName("filename")[0]
       var openFile = document.getElementsByClassName("buttonHidden")[0]
       var insertFile = document.getElementsByClassName("buttonHidden")[1]
+
+      function isMobileDevice() {
+        return !!(
+          navigator.userAgent.match(/Android/i) ||
+          navigator.userAgent.match(/webOS/i) ||
+          navigator.userAgent.match(/iPhone/i) ||
+          navigator.userAgent.match(/iPad/i) ||
+          navigator.userAgent.match(/iPod/i) ||
+          navigator.userAgent.match(/BlackBerry/i) ||
+          navigator.userAgent.match(/Windows Phone/i)
+        )
+      }
 
       function confirmCustom(title, message, yes, no, callbackYes, callbackNo) {
         try {
@@ -416,7 +445,7 @@
           window.isDirty = true
 
           // the undo button will be enabled
-          undoIcon.style.fill = "#000"
+          undoIcon.style.opacity = 1
         })
       } catch (err) {
         //
@@ -484,8 +513,8 @@
           editor.renderer.$cursorLayer.element.style.display = "block"
 
           // setting the default state for each button
-          undoIcon.style.fill = "#A9A9A9"
-          redoIcon.style.fill = "#A9A9A9"
+          undoIcon.style.opacity = 0.2
+          redoIcon.style.opacity = 0.2
 
           // hiding the search box (if available)
           try {
@@ -623,8 +652,8 @@
               editor.session.getUndoManager().reset()
 
               // setting the default state for each button
-              undoIcon.style.fill = "#A9A9A9"
-              redoIcon.style.fill = "#A9A9A9"
+              undoIcon.style.opacity = 0.2
+              redoIcon.style.opacity = 0.2
 
               // hiding the search box (if available)
               try {
@@ -665,6 +694,74 @@
         openFile.value = null
       }
 
+      function menuPrintFile() {
+        if (!isMobileDevice()) {
+          try {
+            var newIframe = document.createElement("iframe")
+            newIframe.width = "0"
+            newIframe.height = "0"
+            newIframe.src = "about:blank"
+            document.body.appendChild(newIframe)
+            newIframe.contentWindow.document.write(
+              "<!DOCTYPE html><html><head><title>" +
+                encodeText(window.location.href) +
+                "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:#3A76B1}</style></head><body>" +
+                encodeText(editor.getValue()) +
+                "</body></html>"
+            )
+            newIframe.contentWindow.document.close()
+            newIframe.contentWindow.focus()
+            newIframe.contentWindow.print()
+            document.body.removeChild(newIframe)
+
+            setTimeout(function () {
+              editor.focus()
+            }, 25)
+          } catch (err) {
+            //
+          }
+        } else {
+          try {
+            var printingWindow = window.open("about:blank", "_blank")
+            printingWindow.document.write(
+              "<!DOCTYPE html><html><head><title>" +
+                encodeText(window.location.href) +
+                "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:#3A76B1}</style></head><body>" +
+                encodeText(editor.getValue()) +
+                "</body></html>"
+            )
+            printingWindow.document.close()
+            printingWindow.focus()
+            setTimeout(function () {
+              printingWindow.print()
+            }, 500)
+          } catch (err) {
+            //
+          }
+        }
+      }
+
+      function encodeText(str) {
+        var i = str.length
+        var aRet = []
+        while (i > 0) {
+          i -= 1
+          var tempChar = str[i].charCodeAt()
+          if (
+            tempChar > 126 ||
+            tempChar === 34 ||
+            tempChar === 39 ||
+            tempChar === 60 ||
+            tempChar === 62
+          ) {
+            aRet[i] = "&#" + tempChar + ";"
+          } else {
+            aRet[i] = str[i]
+          }
+        }
+        return aRet.join("")
+      }
+
       function menuSaveFile() {
         try {
           // getting the editor content as a blob value
@@ -688,8 +785,8 @@
             editor.session.getUndoManager().reset()
 
             // setting the default state for each button
-            undoIcon.style.fill = "#A9A9A9"
-            redoIcon.style.fill = "#A9A9A9"
+            undoIcon.style.opacity = 0.2
+            redoIcon.style.opacity = 0.2
 
             // hiding the search box (if available)
             try {
@@ -766,16 +863,16 @@
 
           // if there are any undos left, the undo button will be disabled
           if (!editor.session.getUndoManager().hasUndo()) {
-            undoIcon.style.fill = "#A9A9A9"
+            undoIcon.style.opacity = 0.2
           } else {
-            undoIcon.style.fill = "#000"
+            undoIcon.style.opacity = 1
           }
 
           // if there are any redos left, the redo button will be disabled
           if (editor.session.getUndoManager().hasRedo()) {
-            redoIcon.style.fill = "#000"
+            redoIcon.style.opacity = 1
           } else {
-            redoIcon.style.fill = "#A9A9A9"
+            redoIcon.style.opacity = 0.2
           }
         } catch (err) {
           //
@@ -795,16 +892,16 @@
 
           // if there are any undos left, the undo button will be disabled
           if (!editor.session.getUndoManager().hasRedo()) {
-            redoIcon.style.fill = "#A9A9A9"
+            redoIcon.style.opacity = 0.2
           } else {
-            redoIcon.style.fill = "#000"
+            redoIcon.style.opacity = 1
           }
 
           // if there are any redos left, the redo button will be disabled
           if (editor.session.getUndoManager().hasUndo()) {
-            undoIcon.style.fill = "#000"
+            undoIcon.style.opacity = 1
           } else {
-            undoIcon.style.fill = "#A9A9A9"
+            undoIcon.style.opacity = 0.2
           }
         } catch (err) {
           //
@@ -872,6 +969,10 @@
           loadingIcon.style.display = "none"
           loadingIcon.style.zIndex = 9999
 
+          // disabling undo and redo
+          undoIcon.style.opacity = 0.2
+          redoIcon.style.opacity = 0.2
+
           // showing the code editor
           menuContainer.style.display = "block"
           aceContainer.style.display = "block"
@@ -890,6 +991,10 @@
 
           openBtn.addEventListener("click", function () {
             menuOpenFile()
+          })
+
+          printBtn.addEventListener("click", function () {
+            menuPrintFile()
           })
 
           saveBtn.addEventListener("click", function () {
