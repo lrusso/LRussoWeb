@@ -174,7 +174,6 @@
 
         if (typeof self.editorConfig.openCallback === "function") {
           var svgOpen = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-          svgOpen.setAttribute("id", "open")
           svgOpen.setAttribute("width", "16")
           svgOpen.setAttribute("height", "16")
           svgOpen.setAttribute("viewBox", "0 0 576 512")
@@ -267,6 +266,7 @@
         self.menu.appendChild(self.separator2)
 
         var svgUndo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgUndo.setAttribute("id", self.editorConfig.container.id + "-undo")
         svgUndo.setAttribute("width", "16")
         svgUndo.setAttribute("height", "16")
         svgUndo.setAttribute("viewBox", "0 0 1000 1000")
@@ -293,6 +293,7 @@
         })
 
         var svgRedo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        svgRedo.setAttribute("id", self.editorConfig.container.id + "-redo")
         svgRedo.setAttribute("width", "16")
         svgRedo.setAttribute("height", "16")
         svgRedo.setAttribute("viewBox", "0 0 1000 1000")
@@ -895,6 +896,7 @@
           this.setCaretPosition(this.document, 0)
           this.scrollToTop()
           this.focus()
+          this.updateUndoRedoIcons()
         } catch (err) {
           //
         }
@@ -1586,6 +1588,7 @@
               _this.scrollToCaret()
               _this.document.style.caretColor = "black"
               _this.canUndoRedo = true
+              _this.updateUndoRedoIcons()
             }, 25)
           } else {
             setTimeout(function () {
@@ -1595,6 +1598,7 @@
               )
               _this.document.style.caretColor = "black"
               _this.canUndoRedo = true
+              _this.updateUndoRedoIcons()
             }, 25)
           }
         } catch (err) {
@@ -1602,6 +1606,7 @@
             _this.setCaretPosition(_this.document, 0)
             _this.document.style.caretColor = "black"
             _this.canUndoRedo = true
+            _this.updateUndoRedoIcons()
           }, 25)
         }
       }
@@ -1642,6 +1647,7 @@
               _this.scrollToCaret()
               _this.document.style.caretColor = "black"
               _this.canUndoRedo = true
+              _this.updateUndoRedoIcons()
             }, 25)
           } else {
             setTimeout(function () {
@@ -1651,6 +1657,7 @@
               )
               _this.document.style.caretColor = "black"
               _this.canUndoRedo = true
+              _this.updateUndoRedoIcons()
             }, 25)
           }
         } catch (err) {
@@ -1658,7 +1665,41 @@
             _this.setCaretPosition(_this.document, 0)
             _this.document.style.caretColor = "black"
             _this.canUndoRedo = true
+            _this.updateUndoRedoIcons()
           }, 25)
+        }
+      }
+
+      tinyDOC.prototype.updateUndoRedoIcons = function () {
+        var canUndo = false
+        var canRedo = false
+
+        if (this.document_history_index > 0) {
+          canUndo = true
+        }
+
+        if (this.document_history[this.document_history_index + 1]) {
+          canRedo = true
+        }
+
+        if (canUndo) {
+          document.getElementById(
+            this.editorConfig.container.id + "-undo"
+          ).style.opacity = 1
+        } else {
+          document.getElementById(
+            this.editorConfig.container.id + "-undo"
+          ).style.opacity = 0.2
+        }
+
+        if (canRedo) {
+          document.getElementById(
+            this.editorConfig.container.id + "-redo"
+          ).style.opacity = 1
+        } else {
+          document.getElementById(
+            this.editorConfig.container.id + "-redo"
+          ).style.opacity = 0.2
         }
       }
 
@@ -1687,6 +1728,7 @@
         } catch (err) {
           //
         }
+        this.updateUndoRedoIcons()
       }
 
       tinyDOC.prototype.clearUndoRedo = function () {
@@ -1696,6 +1738,7 @@
         this.document_history_lastCaret = 0
 
         this.saveUndo()
+        this.updateUndoRedoIcons()
       }
 
       tinyDOC.prototype.setCaretPosition = function (container, position) {
