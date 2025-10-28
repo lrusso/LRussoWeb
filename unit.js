@@ -1184,7 +1184,7 @@ describe("TinyIMG/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "19fafc62"
+    const expectedHash = "6fd11147"
     let currentHash = ""
 
     try {

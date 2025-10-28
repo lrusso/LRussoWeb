@@ -380,30 +380,18 @@
       var mergeImg = new Image()
       var startX
       var startY
-      var endX
-      var endY
       var updating
       var displayScaleX = 1
       var displayScaleY = 1
       var isCropping = false
+      var isResizing = false
+      var resizeHandle = null
+      var handles = []
+      var HANDLE_SIZE = 8
       var ratio = 1
       var currentSelection = null
       var originalFileName = null
       var mustMergeHorizontal = false
-
-      function drawPreviewRect(x, y) {
-        var w = Math.abs(x - startX)
-        var h = Math.abs(y - startY)
-        var rectX = Math.min(x, startX)
-        var rectY = Math.min(y, startY)
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.drawImage(img, 0, 0)
-        ctx.strokeStyle = "#3A76B1"
-        ctx.lineWidth = 2
-        ctx.strokeRect(rectX, rectY, w, h)
-        ctx.fillStyle = "rgba(58,118,177, 0.2)"
-        ctx.fillRect(rectX, rectY, w, h)
-      }
 
       function clearSelection() {
         if (currentSelection) {
@@ -1202,6 +1190,74 @@
             }
           })
 
+          function drawSelectionRect() {
+            if (!currentSelection) {
+              return
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.drawImage(img, 0, 0)
+            ctx.strokeStyle = "#3A76B1"
+            ctx.lineWidth = 2
+            ctx.strokeRect(
+              currentSelection.x,
+              currentSelection.y,
+              currentSelection.width,
+              currentSelection.height
+            )
+            ctx.fillStyle = "rgba(58,118,177, 0.2)"
+            ctx.fillRect(
+              currentSelection.x,
+              currentSelection.y,
+              currentSelection.width,
+              currentSelection.height
+            )
+
+            handles = [
+              { x: currentSelection.x, y: currentSelection.y, c: "nw" },
+              {
+                x: currentSelection.x + currentSelection.width,
+                y: currentSelection.y,
+                c: "ne",
+              },
+              {
+                x: currentSelection.x,
+                y: currentSelection.y + currentSelection.height,
+                c: "sw",
+              },
+              {
+                x: currentSelection.x + currentSelection.width,
+                y: currentSelection.y + currentSelection.height,
+                c: "se",
+              },
+            ]
+
+            ctx.fillStyle = "#3A76B1"
+
+            for (var h of handles) {
+              ctx.fillRect(
+                h.x - HANDLE_SIZE / 2,
+                h.y - HANDLE_SIZE / 2,
+                HANDLE_SIZE,
+                HANDLE_SIZE
+              )
+            }
+          }
+
+          function getHandleAt(x, y) {
+            for (var h of handles) {
+              if (
+                x >= h.x - HANDLE_SIZE / 2 &&
+                x <= h.x + HANDLE_SIZE / 2 &&
+                y >= h.y - HANDLE_SIZE / 2 &&
+                y <= h.y + HANDLE_SIZE / 2
+              ) {
+                return h.c
+              }
+            }
+            return null
+          }
+
           canvas.addEventListener("mousedown", function (e) {
             if (!originalFileName) {
               return
@@ -1215,10 +1271,33 @@
               return
             }
 
-            isCropping = true
             var rect = canvas.getBoundingClientRect()
-            startX = (e.clientX - rect.left) / displayScaleX
-            startY = (e.clientY - rect.top) / displayScaleY
+            var x = (e.clientX - rect.left) / displayScaleX
+            var y = (e.clientY - rect.top) / displayScaleY
+
+            if (currentSelection) {
+              var handle = getHandleAt(x, y)
+              if (handle) {
+                isResizing = true
+                resizeHandle = handle
+                return
+              }
+
+              if (
+                x < currentSelection.x ||
+                x > currentSelection.x + currentSelection.width ||
+                y < currentSelection.y ||
+                y > currentSelection.y + currentSelection.height
+              ) {
+                currentSelection = null
+                ctx.drawImage(img, 0, 0)
+                return
+              }
+            }
+
+            isCropping = true
+            startX = x
+            startY = y
           })
 
           canvas.addEventListener("mousemove", function (e) {
@@ -1226,36 +1305,57 @@
               return
             }
 
-            if (!isCropping) {
-              return
-            }
-
             var rect = canvas.getBoundingClientRect()
             var x = (e.clientX - rect.left) / displayScaleX
             var y = (e.clientY - rect.top) / displayScaleY
-            drawPreviewRect(x, y)
+
+            if (isCropping) {
+              currentSelection = {
+                x: Math.min(startX, x),
+                y: Math.min(startY, y),
+                width: Math.abs(x - startX),
+                height: Math.abs(y - startY),
+              }
+              drawSelectionRect()
+            } else if (isResizing && currentSelection) {
+              switch (resizeHandle) {
+                case "nw":
+                  currentSelection.width += currentSelection.x - x
+                  currentSelection.height += currentSelection.y - y
+                  currentSelection.x = x
+                  currentSelection.y = y
+                  break
+                case "ne":
+                  currentSelection.width = x - currentSelection.x
+                  currentSelection.height += currentSelection.y - y
+                  currentSelection.y = y
+                  break
+                case "sw":
+                  currentSelection.width += currentSelection.x - x
+                  currentSelection.x = x
+                  currentSelection.height = y - currentSelection.y
+                  break
+                case "se":
+                  currentSelection.width = x - currentSelection.x
+                  currentSelection.height = y - currentSelection.y
+                  break
+              }
+              drawSelectionRect()
+            }
           })
 
-          canvas.addEventListener("mouseup", function (e) {
+          canvas.addEventListener("mouseup", function () {
             if (!originalFileName) {
               return
             }
 
-            if (!isCropping) {
-              return
+            if (isCropping) {
+              isCropping = false
+            } else if (isResizing) {
+              isResizing = false
+              resizeHandle = null
             }
-
-            var rect = canvas.getBoundingClientRect()
-            endX = (e.clientX - rect.left) / displayScaleX
-            endY = (e.clientY - rect.top) / displayScaleY
-            isCropping = false
-            currentSelection = {
-              x: Math.min(startX, endX),
-              y: Math.min(startY, endY),
-              width: Math.abs(endX - startX),
-              height: Math.abs(endY - startY),
-            }
-            drawPreviewRect(endX, endY)
+            drawSelectionRect()
           })
 
           btnOpen.addEventListener("click", function () {
