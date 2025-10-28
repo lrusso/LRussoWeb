@@ -102,6 +102,12 @@
             "{WORD_COUNT} words and {CHARACTER_COUNT} characters"
         }
 
+        if (!editorConfig.container) {
+          // eslint-disable-next-line
+          console.error("TinyDOC: The container doesn't exists.")
+          return
+        }
+
         self.styleSheet = document.createElement("style")
         self.styleSheet.innerText =
           ".tinydoc_menu_container{height:40px;background-color:#F2F2F2;border-bottom:thin solid #D3D3D3;overflow-y:hidden}" +
@@ -125,6 +131,9 @@
 
         document.getElementsByTagName("head")[0].appendChild(self.styleSheet)
         self.myContainer = editorConfig.container
+        self.myContainerID = editorConfig.container.id
+          ? editorConfig.container
+          : Date.now()
 
         self.menuContainer = document.createElement("div")
         self.menuContainer.className = "tinydoc_menu_container"
@@ -266,7 +275,7 @@
         self.menu.appendChild(self.separator2)
 
         var svgUndo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-        svgUndo.setAttribute("id", self.editorConfig.container.id + "-undo")
+        svgUndo.setAttribute("id", self.myContainerID + "-undo")
         svgUndo.setAttribute("width", "16")
         svgUndo.setAttribute("height", "16")
         svgUndo.setAttribute("viewBox", "0 0 1000 1000")
@@ -293,7 +302,7 @@
         })
 
         var svgRedo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-        svgRedo.setAttribute("id", self.editorConfig.container.id + "-redo")
+        svgRedo.setAttribute("id", self.myContainerID + "-redo")
         svgRedo.setAttribute("width", "16")
         svgRedo.setAttribute("height", "16")
         svgRedo.setAttribute("viewBox", "0 0 1000 1000")
@@ -1683,23 +1692,15 @@
         }
 
         if (canUndo) {
-          document.getElementById(
-            this.editorConfig.container.id + "-undo"
-          ).style.opacity = 1
+          document.getElementById(this.myContainerID + "-undo").style.opacity = 1
         } else {
-          document.getElementById(
-            this.editorConfig.container.id + "-undo"
-          ).style.opacity = 0.2
+          document.getElementById(this.myContainerID + "-undo").style.opacity = 0.2
         }
 
         if (canRedo) {
-          document.getElementById(
-            this.editorConfig.container.id + "-redo"
-          ).style.opacity = 1
+          document.getElementById(this.myContainerID + "-redo").style.opacity = 1
         } else {
-          document.getElementById(
-            this.editorConfig.container.id + "-redo"
-          ).style.opacity = 0.2
+          document.getElementById(this.myContainerID + "-redo").style.opacity = 0.2
         }
       }
 
