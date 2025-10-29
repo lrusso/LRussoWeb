@@ -1287,6 +1287,26 @@
                 y: currentSelection.y + currentSelection.height,
                 c: "se",
               },
+              {
+                x: currentSelection.x + currentSelection.width / 2,
+                y: currentSelection.y,
+                c: "n",
+              },
+              {
+                x: currentSelection.x + currentSelection.width / 2,
+                y: currentSelection.y + currentSelection.height,
+                c: "s",
+              },
+              {
+                x: currentSelection.x,
+                y: currentSelection.y + currentSelection.height / 2,
+                c: "w",
+              },
+              {
+                x: currentSelection.x + currentSelection.width,
+                y: currentSelection.y + currentSelection.height / 2,
+                c: "e",
+              },
             ]
 
             ctx.fillStyle = "#FFF"
@@ -1442,6 +1462,40 @@
                 case "se":
                   currentSelection.width = Math.max(1, x - prev.x)
                   currentSelection.height = Math.max(1, y - prev.y)
+                  break
+
+                case "n":
+                  {
+                    var newH = prev.height + (prev.y - y)
+                    if (newH >= 1) {
+                      currentSelection.y = y
+                      currentSelection.height = newH
+                    } else {
+                      currentSelection.height = 1
+                      currentSelection.y = prev.y + (prev.height - 1)
+                    }
+                  }
+                  break
+
+                case "s":
+                  currentSelection.height = Math.max(1, y - prev.y)
+                  break
+
+                case "w":
+                  {
+                    var newW = prev.width + (prev.x - x)
+                    if (newW >= 1) {
+                      currentSelection.x = x
+                      currentSelection.width = newW
+                    } else {
+                      currentSelection.width = 1
+                      currentSelection.x = prev.x + (prev.width - 1)
+                    }
+                  }
+                  break
+
+                case "e":
+                  currentSelection.width = Math.max(1, x - prev.x)
                   break
               }
               drawSelectionRect()
