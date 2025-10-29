@@ -1201,7 +1201,30 @@
 
             ctx.clearRect(0, 0, canvas.width, canvas.height)
             ctx.drawImage(img, 0, 0)
-            ctx.strokeStyle = "#3A76B1"
+
+            // darken outside selection using semi-transparent rectangles
+            ctx.fillStyle = "rgba(0, 0, 0, 0.7)"
+            ctx.fillRect(0, 0, canvas.width, currentSelection.y)
+            ctx.fillRect(
+              0,
+              currentSelection.y + currentSelection.height,
+              canvas.width,
+              canvas.height - (currentSelection.y + currentSelection.height)
+            )
+            ctx.fillRect(
+              0,
+              currentSelection.y,
+              currentSelection.x,
+              currentSelection.height
+            )
+            ctx.fillRect(
+              currentSelection.x + currentSelection.width,
+              currentSelection.y,
+              canvas.width - (currentSelection.x + currentSelection.width),
+              currentSelection.height
+            )
+
+            ctx.strokeStyle = "#FFF"
             ctx.lineWidth = 2
             ctx.strokeRect(
               currentSelection.x,
@@ -1209,7 +1232,7 @@
               currentSelection.width,
               currentSelection.height
             )
-            ctx.fillStyle = "rgba(58,118,177, 0.2)"
+            ctx.fillStyle = "rgba(0,0,0,0)"
             ctx.fillRect(
               currentSelection.x,
               currentSelection.y,
@@ -1236,7 +1259,7 @@
               },
             ]
 
-            ctx.fillStyle = "#3A76B1"
+            ctx.fillStyle = "#FFF"
 
             for (var h of handles) {
               ctx.fillRect(
