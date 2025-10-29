@@ -767,6 +767,10 @@
         }
       }
 
+      function clamp(v, min, max) {
+        return Math.max(min, Math.min(max, v))
+      }
+
       window.addEventListener("load", function () {
         // checking if the app is loaded properly
         var secSameDomain = false
@@ -1345,6 +1349,71 @@
           })
 
           canvas.addEventListener("mouseup", function () {
+            if (!originalFileName) {
+              return
+            }
+
+            if (isCropping) {
+              isCropping = false
+            } else if (isResizing) {
+              isResizing = false
+              resizeHandle = null
+            }
+            drawSelectionRect()
+          })
+
+          document.addEventListener("mousemove", function (e) {
+            if (!originalFileName) {
+              return
+            }
+
+            if (!isCropping && !isResizing) {
+              return
+            }
+
+            var rect = canvas.getBoundingClientRect()
+            var x = (e.clientX - rect.left) / displayScaleX
+            var y = (e.clientY - rect.top) / displayScaleY
+
+            x = clamp(x, 0, canvas.width)
+            y = clamp(y, 0, canvas.height)
+
+            if (isCropping) {
+              currentSelection = {
+                x: Math.min(startX, x),
+                y: Math.min(startY, y),
+                width: Math.abs(x - startX),
+                height: Math.abs(y - startY),
+              }
+              drawSelectionRect()
+            } else if (isResizing && currentSelection) {
+              switch (resizeHandle) {
+                case "nw":
+                  currentSelection.width += currentSelection.x - x
+                  currentSelection.height += currentSelection.y - y
+                  currentSelection.x = x
+                  currentSelection.y = y
+                  break
+                case "ne":
+                  currentSelection.width = x - currentSelection.x
+                  currentSelection.height += currentSelection.y - y
+                  currentSelection.y = y
+                  break
+                case "sw":
+                  currentSelection.width += currentSelection.x - x
+                  currentSelection.x = x
+                  currentSelection.height = y - currentSelection.y
+                  break
+                case "se":
+                  currentSelection.width = x - currentSelection.x
+                  currentSelection.height = y - currentSelection.y
+                  break
+              }
+              drawSelectionRect()
+            }
+          })
+
+          document.addEventListener("mouseup", function () {
             if (!originalFileName) {
               return
             }
