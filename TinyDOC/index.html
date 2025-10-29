@@ -2088,7 +2088,7 @@
               )
             }
 
-            if (isJustBR() && lastNode) {
+            if (isJustBR() && lastNode && !this.isUsingSafari) {
               var zwsp = document.createTextNode("\u200B") // zero-width space
               lastNode.parentNode.insertBefore(zwsp, lastNode.nextSibling)
               newRange.setStartBefore(zwsp)
