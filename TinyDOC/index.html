@@ -730,6 +730,12 @@
 
         self.myContainer.appendChild(self.document)
 
+        self.menuContainer.addEventListener("click", function () {
+          if (self.documentEnabled) {
+            self.document.focus()
+          }
+        })
+
         if (editorConfig.content) {
           self.document.innerHTML = editorConfig.content
         } else {
