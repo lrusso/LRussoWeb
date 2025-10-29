@@ -1385,26 +1385,63 @@
               }
               drawSelectionRect()
             } else if (isResizing && currentSelection) {
+              var prev = { ...currentSelection } // safe copy before changes
+
               switch (resizeHandle) {
                 case "nw":
-                  currentSelection.width += currentSelection.x - x
-                  currentSelection.height += currentSelection.y - y
-                  currentSelection.x = x
-                  currentSelection.y = y
+                  {
+                    var newW = prev.width + (prev.x - x)
+                    if (newW >= 1) {
+                      currentSelection.x = x
+                      currentSelection.width = newW
+                    } else {
+                      currentSelection.width = 1
+                      currentSelection.x = prev.x + (prev.width - 1)
+                    }
+
+                    var newH = prev.height + (prev.y - y)
+                    if (newH >= 1) {
+                      currentSelection.y = y
+                      currentSelection.height = newH
+                    } else {
+                      currentSelection.height = 1
+                      currentSelection.y = prev.y + (prev.height - 1)
+                    }
+                  }
                   break
+
                 case "ne":
-                  currentSelection.width = x - currentSelection.x
-                  currentSelection.height += currentSelection.y - y
-                  currentSelection.y = y
+                  {
+                    var newW = x - prev.x
+                    currentSelection.width = Math.max(1, newW)
+                    var newH = prev.height + (prev.y - y)
+                    if (newH >= 1) {
+                      currentSelection.y = y
+                      currentSelection.height = newH
+                    } else {
+                      currentSelection.height = 1
+                      currentSelection.y = prev.y + (prev.height - 1)
+                    }
+                  }
                   break
+
                 case "sw":
-                  currentSelection.width += currentSelection.x - x
-                  currentSelection.x = x
-                  currentSelection.height = y - currentSelection.y
+                  {
+                    var newW = prev.width + (prev.x - x)
+                    if (newW >= 1) {
+                      currentSelection.x = x
+                      currentSelection.width = newW
+                    } else {
+                      currentSelection.width = 1
+                      currentSelection.x = prev.x + (prev.width - 1)
+                    }
+                    currentSelection.height = Math.max(1, y - prev.y)
+                  }
                   break
+
                 case "se":
-                  currentSelection.width = x - currentSelection.x
-                  currentSelection.height = y - currentSelection.y
+                  currentSelection.width = Math.max(1, x - prev.x)
+                  currentSelection.height = Math.max(1, y - prev.y)
                   break
               }
               drawSelectionRect()
