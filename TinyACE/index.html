@@ -108,7 +108,7 @@
           </div>
           <div class="separator"></div>
           <div class="holder">
-            <div class="button" id="search">
+            <div class="button" id="find">
               <svg width="16" height="16" viewBox="0 0 92.96 92.961">
                 <path
                   d="M88.696,88.697L88.696,88.697c-3.97,3.97-10.058,3.654-13.6-0.701L50.607,59.508l8.9-8.898l28.488,24.488   C92.352,78.639,92.667,84.727,88.696,88.697z"
@@ -235,7 +235,7 @@
       var undoIcon = undoBtn.children[0]
       var redoBtn = document.getElementById("redo")
       var redoIcon = redoBtn.children[0]
-      var searchBtn = document.getElementById("search")
+      var findBtn = document.getElementById("find")
       var insertBtn = document.getElementById("insert")
       var filenameLabel = document.getElementsByClassName("filename")[0]
       var openFile = document.getElementsByClassName("buttonHidden")[0]
@@ -841,8 +841,8 @@
         }
       }
 
-      function menuSearch() {
-        // showing the search box
+      function menuFind() {
+        // showing the find dialog
         try {
           editor.execCommand("find")
         } catch (err) {
@@ -1009,8 +1009,8 @@
             menuRedo()
           })
 
-          searchBtn.addEventListener("click", function () {
-            menuSearch()
+          findBtn.addEventListener("click", function () {
+            menuFind()
           })
 
           insertBtn.addEventListener("click", function () {

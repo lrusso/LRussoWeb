@@ -1074,7 +1074,7 @@ describe("TinyACE/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "717b6281"
+    const expectedHash = "68531619"
     let currentHash = ""
 
     try {
