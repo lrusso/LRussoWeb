@@ -771,6 +771,34 @@
         return Math.max(min, Math.min(max, v))
       }
 
+      function sanitizeSelection(sel) {
+        if (!sel) {
+          return null
+        }
+
+        // default to zero if any value is missing or nan
+        sel.x = isFinite(sel.x) ? sel.x : 0
+        sel.y = isFinite(sel.y) ? sel.y : 0
+        sel.width = isFinite(sel.width) ? sel.width : 0
+        sel.height = isFinite(sel.height) ? sel.height : 0
+
+        // clamp within canvas bounds
+        sel.x = clamp(sel.x, 0, canvas.width)
+        sel.y = clamp(sel.y, 0, canvas.height)
+        sel.width = clamp(sel.width, 0, canvas.width - sel.x)
+        sel.height = clamp(sel.height, 0, canvas.height - sel.y)
+
+        // prevent negatives (in case of quick reverse dragging)
+        if (sel.width < 0) {
+          sel.width = 0
+        }
+        if (sel.height < 0) {
+          sel.height = 0
+        }
+
+        return sel
+      }
+
       window.addEventListener("load", function () {
         // checking if the app is loaded properly
         var secSameDomain = false
@@ -1199,6 +1227,8 @@
               return
             }
 
+            currentSelection = sanitizeSelection(currentSelection)
+
             ctx.clearRect(0, 0, canvas.width, canvas.height)
             ctx.drawImage(img, 0, 0)
 
@@ -1323,66 +1353,11 @@
             }
 
             isCropping = true
-            startX = x
-            startY = y
-          })
 
-          canvas.addEventListener("mousemove", function (e) {
-            if (!originalFileName) {
-              return
+            if (!startX) {
+              startX = x
+              startY = y
             }
-
-            var rect = canvas.getBoundingClientRect()
-            var x = (e.clientX - rect.left) / displayScaleX
-            var y = (e.clientY - rect.top) / displayScaleY
-
-            if (isCropping) {
-              currentSelection = {
-                x: Math.min(startX, x),
-                y: Math.min(startY, y),
-                width: Math.abs(x - startX),
-                height: Math.abs(y - startY),
-              }
-              drawSelectionRect()
-            } else if (isResizing && currentSelection) {
-              switch (resizeHandle) {
-                case "nw":
-                  currentSelection.width += currentSelection.x - x
-                  currentSelection.height += currentSelection.y - y
-                  currentSelection.x = x
-                  currentSelection.y = y
-                  break
-                case "ne":
-                  currentSelection.width = x - currentSelection.x
-                  currentSelection.height += currentSelection.y - y
-                  currentSelection.y = y
-                  break
-                case "sw":
-                  currentSelection.width += currentSelection.x - x
-                  currentSelection.x = x
-                  currentSelection.height = y - currentSelection.y
-                  break
-                case "se":
-                  currentSelection.width = x - currentSelection.x
-                  currentSelection.height = y - currentSelection.y
-                  break
-              }
-              drawSelectionRect()
-            }
-          })
-
-          canvas.addEventListener("mouseup", function () {
-            if (!originalFileName) {
-              return
-            }
-
-            if (isCropping) {
-              isCropping = false
-            } else if (isResizing) {
-              isResizing = false
-              resizeHandle = null
-            }
-            drawSelectionRect()
           })
 
           document.addEventListener("mousemove", function (e) {
@@ -1403,10 +1378,10 @@
 
             if (isCropping) {
               currentSelection = {
-                x: Math.min(startX, x),
-                y: Math.min(startY, y),
-                width: Math.abs(x - startX),
-                height: Math.abs(y - startY),
+                x: startX,
+                y: startY,
+                width: x - startX,
+                height: y - startY,
               }
               drawSelectionRect()
             } else if (isResizing && currentSelection) {
@@ -1447,6 +1422,10 @@
               isResizing = false
               resizeHandle = null
             }
+
+            startX = null
+            startY = null
+
             drawSelectionRect()
           })
 
