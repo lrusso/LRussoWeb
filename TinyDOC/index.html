@@ -862,6 +862,7 @@
         self.findBar.className = "tinydoc_find_bar"
         self.findInput = document.createElement("input")
         self.findInput.className = "tinydoc_find_input"
+        self.findInput.name = "tinydoc_find_input"
         self.findInput.placeholder = self.editorConfig.find
         self.findPrev = document.createElement("button")
         self.findPrev.className = "tinydoc_find_button"
@@ -1355,11 +1356,17 @@
             selectedText = "<br />"
           }
 
+          // cleaning text
+          selectedText = selectedText.replace(
+            /[\u00A0\u200B-\u200F\u202A-\u202E\u2060\u3000]/g,
+            ""
+          )
+
           var result = ""
 
           if (tag1 === "ul") {
             var bullet = "\u2022 "
-            var result = selectedText.replace(
+            result = selectedText.replace(
               /(^|\n)([^\n]*)/g,
               function (_m, sep, line) {
                 // skipping empty lines
@@ -1378,7 +1385,7 @@
             )
           } else {
             var i = 1
-            var result = selectedText.replace(
+            result = selectedText.replace(
               /(^|\n)([^\n]*)/g,
               function (_m, sep, line) {
                 // skipping empty lines
