@@ -1457,6 +1457,7 @@
 
           if (!this.handleBreaklineInLink()) {
             this.keyEnterPressed = true
+
             var bullet = "\u2022 "
 
             // get caret position node + offset
@@ -1485,10 +1486,18 @@
 
             var currentLine = textUpToCaret.slice(lastBreak).replace(/^\s+/, "")
 
-            // if the current line starts with bullet, add bullet on new line
-            if (currentLine.indexOf("\u2022") === 0) {
+            // --- detect numbered list start like "1. " or "23. "
+            var numMatch = currentLine.match(/^(\d+)\.\s/)
+            if (numMatch) {
+              // next number
+              var nextNum = parseInt(numMatch[1], 10) + 1
+              // insert next number
+              this.insertHtmlAtCaret("<br>" + nextNum + ". ", false)
+            } else if (currentLine.indexOf("\u2022") === 0) {
+              // if the current line starts with bullet, add bullet on new line
               this.insertHtmlAtCaret("<br>" + bullet, false)
             } else {
+              // regular newline
               this.insertHtmlAtCaret("<br>", false)
             }
           }
