@@ -1,8 +1,5 @@
-// eslint-disable-next-line
 import { join, extname, resolve } from "path"
-// eslint-disable-next-line
-import { statSync, readdirSync, existsSync } from "fs"
-// eslint-disable-next-line
+import { statSync, readdirSync } from "fs"
 import { execSync } from "child_process"
 
 // jest lite - https://unpkg.com/jest-lite@1.0.0-alpha.4/dist/core.js

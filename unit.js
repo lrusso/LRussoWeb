@@ -1129,7 +1129,7 @@ describe("TinyDOC/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "21ccef72"
+    const expectedHash = "204d1878"
     let currentHash = ""
 
     try {
@@ -2125,7 +2125,7 @@ describe("w3c.js", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "70c710fe"
+    const expectedHash = "1a9d02ca"
     let currentHash = ""
 
     try {
