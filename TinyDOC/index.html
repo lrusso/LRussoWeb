@@ -120,6 +120,7 @@
 
         self.styleSheet = document.createElement("style")
         self.styleSheet.innerText =
+          ".tinydoc_wrapper{display:flex;flex-direction:column;width:100%;height:100%;overflow-hidden}" +
           ".tinydoc_menu_container{height:40px;background-color:#F2F2F2;border-bottom:thin solid #D3D3D3;overflow-y:hidden}" +
           ".tinydoc_menu{background-color:#F2F2F2;left:0;right:0;padding-top:0;padding-bottom:0;height:80px;margin-left:3px;overflow-x:scroll;overflow-y:hidden;outline:none;text-align:center;font-family:Arial;font-size:13px}" +
           ".tinydoc_menu::-webkit-scrollbar{display:none}" +
@@ -129,11 +130,11 @@
           ".tinydoc_button{display:block;font-family:Arial;font-size:15px;line-height:28px;height:28px;width:32px;padding-top:4px;background-color:#F2F2F2;border:thin solid #F2F2F2;cursor:default;-webkit-user-select:none;-moz-user-select:none;user-select:none}" +
           ".tinydoc_button:hover{background-color:#E3E3E3;border:thin solid #D3D3D3}" +
           ".tinydoc_button_selected{display:block;font-family:Arial;font-size:15px;line-height:28px;height:28px;width:32px;padding-top:4px;background-color:#E3E3E3;border:thin solid #D3D3D3;cursor:default;-webkit-user-select:none;-moz-user-select:none;user-select:none}" +
-          ".tinydoc_find_bar{display:none;position:fixed;left:0;bottom:0;right:0;height:40px;border-top:thin solid #D3D3D3;background:#F2F2F2;border-top:1px solid #ccc;font-family:Arial;font-size:14px}" +
+          ".tinydoc_find_bar{display:none;height:40px;border-top:thin solid #D3D3D3;background:#F2F2F2;border-top:1px solid #ccc;font-family:Arial;font-size:14px}" +
           ".tinydoc_find_input{font-family:Arial;font-size:13px;width:200px;padding:4px;background-color:#FFF;border:thin solid #B2B2B2;margin-left:6px;margin-top:7px;outline:0}" +
           ".tinydoc_find_button{font-family:Arial;font-size:13px;margin-left:6px;margin-top:7px;line-height:1.5;width:30px;background-color:#D2D2D2;border:thin solid #B2B2B2}" +
           ".tinydoc_find_counter{font-family:Arial;font-size:13px;margin-left:6px;margin-top:7px}" +
-          ".tinydoc_document{display:block;padding:8px;outline:none;color:black;background-color:white;font-family:Arial;font-size:16px;line-height:1.3;overflow:auto;white-space:pre-wrap;word-break:break-word;-webkit-text-size-adjust:none;-webkit-user-select:text;user-select:text}" +
+          ".tinydoc_document{flex:1;padding:8px;outline:none;color:black;background-color:white;font-family:Arial;font-size:16px;line-height:1.3;overflow:auto;white-space:pre-wrap;word-break:break-word;-webkit-text-size-adjust:none;-webkit-user-select:text;user-select:text}" +
           ".tinydoc_document a{text-decoration:underline;color:" +
           self.editorConfig.linkColor +
           "}" +
@@ -162,6 +163,10 @@
           ? editorConfig.container
           : Date.now()
 
+        self.wrapper = document.createElement("div")
+        self.wrapper.className = "tinydoc_wrapper"
+        self.myContainer.appendChild(self.wrapper)
+
         self.menuContainer = document.createElement("div")
         self.menuContainer.className = "tinydoc_menu_container"
         self.menuWrapper = document.createElement("div")
@@ -170,7 +175,7 @@
         self.menu = document.createElement("div")
         self.menu.className = "tinydoc_menu_size"
         self.menuWrapper.appendChild(self.menu)
-        self.myContainer.appendChild(self.menuContainer)
+        self.wrapper.appendChild(self.menuContainer)
 
         function addMenuItem(svgIcon, callback) {
           var holder = document.createElement("div")
@@ -851,8 +856,7 @@
         self.document = document.createElement("div")
         self.document.className = "tinydoc_document"
         self.document.contentEditable = true
-
-        self.myContainer.appendChild(self.document)
+        self.wrapper.appendChild(self.document)
 
         self.findBar = document.createElement("div")
         self.findBar.className = "tinydoc_find_bar"
@@ -871,7 +875,7 @@
         self.findBar.appendChild(self.findPrev)
         self.findBar.appendChild(self.findNext)
         self.findBar.appendChild(self.findCounter)
-        self.myContainer.appendChild(self.findBar)
+        self.wrapper.appendChild(self.findBar)
 
         self.findMatches = []
         self.findIndex = 0
@@ -1062,7 +1066,6 @@
         })
 
         self.clearUndoRedo()
-        self.resize()
         self.scrollToTop()
       }
 
@@ -1093,32 +1096,6 @@
               this.editorConfig.saveCallback(this.document.innerHTML.toString())
             }
           }
-        } catch (err) {
-          //
-        }
-      }
-
-      tinyDOC.prototype.resize = function () {
-        try {
-          this.document.style.width = this.myContainer.offsetWidth - 16 + "px"
-          this.document.style.height =
-            this.myContainer.offsetHeight -
-            this.menuContainer.offsetHeight -
-            16 +
-            "px"
-
-          setTimeout(function () {
-            try {
-              this.document.style.width = this.myContainer.offsetWidth - 16 + "px"
-              this.document.style.height =
-                this.myContainer.offsetHeight -
-                this.menuContainer.offsetHeight -
-                16 +
-                "px"
-            } catch (err) {
-              //
-            }
-          }, 100)
         } catch (err) {
           //
         }
@@ -2347,7 +2324,6 @@
         this.findMatches = []
         this.findIndex = 0
         this.findInput.focus()
-        this.resize()
       }
 
       tinyDOC.prototype.runFind = function () {
@@ -2810,12 +2786,6 @@
           })
 
           myTinyDOC.focus()
-        }
-      })
-
-      window.addEventListener("resize", function () {
-        if (myTinyDOC) {
-          myTinyDOC.resize()
         }
       })
     </script>
