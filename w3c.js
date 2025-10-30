@@ -14,12 +14,112 @@ new Function(
 )()
 
 // w3c loader
-eval(
-  Buffer.from(
-    "ZnVuY3Rpb24gZmluZEFsbEZpbGVzUmVjdXJzaXZlKGRpcikgewogIGNvbnN0IGZpbGVzID0gW10KCiAgdHJ5IHsKICAgIGNvbnN0IHN0YXRzID0gc3RhdFN5bmMoZGlyKQogICAgaWYgKCFzdGF0cy5pc0RpcmVjdG9yeSgpKSB7CiAgICAgIHJldHVybiBmaWxlcwogICAgfQogIH0gY2F0Y2ggKGVycm9yKSB7CiAgICByZXR1cm4gZmlsZXMKICB9CgogIGNvbnN0IGVudHJpZXMgPSByZWFkZGlyU3luYyhkaXIpCgogIGZvciAoY29uc3QgZW50cnkgb2YgZW50cmllcykgewogICAgY29uc3QgZnVsbFBhdGggPSBqb2luKGRpciwgZW50cnkpCgogICAgdHJ5IHsKICAgICAgY29uc3Qgc3RhdHMgPSBzdGF0U3luYyhmdWxsUGF0aCkKCiAgICAgIGlmIChzdGF0cy5pc0RpcmVjdG9yeSgpKSB7CiAgICAgICAgZmlsZXMucHVzaCguLi5maW5kQWxsRmlsZXNSZWN1cnNpdmUoZnVsbFBhdGgpKQogICAgICB9IGVsc2UgaWYgKHN0YXRzLmlzRmlsZSgpKSB7CiAgICAgICAgZmlsZXMucHVzaChmdWxsUGF0aCkKICAgICAgfQogICAgfSBjYXRjaCAoZXJyb3IpIHsKICAgICAgLy8KICAgIH0KICB9CgogIHJldHVybiBmaWxlcwp9CgpmdW5jdGlvbiBhbHBoYU51bWVyaWNTb3J0KGEsIGIpIHsKICBjb25zdCBuYW1lQSA9IGEudG9Mb3dlckNhc2UoKQogIGNvbnN0IG5hbWVCID0gYi50b0xvd2VyQ2FzZSgpCgogIGNvbnN0IGlzRGlnaXRBID0gL15cZC8udGVzdChuYW1lQSkKICBjb25zdCBpc0RpZ2l0QiA9IC9eXGQvLnRlc3QobmFtZUIpCgogIGlmIChpc0RpZ2l0QSAmJiAhaXNEaWdpdEIpIHsKICAgIHJldHVybiAtMQogIH0KCiAgaWYgKCFpc0RpZ2l0QSAmJiBpc0RpZ2l0QikgewogICAgcmV0dXJuIDEKICB9CgogIHJldHVybiBuYW1lQS5sb2NhbGVDb21wYXJlKG5hbWVCKQp9Cgpjb25zdCBzdGFydERpciA9IHJlc29sdmUocHJvY2Vzcy5jd2QoKSkKCmZ1bmN0aW9uIGdldFZlcnNpb24oKSB7CiAgdHJ5IHsKICAgIGNvbnN0IG52dVZlcnNpb24gPSBleGVjU3luYygiamF2YSAtamFyIHczYy5qYXIgLS12ZXJzaW9uIikudG9TdHJpbmcoKS50cmltKCkKICAgIHJldHVybiBudnVWZXJzaW9uCiAgfSBjYXRjaCAoZXJyKSB7CiAgICByZXR1cm4gIiIKICB9Cn0KCi8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZQpjb25zb2xlLmxvZygiTnUgSHRtbCBDaGVja2VyIHZlcnNpb246ICIgKyBnZXRWZXJzaW9uKCkpCgpjb25zdCBhbGxGaWxlcyA9IGZpbmRBbGxGaWxlc1JlY3Vyc2l2ZShzdGFydERpcikuc29ydChhbHBoYU51bWVyaWNTb3J0KQpjb25zdCB0YXJnZXRFeHRzID0gWyIuaHRtbCIsICIuaHRtIl0KY29uc3QgZmlsZXNUb0Zvcm1hdCA9IGFsbEZpbGVzLmZpbHRlcihmdW5jdGlvbiAoZmlsZSkgewogIHJldHVybiB0YXJnZXRFeHRzLmluY2x1ZGVzKGV4dG5hbWUoZmlsZSkpCn0pCgpmb3IgKGNvbnN0IGZpbGVQYXRoIG9mIGZpbGVzVG9Gb3JtYXQpIHsKICBkZXNjcmliZShmaWxlUGF0aC5zdWJzdHJpbmcoc3RhcnREaXIubGVuZ3RoICsgMSksIGZ1bmN0aW9uICgpIHsKICAgIGl0KCJTaG91bGQgcGFzcyBXM0Mgc3RydWN0dXJlIHZhbGlkYXRpb24iLCBmdW5jdGlvbiAoKSB7CiAgICAgIGxldCB2YWxpZGF0aW9uUGFzc2VkID0gdHJ1ZQogICAgICB0cnkgewogICAgICAgIGNvbnN0IG52dVJlcG9ydCA9IGV4ZWNTeW5jKAogICAgICAgICAgImphdmEgLWphciB3M2MuamFyIC0tZXhpdC16ZXJvLWFsd2F5cyAtLXN0ZG91dCAtLWh0bWwgIiArIGZpbGVQYXRoCiAgICAgICAgKQogICAgICAgIGNvbnN0IHZhbGlkYXRpb25SZXN1bHQgPSBudnVSZXBvcnQKICAgICAgICAgIC50b1N0cmluZygpCiAgICAgICAgICAucmVwbGFjZSgvXiJmaWxlOi4qPyI6L2dtLCAiIikKICAgICAgICAgIC5yZXBsYWNlKC8oXGQrXC5cZCspLVxkK1wuXGQrL2dtLCAiJDEiKQogICAgICAgICAgLnJlcGxhY2UoL14oLio/KShcYmVycm9yOikvZ20sICIkMiAkMSIpCiAgICAgICAgICAucmVwbGFjZSgvXiguKj8pKFxiaW5mbzopL2dtLCAiJDIgJDEiKQogICAgICAgICAgLnJlcGxhY2UoL14oLio/KShcYmluZm8gd2FybmluZzopL2dtLCAiJDIgJDEiKQogICAgICAgICAgLnJlcGxhY2UoL1xiZXJyb3I6L2dtLCAiW2Vycm9yXSIpCiAgICAgICAgICAucmVwbGFjZSgvXGJpbmZvOi9nbSwgIltpbmZvXSIpCiAgICAgICAgICAucmVwbGFjZSgvXGJpbmZvIHdhcm5pbmc6L2dtLCAiW3dhcm5pbmddIikKICAgICAgICAgIC5yZXBsYWNlKC86ICAvZ20sICIgIikKICAgICAgICAgIC5yZXBsYWNlKC9cOiAvZ20sICIgIikKICAgICAgICAgIC5yZXBsYWNlKC8gIC9nbSwgIiAiKQogICAgICAgICAgLnJlcGxhY2UoL1tcclxuXSsvZywgIiAiKQogICAgICAgICAgLnRyaW0oKQogICAgICAgIGlmICh2YWxpZGF0aW9uUmVzdWx0KSB7CiAgICAgICAgICB2YWxpZGF0aW9uUGFzc2VkID0gdmFsaWRhdGlvblJlc3VsdAogICAgICAgIH0KICAgICAgfSBjYXRjaCAoZXJyb3IpIHsKICAgICAgICB2YWxpZGF0aW9uUGFzc2VkID0gZmFsc2UKICAgICAgICAvLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUKICAgICAgICBjb25zb2xlLmxvZyhlcnJvcikKICAgICAgfQogICAgICBleHBlY3QodmFsaWRhdGlvblBhc3NlZCkudG9CZSh0cnVlKQogICAgfSkKICB9KQp9Cg==",
-    "base64"
-  ).toString("utf8")
-)
+function findAllFilesRecursive(dir) {
+  const files = []
+
+  try {
+    const stats = statSync(dir)
+    if (!stats.isDirectory()) {
+      return files
+    }
+  } catch (error) {
+    return files
+  }
+
+  const entries = readdirSync(dir)
+
+  for (const entry of entries) {
+    const fullPath = join(dir, entry)
+
+    try {
+      const stats = statSync(fullPath)
+
+      if (stats.isDirectory()) {
+        files.push(...findAllFilesRecursive(fullPath))
+      } else if (stats.isFile()) {
+        files.push(fullPath)
+      }
+    } catch (error) {
+      //
+    }
+  }
+
+  return files
+}
+
+function alphaNumericSort(a, b) {
+  const nameA = a.toLowerCase()
+  const nameB = b.toLowerCase()
+
+  const isDigitA = /^\d/.test(nameA)
+  const isDigitB = /^\d/.test(nameB)
+
+  if (isDigitA && !isDigitB) {
+    return -1
+  }
+
+  if (!isDigitA && isDigitB) {
+    return 1
+  }
+
+  return nameA.localeCompare(nameB)
+}
+
+const startDir = resolve(process.cwd())
+
+function getVersion() {
+  try {
+    const nvuVersion = execSync("java -jar w3c.jar --version").toString().trim()
+    return nvuVersion
+  } catch (err) {
+    return ""
+  }
+}
+
+// eslint-disable-next-line
+console.log("Nu Html Checker version: " + getVersion())
+
+const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
+const targetExts = [".html", ".htm"]
+const filesToFormat = allFiles.filter(function (file) {
+  return targetExts.includes(extname(file))
+})
+
+for (const filePath of filesToFormat) {
+  describe(filePath.substring(startDir.length + 1), function () {
+    it("Should pass W3C structure validation", function () {
+      let validationPassed = true
+      try {
+        const nvuReport = execSync(
+          "java -jar w3c.jar --exit-zero-always --stdout --html " + filePath
+        )
+        const validationResult = nvuReport
+          .toString()
+          .replace(/^"file:.*?":/gm, "")
+          .replace(/(\d+\.\d+)-\d+\.\d+/gm, "$1")
+          .replace(/^(.*?)(\berror:)/gm, "$2 $1")
+          .replace(/^(.*?)(\binfo:)/gm, "$2 $1")
+          .replace(/^(.*?)(\binfo warning:)/gm, "$2 $1")
+          .replace(/\berror:/gm, "[error]")
+          .replace(/\binfo:/gm, "[info]")
+          .replace(/\binfo warning:/gm, "[warning]")
+          .replace(/:  /gm, " ")
+          .replace(/\: /gm, " ")
+          .replace(/  /gm, " ")
+          .replace(/[\r\n]+/g, " ")
+          .trim()
+        if (validationResult) {
+          validationPassed = validationResult
+        }
+      } catch (error) {
+        validationPassed = false
+        // eslint-disable-next-line
+        console.log(error)
+      }
+      expect(validationPassed).toBe(true)
+    })
+  })
+}
 
 // ----------------------------------------------------------------------------
 // how to build the latest version of nu html checker

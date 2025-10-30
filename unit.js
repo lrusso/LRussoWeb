@@ -2125,7 +2125,7 @@ describe("w3c.js", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "263e616c"
+    const expectedHash = "15a1a4a"
     let currentHash = ""
 
     try {
