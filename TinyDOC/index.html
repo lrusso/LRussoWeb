@@ -1457,7 +1457,40 @@
 
           if (!this.handleBreaklineInLink()) {
             this.keyEnterPressed = true
-            this.insertHtmlAtCaret("<br />", false)
+            var bullet = "\u2022 "
+
+            // get caret position node + offset
+            var sel = window.getSelection
+              ? window.getSelection()
+              : document.selection
+            if (!sel.rangeCount) {
+              this.insertHtmlAtCaret("<br>")
+              return
+            }
+
+            var range = sel.getRangeAt(0)
+            var container = range.startContainer
+            var textUpToCaret = container.textContent
+              ? container.textContent.slice(0, range.startOffset)
+              : ""
+
+            // find the beginning of the current line
+            var lastBreak = textUpToCaret.lastIndexOf("\n")
+            if (lastBreak === -1) {
+              lastBreak = textUpToCaret.lastIndexOf("<br>")
+            }
+            if (lastBreak < 0) {
+              lastBreak = 0
+            }
+
+            var currentLine = textUpToCaret.slice(lastBreak).replace(/^\s+/, "")
+
+            // if the current line starts with bullet, add bullet on new line
+            if (currentLine.indexOf("\u2022") === 0) {
+              this.insertHtmlAtCaret("<br>" + bullet, false)
+            } else {
+              this.insertHtmlAtCaret("<br>", false)
+            }
           }
         } catch (err) {
           //
