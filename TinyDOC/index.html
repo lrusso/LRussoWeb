@@ -925,11 +925,6 @@
           if (self.editorConfig.dirtyCallback) {
             self.editorConfig.dirtyCallback()
           }
-          if (self.findBar.style.display === "block") {
-            self.findCounter.textContent = ""
-            self.findMatches = []
-            self.findIndex = 0
-          }
         })
 
         self.document.addEventListener("mousedown", function (event) {
@@ -960,6 +955,12 @@
                 event.key === "z"
               var KEY_REDO_MAC = event.shiftKey && event.metaKey && event.key === "z"
               var KEY_REDO_WINDOWS = event.ctrlKey && event.key === "y"
+
+              if (self.findBar.style.display === "block") {
+                self.findCounter.textContent = ""
+                self.findMatches = []
+                self.findIndex = 0
+              }
 
               if (KEY_ESCAPE) {
                 if (self.findBar.style.display === "block") {
