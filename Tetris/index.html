@@ -1574,93 +1574,91 @@
         },
       }
 
-      class Tetromino {
-        constructor(myContext) {
-          this.myContext = myContext
+      function Tetromino(myContext) {
+        this.myContext = myContext
 
-          // choose shape without repeating last shape
-          var newShape
-          do {
-            newShape = Math.floor(Math.random() * 7)
-          } while (newShape === lastShape)
-          lastShape = newShape
-          this.shape = newShape
+        // choose shape without repeating last shape
+        var newShape
+        do {
+          newShape = Math.floor(Math.random() * 7)
+        } while (newShape === lastShape)
+        lastShape = newShape
+        this.shape = newShape
 
-          // choose color without repeating last color
-          var newColor
-          do {
-            newColor = Math.floor(Math.random() * 7)
-          } while (newColor === lastColor)
-          lastColor = newColor
-          this.color = newColor
+        // choose color without repeating last color
+        var newColor
+        do {
+          newColor = Math.floor(Math.random() * 7)
+        } while (newColor === lastColor)
+        lastColor = newColor
+        this.color = newColor
 
-          this.sprites = [] // list of the sprites of each block
-          this.cells = [] // list of the cells occupied by the tetromino
-          this.center = [0, 0]
+        this.sprites = [] // list of the sprites of each block
+        this.cells = [] // list of the cells occupied by the tetromino
+        this.center = [0, 0]
+      }
+
+      // the materialize function makes the tetromino appear
+      // either in the scene (ingame = true) or on the top (ingame = false) if it's the next tetromino
+      Tetromino.prototype.materialize = function (c_x, c_y, inGame) {
+        this.center = [c_x, c_y]
+        this.cells = []
+
+        // cleaning previous sprites (if any)
+        for (var j = 0; j < this.sprites.length; j++) {
+          this.sprites[j].destroy()
         }
+        this.sprites = []
 
-        // the materialize function makes the tetromino appear
-        // either in the scene (ingame = true) or on the top (ingame = false) if it's the next tetromino
-        materialize(c_x, c_y, inGame) {
-          this.center = [c_x, c_y]
-          this.cells = []
+        var conflict = false // are there occupied cells where the tetromino will appear? if so, game over
 
-          // cleaning previous sprites (if any)
-          for (var j = 0; j < this.sprites.length; j++) {
-            this.sprites[j].destroy()
-          }
-          this.sprites = []
+        for (var i = 0; i < 4; i++) {
+          // compute the coordinates of each block of the tetromino, using it's offset from the center
+          var x = c_x + this.myContext.offsets[this.shape][i][0]
+          var y = c_y + this.myContext.offsets[this.shape][i][1]
+          var sprite = this.myContext.back_layer.create(
+            x * 32,
+            y * 32,
+            "imageGameBlocks",
+            this.color
+          )
+          this.sprites.push(sprite)
+          this.cells.push([x, y])
 
-          var conflict = false // are there occupied cells where the tetrominon will appear? if so, game over
+          if (inGame) {
+            if (!this.myContext.validateCoordinates(x, y)) {
+              conflict = true
+            }
+            this.myContext.scene[x][y] = 1 // 1 for blocks of current tetromino, 2 for fallen blocks
+          } else {
+            sprite.scale.x = 0.25
+            sprite.scale.y = 0.25
 
-          for (var i = 0; i < 4; i++) {
-            // compute the coordinates of each block of the tetromino, using it's offset from the center
-            var x = c_x + this.myContext.offsets[this.shape][i][0]
-            var y = c_y + this.myContext.offsets[this.shape][i][1]
-            var sprite = this.myContext.back_layer.create(
-              x * 32,
-              y * 32,
-              "imageGameBlocks",
-              this.color
-            )
-            this.sprites.push(sprite)
-            this.cells.push([x, y])
-
-            if (inGame) {
-              if (!this.myContext.validateCoordinates(x, y)) {
-                conflict = true
-              }
-              this.myContext.scene[x][y] = 1 // 1 for blocks of current tetromino, 2 for fallen blocks
-            } else {
-              sprite.scale.x = 0.25
-              sprite.scale.y = 0.25
-
-              if (this.shape === 0) {
-                sprite.position.x = sprite.position.x * 0.25
-                sprite.position.y = sprite.position.y * 0.252
-              } else if (this.shape === 1) {
-                sprite.position.x = sprite.position.x * 0.262
-                sprite.position.y = sprite.position.y * 0.252
-              } else if (this.shape === 2) {
-                sprite.position.x = sprite.position.x * 0.25
-                sprite.position.y = sprite.position.y * 0.245
-              } else if (this.shape === 3) {
-                sprite.position.x = sprite.position.x * 0.264
-                sprite.position.y = sprite.position.y * 0.225
-              } else if (this.shape === 4) {
-                sprite.position.x = sprite.position.x * 0.257
-                sprite.position.y = sprite.position.y * 0.225
-              } else if (this.shape === 5) {
-                sprite.position.x = sprite.position.x * 0.257
-                sprite.position.y = sprite.position.y * 0.265
-              } else if (this.shape === 6) {
-                sprite.position.x = sprite.position.x * 0.257
-                sprite.position.y = sprite.position.y * 0.225
-              }
+            if (this.shape === 0) {
+              sprite.position.x = sprite.position.x * 0.25
+              sprite.position.y = sprite.position.y * 0.252
+            } else if (this.shape === 1) {
+              sprite.position.x = sprite.position.x * 0.262
+              sprite.position.y = sprite.position.y * 0.252
+            } else if (this.shape === 2) {
+              sprite.position.x = sprite.position.x * 0.25
+              sprite.position.y = sprite.position.y * 0.245
+            } else if (this.shape === 3) {
+              sprite.position.x = sprite.position.x * 0.264
+              sprite.position.y = sprite.position.y * 0.225
+            } else if (this.shape === 4) {
+              sprite.position.x = sprite.position.x * 0.257
+              sprite.position.y = sprite.position.y * 0.225
+            } else if (this.shape === 5) {
+              sprite.position.x = sprite.position.x * 0.257
+              sprite.position.y = sprite.position.y * 0.265
+            } else if (this.shape === 6) {
+              sprite.position.x = sprite.position.x * 0.257
+              sprite.position.y = sprite.position.y * 0.225
             }
           }
-          return conflict
         }
+        return conflict
       }
 
       var touchstartX = 0
