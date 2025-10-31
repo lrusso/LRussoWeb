@@ -1879,11 +1879,11 @@
               var detailItem = document.createElement("div")
               detailItem.className = "detail-item " + detail.status
 
-              var iconClass = "fa-check-circle"
+              var iconStatus = "fa-check-circle"
               if (detail.status === "missing") {
-                iconClass = "fa-times-circle"
+                iconStatus = "fa-times-circle"
               } else if (detail.status === "partial") {
-                iconClass = "fa-exclamation-circle"
+                iconStatus = "fa-exclamation-circle"
               }
 
               // clear existing content first
@@ -1893,7 +1893,7 @@
 
               // create the icon element
               var icon = document.createElement("i")
-              icon.className = "fas " + iconClass
+              icon.className = "fas " + iconStatus
               detailItem.appendChild(icon)
 
               // create wrapper div
