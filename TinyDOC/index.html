@@ -1368,9 +1368,12 @@
             var bullet = "\u2022 "
             result = selectedText.replace(
               /(^|\n)([^\n]*)/g,
-              function (_m, sep, line) {
-                // skipping empty lines
-                if (!line.trim()) {
+              function (_m, sep, line, offset, full) {
+                // check if this is the last line in the text
+                var isLast = offset + sep.length + line.length === full.length
+
+                // skip only the last empty line
+                if (!line.trim() && isLast) {
                   return sep + line
                 }
 
@@ -1387,9 +1390,12 @@
             var i = 1
             result = selectedText.replace(
               /(^|\n)([^\n]*)/g,
-              function (_m, sep, line) {
-                // skipping empty lines
-                if (!line.trim()) {
+              function (_m, sep, line, offset, full) {
+                // check if this is the last line in the text
+                var isLast = offset + sep.length + line.length === full.length
+
+                // skip only the last empty line
+                if (!line.trim() && isLast) {
                   return sep + line
                 }
 
