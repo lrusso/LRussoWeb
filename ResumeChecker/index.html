@@ -252,6 +252,25 @@
           high_priority_improvements: "High Priority Improvements",
           medium_priority_improvements: "Medium Priority Improvements",
           additional_suggestions: "Additional Suggestions",
+          email_address: "Email address",
+          email_address_found: "Found.",
+          email_address_not_found:
+            "Not found or the email address doesn't contain the first name. Add a professional email address.",
+          phone_number: "Phone Number",
+          phone_number_found: "Found.",
+          phone_number_not_found: "Not found. Add a contact phone number.",
+          linkedin_profile: "LinkedIn profile",
+          linkedin_profile_found: "Found.",
+          linkedin_profile_invalid:
+            "Adjust your LinkedIn URL to be a standard URL. For example: https://www.linkedin.com/in/leonardojavierrusso",
+          linkedin_profile_not_found: "Not found. Add your LinkedIn URL.",
+          location_information: "Location information",
+          location_information_found: "Found.",
+          location_information_not_found:
+            "Not found. Consider adding at least city and state.",
+          full_name: "Full name",
+          full_name_found: "Found.",
+          full_name_not_found: "Not found.",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -276,6 +295,26 @@
           high_priority_improvements: "Mejoras de alta prioridad",
           medium_priority_improvements: "Mejoras de prioridad media",
           additional_suggestions: "Sugerencias adicionales",
+          email_address: "Correo electrónico",
+          email_address_found: "Encontrado.",
+          email_address_not_found:
+            "No encontrado o el correo electrónico no contiene el primer nombre. Agregue un correo electrónico profesional.",
+          phone_number: "Número de teléfono",
+          phone_number_found: "Encontrado.",
+          phone_number_not_found:
+            "No encontrado. Agregue un número de teléfono de contacto.",
+          linkedin_profile: "Perfil de LinkedIn",
+          linkedin_profile_found: "Encontrado.",
+          linkedin_profile_invalid:
+            "Ajuste su URL de LinkedIn para que sea una URL standard. Por ejemplo: https://www.linkedin.com/in/leonardojavierrusso",
+          linkedin_profile_not_found: "No encontrado. Agregue su URL de LinkedIn.",
+          location_information: "Datos de ubicación",
+          location_information_found: "Encontrados.",
+          location_information_not_found:
+            "No encontrados. Considere agregar al menos una ciudad y estado.",
+          full_name: "Nombre completo",
+          full_name_found: "Encontrado.",
+          full_name_not_found: "No encontrado.",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -775,6 +814,15 @@
               details: [],
             }
 
+            // check for name (assumed always present)
+            result.found.push("Name")
+            result.score += 2
+            result.details.push({
+              item: t("full_name"),
+              status: "found",
+              message: t("full_name_found"),
+            })
+
             // check for email - improved detection with more robust regex
             var emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/
             var firstName = text.split(" ")[0].toLowerCase()
@@ -792,17 +840,16 @@
               result.found.push("Email")
               result.score += 2
               result.details.push({
-                item: "Email address",
+                item: t("email_address"),
                 status: "found",
-                message: "Email address found",
+                message: t("email_address_found"),
               })
             } else {
               result.missing.push("Email")
               result.details.push({
-                item: "Email address",
+                item: t("email_address"),
                 status: "missing",
-                message:
-                  "No email address found or the email address doesn't contain the first name. Add a professional email address.",
+                message: t("email_address_not_found"),
               })
             }
 
@@ -812,16 +859,16 @@
               result.found.push("Phone")
               result.score += 2
               result.details.push({
-                item: "Phone number",
+                item: t("phone_number"),
                 status: "found",
-                message: "Phone number found",
+                message: t("phone_number_found"),
               })
             } else {
               result.missing.push("Phone")
               result.details.push({
-                item: "Phone number",
+                item: t("phone_number"),
                 status: "missing",
-                message: "No phone number found. Add a contact phone number.",
+                message: t("phone_number_not_found"),
               })
             }
 
@@ -830,27 +877,24 @@
               result.found.push("LinkedIn")
               result.score += 2
               result.details.push({
-                item: "LinkedIn profile",
+                item: t("linkedin_profile"),
                 status: "found",
-                message: "LinkedIn profile found",
+                message: t("linkedin_profile_found"),
+              })
+            } else if (text.includes("linkedin.com")) {
+              result.missing.push("LinkedIn")
+              result.details.push({
+                item: t("linkedin_profile"),
+                status: "missing",
+                message: t("linkedin_profile_invalid"),
               })
             } else {
-              if (text.includes("linkedin.com")) {
-                result.missing.push("LinkedIn")
-                result.details.push({
-                  item: "LinkedIn profile",
-                  status: "missing",
-                  message:
-                    "Adjust your LinkedIn URL to be a standard URL. For example: https://www.linkedin.com/in/leonardojavierrusso",
-                })
-              } else {
-                result.missing.push("LinkedIn")
-                result.details.push({
-                  item: "LinkedIn profile",
-                  status: "missing",
-                  message: "No LinkedIn profile found. Add your LinkedIn URL.",
-                })
-              }
+              result.missing.push("LinkedIn")
+              result.details.push({
+                item: t("linkedin_profile"),
+                status: "missing",
+                message: t("linkedin_profile_not_found"),
+              })
             }
 
             // check for address/location
@@ -876,28 +920,18 @@
               result.found.push("Location")
               result.score += 2
               result.details.push({
-                item: "Location information",
+                item: t("location_information"),
                 status: "found",
-                message: "Location information found",
+                message: t("location_information_found"),
               })
             } else {
               result.missing.push("Location")
               result.details.push({
-                item: "Location information",
-                status: "partial",
-                message:
-                  "Limited location information. Consider adding at least city and state.",
+                item: t("location_information"),
+                status: "missing",
+                message: t("location_information_not_found"),
               })
             }
-
-            // check for name (assumed always present)
-            result.found.push("Name")
-            result.score += 2
-            result.details.push({
-              item: "Full name",
-              status: "found",
-              message: "Name identified at the top of resume",
-            })
 
             return result
           }
