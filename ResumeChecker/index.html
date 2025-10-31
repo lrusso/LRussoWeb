@@ -167,27 +167,27 @@
             <div class="tab-pane" id="details">
               <div class="details-container">
                 <div class="detail-section">
-                  <h3><i class="fas fa-user"></i> Contact Information</h3>
+                  <h3><i class="fas fa-user"></i><span>&nbsp;</span></h3>
                   <div class="detail-content" id="contact-details"></div>
                 </div>
 
                 <div class="detail-section">
-                  <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
+                  <h3><i class="fas fa-briefcase"></i><span>&nbsp;</span></h3>
                   <div class="detail-content" id="experience-details"></div>
                 </div>
 
                 <div class="detail-section">
-                  <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                  <h3><i class="fas fa-graduation-cap"></i><span>&nbsp;</span></h3>
                   <div class="detail-content" id="education-details"></div>
                 </div>
 
                 <div class="detail-section">
-                  <h3><i class="fas fa-cogs"></i> Skills</h3>
+                  <h3><i class="fas fa-cogs"></i><span>&nbsp;</span></h3>
                   <div class="detail-content" id="skills-details"></div>
                 </div>
 
                 <div class="detail-section">
-                  <h3><i class="fas fa-file-alt"></i> Format & Readability</h3>
+                  <h3><i class="fas fa-file-alt"></i><span>&nbsp;</span></h3>
                   <div class="detail-content" id="format-details"></div>
                 </div>
               </div>
@@ -203,22 +203,20 @@
               <div class="improvements-container">
                 <div class="improvement-section" id="high-priority">
                   <h3>
-                    <i class="fas fa-exclamation-circle"></i> High Priority
-                    Improvements
+                    <i class="fas fa-exclamation-circle"></i><span>&nbsp;</span>
                   </h3>
                   <ul id="high-priority-list"></ul>
                 </div>
 
                 <div class="improvement-section" id="medium-priority">
                   <h3>
-                    <i class="fas fa-exclamation-circle"></i> Medium Priority
-                    Improvements
+                    <i class="fas fa-exclamation-circle"></i><span>&nbsp;</span>
                   </h3>
                   <ul id="medium-priority-list"></ul>
                 </div>
 
                 <div class="improvement-section" id="low-priority">
-                  <h3><i class="fas fa-info-circle"></i> Additional Suggestions</h3>
+                  <h3><i class="fas fa-info-circle"></i><span>&nbsp;</span></h3>
                   <ul id="low-priority-list"></ul>
                 </div>
               </div>
@@ -251,6 +249,9 @@
           education: "Education",
           skills: "Skills",
           format_and_readability: "Format & Readability",
+          high_priority_improvements: "High Priority Improvements",
+          medium_priority_improvements: "Medium Priority Improvements",
+          additional_suggestions: "Additional Suggestions",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -272,6 +273,9 @@
           education: "Educación",
           skills: "Habilidades",
           format_and_readability: "Formato y legibilidad",
+          high_priority_improvements: "Mejoras de alta prioridad",
+          medium_priority_improvements: "Mejoras de prioridad media",
+          additional_suggestions: "Sugerencias adicionales",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -303,19 +307,27 @@
         "#summary > div > div:nth-child(5) > div.category-info > h3"
       var sectionAnalysis =
         "#results-section > div.results-content > div.tabs > button:nth-child(2)"
+      var sectionAnalysisContactInformation =
+        "#details > div > div:nth-child(1) > h3 > span"
+      var sectionAnalysisWorkExperience =
+        "#details > div > div:nth-child(2) > h3 > span"
+      var sectionAnalysisEducation = "#details > div > div:nth-child(3) > h3 > span"
+      var sectionAnalysisSkills = "#details > div > div:nth-child(4) > h3 > span"
+      var sectionAnalysisFormatReadability =
+        "#details > div > div:nth-child(5) > h3 > span"
       var sectionDetectedText =
         "#results-section > div.results-content > div.tabs > button:nth-child(3)"
       var sectionImprovements =
         "#results-section > div.results-content > div.tabs > button:nth-child(4)"
+      var sectionImprovementsHighPriority = "#high-priority > h3 > span"
+      var sectionImprovementsMediumPriority = "#medium-priority > h3 > span"
+      var sectionImprovementsAdditionalSuggestions = "#low-priority > h3 > span"
 
       document.querySelector(uploadTitle).innerText = t("upload")
       document.querySelector(uploadSubtitle).innerText = t("drag_and_drop")
       document.querySelector(resumeResults).innerText = t("resume_results")
       document.querySelector(atsScoreTitle).innerText = t("ats_score")
       document.querySelector(sectionSummary).innerText = t("summary")
-      document.querySelector(sectionAnalysis).innerText = t("detailed_analysis")
-      document.querySelector(sectionDetectedText).innerText = t("detected_text")
-      document.querySelector(sectionImprovements).innerText = t("improvements")
       document.querySelector(sectionSummaryContactInfo).innerText =
         t("contact_information")
       document.querySelector(sectionSummaryWorkExperience).innerText =
@@ -324,6 +336,28 @@
       document.querySelector(sectionSummarySkills).innerText = t("skills")
       document.querySelector(sectionSummaryFormatReadability).innerText = t(
         "format_and_readability"
+      )
+      document.querySelector(sectionAnalysis).innerText = t("detailed_analysis")
+      document.querySelector(sectionAnalysisContactInformation).innerText =
+        t("contact_information")
+      document.querySelector(sectionAnalysisWorkExperience).innerText =
+        t("work_experience")
+      document.querySelector(sectionAnalysisEducation).innerText = t("education")
+      document.querySelector(sectionAnalysisSkills).innerText = t("skills")
+      document.querySelector(sectionAnalysisFormatReadability).innerText = t(
+        "format_and_readability"
+      )
+
+      document.querySelector(sectionDetectedText).innerText = t("detected_text")
+      document.querySelector(sectionImprovements).innerText = t("improvements")
+      document.querySelector(sectionImprovementsHighPriority).innerText = t(
+        "high_priority_improvements"
+      )
+      document.querySelector(sectionImprovementsMediumPriority).innerText = t(
+        "medium_priority_improvements"
+      )
+      document.querySelector(sectionImprovementsAdditionalSuggestions).innerText = t(
+        "additional_suggestions"
       )
 
       // set worker path for pdf.js
