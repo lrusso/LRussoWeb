@@ -92,6 +92,9 @@
 
       var MUSIC_PLAYER = null
 
+      var lastShape = null
+      var lastColor = null
+
       var Tetris = {}
 
       Tetris.Preloader = function () {}
@@ -1574,8 +1577,23 @@
       class Tetromino {
         constructor(myContext) {
           this.myContext = myContext
-          this.shape = Math.floor(Math.random() * 7)
-          this.color = Math.floor(Math.random() * 7)
+
+          // choose shape without repeating last shape
+          var newShape
+          do {
+            newShape = Math.floor(Math.random() * 7)
+          } while (newShape === lastShape)
+          lastShape = newShape
+          this.shape = newShape
+
+          // choose color without repeating last color
+          var newColor
+          do {
+            newColor = Math.floor(Math.random() * 7)
+          } while (newColor === lastColor)
+          lastColor = newColor
+          this.color = newColor
+
           this.sprites = [] // list of the sprites of each block
           this.cells = [] // list of the cells occupied by the tetromino
           this.center = [0, 0]
