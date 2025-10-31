@@ -834,7 +834,7 @@ describe("ResumeChecker/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "3b1bd600"
+    const expectedHash = "3f40e00c"
     let currentHash = ""
 
     try {
@@ -845,6 +845,41 @@ describe("ResumeChecker/index.html", function () {
     }
 
     expect(currentHash).toBe(expectedHash)
+  })
+
+  it("Should define the i18n variable", function () {
+    const variableExists = getVariable("ResumeChecker/index.html", "APP_STRINGS")
+    expect(variableExists).not.toBe("")
+  })
+
+  it("Should have equal i18n key counts across languages", function () {
+    const APP_STRINGS = getVariable("ResumeChecker/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const sameAmount = langsCheckAmountKeys(APP_STRINGS)
+
+    expect(sameAmount).toBe(true)
+  })
+
+  it("Should have matching i18n keys across languages", function () {
+    const APP_STRINGS = getVariable("ResumeChecker/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+
+  it("Should have non-empty i18n keys across languages", function () {
+    const APP_STRINGS = getVariable("ResumeChecker/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
   })
 })
 
