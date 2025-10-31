@@ -2181,18 +2181,20 @@ describe("No inline styles", function () {
     return targetExts.includes(extname(file))
   })
 
-  filesToCheck.forEach(function (file) {
+  for (var i = 0; i < filesToCheck.length; i++) {
+    var file = filesToCheck[i]
     const filename = file.substring(startDir.length + 1)
     it(filename, function () {
       const content = readFileSync(file, "utf8")
       const lines = content.split(/\r?\n/)
       let inlineDetected = []
 
-      lines.forEach(function (line, index) {
+      for (var j = 0; j < lines.length; j++) {
+        var line = lines[j]
         if (/style\=\"/gm.test(line)) {
-          inlineDetected.push("L:" + (index + 1))
+          inlineDetected.push("L:" + (j + 1))
         }
-      })
+      }
 
       let fileResult = false
 
@@ -2202,7 +2204,7 @@ describe("No inline styles", function () {
 
       expect(fileResult).toBe(false)
     })
-  })
+  }
 })
 
 describe("No uppercase comments", function () {
@@ -2212,7 +2214,8 @@ describe("No uppercase comments", function () {
     return targetExts.includes(extname(file))
   })
 
-  filesToCheck.forEach(function (file) {
+  for (var i = 0; i < filesToCheck.length; i++) {
+    var file = filesToCheck[i]
     const filename = file.substring(startDir.length + 1)
     it(filename, function () {
       const content = readFileSync(file, "utf8")
@@ -2250,7 +2253,7 @@ describe("No uppercase comments", function () {
 
       expect(fileResult).toBe(false)
     })
-  })
+  }
 })
 
 describe("No comments in HTML files", function () {
@@ -2260,7 +2263,8 @@ describe("No comments in HTML files", function () {
     return targetExts.includes(extname(file))
   })
 
-  filesToCheck.forEach(function (file) {
+  for (var i = 0; i < filesToCheck.length; i++) {
+    var file = filesToCheck[i]
     const filename = file.substring(startDir.length + 1)
     it(filename, function () {
       const content = readFileSync(file, "utf8")
@@ -2283,5 +2287,5 @@ describe("No comments in HTML files", function () {
 
       expect(fileResult).toBe(false)
     })
-  })
+  }
 })
