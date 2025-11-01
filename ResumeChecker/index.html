@@ -286,6 +286,21 @@
           quantifiable_metrics: "Quantifiable metrics",
           quantifiable_metrics_not_found:
             "Not found. Include numbers to quantify your achievements (%, $, etc.).",
+          education_section: "Education section",
+          education_section_not_found:
+            "Not found. Create a dedicated education section.",
+          degree_information: "Degree information",
+          degree_information_not_found:
+            "Not found. Include your degree type (e.g., Bachelor of Science).",
+          field_of_study: "Field of study",
+          field_of_study_not_found:
+            "Not found. Include your major or area of specialization.",
+          graduation_year: "Graduation year",
+          graduation_year_not_found:
+            "Not found. Include your graduation year or expected graduation date.",
+          institution_name: "Institution name",
+          institution_name_not_found:
+            "Not found. Include the name of your college/university.",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -345,6 +360,21 @@
           quantifiable_metrics: "Métricas cuantificables",
           quantifiable_metrics_not_found:
             "No encontradas. Incluye números para cuantificar tus logros (%, $, etc.).",
+          education_section: "Sección de educación",
+          education_section_not_found:
+            "No encontrada. Crea una sección dedicada a la educación.",
+          degree_information: "Información académica",
+          degree_information_not_found:
+            "No encontrada. Incluye el tipo de título (por ejemplo, Licenciatura en Ciencias).",
+          field_of_study: "Área de estudio",
+          field_of_study_not_found:
+            "No encontrada. Incluye tu especialidad o área de enfoque.",
+          graduation_year: "Año de graduación",
+          graduation_year_not_found:
+            "No encontrado. Incluye tu año de graduación o la fecha de graduación prevista.",
+          institution_name: "Nombre de la institución",
+          institution_name_not_found:
+            "No encontrado. Incluye el nombre de tu universidad o institución educativa.",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -1356,6 +1386,7 @@
               "Zambia",
               "Zimbabue",
             ]
+
             var hasLocation = locationKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1405,6 +1436,7 @@
               "historial de trabajo",
               "carrera",
             ]
+
             var hasExperienceSection = experienceKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1773,6 +1805,7 @@
             }
 
             var metricPatterns = [
+              // metrics (english)
               /\d+\s*%/, // percentage
               /\$\s*\d+/, // dollar amount
               /\d+\s*million/i, // millions
@@ -1783,6 +1816,19 @@
               /\d+\s*projects/i, // projects
               /\d+\s*teams/i, // teams
               /\d+\s*people/i, // people
+
+              // metrics (spanish)
+              /\d+\s*%/,
+              /\$\s*\d+/,
+              /\d+\s*(millones|millon)\b/i,
+              /\d+\s*k\b/i,
+              /\d+\s*usuarios/i,
+              /\d+\s*clientes/i,
+              /\d+\s*proyectos/i,
+              /\d+\s*equipos/i,
+              /\d+\s*personas/i,
+              /\d+\s*empleados/i,
+              /\d+\s*colaboradores/i,
             ]
 
             var hasMetrics = metricPatterns.some(function (pattern) {
@@ -1820,6 +1866,7 @@
 
             // check for education section
             var educationKeywords = [
+              // education (english)
               "education",
               "academic",
               "university",
@@ -1827,7 +1874,17 @@
               "school",
               "degree",
               "certificate",
+
+              // education (spanish)
+              "educación",
+              "académico",
+              "universidad",
+              "facultad",
+              "escuela",
+              "título",
+              "certificado",
             ]
+
             var hasEducationSection = educationKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1836,21 +1893,21 @@
               result.found.push("Education Section")
               result.score += 5
               result.details.push({
-                item: "Education section",
+                item: t("education_section"),
                 status: "found",
               })
             } else {
               result.missing.push("Education Section")
               result.details.push({
-                item: "Education section",
+                item: t("education_section"),
                 status: "missing",
-                message:
-                  "No clear education section found. Create a dedicated education section.",
+                message: t("education_section_not_found"),
               })
             }
 
             // check for degree
             var degreeKeywords = [
+              // degrees (english)
               "bachelor",
               "master",
               "phd",
@@ -1864,7 +1921,22 @@
               "certificate",
               "certification",
               "diploma",
+
+              // degrees (spanish)
+              "licenciatura",
+              "maestría",
+              "doctorado",
+              "doctorado",
+              "tecnicatura",
+              "lic.",
+              "mtr.",
+              "phd",
+              "mba",
+              "certificado",
+              "certificación",
+              "diploma",
             ]
+
             var hasDegree = degreeKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1873,21 +1945,21 @@
               result.found.push("Degree")
               result.score += 5
               result.details.push({
-                item: "Degree information",
+                item: t("degree_information"),
                 status: "found",
               })
             } else {
               result.missing.push("Degree")
               result.details.push({
-                item: "Degree information",
+                item: t("degree_information"),
                 status: "missing",
-                message:
-                  "No degree information found. Include your degree type (e.g., Bachelor of Science).",
+                message: t("degree_information_not_found"),
               })
             }
 
             // check for field of study
             var fieldKeywords = [
+              // fields (english)
               "computer science",
               "business",
               "engineering",
@@ -1904,7 +1976,31 @@
               "communications",
               "liberal arts",
               "major",
+
+              // fields (spanish)
+              "ciencia de la computación",
+              "informática",
+              "negocios",
+              "administración",
+              "ingeniería",
+              "gestión",
+              "marketing",
+              "biología",
+              "química",
+              "matemáticas",
+              "física",
+              "psicología",
+              "economía",
+              "finanzas",
+              "contabilidad",
+              "comunicaciones",
+              "comunicación social",
+              "humanidades",
+              "artes liberales",
+              "especialización",
+              "carrera",
             ]
+
             var hasField = fieldKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1913,46 +2009,54 @@
               result.found.push("Field of Study")
               result.score += 3
               result.details.push({
-                item: "Field of study",
+                item: t("field_of_study"),
                 status: "found",
               })
             } else {
               result.missing.push("Field of Study")
               result.details.push({
-                item: "Field of study",
+                item: t("field_of_study"),
                 status: "missing",
-                message:
-                  "No field of study found. Include your major or area of specialization.",
+                message: t("field_of_study_not_found"),
               })
             }
 
             // check for graduation year
-            var yearPattern = /\b(19|20)\d{2}\b/
-            if (yearPattern.test(text)) {
+            var hasGraduationYear = /\b(19|20)\d{2}\b/.test(text)
+
+            if (hasGraduationYear) {
               result.found.push("Graduation Year")
               result.score += 3
               result.details.push({
-                item: "Graduation year",
+                item: t("graduation_year"),
                 status: "found",
               })
             } else {
               result.missing.push("Graduation Year")
               result.details.push({
-                item: "Graduation year",
+                item: t("graduation_year"),
                 status: "missing",
-                message:
-                  "No graduation year found. Include your graduation year or expected graduation date.",
+                message: t("graduation_year_not_found"),
               })
             }
 
             // check for institution name
             var institutionKeywords = [
+              // institutions (english)
               "university",
               "college",
               "institute",
               "school",
               "academy",
+
+              // institutions (spanish)
+              "universidad",
+              "facultad",
+              "instituto",
+              "escuela",
+              "academia",
             ]
+
             var hasInstitution = institutionKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1961,16 +2065,15 @@
               result.found.push("Institution")
               result.score += 4
               result.details.push({
-                item: "Institution name",
+                item: t("institution_name"),
                 status: "found",
               })
             } else {
               result.missing.push("Institution")
               result.details.push({
-                item: "Institution name",
+                item: t("institution_name"),
                 status: "missing",
-                message:
-                  "No institution name found. Include the name of your college/university.",
+                message: t("institution_name_not_found"),
               })
             }
 
@@ -1996,6 +2099,7 @@
               "qualifications",
               "technical skills",
             ]
+
             var hasSkillsSection = skillsSectionKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -2204,6 +2308,7 @@
               "publications",
               "references",
             ]
+
             var sectionRegex = new RegExp(
               "\\b(" + sectionKeywords.join("|") + ")\\b",
               "gi"
