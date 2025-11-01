@@ -327,6 +327,12 @@
           consistent_formatting: "Consistent formatting",
           consistent_formatting_not_found:
             "Date formats may be inconsistent or dates not found. Use the same date format throughout.",
+          spacing_and_layout: "Spacing and layout",
+          spacing_and_layout_dense_text:
+            "Potential dense text blocks detected. Use spacing to separate information.",
+          spacing_and_layout_empty_bullets:
+            "Bullets without a text. Please check the Detected Text tab.",
+          spacing_and_layout_repeated_words: "Repeated words detected:",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -427,6 +433,12 @@
           consistent_formatting: "Formato consistente",
           consistent_formatting_not_found:
             "Los formatos de fecha parecen ser inconsistentes o las fechas no se encontraron. Usa el mismo formato de fecha en todo el documento.",
+          spacing_and_layout: "Espaciado y diseño",
+          spacing_and_layout_dense_text:
+            "Se detectaron posibles bloques de texto densos. Usa el espaciado para separar la información.",
+          spacing_and_layout_empty_bullets:
+            "Viñetas sin texto. Por favor, revisa la pestaña de Texto detectado.",
+          spacing_and_layout_repeated_words: "Palabras repetidas detectadas:",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -2512,28 +2524,27 @@
               if (hasLongParagraphs) {
                 result.missing.push("Appropriate Spacing")
                 result.details.push({
-                  item: "Spacing and layout",
+                  item: t("spacing_and_layout"),
                   status: "partial",
-                  message:
-                    "Potential dense text blocks detected. Use spacing to separate information.",
+                  message: t("spacing_and_layout_dense_text"),
                 })
               }
               if (hasEmptyBullets) {
                 result.missing.push("Appropriate Spacing")
                 result.details.push({
-                  item: "Spacing and layout",
+                  item: t("spacing_and_layout"),
                   status: "partial",
-                  message:
-                    "Bullets without a text. Please check the Detected Text tab.",
+                  message: t("spacing_and_layout_empty_bullets"),
                 })
               }
               if (resultWords.length > 0) {
                 result.missing.push("Appropriate Spacing")
                 result.details.push({
-                  item: "Spacing and layout",
+                  item: t("spacing_and_layout"),
                   status: "partial",
                   message:
-                    "Repeated words detected: " +
+                    t("spacing_and_layout_repeated_words") +
+                    " " +
                     JSON.stringify(resultWords)
                       .replace(/[\[\]"]/g, "")
                       .replace(/\,/g, ", ") +
@@ -2544,9 +2555,8 @@
               result.found.push("Appropriate Spacing")
               result.score = result.score + 2
               result.details.push({
-                item: "Spacing and layout",
+                item: t("spacing_and_layout"),
                 status: "found",
-                message: "Text appears to have appropriate spacing.",
               })
             }
 
