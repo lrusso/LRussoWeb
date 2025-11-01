@@ -321,6 +321,9 @@
           bullet_points: "Bullet points",
           bullet_points_not_found:
             "No bullet points detected. Use bullets to organize information, especially in experience and skills sections.",
+          clear_sections: "Clear sections",
+          clear_sections_not_found:
+            "Few clearly defined sections. Use clear headings to separate resume sections.",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -415,6 +418,9 @@
           bullet_points: "Viñetas",
           bullet_points_not_found:
             "No encontradas. Usa viñetas para organizar la información, especialmente en las secciones de experiencia y habilidades.",
+          clear_sections: "Secciones claras",
+          clear_sections_not_found:
+            "Pocas secciones claramente definidas. Usa encabezados claros para separar las secciones del currículum.",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -2391,6 +2397,7 @@
 
             // check for obvious sections with headings
             var sectionKeywords = [
+              // sections (english)
               "experience",
               "education",
               "skills",
@@ -2400,6 +2407,17 @@
               "projects",
               "publications",
               "references",
+
+              // sections (spanish)
+              "experiencia",
+              "educación",
+              "habilidades",
+              "resumen",
+              "objetivo",
+              "certificaciones",
+              "proyectos",
+              "publicaciones",
+              "referencias",
             ]
 
             var sectionRegex = new RegExp(
@@ -2419,17 +2437,15 @@
               result.found.push("Clear Sections")
               result.score = result.score + 5
               result.details.push({
-                item: "Clear sections",
+                item: t("clear_sections"),
                 status: "found",
-                message: uniqueSections.length + " distinct sections identified.",
               })
             } else {
               result.missing.push("Clear Sections")
               result.details.push({
-                item: "Clear sections",
-                status: "partial",
-                message:
-                  "Few clearly defined sections. Use clear headings to separate resume sections.",
+                item: t("clear_sections"),
+                status: "missing",
+                message: t("clear_sections_not_found"),
               })
             }
 
@@ -2790,7 +2806,7 @@
             for (var item of allPartial) {
               if (
                 item.section === t("format_and_readability") &&
-                ["Clear sections", "Consistent formatting"].includes(item.item)
+                [t("clear_sections"), "Consistent formatting"].includes(item.item)
               ) {
                 mediumPriority.push(item)
               } else {
