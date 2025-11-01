@@ -1605,11 +1605,15 @@
 
           // function to check if the file type is valid (pdf or docx)
           function isValidFileType(file) {
-            var validTypes = [
-              "application/pdf",
-              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            ]
-            return validTypes.includes(file.type)
+            var name = file.name.toLowerCase()
+            var dotIndex = name.lastIndexOf(".")
+            if (dotIndex === -1) {
+              return false
+            }
+
+            var ext = name.substring(dotIndex + 1) // get extension only
+
+            return ext === "pdf" || ext === "docx"
           }
 
           // function to handle file upload
@@ -2086,8 +2090,8 @@
             }
 
             // check for company names
-            var hasCompaniesKeywords = companiesKeywords.some(function (indicator) {
-              return text.includes(indicator)
+            var hasCompaniesKeywords = companiesKeywords.some(function (keyword) {
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
             // check for company names patterns
             var hasCompaniesPatterns = companiesPatterns.some(function (pattern) {
@@ -2444,7 +2448,7 @@
             }
 
             // check for bullets
-            var hasBullets = text.includes("\u2022")
+            var hasBullets = new RegExp("\u2022").test(text)
 
             if (hasBullets) {
               result.found.push("Bullet Points")
