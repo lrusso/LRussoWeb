@@ -280,6 +280,9 @@
           employment_dates: "Employment dates",
           employment_dates_not_found:
             "Employment dates not found or not in standard format. Include dates for each position (MM/YYYY - MM/YYYY).",
+          accomplishments: "Accomplishments",
+          accomplishments_not_found:
+            "Not found. Use action verbs to describe achievements.",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -333,6 +336,9 @@
           employment_dates: "Fechas de empleos",
           employment_dates_not_found:
             "No encontradas o no están en un formato estándar. Incluye las fechas para cada empleo (MM/AAAA - MM/AAAA).",
+          accomplishments: "Logros",
+          accomplishments_not_found:
+            "No encontrados. Usa verbos de acción para describir los logros.",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -1675,6 +1681,7 @@
 
             // check for accomplishments and responsibilities with metrics
             var accomplishmentKeywords = [
+              // accomplishments (english)
               "achieved",
               "improved",
               "increased",
@@ -1705,7 +1712,60 @@
               "researched",
               "solved",
               "streamlined",
+
+              // accomplishments (spanish)
+              "logré",
+              "mejoré",
+              "incrementé",
+              "disminuí",
+              "reduje",
+              "gestioné",
+              "lideré",
+              "creé",
+              "desarrollé",
+              "implementé",
+              "coordiné",
+              "diseñé",
+              "lancé",
+              "organicé",
+              "produje",
+              "supervisé",
+              "entrené",
+              "analicé",
+              "construí",
+              "entregué",
+              "establecí",
+              "ejecuté",
+              "generé",
+              "inicié",
+              "negocié",
+              "optimicé",
+              "planifiqué",
+              "investigué",
+              "resolví",
+              "agilicé",
             ]
+
+            var hasAccomplishments = accomplishmentKeywords.some(function (keyword) {
+              return text.includes(keyword)
+            })
+
+            if (hasAccomplishments) {
+              result.found.push("Accomplishments")
+              result.score += 5
+              result.details.push({
+                item: t("accomplishments"),
+                status: "found",
+              })
+            } else {
+              result.missing.push("Accomplishments")
+              result.details.push({
+                item: t("accomplishments"),
+                status: "missing",
+                message: t("accomplishments_not_found"),
+              })
+            }
+
             var metricPatterns = [
               /\d+\s*%/, // percentage
               /\$\s*\d+/, // dollar amount
@@ -1719,30 +1779,9 @@
               /\d+\s*people/i, // people
             ]
 
-            var hasAccomplishments = accomplishmentKeywords.some(function (keyword) {
-              return text.includes(keyword)
-            })
             var hasMetrics = metricPatterns.some(function (pattern) {
               return pattern.test(text)
             })
-
-            if (hasAccomplishments) {
-              result.found.push("Accomplishments")
-              result.score += 5
-              result.details.push({
-                item: "Accomplishments",
-                status: "found",
-                message: "Accomplishment statements found",
-              })
-            } else {
-              result.missing.push("Accomplishments")
-              result.details.push({
-                item: "Accomplishments",
-                status: "missing",
-                message:
-                  "Few or no accomplishment statements found. Use action verbs to describe achievements.",
-              })
-            }
 
             if (hasMetrics) {
               result.found.push("Metrics")
