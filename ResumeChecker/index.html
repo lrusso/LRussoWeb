@@ -277,6 +277,9 @@
           company_names: "Company names",
           company_names_not_found:
             "Not found. Ensure each job title includes the company name.",
+          employment_dates: "Employment dates",
+          employment_dates_not_found:
+            "Employment dates not found or not in standard format. Include dates for each position (MM/YYYY - MM/YYYY).",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -327,6 +330,9 @@
           company_names: "Nombres de empresas",
           company_names_not_found:
             "No encontradas. Verifica que cada puesto incluya el nombre de la empresa.",
+          employment_dates: "Fechas de empleos",
+          employment_dates_not_found:
+            "No se encontraron las fechas de empleos o no están en un formato estándar. Incluye las fechas para cada puesto (MM/AAAA - MM/AAAA).",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -1628,6 +1634,7 @@
 
             // check for dates - enhanced date detection
             var datePatterns = [
+              // date patterns (english)
               /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year
               /\b\d{4}\s*-\s*\d{4}\b/, // year - year
               /\b\d{4}\s*-\s*(present|current|now)\b/i, // year - present
@@ -1635,6 +1642,15 @@
               /\b\d{1,2}\/\d{4}\s*-\s*\d{1,2}\/\d{4}\b/, // mm/yyyy - mm/yyyy
               /\b\d{1,2}\/\d{4}\s*-\s*(present|current|now)\b/i, // mm/yyyy - present
               /\bsince\s+\d{4}\b/i, // since year
+
+              // date patterns (spanish)
+              /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
+              /\b\d{4}\s*-\s*actualidad\b/i,
+              /\b\d{4}\s*-\s*(presente|actual|ahora)\b/i,
+              /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\s*-\s*(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
+              /\b\d{1,2}\/\d{4}\s*-\s*(\d{1,2}\/\d{4})\b/i,
+              /\b\d{1,2}\/\d{4}\s*-\s*(presente|actualidad|actual|ahora)\b/i,
+              /\bdesde\s+\d{4}\b/i,
             ]
 
             var hasDates = datePatterns.some(function (pattern) {
@@ -1645,17 +1661,15 @@
               result.found.push("Employment Dates")
               result.score += 5
               result.details.push({
-                item: "Employment dates",
+                item: t("employment_dates"),
                 status: "found",
-                message: "Employment dates found in expected format",
               })
             } else {
               result.missing.push("Employment Dates")
               result.details.push({
-                item: "Employment dates",
+                item: t("employment_dates"),
                 status: "missing",
-                message:
-                  "Employment dates not found or not in standard format. Include dates for each position (MM/YYYY - MM/YYYY).",
+                message: t("employment_dates_not_found"),
               })
             }
 
