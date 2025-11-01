@@ -252,8 +252,14 @@
           skills: "Skills",
           format_and_readability: "Format & Readability",
           high_priority_improvements: "High Priority Improvements",
+          high_priority_improvements_ok:
+            "No critical issues found. Your resume is well-structured for ATS!",
           medium_priority_improvements: "Medium Priority Improvements",
+          medium_priority_improvements_ok:
+            "No medium priority improvements needed. Great job!",
           additional_suggestions: "Additional Suggestions",
+          additional_suggestions_ok:
+            "No additional suggestions. Your resume is comprehensive!",
           full_name: "Full name",
           full_name_not_found: "Not found.",
           email_address: "Email address",
@@ -357,8 +363,14 @@
           skills: "Habilidades",
           format_and_readability: "Formato y legibilidad",
           high_priority_improvements: "Mejoras de alta prioridad",
+          high_priority_improvements_ok:
+            "No se encontraron problemas críticos. ¡Tu currículum está bien estructurado para los ATS!",
           medium_priority_improvements: "Mejoras de prioridad media",
+          medium_priority_improvements_ok:
+            "No se necesitan mejoras de prioridad media. ¡Gran trabajo!",
           additional_suggestions: "Sugerencias adicionales",
+          additional_suggestions_ok:
+            "No hay sugerencias adicionales. ¡Tu currículum está completo!",
           full_name: "Nombre completo",
           full_name_not_found: "No encontrado.",
           email_address: "Correo electrónico",
@@ -2839,7 +2851,7 @@
             for (var item of allPartial) {
               if (
                 item.section === t("format_and_readability") &&
-                [t("clear_sections"), "Consistent formatting"].includes(item.item)
+                [t("clear_sections"), t("consistent_formatting")].includes(item.item)
               ) {
                 mediumPriority.push(item)
               } else {
@@ -2855,21 +2867,19 @@
             // if any list is empty, add a positive message
             if (highPriority.length === 0) {
               var li = document.createElement("li")
-              li.textContent =
-                "No critical issues found. Your resume is well-structured for ATS!"
+              li.textContent = t("high_priority_improvements_ok")
               document.getElementById("high-priority-list").appendChild(li)
             }
 
             if (mediumPriority.length === 0) {
               var li = document.createElement("li")
-              li.textContent = "No medium priority improvements needed. Great job!"
+              li.textContent = t("medium_priority_improvements_ok")
               document.getElementById("medium-priority-list").appendChild(li)
             }
 
             if (lowPriority.length === 0) {
               var li = document.createElement("li")
-              li.textContent =
-                "No additional suggestions. Your resume is comprehensive!"
+              li.textContent = t("additional_suggestions_ok")
               document.getElementById("low-priority-list").appendChild(li)
             }
           }
