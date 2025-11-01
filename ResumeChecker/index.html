@@ -1902,10 +1902,9 @@
               details: [],
             }
 
-            var firstLine = text.split("\n")[0]
-            var containsFullname = /^[A-Za-z]+(?:\s+[A-Za-z]+)/.test(firstLine)
-
             // check for full name
+            var containsFullname = /^[A-Za-z]+(?:\s+[A-Za-z]+).*/.test(text)
+
             if (containsFullname) {
               result.found.push("Name")
               result.score = result.score + 2
@@ -1952,8 +1951,10 @@
             }
 
             // check for phone number
-            var phoneRegex = /(\+\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?){1,2}\d{3,4}/
-            if (phoneRegex.test(text)) {
+            var hasPhoneNumber =
+              /(\+\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?){1,2}\d{3,4}/.test(text)
+
+            if (hasPhoneNumber) {
               result.found.push("Phone")
               result.score = result.score + 2
               result.details.push({
@@ -1970,14 +1971,17 @@
             }
 
             // check for linkedin profile
-            if (text.includes("https://www.linkedin.com/in/")) {
+            var hasLinkedinFull = text.includes("https://www.linkedin.com/in/")
+            var hasLinkedinIncomplete = text.includes("linkedin.com")
+
+            if (hasLinkedinFull) {
               result.found.push("LinkedIn")
               result.score = result.score + 2
               result.details.push({
                 item: t("linkedin_profile"),
                 status: "found",
               })
-            } else if (text.includes("linkedin.com")) {
+            } else if (hasLinkedinIncomplete) {
               result.missing.push("LinkedIn")
               result.details.push({
                 item: t("linkedin_profile"),
@@ -2052,15 +2056,15 @@
             }
 
             // check for job titles
-            var hasjobTitlesKeywords = jobTitlesKeywords.some(function (keyword) {
+            var hasJobTitlesKeywords = jobTitlesKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
             // check for job titles patterns
-            var hasjobTitlesPatterns = jobTitlesPatterns.some(function (pattern) {
+            var hasJobTitlesPatterns = jobTitlesPatterns.some(function (pattern) {
               return pattern.test(text)
             })
 
-            if (hasjobTitlesKeywords || hasjobTitlesPatterns) {
+            if (hasJobTitlesKeywords || hasJobTitlesPatterns) {
               result.found.push("Job Titles")
               result.score = result.score + 5
               result.details.push({
@@ -2225,11 +2229,11 @@
             }
 
             // check for field of study
-            var hasField = fieldKeywords.some(function (keyword) {
+            var hasFieldOfStudy = fieldKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
 
-            if (hasField) {
+            if (hasFieldOfStudy) {
               result.found.push("Field of Study")
               result.score = result.score + 3
               result.details.push({
@@ -2265,11 +2269,11 @@
             }
 
             // check for institution name
-            var hasInstitution = institutionKeywords.some(function (keyword) {
+            var hasInstitutionName = institutionKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
 
-            if (hasInstitution) {
+            if (hasInstitutionName) {
               result.found.push("Institution")
               result.score = result.score + 4
               result.details.push({
@@ -2404,17 +2408,19 @@
               details: [],
             }
 
-            // check length (not too short, not too long)
+            // check the resume length
             var wordCount = text.split(/\s+/).length
+            var resumeTooShort = wordCount < 300
+            var resumeTooLong = wordCount > 1000
 
-            if (wordCount < 300) {
+            if (resumeTooShort) {
               result.missing.push("Sufficient Content")
               result.details.push({
                 item: t("resume_length"),
                 status: "missing",
                 message: t("resume_length_too_short"),
               })
-            } else if (wordCount > 1000) {
+            } else if (resumeTooLong) {
               result.missing.push("Concise Content")
               result.details.push({
                 item: t("resume_length"),
@@ -2430,11 +2436,8 @@
               })
             }
 
-            // check for bullets (common in well-formatted resumes)
-            var bulletIndicators = ["\u2022"]
-            var hasBullets = bulletIndicators.some(function (bullet) {
-              return text.includes(bullet)
-            })
+            // check for bullets
+            var hasBullets = text.includes("\u2022")
 
             if (hasBullets) {
               result.found.push("Bullet Points")
