@@ -255,32 +255,28 @@
           medium_priority_improvements: "Medium Priority Improvements",
           additional_suggestions: "Additional Suggestions",
           full_name: "Full name",
-          full_name_found: "Found.",
           full_name_not_found: "Not found.",
           email_address: "Email address",
-          email_address_found: "Found.",
           email_address_not_found:
             "Not found or the email address doesn't contain the first name. Add a professional email address.",
           phone_number: "Phone Number",
-          phone_number_found: "Found.",
           phone_number_not_found: "Not found. Add a contact phone number.",
           linkedin_profile: "LinkedIn profile",
-          linkedin_profile_found: "Found.",
           linkedin_profile_invalid:
             "Adjust your LinkedIn URL to be a standard URL. For example: https://www.linkedin.com/in/leonardojavierrusso",
           linkedin_profile_not_found: "Not found. Add your LinkedIn URL.",
           location_information: "Location information",
-          location_information_found: "Found.",
           location_information_not_found:
             "Not found. Consider adding at least state and country.",
           experience_section: "Experience Section",
-          experience_section_found: "Found.",
           experience_section_not_found:
             "Not found. Create a dedicated section for your work history.",
           job_titles: "Job titles",
-          job_titles_found: "Found.",
           job_titles_not_found:
             "Not found. Include specific job titles for each position.",
+          company_names: "Company names",
+          company_names_not_found:
+            "Not found. Ensure each job title includes the company name.",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -308,33 +304,29 @@
           medium_priority_improvements: "Mejoras de prioridad media",
           additional_suggestions: "Sugerencias adicionales",
           full_name: "Nombre completo",
-          full_name_found: "Encontrado.",
           full_name_not_found: "No encontrado.",
           email_address: "Correo electrónico",
-          email_address_found: "Encontrado.",
           email_address_not_found:
             "No encontrado o el correo electrónico no contiene el primer nombre. Agregue un correo electrónico profesional.",
           phone_number: "Número de teléfono",
-          phone_number_found: "Encontrado.",
           phone_number_not_found:
             "No encontrado. Agregue un número de teléfono de contacto.",
           linkedin_profile: "Perfil de LinkedIn",
-          linkedin_profile_found: "Encontrado.",
           linkedin_profile_invalid:
             "Ajuste su URL de LinkedIn para que sea una URL standard. Por ejemplo: https://www.linkedin.com/in/leonardojavierrusso",
           linkedin_profile_not_found: "No encontrado. Agregue su URL de LinkedIn.",
           location_information: "Datos de ubicación",
-          location_information_found: "Encontrados.",
           location_information_not_found:
             "No encontrados. Considere agregar al menos el estado y país.",
           experience_section: "Sección de experiencia",
-          experience_section_found: "Encontrada.",
           experience_section_not_found:
             "No encontrada. Crea una sección dedicada para tu historial laboral.",
           job_titles: "Puestos de trabajo",
-          job_titles_found: "Encontrados.",
           job_titles_not_found:
-            "No encontrados. Incluye puestos de trabajo específicos para cada posición.",
+            "No encontrados. Incluye puestos específicos para cada posición.",
+          company_names: "Nombres de empresas",
+          company_names_not_found:
+            "No encontradas. Verifica que cada puesto incluya el nombre de la empresa.",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -844,7 +836,6 @@
               result.details.push({
                 item: t("full_name"),
                 status: "found",
-                message: t("full_name_found"),
               })
             } else {
               result.missing.push("Name")
@@ -874,7 +865,6 @@
               result.details.push({
                 item: t("email_address"),
                 status: "found",
-                message: t("email_address_found"),
               })
             } else {
               result.missing.push("Email")
@@ -893,7 +883,6 @@
               result.details.push({
                 item: t("phone_number"),
                 status: "found",
-                message: t("phone_number_found"),
               })
             } else {
               result.missing.push("Phone")
@@ -911,7 +900,6 @@
               result.details.push({
                 item: t("linkedin_profile"),
                 status: "found",
-                message: t("linkedin_profile_found"),
               })
             } else if (text.includes("linkedin.com")) {
               result.missing.push("LinkedIn")
@@ -1360,7 +1348,6 @@
               result.details.push({
                 item: t("location_information"),
                 status: "found",
-                message: t("location_information_found"),
               })
             } else {
               result.missing.push("Location")
@@ -1410,7 +1397,6 @@
               result.details.push({
                 item: t("experience_section"),
                 status: "found",
-                message: t("experience_section_found"),
               })
             } else {
               result.missing.push("Experience Section")
@@ -1568,7 +1554,6 @@
               result.details.push({
                 item: t("job_titles"),
                 status: "found",
-                message: t("job_titles_found"),
               })
             } else {
               result.missing.push("Job Titles")
@@ -1581,6 +1566,7 @@
 
             // check for company names
             var companyIndicators = [
+              // companies (english)
               "inc",
               "llc",
               "corporation",
@@ -1593,11 +1579,28 @@
               "llc.",
               "ltd.",
               "at",
+
+              // companies (spanish)
+              "s.a.",
+              "sa",
+              "srl",
+              "s.r.l.",
+              "sociedad anónima",
+              "sociedad de responsabilidad limitada",
+              "empresa",
+              "compañía",
             ]
+
             var companyPatterns = [
+              // company patterns (english)
               /\bcompany\s*:\s*[a-z0-9\s&,\.]+/i,
               /\b(at|with|for)\s+[a-z0-9\s&,\.]+/i,
               /\b[a-z0-9\s&,\.]+\s+\(?\d{4}/i, // company name followed by year
+
+              // company patterns (spanish)
+              /\bempresa\s*:\s*[a-z0-9\s&,\.]+/i,
+              /\b(en|con|para)\s+[a-z0-9\s&,\.]+/i,
+              /\b[a-z0-9\s&,\.]+\s+\(?\d{4}/i,
             ]
 
             var hasCompanyIndicators = companyIndicators.some(function (indicator) {
@@ -1611,17 +1614,15 @@
               result.found.push("Company Names")
               result.score += 5
               result.details.push({
-                item: "Company names",
+                item: t("company_names"),
                 status: "found",
-                message: "Company names identified",
               })
             } else {
               result.missing.push("Company Names")
               result.details.push({
-                item: "Company names",
-                status: "partial",
-                message:
-                  "Company names may not be clearly identified. Ensure each position includes the company name.",
+                item: t("company_names"),
+                status: "missing",
+                message: t("company_names_not_found"),
               })
             }
 
@@ -2440,9 +2441,11 @@
               wrapper.appendChild(strong)
 
               // create <p> for the message
-              var p = document.createElement("p")
-              p.appendChild(document.createTextNode(detail.message))
-              wrapper.appendChild(p)
+              if (detail.message) {
+                var p = document.createElement("p")
+                p.appendChild(document.createTextNode(detail.message))
+                wrapper.appendChild(p)
+              }
 
               // append wrapper to main container
               detailItem.appendChild(wrapper)
