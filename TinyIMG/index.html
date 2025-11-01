@@ -866,7 +866,7 @@
             reader.onload = function (evt) {
               var fileType = file.type.toLowerCase()
 
-              if (fileType.includes("svg")) {
+              if (fileType.toLowerCase().includes("svg")) {
                 btnOpen.disabled = true
                 btnOpen.classList.remove("disabled")
                 btnOpen.classList.add("disabled")
@@ -1170,7 +1170,7 @@
             reader.onload = function (evt) {
               var fileType = file.type.toLowerCase()
 
-              if (fileType.includes("svg")) {
+              if (fileType.toLowerCase().includes("svg")) {
                 var svgText = evt.target.result
 
                 var blob = new Blob([svgText], { type: "image/svg+xml" })
