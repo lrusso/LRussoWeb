@@ -234,6 +234,8 @@
           upload: "Upload your resume",
           drag_and_drop: "Drag & drop your resume\nor click to browse",
           processing: "Processing...",
+          process_error:
+            "Error parsing document. Please try again with a different file.",
           resume_results: "Resume Analysis Results",
           ats_score: "ATS Score",
           great: "GREAT",
@@ -278,6 +280,8 @@
           upload: "Sube tu currículum",
           drag_and_drop: "Arrastra y suelta tu currículum\no haz clic para buscar",
           processing: "Procesando...",
+          process_error:
+            "Error al analizar el documento. Por favor, inténtalo nuevamente con un archivo diferente.",
           resume_results: "Resultados del análisis",
           ats_score: "Puntaje ATS",
           great: "GENIAL",
@@ -2529,8 +2533,7 @@
             if (showError && !document.querySelector(".error-message-container")) {
               var myAlertBox = document.createElement("div")
               myAlertBox.className = "error-message-container"
-              myAlertBox.innerText =
-                "Error parsing document. Please try again with a different file."
+              myAlertBox.innerText = t("process_error")
               document.querySelector(".container").prepend(myAlertBox)
             }
 
