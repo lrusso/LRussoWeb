@@ -272,8 +272,15 @@
           location_information: "Location information",
           location_information_found: "Found.",
           location_information_not_found:
-            "Not found. Consider adding at least city and state.",
+            "Not found. Consider adding at least state and country.",
           experience_section: "Experience Section",
+          experience_section_found: "Found.",
+          experience_section_not_found:
+            "Not found. Create a dedicated section for your work history.",
+          job_titles: "Job titles",
+          job_titles_found: "Found.",
+          job_titles_not_found:
+            "Not found. Include specific job titles for each position.",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -319,8 +326,15 @@
           location_information: "Datos de ubicación",
           location_information_found: "Encontrados.",
           location_information_not_found:
-            "No encontrados. Considere agregar al menos una ciudad y estado.",
+            "No encontrados. Considere agregar al menos el estado y país.",
           experience_section: "Sección de experiencia",
+          experience_section_found: "Encontrada.",
+          experience_section_not_found:
+            "No encontrada. Crea una sección dedicada para tu historial laboral.",
+          job_titles: "Puestos de trabajo",
+          job_titles_found: "Encontrados.",
+          job_titles_not_found:
+            "No encontrados. Incluye puestos de trabajo específicos para cada posición.",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -1396,21 +1410,20 @@
               result.details.push({
                 item: t("experience_section"),
                 status: "found",
-                message: "Work experience section found",
+                message: t("experience_section_found"),
               })
             } else {
               result.missing.push("Experience Section")
               result.details.push({
                 item: t("experience_section"),
                 status: "missing",
-                message:
-                  "No clear work experience section found. Create a dedicated section for your work history.",
+                message: t("experience_section_not_found"),
               })
             }
 
             // enhanced job title detection
             var titleKeywords = [
-              // management roles
+              // jobs (english)
               "manager",
               "director",
               "supervisor",
@@ -1424,7 +1437,6 @@
               "cfo",
               "coo",
               "executive",
-              // technical roles
               "developer",
               "engineer",
               "programmer",
@@ -1434,55 +1446,113 @@
               "sysadmin",
               "webmaster",
               "technician",
-              // creative roles
               "designer",
               "artist",
               "writer",
               "editor",
               "creator",
               "producer",
-              // analysis roles
               "analyst",
               "researcher",
               "scientist",
               "consultant",
               "advisor",
-              // support roles
               "specialist",
               "coordinator",
               "assistant",
               "associate",
               "representative",
               "agent",
-              // professional roles
               "accountant",
               "lawyer",
               "attorney",
               "physician",
               "doctor",
               "nurse",
-              // education roles
               "teacher",
               "professor",
               "instructor",
               "tutor",
               "trainer",
-              // common position words
               "senior",
               "junior",
               "associate",
               "principal",
               "staff",
               "intern",
+
+              // jobs (spanish)
+              "gerente",
+              "director",
+              "supervisor",
+              "jefe",
+              "líder",
+              "vicepresidente",
+              "presidente",
+              "director ejecutivo",
+              "director de tecnología",
+              "director financiero",
+              "director de operaciones",
+              "ejecutivo",
+              "desarrollador",
+              "ingeniero",
+              "programador",
+              "arquitecto",
+              "administrador",
+              "devops",
+              "administrador de sistemas",
+              "webmaster",
+              "técnico",
+              "diseñador",
+              "artista",
+              "escritor",
+              "editor",
+              "creador",
+              "productor",
+              "analista",
+              "investigador",
+              "científico",
+              "consultor",
+              "asesor",
+              "especialista",
+              "coordinador",
+              "asistente",
+              "colaborador",
+              "representante",
+              "agente",
+              "contador",
+              "abogado",
+              "médico",
+              "doctor",
+              "enfermero",
+              "maestro",
+              "profesor",
+              "instructor",
+              "tutor",
+              "entrenador",
+              "senior",
+              "junior",
+              "asociado",
+              "principal",
+              "personal",
+              "pasante",
             ]
 
             // check for common job title patterns
             var titlePatterns = [
+              // job patterns (english)
               /position\s*:\s*[a-z0-9\s]+/i,
               /title\s*:\s*[a-z0-9\s]+/i,
               /role\s*:\s*[a-z0-9\s]+/i,
               /\b(as|as a|as an)\s+[a-z0-9\s]+/i,
               /\b(worked|serving|served)\s+(as|as a|as an)\s+[a-z0-9\s]+/i,
+
+              // job patterns (spanish)
+              /puesto\s*:\s*[a-z0-9\s]+/i,
+              /cargo\s*:\s*[a-z0-9\s]+/i,
+              /rol\s*:\s*[a-z0-9\s]+/i,
+              /\b(como|como un|como una)\s+[a-z0-9\s]+/i,
+              /\b(trabajé|trabaje|trabajando|serví|servi|sirviendo)\s+(como|como un|como una)\s+[a-z0-9\s]+/i,
             ]
 
             var hasTitleKeywords = titleKeywords.some(function (keyword) {
@@ -1496,17 +1566,16 @@
               result.found.push("Job Titles")
               result.score += 5
               result.details.push({
-                item: "Job titles",
+                item: t("job_titles"),
                 status: "found",
-                message: "Job titles identified",
+                message: t("job_titles_found"),
               })
             } else {
               result.missing.push("Job Titles")
               result.details.push({
-                item: "Job titles",
+                item: t("job_titles"),
                 status: "missing",
-                message:
-                  "Job titles not clearly identified. Include specific job titles for each position.",
+                message: t("job_titles_not_found"),
               })
             }
 
