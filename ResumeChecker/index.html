@@ -283,6 +283,9 @@
           accomplishments: "Accomplishments",
           accomplishments_not_found:
             "Not found. Use action verbs to describe achievements.",
+          quantifiable_metrics: "Quantifiable metrics",
+          quantifiable_metrics_not_found:
+            "Not found. Include numbers to quantify your achievements (%, $, etc.).",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -339,6 +342,9 @@
           accomplishments: "Logros",
           accomplishments_not_found:
             "No encontrados. Usa verbos de acción para describir los logros.",
+          quantifiable_metrics: "Métricas cuantificables",
+          quantifiable_metrics_not_found:
+            "No encontradas. Incluye números para cuantificar tus logros (%, $, etc.).",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -1787,17 +1793,15 @@
               result.found.push("Metrics")
               result.score += 5
               result.details.push({
-                item: "Quantifiable metrics",
+                item: t("quantifiable_metrics"),
                 status: "found",
-                message: "Quantifiable metrics found",
               })
             } else {
               result.missing.push("Metrics")
               result.details.push({
-                item: "Quantifiable metrics",
+                item: t("quantifiable_metrics"),
                 status: "missing",
-                message:
-                  "Few or no quantifiable metrics found. Include numbers to quantify your achievements (%, $, etc.).",
+                message: t("quantifiable_metrics_not_found"),
               })
             }
 
@@ -1834,7 +1838,6 @@
               result.details.push({
                 item: "Education section",
                 status: "found",
-                message: "Education section found",
               })
             } else {
               result.missing.push("Education Section")
@@ -1872,7 +1875,6 @@
               result.details.push({
                 item: "Degree information",
                 status: "found",
-                message: "Degree information found",
               })
             } else {
               result.missing.push("Degree")
@@ -1913,7 +1915,6 @@
               result.details.push({
                 item: "Field of study",
                 status: "found",
-                message: "Field of study found",
               })
             } else {
               result.missing.push("Field of Study")
@@ -1933,7 +1934,6 @@
               result.details.push({
                 item: "Graduation year",
                 status: "found",
-                message: "Graduation year found",
               })
             } else {
               result.missing.push("Graduation Year")
@@ -1963,7 +1963,6 @@
               result.details.push({
                 item: "Institution name",
                 status: "found",
-                message: "Institution name found",
               })
             } else {
               result.missing.push("Institution")
@@ -2007,7 +2006,6 @@
               result.details.push({
                 item: "Skills section",
                 status: "found",
-                message: "Skills section found",
               })
             } else {
               result.missing.push("Skills Section")
