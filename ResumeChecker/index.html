@@ -2348,7 +2348,7 @@
               result.details.push({
                 item: "Resume length",
                 status: "found",
-                message: "Resume length appears appropriate",
+                message: "Resume length appears appropriate.",
               })
             }
 
@@ -2364,7 +2364,7 @@
               result.details.push({
                 item: "Bullet points",
                 status: "found",
-                message: "Bullet points found for easy readability",
+                message: "Bullet points found for easy readability.",
               })
             } else {
               result.missing.push("Bullet Points")
@@ -2408,7 +2408,7 @@
               result.details.push({
                 item: "Clear sections",
                 status: "found",
-                message: uniqueSections.length + " distinct sections identified",
+                message: uniqueSections.length + " distinct sections identified.",
               })
             } else {
               result.missing.push("Clear Sections")
@@ -2428,7 +2428,7 @@
               result.details.push({
                 item: "Consistent formatting",
                 status: "found",
-                message: "Date formats appear consistent",
+                message: "Date formats appear consistent.",
               })
             } else {
               result.missing.push("Consistent Date Formats")
@@ -2512,7 +2512,7 @@
               result.details.push({
                 item: "Spacing and layout",
                 status: "found",
-                message: "Text appears to have appropriate spacing",
+                message: "Text appears to have appropriate spacing.",
               })
             }
 
@@ -2733,11 +2733,11 @@
             }
 
             // collect items from all sections
-            collectItems(analysis.contactInfo, "Contact Information")
-            collectItems(analysis.experience, "Work Experience")
-            collectItems(analysis.education, "Education")
-            collectItems(analysis.skills, "Skills")
-            collectItems(analysis.format, "Format & Readability")
+            collectItems(analysis.contactInfo, t("contact_information"))
+            collectItems(analysis.experience, t("work_experience"))
+            collectItems(analysis.education, t("education"))
+            collectItems(analysis.skills, t("skills"))
+            collectItems(analysis.format, t("format_and_readability"))
 
             // categorize improvements by priority
             var highPriority = []
@@ -2747,21 +2747,25 @@
             // high priority: missing contact info, major experience/education issues
             for (var item of allMissing) {
               if (
-                item.section === "Contact Information" ||
-                (item.section === "Work Experience" &&
-                  ["Experience Section", "Job Titles", "Employment Dates"].includes(
+                item.section === t("contact_information") ||
+                (item.section === t("work_experience") &&
+                  [
+                    t("experience_section"),
+                    t("job_titles"),
+                    t("employment_dates"),
+                  ].includes(item.item)) ||
+                (item.section === t("education") &&
+                  [t("education_section"), t("degree_information")].includes(
                     item.item
                   )) ||
-                (item.section === "Education" &&
-                  ["Education Section", "Degree information"].includes(item.item)) ||
-                (item.section === "Skills" && item.item === "Skills section")
+                (item.section === t("skills") && item.item === t("skills_section"))
               ) {
                 highPriority.push(item)
               } else if (
-                item.section === "Format & Readability" ||
-                item.section === "Skills" ||
-                item.item === "Quantifiable metrics" ||
-                item.item === "Accomplishments"
+                item.section === t("format_and_readability") ||
+                item.section === t("skills") ||
+                item.item === t("quantifiable_metrics") ||
+                item.item === t("accomplishments")
               ) {
                 mediumPriority.push(item)
               } else {
@@ -2772,7 +2776,7 @@
             // medium priority: partial items and format issues
             for (var item of allPartial) {
               if (
-                item.section === "Format & Readability" &&
+                item.section === t("format_and_readability") &&
                 ["Clear sections", "Consistent formatting"].includes(item.item)
               ) {
                 mediumPriority.push(item)
