@@ -213,30 +213,52 @@ function langsCheckSameKeys(jsonData) {
     })
     jsonData = JSON.parse(jsonData)
     const languages = Object.keys(jsonData)
+    let referenceLang = languages[0]
+    referenceKeys = Object.keys(jsonData[referenceLang]).sort()
 
     for (const lang of languages) {
       const keys = Object.keys(jsonData[lang]).sort()
 
-      if (!referenceKeys) {
-        referenceKeys = keys
-      } else {
-        // find keys missing or extra compared to reference
-        const missingKeys = referenceKeys.filter(function (k) {
-          return !keys.includes(k)
-        })
-        const extraKeys = keys.filter(function (k) {
-          return !referenceKeys.includes(k)
-        })
+      // compare keys
+      const missingKeys = referenceKeys.filter((k) => !keys.includes(k))
+      const extraKeys = keys.filter((k) => !referenceKeys.includes(k))
 
-        if (missingKeys.length > 0 || extraKeys.length > 0) {
+      if (missingKeys.length > 0 || extraKeys.length > 0) {
+        allLanguagesHaveSameKeys = false
+        differences[lang] = differences[lang] || {}
+        if (missingKeys.length > 0) differences[lang].missing = missingKeys
+        if (extraKeys.length > 0) differences[lang].extra = extraKeys
+      }
+
+      // array comparison: check same array keys & same array length
+      for (const key of referenceKeys) {
+        const refValue = jsonData[referenceLang][key]
+        const curValue = jsonData[lang][key]
+
+        const refIsArray = Array.isArray(refValue)
+        const curIsArray = Array.isArray(curValue)
+
+        // if one is array and another isn't
+        if (refIsArray !== curIsArray) {
           allLanguagesHaveSameKeys = false
-          differences[lang] = {}
-          if (missingKeys.length > 0) {
-            differences[lang].missing = missingKeys
-          }
-          if (extraKeys.length > 0) {
-            differences[lang].extra = extraKeys
-          }
+          differences[lang] = differences[lang] || {}
+          differences[lang].arrayTypeMismatch =
+            differences[lang].arrayTypeMismatch || []
+          differences[lang].arrayTypeMismatch.push(key)
+          continue
+        }
+
+        // if both are arrays — compare length
+        if (refIsArray && curIsArray && refValue.length !== curValue.length) {
+          allLanguagesHaveSameKeys = false
+          differences[lang] = differences[lang] || {}
+          differences[lang].arrayLengthMismatch =
+            differences[lang].arrayLengthMismatch || []
+          differences[lang].arrayLengthMismatch.push({
+            key,
+            expected: refValue.length,
+            actual: curValue.length,
+          })
         }
       }
     }
@@ -244,11 +266,7 @@ function langsCheckSameKeys(jsonData) {
     allLanguagesHaveSameKeys = false
   }
 
-  if (!allLanguagesHaveSameKeys) {
-    allLanguagesHaveSameKeys = differences
-  }
-
-  return allLanguagesHaveSameKeys
+  return allLanguagesHaveSameKeys ? true : differences
 }
 
 function langsCheckEmptyKeys(jsonData) {
@@ -1464,16 +1482,6 @@ for (let i = 0; i < listFavIcons.length; i++) {
       expect(fileExists(filename)).toBe(true)
     })
 
-    it("Should be a valid image", function () {
-      let imageValid = true
-      try {
-        getImageSize(filename, "utf8")
-      } catch (err) {
-        imageValid = false
-      }
-      expect(imageValid).toBe(true)
-    })
-
     it("Should not have changed", function () {
       let currentHash = ""
 
@@ -1486,12 +1494,36 @@ for (let i = 0; i < listFavIcons.length; i++) {
 
       expect(currentHash).toBe(expectedHash)
     })
+
+    it("Should be a valid image", function () {
+      let imageValid = true
+      try {
+        getImageSize(filename, "utf8")
+      } catch (err) {
+        imageValid = false
+      }
+      expect(imageValid).toBe(true)
+    })
   })
 }
 
 describe("index.html", function () {
   it("Should exist", function () {
     expect(fileExists("index.html")).toBe(true)
+  })
+
+  it("Should not have changed", function () {
+    const expectedHash = "5b03ed9c"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("index.html", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
   })
 
   it("Should define the i18n variable", function () {
@@ -2009,16 +2041,6 @@ describe("profile1.webp", function () {
     expect(fileExists("profile1.webp")).toBe(true)
   })
 
-  it("Should be a valid image", function () {
-    let imageValid = true
-    try {
-      getImageSize("profile1.webp", "utf8")
-    } catch (err) {
-      imageValid = false
-    }
-    expect(imageValid).toBe(true)
-  })
-
   it("Should not have changed", function () {
     const expectedHash = "14286336"
     let currentHash = ""
@@ -2032,21 +2054,21 @@ describe("profile1.webp", function () {
 
     expect(currentHash).toBe(expectedHash)
   })
+
+  it("Should be a valid image", function () {
+    let imageValid = true
+    try {
+      getImageSize("profile1.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
+  })
 })
 
 describe("profile2.webp", function () {
   it("Should exist", function () {
     expect(fileExists("profile2.webp")).toBe(true)
-  })
-
-  it("Should be a valid image", function () {
-    let imageValid = true
-    try {
-      getImageSize("profile2.webp", "utf8")
-    } catch (err) {
-      imageValid = false
-    }
-    expect(imageValid).toBe(true)
   })
 
   it("Should not have changed", function () {
@@ -2061,6 +2083,16 @@ describe("profile2.webp", function () {
     }
 
     expect(currentHash).toBe(expectedHash)
+  })
+
+  it("Should be a valid image", function () {
+    let imageValid = true
+    try {
+      getImageSize("profile2.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
   })
 })
 
@@ -2089,16 +2121,6 @@ describe("share.webp", function () {
     expect(fileExists("share.webp")).toBe(true)
   })
 
-  it("Should be a valid image", function () {
-    let imageValid = true
-    try {
-      getImageSize("share.webp", "utf8")
-    } catch (err) {
-      imageValid = false
-    }
-    expect(imageValid).toBe(true)
-  })
-
   it("Should not have changed", function () {
     const expectedHash = "5a84123e"
     let currentHash = ""
@@ -2111,6 +2133,16 @@ describe("share.webp", function () {
     }
 
     expect(currentHash).toBe(expectedHash)
+  })
+
+  it("Should be a valid image", function () {
+    let imageValid = true
+    try {
+      getImageSize("share.webp", "utf8")
+    } catch (err) {
+      imageValid = false
+    }
+    expect(imageValid).toBe(true)
   })
 })
 
@@ -2181,16 +2213,16 @@ describe("No inline styles", function () {
     return targetExts.includes(extname(file))
   })
 
-  for (var i = 0; i < filesToCheck.length; i++) {
-    var file = filesToCheck[i]
+  for (let i = 0; i < filesToCheck.length; i++) {
+    const file = filesToCheck[i]
     const filename = file.substring(startDir.length + 1)
     it(filename, function () {
       const content = readFileSync(file, "utf8")
       const lines = content.split(/\r?\n/)
       let inlineDetected = []
 
-      for (var j = 0; j < lines.length; j++) {
-        var line = lines[j]
+      for (let j = 0; j < lines.length; j++) {
+        const line = lines[j]
         if (/style\=\"/gm.test(line)) {
           inlineDetected.push("L:" + (j + 1))
         }
@@ -2214,8 +2246,8 @@ describe("No uppercase comments", function () {
     return targetExts.includes(extname(file))
   })
 
-  for (var i = 0; i < filesToCheck.length; i++) {
-    var file = filesToCheck[i]
+  for (let i = 0; i < filesToCheck.length; i++) {
+    const file = filesToCheck[i]
     const filename = file.substring(startDir.length + 1)
     it(filename, function () {
       const content = readFileSync(file, "utf8")
@@ -2263,8 +2295,8 @@ describe("No comments in HTML files", function () {
     return targetExts.includes(extname(file))
   })
 
-  for (var i = 0; i < filesToCheck.length; i++) {
-    var file = filesToCheck[i]
+  for (let i = 0; i < filesToCheck.length; i++) {
+    const file = filesToCheck[i]
     const filename = file.substring(startDir.length + 1)
     it(filename, function () {
       const content = readFileSync(file, "utf8")
