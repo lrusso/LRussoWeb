@@ -1830,14 +1830,14 @@
           // function to analyze resume content
           function analyzeResume(text) {
             // normalize text: convert to lowercase and remove extra spaces
-            var normalizedText = text.toLowerCase().replace(/\s+/g, " ")
+            text = text.toLowerCase().replace(/\s+/g, " ")
 
             // extract and analyze different sections
             var analysis = {
               contactInfo: analyzeContactInfo(text),
-              experience: analyzeExperience(normalizedText),
-              education: analyzeEducation(normalizedText),
-              skills: analyzeSkills(normalizedText),
+              experience: analyzeExperience(text),
+              education: analyzeEducation(text),
+              skills: analyzeSkills(text),
               format: analyzeFormat(text),
             }
 
@@ -1923,13 +1923,13 @@
 
             // check for email
             var emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/
-            var firstName = text.split(" ")[0].toLowerCase()
+            var firstName = text.split(" ")[0]
 
-            var hasEmail = emailRegex.exec(text.toLowerCase())
-              ? emailRegex.exec(text.toLowerCase()).length > 0
+            var hasEmail = emailRegex.exec(text)
+              ? emailRegex.exec(text).length > 0
               : false
             var validEmail = hasEmail
-              ? emailRegex.exec(text.toLowerCase())[0].indexOf(firstName) === -1
+              ? emailRegex.exec(text)[0].indexOf(firstName) === -1
                 ? false
                 : true
               : false
@@ -2184,8 +2184,6 @@
               details: [],
             }
 
-            text = text.toLowerCase()
-
             // check for education section
             var hasEducationSection = educationKeywords.some(function (keyword) {
               return text.includes(keyword)
@@ -2328,8 +2326,12 @@
 
             // check for technical skills
             var hasTechnicalSkills = 0
+            var foundTechnicalSkills = {}
             for (var j = 0; j < technicalSkillsKeywords.length; j++) {
-              if (text.includes(technicalSkillsKeywords[j].toLowerCase())) {
+              var word = technicalSkillsKeywords[j]
+              var regex = new RegExp("\\b" + word + "\\b", "i")
+              if (regex.test(text) && !foundTechnicalSkills[word]) {
+                foundTechnicalSkills[word] = true
                 hasTechnicalSkills = hasTechnicalSkills + 1
               }
             }
@@ -2352,7 +2354,7 @@
 
             // check for languages
             var hasLanguages = languagesKeywords.some(function (keyword) {
-              return text.toLowerCase().includes(keyword)
+              return text.includes(keyword)
             })
 
             if (hasLanguages) {
@@ -2373,7 +2375,7 @@
 
             // check for certifications
             var hasCertifications = certificationsKeywords.some(function (keyword) {
-              return text.toLowerCase().includes(keyword)
+              return text.includes(keyword)
             })
 
             if (hasCertifications) {
@@ -2456,20 +2458,18 @@
             }
 
             // check for obvious sections with headings
-            var sectionRegex = new RegExp(
-              "\\b(" + sectionKeywords.join("|") + ")\\b",
-              "gi"
-            )
-            var sections = text.match(sectionRegex) || []
-            var uniqueSections = [
-              ...new Set(
-                sections.map(function (s) {
-                  return s.toLowerCase()
-                })
-              ),
-            ]
+            var uniqueSections = 0
+            var foundSections = {}
+            for (var j = 0; j < sectionKeywords.length; j++) {
+              var word = sectionKeywords[j]
+              var regex = new RegExp("\\b" + word + "\\b", "i")
+              if (regex.test(text) && !foundSections[word]) {
+                foundSections[word] = true
+                uniqueSections = uniqueSections + 1
+              }
+            }
 
-            if (uniqueSections.length >= 3) {
+            if (uniqueSections >= 3) {
               result.found.push("Clear Sections")
               result.score = result.score + 5
               result.details.push({
@@ -2515,7 +2515,7 @@
 
             // finding repeated long words
             var repeatedWords = {}
-            var lines = text.toLowerCase().split("\n")
+            var lines = text.split("\n")
 
             for (var line of lines) {
               // remove leading non-alphabetic characters
