@@ -1209,6 +1209,8 @@
         "phd",
         "doctorate",
         "associate",
+        "engineer",
+        "engineering",
         "bs",
         "ba",
         "ms",
@@ -1224,6 +1226,7 @@
         "doctorado",
         "doctorado",
         "tecnicatura",
+        "ingeniería",
         "lic.",
         "mtr.",
         "phd",
@@ -1368,6 +1371,7 @@
         // certifications (english)
         "certified",
         "certification",
+        "certifications",
         "certificate",
         "license",
         "licensed",
@@ -1381,6 +1385,7 @@
         // certifications (spanish)
         "certificado",
         "certificación",
+        "certificaciones",
         "certificación profesional",
         "licencia",
         "licenciado",
@@ -1999,7 +2004,7 @@
 
             // check for address/location
             var hasLocation = locationKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasLocation) {
@@ -2036,7 +2041,7 @@
 
             // check for experience section
             var hasExperienceSection = experienceKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasExperienceSection) {
@@ -2057,7 +2062,7 @@
 
             // check for job titles
             var hasJobTitlesKeywords = jobTitlesKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
             // check for job titles patterns
             var hasJobTitlesPatterns = jobTitlesPatterns.some(function (pattern) {
@@ -2128,7 +2133,7 @@
 
             // check for accomplishments and responsibilities with metrics
             var hasAccomplishments = accomplishmentKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasAccomplishments) {
@@ -2186,7 +2191,7 @@
 
             // check for education section
             var hasEducationSection = educationKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasEducationSection) {
@@ -2207,7 +2212,7 @@
 
             // check for degree
             var hasDegree = degreeKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasDegree) {
@@ -2228,7 +2233,7 @@
 
             // check for field of study
             var hasFieldOfStudy = fieldKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasFieldOfStudy) {
@@ -2268,7 +2273,7 @@
 
             // check for institution name
             var hasInstitutionName = institutionKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasInstitutionName) {
@@ -2305,7 +2310,7 @@
 
             // check for skills section
             var hasSkillsSection = skillsSectionKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasSkillsSection) {
@@ -2354,7 +2359,7 @@
 
             // check for languages
             var hasLanguages = languagesKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasLanguages) {
@@ -2375,7 +2380,7 @@
 
             // check for certifications
             var hasCertifications = certificationsKeywords.some(function (keyword) {
-              return text.includes(keyword)
+              return new RegExp("\\b" + keyword + "\\b", "i").test(text)
             })
 
             if (hasCertifications) {
