@@ -313,6 +313,14 @@
           certifications: "Certifications",
           certifications_not_found:
             "Not Found. Consider adding at least 1 relevant certification.",
+          resume_length: "Resume length",
+          resume_length_too_short:
+            "Resume may be too short. Aim for at least 300-600 words.",
+          resume_length_too_long:
+            "Resume may be too long. Consider condensing to 1-2 pages.",
+          bullet_points: "Bullet points",
+          bullet_points_not_found:
+            "No bullet points detected. Use bullets to organize information, especially in experience and skills sections.",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -399,6 +407,14 @@
           certifications: "Certificaciones",
           certifications_not_found:
             "No encontradas. Considera agregar al menos 1 certificación relevante.",
+          resume_length: "Longitud del currículum",
+          resume_length_too_short:
+            "El currículum parece ser demasiado corto. Apunta a un mínimo de 300-600 palabras.",
+          resume_length_too_long:
+            "El currículum parece ser demasiado largo. Considera condensarlo a 1-2 páginas.",
+          bullet_points: "Viñetas",
+          bullet_points_not_found:
+            "No encontradas. Usa viñetas para organizar la información, especialmente en las secciones de experiencia y habilidades.",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -2328,27 +2344,26 @@
             // check length (not too short, not too long)
             var wordCount = text.split(/\s+/).length
 
-            if (wordCount < 200) {
+            if (wordCount < 300) {
               result.missing.push("Sufficient Content")
               result.details.push({
-                item: "Resume length",
+                item: t("resume_length"),
                 status: "missing",
-                message: "Resume appears too short. Aim for at least 300-600 words.",
+                message: t("resume_length_too_short"),
               })
             } else if (wordCount > 1000) {
               result.missing.push("Concise Content")
               result.details.push({
-                item: "Resume length",
+                item: t("resume_length"),
                 status: "missing",
-                message: "Resume may be too long. Consider condensing to 1-2 pages.",
+                message: t("resume_length_too_long"),
               })
             } else {
               result.found.push("Appropriate Length")
               result.score = result.score + 5
               result.details.push({
-                item: "Resume length",
+                item: t("resume_length"),
                 status: "found",
-                message: "Resume length appears appropriate.",
               })
             }
 
@@ -2362,17 +2377,15 @@
               result.found.push("Bullet Points")
               result.score = result.score + 5
               result.details.push({
-                item: "Bullet points",
+                item: t("bullet_points"),
                 status: "found",
-                message: "Bullet points found for easy readability.",
               })
             } else {
               result.missing.push("Bullet Points")
               result.details.push({
-                item: "Bullet points",
+                item: t("bullet_points"),
                 status: "missing",
-                message:
-                  "No bullet points detected. Use bullets to organize information, especially in experience and skills sections.",
+                message: t("bullet_points_not_found"),
               })
             }
 
