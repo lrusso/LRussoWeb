@@ -899,7 +899,7 @@
         "carrera",
       ]
 
-      var titleKeywords = [
+      var jobTitlesKeywords = [
         // jobs (english)
         "manager",
         "director",
@@ -1015,7 +1015,7 @@
         "pasante",
       ]
 
-      var titlePatterns = [
+      var jobTitlesPatterns = [
         // job patterns (english)
         /position\s*:\s*[a-z0-9\s]+/i,
         /title\s*:\s*[a-z0-9\s]+/i,
@@ -1031,7 +1031,7 @@
         /\b(trabajé|trabaje|trabajando|serví|servi|sirviendo)\s+(como|como un|como una)\s+[a-z0-9\s]+/i,
       ]
 
-      var companyIndicators = [
+      var companiesKeywords = [
         // companies (english)
         "inc",
         "llc",
@@ -1057,7 +1057,7 @@
         "compañía",
       ]
 
-      var companyPatterns = [
+      var companiesPatterns = [
         // company patterns (english)
         /\bcompany\s*:\s*[a-z0-9\s&,\.]+/i,
         /\b(at|with|for)\s+[a-z0-9\s&,\.]+/i,
@@ -2052,15 +2052,15 @@
             }
 
             // check for job titles
-            var hasTitleKeywords = titleKeywords.some(function (keyword) {
+            var hasjobTitlesKeywords = jobTitlesKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
             // check for job titles patterns
-            var hasTitlePatterns = titlePatterns.some(function (pattern) {
+            var hasjobTitlesPatterns = jobTitlesPatterns.some(function (pattern) {
               return pattern.test(text)
             })
 
-            if (hasTitleKeywords || hasTitlePatterns) {
+            if (hasjobTitlesKeywords || hasjobTitlesPatterns) {
               result.found.push("Job Titles")
               result.score = result.score + 5
               result.details.push({
@@ -2077,15 +2077,15 @@
             }
 
             // check for company names
-            var hasCompanyIndicators = companyIndicators.some(function (indicator) {
+            var hasCompaniesKeywords = companiesKeywords.some(function (indicator) {
               return text.includes(indicator)
             })
             // check for company names patterns
-            var hasCompanyPatterns = companyPatterns.some(function (pattern) {
+            var hasCompaniesPatterns = companiesPatterns.some(function (pattern) {
               return pattern.test(text)
             })
 
-            if (hasCompanyIndicators || hasCompanyPatterns) {
+            if (hasCompaniesKeywords || hasCompaniesPatterns) {
               result.found.push("Company Names")
               result.score = result.score + 5
               result.details.push({
