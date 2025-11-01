@@ -220,14 +220,22 @@ function langsCheckSameKeys(jsonData) {
       const keys = Object.keys(jsonData[lang]).sort()
 
       // compare keys
-      const missingKeys = referenceKeys.filter((k) => !keys.includes(k))
-      const extraKeys = keys.filter((k) => !referenceKeys.includes(k))
+      const missingKeys = referenceKeys.filter(function (k) {
+        return !keys.includes(k)
+      })
+      const extraKeys = keys.filter(function (k) {
+        return !referenceKeys.includes(k)
+      })
 
       if (missingKeys.length > 0 || extraKeys.length > 0) {
         allLanguagesHaveSameKeys = false
         differences[lang] = differences[lang] || {}
-        if (missingKeys.length > 0) differences[lang].missing = missingKeys
-        if (extraKeys.length > 0) differences[lang].extra = extraKeys
+        if (missingKeys.length > 0) {
+          differences[lang].missing = missingKeys
+        }
+        if (extraKeys.length > 0) {
+          differences[lang].extra = extraKeys
+        }
       }
 
       // array comparison: check same array keys & same array length
