@@ -367,7 +367,7 @@ function getJpegSize(buf) {
       return { format: "jpeg", width, height }
     } else {
       const segmentLength = buf.readUInt16BE(offset + 2)
-      offset += 2 + segmentLength
+      offset = offset + 2 + segmentLength
     }
   }
   throw new Error("Size not found in JPEG file")
@@ -704,7 +704,7 @@ describe("MediaPlayer/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "1c83d6d2"
+    const expectedHash = "5e77a10a"
     let currentHash = ""
 
     try {
@@ -860,7 +860,7 @@ describe("ResumeChecker/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "27e15986"
+    const expectedHash = "7217c3fa"
     let currentHash = ""
 
     try {
@@ -1455,7 +1455,7 @@ describe("eslint.js", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "5f158ade"
+    const expectedHash = "2f421cc3"
     let currentHash = ""
 
     try {

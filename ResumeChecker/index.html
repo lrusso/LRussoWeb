@@ -620,7 +620,7 @@
             // simulate upload progress
             var progress = 0
             var interval = setInterval(function () {
-              progress += 5
+              progress = progress + 5
               progressBar.style.width = progress + "%"
               progressText.textContent = t("processing") + " " + progress + "%"
 
@@ -719,14 +719,14 @@
                 var text = ""
                 for (var item of textContent.items) {
                   if (lastY === item.transform[5] || !lastY) {
-                    text += item.str
+                    text = text + item.str
                   } else {
-                    text += "\n" + item.str
+                    text = text + "\n" + item.str
                   }
                   lastY = item.transform[5]
                 }
 
-                fullText += text + "\n"
+                fullText = fullText + text + "\n"
               }
 
               // add file type info to results
@@ -904,7 +904,7 @@
             // check for full name
             if (containsFullname) {
               result.found.push("Name")
-              result.score += 2
+              result.score = result.score + 2
               result.details.push({
                 item: t("full_name"),
                 status: "found",
@@ -933,7 +933,7 @@
 
             if (validEmail) {
               result.found.push("Email")
-              result.score += 2
+              result.score = result.score + 2
               result.details.push({
                 item: t("email_address"),
                 status: "found",
@@ -951,7 +951,7 @@
             var phoneRegex = /(\+\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?){1,2}\d{3,4}/
             if (phoneRegex.test(text)) {
               result.found.push("Phone")
-              result.score += 2
+              result.score = result.score + 2
               result.details.push({
                 item: t("phone_number"),
                 status: "found",
@@ -968,7 +968,7 @@
             // check for linkedin profile
             if (text.includes("https://www.linkedin.com/in/")) {
               result.found.push("LinkedIn")
-              result.score += 2
+              result.score = result.score + 2
               result.details.push({
                 item: t("linkedin_profile"),
                 status: "found",
@@ -1417,7 +1417,7 @@
 
             if (hasLocation) {
               result.found.push("Location")
-              result.score += 2
+              result.score = result.score + 2
               result.details.push({
                 item: t("location_information"),
                 status: "found",
@@ -1470,7 +1470,7 @@
 
             if (hasExperienceSection) {
               result.found.push("Experience Section")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("experience_section"),
                 status: "found",
@@ -1627,7 +1627,7 @@
 
             if (hasTitleKeywords || hasTitlePatterns) {
               result.found.push("Job Titles")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("job_titles"),
                 status: "found",
@@ -1689,7 +1689,7 @@
 
             if (hasCompanyIndicators || hasCompanyPatterns) {
               result.found.push("Company Names")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("company_names"),
                 status: "found",
@@ -1730,7 +1730,7 @@
 
             if (hasDates) {
               result.found.push("Employment Dates")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("employment_dates"),
                 status: "found",
@@ -1817,7 +1817,7 @@
 
             if (hasAccomplishments) {
               result.found.push("Accomplishments")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("accomplishments"),
                 status: "found",
@@ -1864,7 +1864,7 @@
 
             if (hasMetrics) {
               result.found.push("Metrics")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("quantifiable_metrics"),
                 status: "found",
@@ -1923,7 +1923,7 @@
 
             if (hasEducationSection) {
               result.found.push("Education Section")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("education_section"),
                 status: "found",
@@ -1975,7 +1975,7 @@
 
             if (hasDegree) {
               result.found.push("Degree")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("degree_information"),
                 status: "found",
@@ -2039,7 +2039,7 @@
 
             if (hasField) {
               result.found.push("Field of Study")
-              result.score += 3
+              result.score = result.score + 3
               result.details.push({
                 item: t("field_of_study"),
                 status: "found",
@@ -2058,7 +2058,7 @@
 
             if (hasGraduationYear) {
               result.found.push("Graduation Year")
-              result.score += 3
+              result.score = result.score + 3
               result.details.push({
                 item: t("graduation_year"),
                 status: "found",
@@ -2095,7 +2095,7 @@
 
             if (hasInstitution) {
               result.found.push("Institution")
-              result.score += 4
+              result.score = result.score + 4
               result.details.push({
                 item: t("institution_name"),
                 status: "found",
@@ -2150,7 +2150,7 @@
 
             if (hasSkillsSection) {
               result.found.push("Skills Section")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("skills_section"),
                 status: "found",
@@ -2201,7 +2201,7 @@
 
             if (hasTechnicalSkills >= 5) {
               result.found.push("Technical Skills")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("technical_skills"),
                 status: "found",
@@ -2249,7 +2249,7 @@
 
             if (hasLanguages) {
               result.found.push("Languages")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("languages"),
                 status: "found",
@@ -2295,7 +2295,7 @@
 
             if (hasCertifications) {
               result.found.push("Certifications")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: t("certifications"),
                 status: "found",
@@ -2344,7 +2344,7 @@
               })
             } else {
               result.found.push("Appropriate Length")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: "Resume length",
                 status: "found",
@@ -2360,7 +2360,7 @@
 
             if (hasBullets) {
               result.found.push("Bullet Points")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: "Bullet points",
                 status: "found",
@@ -2404,7 +2404,7 @@
 
             if (uniqueSections.length >= 3) {
               result.found.push("Clear Sections")
-              result.score += 5
+              result.score = result.score + 5
               result.details.push({
                 item: "Clear sections",
                 status: "found",
@@ -2424,7 +2424,7 @@
             var consistentDateFormats = checkConsistentDateFormats(text)
             if (consistentDateFormats) {
               result.found.push("Consistent Date Formats")
-              result.score += 3
+              result.score = result.score + 3
               result.details.push({
                 item: "Consistent formatting",
                 status: "found",
@@ -2508,7 +2508,7 @@
               }
             } else {
               result.found.push("Appropriate Spacing")
-              result.score += 2
+              result.score = result.score + 2
               result.details.push({
                 item: "Spacing and layout",
                 status: "found",

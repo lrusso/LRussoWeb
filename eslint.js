@@ -60,6 +60,10 @@ const lintConfig = {
         message:
           "Do not assign a function expression to a const. Use a function declaration instead.",
       },
+      {
+        selector: "AssignmentExpression[operator='+=']",
+        message: "Use explicit assignment instead of += (e.g., x = x + y)",
+      },
     ],
     "one-var": ["error", "never"],
     "no-plusplus": [
