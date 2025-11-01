@@ -462,6 +462,958 @@
         return GET_APP_STRING[stringName] || ""
       }
 
+      var locationKeywords = [
+        // locations (english)
+        "street",
+        "avenue",
+        "road",
+        "boulevard",
+        "lane",
+        "drive",
+        "place",
+        "court",
+        "city",
+        "state",
+        "zip",
+        "postal",
+
+        // locations (spanish)
+        "calle",
+        "avenida",
+        "camino",
+        "bulevar",
+        "pasaje",
+        "av.",
+        "lugar",
+        "tribunal",
+        "ciudad",
+        "estado",
+        "código postal",
+
+        // countries (english)
+        "Afghanistan",
+        "Albania",
+        "Algeria",
+        "Andorra",
+        "Angola",
+        "Antigua and Barbuda",
+        "Argentina",
+        "Armenia",
+        "Australia",
+        "Austria",
+        "Azerbaijan",
+        "Bahamas",
+        "Bahrain",
+        "Bangladesh",
+        "Barbados",
+        "Belarus",
+        "Belgium",
+        "Belize",
+        "Benin",
+        "Bhutan",
+        "Bolivia",
+        "Bosnia and Herzegovina",
+        "Botswana",
+        "Brazil",
+        "Brunei",
+        "Bulgaria",
+        "Burkina Faso",
+        "Burundi",
+        "Cambodia",
+        "Cameroon",
+        "Canada",
+        "Cape Verde",
+        "Central African Republic",
+        "Chad",
+        "Chile",
+        "China",
+        "Colombia",
+        "Comoros",
+        "Congo",
+        "Costa Rica",
+        "Croatia",
+        "Cuba",
+        "Cyprus",
+        "Czech Republic",
+        "Democratic Republic of the Congo",
+        "Denmark",
+        "Djibouti",
+        "Dominica",
+        "Dominican Republic",
+        "Ecuador",
+        "Egypt",
+        "El Salvador",
+        "Equatorial Guinea",
+        "Eritrea",
+        "Estonia",
+        "Eswatini",
+        "Ethiopia",
+        "Fiji",
+        "Finland",
+        "France",
+        "Gabon",
+        "Gambia",
+        "Georgia",
+        "Germany",
+        "Ghana",
+        "Greece",
+        "Grenada",
+        "Guatemala",
+        "Guinea",
+        "Guinea-Bissau",
+        "Guyana",
+        "Haiti",
+        "Honduras",
+        "Hungary",
+        "Iceland",
+        "India",
+        "Indonesia",
+        "Iran",
+        "Iraq",
+        "Ireland",
+        "Israel",
+        "Italy",
+        "Jamaica",
+        "Japan",
+        "Jordan",
+        "Kazakhstan",
+        "Kenya",
+        "Kiribati",
+        "Kuwait",
+        "Kyrgyzstan",
+        "Laos",
+        "Latvia",
+        "Lebanon",
+        "Lesotho",
+        "Liberia",
+        "Libya",
+        "Liechtenstein",
+        "Lithuania",
+        "Luxembourg",
+        "Madagascar",
+        "Malawi",
+        "Malaysia",
+        "Maldives",
+        "Mali",
+        "Malta",
+        "Marshall Islands",
+        "Mauritania",
+        "Mauritius",
+        "Mexico",
+        "Micronesia",
+        "Moldova",
+        "Monaco",
+        "Mongolia",
+        "Montenegro",
+        "Morocco",
+        "Mozambique",
+        "Myanmar",
+        "Namibia",
+        "Nauru",
+        "Nepal",
+        "Netherlands",
+        "New Zealand",
+        "Nicaragua",
+        "Niger",
+        "Nigeria",
+        "North Korea",
+        "North Macedonia",
+        "Norway",
+        "Oman",
+        "Pakistan",
+        "Palau",
+        "Panama",
+        "Papua New Guinea",
+        "Paraguay",
+        "Peru",
+        "Philippines",
+        "Poland",
+        "Portugal",
+        "Qatar",
+        "Romania",
+        "Russia",
+        "Rwanda",
+        "Saint Kitts and Nevis",
+        "Saint Lucia",
+        "Saint Vincent and the Grenadines",
+        "Samoa",
+        "San Marino",
+        "Sao Tome and Principe",
+        "Saudi Arabia",
+        "Senegal",
+        "Serbia",
+        "Seychelles",
+        "Sierra Leone",
+        "Singapore",
+        "Slovakia",
+        "Slovenia",
+        "Solomon Islands",
+        "Somalia",
+        "South Africa",
+        "South Korea",
+        "South Sudan",
+        "Spain",
+        "Sri Lanka",
+        "Sudan",
+        "Suriname",
+        "Sweden",
+        "Switzerland",
+        "Syria",
+        "Taiwan",
+        "Tajikistan",
+        "Tanzania",
+        "Thailand",
+        "Timor-Leste",
+        "Togo",
+        "Tonga",
+        "Trinidad and Tobago",
+        "Tunisia",
+        "Turkey",
+        "Turkmenistan",
+        "Tuvalu",
+        "Uganda",
+        "Ukraine",
+        "United Arab Emirates",
+        "United Kingdom",
+        "United States",
+        "Uruguay",
+        "Uzbekistan",
+        "Vanuatu",
+        "Vatican City",
+        "Venezuela",
+        "Vietnam",
+        "Yemen",
+        "Zambia",
+        "Zimbabwe",
+
+        // countries (spanish)
+        "Afganistán",
+        "Albania",
+        "Argelia",
+        "Andorra",
+        "Angola",
+        "Antigua y Barbuda",
+        "Argentina",
+        "Armenia",
+        "Australia",
+        "Austria",
+        "Azerbaiyán",
+        "Bahamas",
+        "Baréin",
+        "Bangladés",
+        "Barbados",
+        "Bielorrusia",
+        "Bélgica",
+        "Belice",
+        "Benín",
+        "Bután",
+        "Bolivia",
+        "Bosnia y Herzegovina",
+        "Botsuana",
+        "Brasil",
+        "Brunéi",
+        "Bulgaria",
+        "Burkina Faso",
+        "Burundi",
+        "Camboya",
+        "Camerún",
+        "Canadá",
+        "Cabo Verde",
+        "República Centroafricana",
+        "Chad",
+        "Chile",
+        "China",
+        "Colombia",
+        "Comoras",
+        "Congo",
+        "Costa Rica",
+        "Croacia",
+        "Cuba",
+        "Chipre",
+        "República Checa",
+        "República Democrática del Congo",
+        "Dinamarca",
+        "Yibuti",
+        "Dominica",
+        "República Dominicana",
+        "Ecuador",
+        "Egipto",
+        "El Salvador",
+        "Guinea Ecuatorial",
+        "Eritrea",
+        "Estonia",
+        "Esuatini",
+        "Etiopía",
+        "Fiyi",
+        "Finlandia",
+        "Francia",
+        "Gabón",
+        "Gambia",
+        "Georgia",
+        "Alemania",
+        "Ghana",
+        "Grecia",
+        "Granada",
+        "Guatemala",
+        "Guinea",
+        "Guinea-Bisáu",
+        "Guyana",
+        "Haití",
+        "Honduras",
+        "Hungría",
+        "Islandia",
+        "India",
+        "Indonesia",
+        "Irán",
+        "Irak",
+        "Irlanda",
+        "Israel",
+        "Italia",
+        "Jamaica",
+        "Japón",
+        "Jordania",
+        "Kazajistán",
+        "Kenia",
+        "Kiribati",
+        "Kuwait",
+        "Kirguistán",
+        "Laos",
+        "Letonia",
+        "Líbano",
+        "Lesoto",
+        "Liberia",
+        "Libia",
+        "Liechtenstein",
+        "Lituania",
+        "Luxemburgo",
+        "Madagascar",
+        "Malaui",
+        "Malasia",
+        "Maldivas",
+        "Malí",
+        "Malta",
+        "Islas Marshall",
+        "Mauritania",
+        "Mauricio",
+        "México",
+        "Micronesia",
+        "Moldavia",
+        "Mónaco",
+        "Mongolia",
+        "Montenegro",
+        "Marruecos",
+        "Mozambique",
+        "Myanmar",
+        "Namibia",
+        "Nauru",
+        "Nepal",
+        "Países Bajos",
+        "Nueva Zelanda",
+        "Nicaragua",
+        "Níger",
+        "Nigeria",
+        "Corea del Norte",
+        "Macedonia del Norte",
+        "Noruega",
+        "Omán",
+        "Pakistán",
+        "Palaos",
+        "Panamá",
+        "Papúa Nueva Guinea",
+        "Paraguay",
+        "Perú",
+        "Filipinas",
+        "Polonia",
+        "Portugal",
+        "Catar",
+        "Rumania",
+        "Rusia",
+        "Ruanda",
+        "San Cristóbal y Nieves",
+        "Santa Lucía",
+        "San Vicente y las Granadinas",
+        "Samoa",
+        "San Marino",
+        "Santo Tomé y Príncipe",
+        "Arabia Saudita",
+        "Senegal",
+        "Serbia",
+        "Seychelles",
+        "Sierra Leona",
+        "Singapur",
+        "Eslovaquia",
+        "Eslovenia",
+        "Islas Salomón",
+        "Somalia",
+        "Sudáfrica",
+        "Corea del Sur",
+        "Sudán del Sur",
+        "España",
+        "Sri Lanka",
+        "Sudán",
+        "Surinam",
+        "Suecia",
+        "Suiza",
+        "Siria",
+        "Taiwán",
+        "Tayikistán",
+        "Tanzania",
+        "Tailandia",
+        "Timor Oriental",
+        "Togo",
+        "Tonga",
+        "Trinidad y Tobago",
+        "Túnez",
+        "Turquía",
+        "Turkmenistán",
+        "Tuvalu",
+        "Uganda",
+        "Ucrania",
+        "Emiratos Árabes Unidos",
+        "Reino Unido",
+        "Estados Unidos",
+        "Uruguay",
+        "Uzbekistán",
+        "Vanuatu",
+        "Ciudad del Vaticano",
+        "Venezuela",
+        "Vietnam",
+        "Yemen",
+        "Zambia",
+        "Zimbabue",
+      ]
+
+      var experienceKeywords = [
+        // experience (english)
+        "experience",
+        "work history",
+        "employment",
+        "job history",
+        "career",
+
+        // experience (spanish)
+        "experiencia",
+        "historial laboral",
+        "empleo",
+        "historial de trabajo",
+        "carrera",
+      ]
+
+      var titleKeywords = [
+        // jobs (english)
+        "manager",
+        "director",
+        "supervisor",
+        "head",
+        "chief",
+        "lead",
+        "vp",
+        "president",
+        "ceo",
+        "cto",
+        "cfo",
+        "coo",
+        "executive",
+        "developer",
+        "engineer",
+        "programmer",
+        "architect",
+        "administrator",
+        "devops",
+        "sysadmin",
+        "webmaster",
+        "technician",
+        "designer",
+        "artist",
+        "writer",
+        "editor",
+        "creator",
+        "producer",
+        "analyst",
+        "researcher",
+        "scientist",
+        "consultant",
+        "advisor",
+        "specialist",
+        "coordinator",
+        "assistant",
+        "associate",
+        "representative",
+        "agent",
+        "accountant",
+        "lawyer",
+        "attorney",
+        "physician",
+        "doctor",
+        "nurse",
+        "teacher",
+        "professor",
+        "instructor",
+        "tutor",
+        "trainer",
+        "senior",
+        "junior",
+        "associate",
+        "principal",
+        "staff",
+        "intern",
+
+        // jobs (spanish)
+        "gerente",
+        "director",
+        "supervisor",
+        "jefe",
+        "líder",
+        "vicepresidente",
+        "presidente",
+        "director ejecutivo",
+        "director de tecnología",
+        "director financiero",
+        "director de operaciones",
+        "ejecutivo",
+        "desarrollador",
+        "ingeniero",
+        "programador",
+        "arquitecto",
+        "administrador",
+        "devops",
+        "administrador de sistemas",
+        "webmaster",
+        "técnico",
+        "diseñador",
+        "artista",
+        "escritor",
+        "editor",
+        "creador",
+        "productor",
+        "analista",
+        "investigador",
+        "científico",
+        "consultor",
+        "asesor",
+        "especialista",
+        "coordinador",
+        "asistente",
+        "colaborador",
+        "representante",
+        "agente",
+        "contador",
+        "abogado",
+        "médico",
+        "doctor",
+        "enfermero",
+        "maestro",
+        "profesor",
+        "instructor",
+        "tutor",
+        "entrenador",
+        "senior",
+        "junior",
+        "asociado",
+        "principal",
+        "personal",
+        "pasante",
+      ]
+
+      var titlePatterns = [
+        // job patterns (english)
+        /position\s*:\s*[a-z0-9\s]+/i,
+        /title\s*:\s*[a-z0-9\s]+/i,
+        /role\s*:\s*[a-z0-9\s]+/i,
+        /\b(as|as a|as an)\s+[a-z0-9\s]+/i,
+        /\b(worked|serving|served)\s+(as|as a|as an)\s+[a-z0-9\s]+/i,
+
+        // job patterns (spanish)
+        /puesto\s*:\s*[a-z0-9\s]+/i,
+        /cargo\s*:\s*[a-z0-9\s]+/i,
+        /rol\s*:\s*[a-z0-9\s]+/i,
+        /\b(como|como un|como una)\s+[a-z0-9\s]+/i,
+        /\b(trabajé|trabaje|trabajando|serví|servi|sirviendo)\s+(como|como un|como una)\s+[a-z0-9\s]+/i,
+      ]
+
+      var companyIndicators = [
+        // companies (english)
+        "inc",
+        "llc",
+        "corporation",
+        "company",
+        "co",
+        "gmbh",
+        "ltd",
+        "corp",
+        "inc.",
+        "llc.",
+        "ltd.",
+        "at",
+
+        // companies (spanish)
+        "s.a.",
+        "sa",
+        "srl",
+        "s.r.l.",
+        "sociedad anónima",
+        "sociedad de responsabilidad limitada",
+        "empresa",
+        "compañía",
+      ]
+
+      var companyPatterns = [
+        // company patterns (english)
+        /\bcompany\s*:\s*[a-z0-9\s&,\.]+/i,
+        /\b(at|with|for)\s+[a-z0-9\s&,\.]+/i,
+        /\b[a-z0-9\s&,\.]+\s+\(?\d{4}/i, // company name followed by year
+
+        // company patterns (spanish)
+        /\bempresa\s*:\s*[a-z0-9\s&,\.]+/i,
+        /\b(en|con|para)\s+[a-z0-9\s&,\.]+/i,
+        /\b[a-z0-9\s&,\.]+\s+\(?\d{4}/i,
+      ]
+
+      var datePatterns = [
+        // date patterns (english)
+        /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year
+        /\b\d{4}\s*-\s*\d{4}\b/, // year - year
+        /\b\d{4}\s*-\s*(present|current|now)\b/i, // year - present
+        /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\s*-\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year - month year
+        /\b\d{1,2}\/\d{4}\s*-\s*\d{1,2}\/\d{4}\b/, // mm/yyyy - mm/yyyy
+        /\b\d{1,2}\/\d{4}\s*-\s*(present|current|now)\b/i, // mm/yyyy - present
+        /\bsince\s+\d{4}\b/i, // since year
+
+        // date patterns (spanish)
+        /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
+        /\b\d{4}\s*-\s*actualidad\b/i,
+        /\b\d{4}\s*-\s*(presente|actual|ahora)\b/i,
+        /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\s*-\s*(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
+        /\b\d{1,2}\/\d{4}\s*-\s*(\d{1,2}\/\d{4})\b/i,
+        /\b\d{1,2}\/\d{4}\s*-\s*(presente|actualidad|actual|ahora)\b/i,
+        /\bdesde\s+\d{4}\b/i,
+      ]
+
+      var accomplishmentKeywords = [
+        // accomplishments (english)
+        "achieved",
+        "improved",
+        "increased",
+        "decreased",
+        "reduced",
+        "managed",
+        "led",
+        "created",
+        "developed",
+        "implemented",
+        "coordinated",
+        "designed",
+        "launched",
+        "organized",
+        "produced",
+        "supervised",
+        "trained",
+        "analyzed",
+        "built",
+        "delivered",
+        "established",
+        "executed",
+        "generated",
+        "initiated",
+        "negotiated",
+        "optimized",
+        "planned",
+        "researched",
+        "solved",
+        "streamlined",
+
+        // accomplishments (spanish)
+        "logré",
+        "mejoré",
+        "incrementé",
+        "disminuí",
+        "reduje",
+        "gestioné",
+        "lideré",
+        "creé",
+        "desarrollé",
+        "implementé",
+        "coordiné",
+        "diseñé",
+        "lancé",
+        "organicé",
+        "produje",
+        "supervisé",
+        "entrené",
+        "analicé",
+        "construí",
+        "entregué",
+        "establecí",
+        "ejecuté",
+        "generé",
+        "inicié",
+        "negocié",
+        "optimicé",
+        "planifiqué",
+        "investigué",
+        "resolví",
+        "agilicé",
+      ]
+
+      var metricPatterns = [
+        // metrics (english)
+        /\d+\s*%/, // percentage
+        /\$\s*\d+/, // dollar amount
+        /\d+\s*million/i, // millions
+        /\d+\s*k\b/i, // thousands
+        /\d+\s*users/i, // users
+        /\d+\s*customers/i, // customers
+        /\d+\s*clients/i, // clients
+        /\d+\s*projects/i, // projects
+        /\d+\s*teams/i, // teams
+        /\d+\s*people/i, // people
+
+        // metrics (spanish)
+        /\d+\s*%/,
+        /\$\s*\d+/,
+        /\d+\s*(millones|millon)\b/i,
+        /\d+\s*k\b/i,
+        /\d+\s*usuarios/i,
+        /\d+\s*clientes/i,
+        /\d+\s*proyectos/i,
+        /\d+\s*equipos/i,
+        /\d+\s*personas/i,
+        /\d+\s*empleados/i,
+        /\d+\s*colaboradores/i,
+      ]
+
+      var educationKeywords = [
+        // education (english)
+        "education",
+        "academic",
+        "university",
+        "college",
+        "school",
+        "degree",
+        "certificate",
+
+        // education (spanish)
+        "educación",
+        "académico",
+        "universidad",
+        "facultad",
+        "escuela",
+        "título",
+        "certificado",
+      ]
+
+      var degreeKeywords = [
+        // degrees (english)
+        "bachelor",
+        "master",
+        "phd",
+        "doctorate",
+        "associate",
+        "bs",
+        "ba",
+        "ms",
+        "ma",
+        "mba",
+        "certificate",
+        "certification",
+        "diploma",
+
+        // degrees (spanish)
+        "licenciatura",
+        "maestría",
+        "doctorado",
+        "doctorado",
+        "tecnicatura",
+        "lic.",
+        "mtr.",
+        "phd",
+        "mba",
+        "certificado",
+        "certificación",
+        "diploma",
+      ]
+
+      var fieldKeywords = [
+        // fields (english)
+        "computer science",
+        "business",
+        "engineering",
+        "management",
+        "marketing",
+        "biology",
+        "chemistry",
+        "mathematics",
+        "physics",
+        "psychology",
+        "economics",
+        "finance",
+        "accounting",
+        "communications",
+        "liberal arts",
+        "major",
+
+        // fields (spanish)
+        "ciencia de la computación",
+        "informática",
+        "negocios",
+        "administración",
+        "ingeniería",
+        "gestión",
+        "marketing",
+        "biología",
+        "química",
+        "matemáticas",
+        "física",
+        "psicología",
+        "economía",
+        "finanzas",
+        "contabilidad",
+        "comunicaciones",
+        "comunicación social",
+        "humanidades",
+        "artes liberales",
+        "especialización",
+        "carrera",
+      ]
+
+      var institutionKeywords = [
+        // institutions (english)
+        "university",
+        "college",
+        "institute",
+        "school",
+        "academy",
+
+        // institutions (spanish)
+        "universidad",
+        "facultad",
+        "instituto",
+        "escuela",
+        "academia",
+      ]
+
+      var skillsSectionKeywords = [
+        // skills (english)
+        "skills",
+        "competencies",
+        "proficiencies",
+        "expertise",
+        "qualifications",
+        "technical skills",
+
+        // skills (spanish)
+        "habilidades",
+        "competencias",
+        "aptitudes",
+        "experiencia",
+        "calificaciones",
+        "habilidades técnicas",
+      ]
+
+      var technicalSkillsKeywords = [
+        // technical skills (english)
+        "programming",
+        "software",
+        "java",
+        "python",
+        "javascript",
+        "html",
+        "css",
+        "react",
+        "angular",
+        "node",
+        "sql",
+        "database",
+        "aws",
+        "cloud",
+        "git",
+        "php",
+        "docker",
+        "kubernetes",
+
+        // technical skills (spanish)
+        "programación",
+        "base de datos",
+        "bases de datos",
+      ]
+
+      var languagesKeywords = [
+        // languages (english)
+        "english",
+        "spanish",
+        "french",
+        "german",
+        "chinese",
+        "japanese",
+        "mandarin",
+        "bilingual",
+        "multilingual",
+        "fluent",
+
+        // languages (spanish)
+        "inglés",
+        "español",
+        "francés",
+        "alemán",
+        "chino",
+        "japonés",
+        "mandarín",
+        "bilingüe",
+        "multilingüe",
+        "fluido",
+        "fluente",
+      ]
+
+      var certificationsKeywords = [
+        // certifications (english)
+        "certified",
+        "certification",
+        "certificate",
+        "license",
+        "licensed",
+        "pmp",
+        "cpa",
+        "cfa",
+        "aws certified",
+        "microsoft certified",
+        "google certified",
+
+        // certifications (spanish)
+        "certificado",
+        "certificación",
+        "certificación profesional",
+        "licencia",
+        "licenciado",
+        "certificado aws",
+        "certificado de amazon web services",
+        "certificado microsoft",
+        "certificado google",
+      ]
+
+      var sectionKeywords = [
+        // sections (english)
+        "experience",
+        "education",
+        "skills",
+        "summary",
+        "objective",
+        "certifications",
+        "projects",
+        "publications",
+        "references",
+
+        // sections (spanish)
+        "experiencia",
+        "educación",
+        "habilidades",
+        "resumen",
+        "objetivo",
+        "certificaciones",
+        "proyectos",
+        "publicaciones",
+        "referencias",
+      ]
+
       var uploadTitle =
         "body > div.container > section.upload-section > div.upload-container > div.upload-text > h3"
       var uploadSubtitle =
@@ -970,7 +1922,7 @@
               })
             }
 
-            // check for email - improved detection with more robust regex
+            // check for email
             var emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/
             var firstName = text.split(" ")[0].toLowerCase()
 
@@ -1042,427 +1994,6 @@
             }
 
             // check for address/location
-            var locationKeywords = [
-              // locations (english)
-              "street",
-              "avenue",
-              "road",
-              "boulevard",
-              "lane",
-              "drive",
-              "place",
-              "court",
-              "city",
-              "state",
-              "zip",
-              "postal",
-
-              // locations (spanish)
-              "calle",
-              "avenida",
-              "camino",
-              "bulevar",
-              "pasaje",
-              "av.",
-              "lugar",
-              "tribunal",
-              "ciudad",
-              "estado",
-              "código postal",
-
-              // countries (english)
-              "Afghanistan",
-              "Albania",
-              "Algeria",
-              "Andorra",
-              "Angola",
-              "Antigua and Barbuda",
-              "Argentina",
-              "Armenia",
-              "Australia",
-              "Austria",
-              "Azerbaijan",
-              "Bahamas",
-              "Bahrain",
-              "Bangladesh",
-              "Barbados",
-              "Belarus",
-              "Belgium",
-              "Belize",
-              "Benin",
-              "Bhutan",
-              "Bolivia",
-              "Bosnia and Herzegovina",
-              "Botswana",
-              "Brazil",
-              "Brunei",
-              "Bulgaria",
-              "Burkina Faso",
-              "Burundi",
-              "Cambodia",
-              "Cameroon",
-              "Canada",
-              "Cape Verde",
-              "Central African Republic",
-              "Chad",
-              "Chile",
-              "China",
-              "Colombia",
-              "Comoros",
-              "Congo",
-              "Costa Rica",
-              "Croatia",
-              "Cuba",
-              "Cyprus",
-              "Czech Republic",
-              "Democratic Republic of the Congo",
-              "Denmark",
-              "Djibouti",
-              "Dominica",
-              "Dominican Republic",
-              "Ecuador",
-              "Egypt",
-              "El Salvador",
-              "Equatorial Guinea",
-              "Eritrea",
-              "Estonia",
-              "Eswatini",
-              "Ethiopia",
-              "Fiji",
-              "Finland",
-              "France",
-              "Gabon",
-              "Gambia",
-              "Georgia",
-              "Germany",
-              "Ghana",
-              "Greece",
-              "Grenada",
-              "Guatemala",
-              "Guinea",
-              "Guinea-Bissau",
-              "Guyana",
-              "Haiti",
-              "Honduras",
-              "Hungary",
-              "Iceland",
-              "India",
-              "Indonesia",
-              "Iran",
-              "Iraq",
-              "Ireland",
-              "Israel",
-              "Italy",
-              "Jamaica",
-              "Japan",
-              "Jordan",
-              "Kazakhstan",
-              "Kenya",
-              "Kiribati",
-              "Kuwait",
-              "Kyrgyzstan",
-              "Laos",
-              "Latvia",
-              "Lebanon",
-              "Lesotho",
-              "Liberia",
-              "Libya",
-              "Liechtenstein",
-              "Lithuania",
-              "Luxembourg",
-              "Madagascar",
-              "Malawi",
-              "Malaysia",
-              "Maldives",
-              "Mali",
-              "Malta",
-              "Marshall Islands",
-              "Mauritania",
-              "Mauritius",
-              "Mexico",
-              "Micronesia",
-              "Moldova",
-              "Monaco",
-              "Mongolia",
-              "Montenegro",
-              "Morocco",
-              "Mozambique",
-              "Myanmar",
-              "Namibia",
-              "Nauru",
-              "Nepal",
-              "Netherlands",
-              "New Zealand",
-              "Nicaragua",
-              "Niger",
-              "Nigeria",
-              "North Korea",
-              "North Macedonia",
-              "Norway",
-              "Oman",
-              "Pakistan",
-              "Palau",
-              "Panama",
-              "Papua New Guinea",
-              "Paraguay",
-              "Peru",
-              "Philippines",
-              "Poland",
-              "Portugal",
-              "Qatar",
-              "Romania",
-              "Russia",
-              "Rwanda",
-              "Saint Kitts and Nevis",
-              "Saint Lucia",
-              "Saint Vincent and the Grenadines",
-              "Samoa",
-              "San Marino",
-              "Sao Tome and Principe",
-              "Saudi Arabia",
-              "Senegal",
-              "Serbia",
-              "Seychelles",
-              "Sierra Leone",
-              "Singapore",
-              "Slovakia",
-              "Slovenia",
-              "Solomon Islands",
-              "Somalia",
-              "South Africa",
-              "South Korea",
-              "South Sudan",
-              "Spain",
-              "Sri Lanka",
-              "Sudan",
-              "Suriname",
-              "Sweden",
-              "Switzerland",
-              "Syria",
-              "Taiwan",
-              "Tajikistan",
-              "Tanzania",
-              "Thailand",
-              "Timor-Leste",
-              "Togo",
-              "Tonga",
-              "Trinidad and Tobago",
-              "Tunisia",
-              "Turkey",
-              "Turkmenistan",
-              "Tuvalu",
-              "Uganda",
-              "Ukraine",
-              "United Arab Emirates",
-              "United Kingdom",
-              "United States",
-              "Uruguay",
-              "Uzbekistan",
-              "Vanuatu",
-              "Vatican City",
-              "Venezuela",
-              "Vietnam",
-              "Yemen",
-              "Zambia",
-              "Zimbabwe",
-
-              // countries (spanish)
-              "Afganistán",
-              "Albania",
-              "Argelia",
-              "Andorra",
-              "Angola",
-              "Antigua y Barbuda",
-              "Argentina",
-              "Armenia",
-              "Australia",
-              "Austria",
-              "Azerbaiyán",
-              "Bahamas",
-              "Baréin",
-              "Bangladés",
-              "Barbados",
-              "Bielorrusia",
-              "Bélgica",
-              "Belice",
-              "Benín",
-              "Bután",
-              "Bolivia",
-              "Bosnia y Herzegovina",
-              "Botsuana",
-              "Brasil",
-              "Brunéi",
-              "Bulgaria",
-              "Burkina Faso",
-              "Burundi",
-              "Camboya",
-              "Camerún",
-              "Canadá",
-              "Cabo Verde",
-              "República Centroafricana",
-              "Chad",
-              "Chile",
-              "China",
-              "Colombia",
-              "Comoras",
-              "Congo",
-              "Costa Rica",
-              "Croacia",
-              "Cuba",
-              "Chipre",
-              "República Checa",
-              "República Democrática del Congo",
-              "Dinamarca",
-              "Yibuti",
-              "Dominica",
-              "República Dominicana",
-              "Ecuador",
-              "Egipto",
-              "El Salvador",
-              "Guinea Ecuatorial",
-              "Eritrea",
-              "Estonia",
-              "Esuatini",
-              "Etiopía",
-              "Fiyi",
-              "Finlandia",
-              "Francia",
-              "Gabón",
-              "Gambia",
-              "Georgia",
-              "Alemania",
-              "Ghana",
-              "Grecia",
-              "Granada",
-              "Guatemala",
-              "Guinea",
-              "Guinea-Bisáu",
-              "Guyana",
-              "Haití",
-              "Honduras",
-              "Hungría",
-              "Islandia",
-              "India",
-              "Indonesia",
-              "Irán",
-              "Irak",
-              "Irlanda",
-              "Israel",
-              "Italia",
-              "Jamaica",
-              "Japón",
-              "Jordania",
-              "Kazajistán",
-              "Kenia",
-              "Kiribati",
-              "Kuwait",
-              "Kirguistán",
-              "Laos",
-              "Letonia",
-              "Líbano",
-              "Lesoto",
-              "Liberia",
-              "Libia",
-              "Liechtenstein",
-              "Lituania",
-              "Luxemburgo",
-              "Madagascar",
-              "Malaui",
-              "Malasia",
-              "Maldivas",
-              "Malí",
-              "Malta",
-              "Islas Marshall",
-              "Mauritania",
-              "Mauricio",
-              "México",
-              "Micronesia",
-              "Moldavia",
-              "Mónaco",
-              "Mongolia",
-              "Montenegro",
-              "Marruecos",
-              "Mozambique",
-              "Myanmar",
-              "Namibia",
-              "Nauru",
-              "Nepal",
-              "Países Bajos",
-              "Nueva Zelanda",
-              "Nicaragua",
-              "Níger",
-              "Nigeria",
-              "Corea del Norte",
-              "Macedonia del Norte",
-              "Noruega",
-              "Omán",
-              "Pakistán",
-              "Palaos",
-              "Panamá",
-              "Papúa Nueva Guinea",
-              "Paraguay",
-              "Perú",
-              "Filipinas",
-              "Polonia",
-              "Portugal",
-              "Catar",
-              "Rumania",
-              "Rusia",
-              "Ruanda",
-              "San Cristóbal y Nieves",
-              "Santa Lucía",
-              "San Vicente y las Granadinas",
-              "Samoa",
-              "San Marino",
-              "Santo Tomé y Príncipe",
-              "Arabia Saudita",
-              "Senegal",
-              "Serbia",
-              "Seychelles",
-              "Sierra Leona",
-              "Singapur",
-              "Eslovaquia",
-              "Eslovenia",
-              "Islas Salomón",
-              "Somalia",
-              "Sudáfrica",
-              "Corea del Sur",
-              "Sudán del Sur",
-              "España",
-              "Sri Lanka",
-              "Sudán",
-              "Surinam",
-              "Suecia",
-              "Suiza",
-              "Siria",
-              "Taiwán",
-              "Tayikistán",
-              "Tanzania",
-              "Tailandia",
-              "Timor Oriental",
-              "Togo",
-              "Tonga",
-              "Trinidad y Tobago",
-              "Túnez",
-              "Turquía",
-              "Turkmenistán",
-              "Tuvalu",
-              "Uganda",
-              "Ucrania",
-              "Emiratos Árabes Unidos",
-              "Reino Unido",
-              "Estados Unidos",
-              "Uruguay",
-              "Uzbekistán",
-              "Vanuatu",
-              "Ciudad del Vaticano",
-              "Venezuela",
-              "Vietnam",
-              "Yemen",
-              "Zambia",
-              "Zimbabue",
-            ]
-
             var hasLocation = locationKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1499,23 +2030,7 @@
               details: [],
             }
 
-            // check for experience section existence
-            var experienceKeywords = [
-              // experience (english)
-              "experience",
-              "work history",
-              "employment",
-              "job history",
-              "career",
-
-              // experience (spanish)
-              "experiencia",
-              "historial laboral",
-              "empleo",
-              "historial de trabajo",
-              "carrera",
-            ]
-
+            // check for experience section
             var hasExperienceSection = experienceKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1536,143 +2051,11 @@
               })
             }
 
-            // enhanced job title detection
-            var titleKeywords = [
-              // jobs (english)
-              "manager",
-              "director",
-              "supervisor",
-              "head",
-              "chief",
-              "lead",
-              "vp",
-              "president",
-              "ceo",
-              "cto",
-              "cfo",
-              "coo",
-              "executive",
-              "developer",
-              "engineer",
-              "programmer",
-              "architect",
-              "administrator",
-              "devops",
-              "sysadmin",
-              "webmaster",
-              "technician",
-              "designer",
-              "artist",
-              "writer",
-              "editor",
-              "creator",
-              "producer",
-              "analyst",
-              "researcher",
-              "scientist",
-              "consultant",
-              "advisor",
-              "specialist",
-              "coordinator",
-              "assistant",
-              "associate",
-              "representative",
-              "agent",
-              "accountant",
-              "lawyer",
-              "attorney",
-              "physician",
-              "doctor",
-              "nurse",
-              "teacher",
-              "professor",
-              "instructor",
-              "tutor",
-              "trainer",
-              "senior",
-              "junior",
-              "associate",
-              "principal",
-              "staff",
-              "intern",
-
-              // jobs (spanish)
-              "gerente",
-              "director",
-              "supervisor",
-              "jefe",
-              "líder",
-              "vicepresidente",
-              "presidente",
-              "director ejecutivo",
-              "director de tecnología",
-              "director financiero",
-              "director de operaciones",
-              "ejecutivo",
-              "desarrollador",
-              "ingeniero",
-              "programador",
-              "arquitecto",
-              "administrador",
-              "devops",
-              "administrador de sistemas",
-              "webmaster",
-              "técnico",
-              "diseñador",
-              "artista",
-              "escritor",
-              "editor",
-              "creador",
-              "productor",
-              "analista",
-              "investigador",
-              "científico",
-              "consultor",
-              "asesor",
-              "especialista",
-              "coordinador",
-              "asistente",
-              "colaborador",
-              "representante",
-              "agente",
-              "contador",
-              "abogado",
-              "médico",
-              "doctor",
-              "enfermero",
-              "maestro",
-              "profesor",
-              "instructor",
-              "tutor",
-              "entrenador",
-              "senior",
-              "junior",
-              "asociado",
-              "principal",
-              "personal",
-              "pasante",
-            ]
-
-            // check for common job title patterns
-            var titlePatterns = [
-              // job patterns (english)
-              /position\s*:\s*[a-z0-9\s]+/i,
-              /title\s*:\s*[a-z0-9\s]+/i,
-              /role\s*:\s*[a-z0-9\s]+/i,
-              /\b(as|as a|as an)\s+[a-z0-9\s]+/i,
-              /\b(worked|serving|served)\s+(as|as a|as an)\s+[a-z0-9\s]+/i,
-
-              // job patterns (spanish)
-              /puesto\s*:\s*[a-z0-9\s]+/i,
-              /cargo\s*:\s*[a-z0-9\s]+/i,
-              /rol\s*:\s*[a-z0-9\s]+/i,
-              /\b(como|como un|como una)\s+[a-z0-9\s]+/i,
-              /\b(trabajé|trabaje|trabajando|serví|servi|sirviendo)\s+(como|como un|como una)\s+[a-z0-9\s]+/i,
-            ]
-
+            // check for job titles
             var hasTitleKeywords = titleKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
+            // check for job titles patterns
             var hasTitlePatterns = titlePatterns.some(function (pattern) {
               return pattern.test(text)
             })
@@ -1694,47 +2077,10 @@
             }
 
             // check for company names
-            var companyIndicators = [
-              // companies (english)
-              "inc",
-              "llc",
-              "corporation",
-              "company",
-              "co",
-              "gmbh",
-              "ltd",
-              "corp",
-              "inc.",
-              "llc.",
-              "ltd.",
-              "at",
-
-              // companies (spanish)
-              "s.a.",
-              "sa",
-              "srl",
-              "s.r.l.",
-              "sociedad anónima",
-              "sociedad de responsabilidad limitada",
-              "empresa",
-              "compañía",
-            ]
-
-            var companyPatterns = [
-              // company patterns (english)
-              /\bcompany\s*:\s*[a-z0-9\s&,\.]+/i,
-              /\b(at|with|for)\s+[a-z0-9\s&,\.]+/i,
-              /\b[a-z0-9\s&,\.]+\s+\(?\d{4}/i, // company name followed by year
-
-              // company patterns (spanish)
-              /\bempresa\s*:\s*[a-z0-9\s&,\.]+/i,
-              /\b(en|con|para)\s+[a-z0-9\s&,\.]+/i,
-              /\b[a-z0-9\s&,\.]+\s+\(?\d{4}/i,
-            ]
-
             var hasCompanyIndicators = companyIndicators.some(function (indicator) {
               return text.includes(indicator)
             })
+            // check for company names patterns
             var hasCompanyPatterns = companyPatterns.some(function (pattern) {
               return pattern.test(text)
             })
@@ -1755,27 +2101,7 @@
               })
             }
 
-            // check for dates - enhanced date detection
-            var datePatterns = [
-              // date patterns (english)
-              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year
-              /\b\d{4}\s*-\s*\d{4}\b/, // year - year
-              /\b\d{4}\s*-\s*(present|current|now)\b/i, // year - present
-              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\s*-\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year - month year
-              /\b\d{1,2}\/\d{4}\s*-\s*\d{1,2}\/\d{4}\b/, // mm/yyyy - mm/yyyy
-              /\b\d{1,2}\/\d{4}\s*-\s*(present|current|now)\b/i, // mm/yyyy - present
-              /\bsince\s+\d{4}\b/i, // since year
-
-              // date patterns (spanish)
-              /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
-              /\b\d{4}\s*-\s*actualidad\b/i,
-              /\b\d{4}\s*-\s*(presente|actual|ahora)\b/i,
-              /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\s*-\s*(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
-              /\b\d{1,2}\/\d{4}\s*-\s*(\d{1,2}\/\d{4})\b/i,
-              /\b\d{1,2}\/\d{4}\s*-\s*(presente|actualidad|actual|ahora)\b/i,
-              /\bdesde\s+\d{4}\b/i,
-            ]
-
+            // check for dates
             var hasDates = datePatterns.some(function (pattern) {
               return pattern.test(text)
             })
@@ -1797,72 +2123,6 @@
             }
 
             // check for accomplishments and responsibilities with metrics
-            var accomplishmentKeywords = [
-              // accomplishments (english)
-              "achieved",
-              "improved",
-              "increased",
-              "decreased",
-              "reduced",
-              "managed",
-              "led",
-              "created",
-              "developed",
-              "implemented",
-              "coordinated",
-              "designed",
-              "launched",
-              "organized",
-              "produced",
-              "supervised",
-              "trained",
-              "analyzed",
-              "built",
-              "delivered",
-              "established",
-              "executed",
-              "generated",
-              "initiated",
-              "negotiated",
-              "optimized",
-              "planned",
-              "researched",
-              "solved",
-              "streamlined",
-
-              // accomplishments (spanish)
-              "logré",
-              "mejoré",
-              "incrementé",
-              "disminuí",
-              "reduje",
-              "gestioné",
-              "lideré",
-              "creé",
-              "desarrollé",
-              "implementé",
-              "coordiné",
-              "diseñé",
-              "lancé",
-              "organicé",
-              "produje",
-              "supervisé",
-              "entrené",
-              "analicé",
-              "construí",
-              "entregué",
-              "establecí",
-              "ejecuté",
-              "generé",
-              "inicié",
-              "negocié",
-              "optimicé",
-              "planifiqué",
-              "investigué",
-              "resolví",
-              "agilicé",
-            ]
-
             var hasAccomplishments = accomplishmentKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1883,33 +2143,7 @@
               })
             }
 
-            var metricPatterns = [
-              // metrics (english)
-              /\d+\s*%/, // percentage
-              /\$\s*\d+/, // dollar amount
-              /\d+\s*million/i, // millions
-              /\d+\s*k\b/i, // thousands
-              /\d+\s*users/i, // users
-              /\d+\s*customers/i, // customers
-              /\d+\s*clients/i, // clients
-              /\d+\s*projects/i, // projects
-              /\d+\s*teams/i, // teams
-              /\d+\s*people/i, // people
-
-              // metrics (spanish)
-              /\d+\s*%/,
-              /\$\s*\d+/,
-              /\d+\s*(millones|millon)\b/i,
-              /\d+\s*k\b/i,
-              /\d+\s*usuarios/i,
-              /\d+\s*clientes/i,
-              /\d+\s*proyectos/i,
-              /\d+\s*equipos/i,
-              /\d+\s*personas/i,
-              /\d+\s*empleados/i,
-              /\d+\s*colaboradores/i,
-            ]
-
+            // check for responsibilities with metrics
             var hasMetrics = metricPatterns.some(function (pattern) {
               return pattern.test(text)
             })
@@ -1949,26 +2183,6 @@
             text = text.toLowerCase()
 
             // check for education section
-            var educationKeywords = [
-              // education (english)
-              "education",
-              "academic",
-              "university",
-              "college",
-              "school",
-              "degree",
-              "certificate",
-
-              // education (spanish)
-              "educación",
-              "académico",
-              "universidad",
-              "facultad",
-              "escuela",
-              "título",
-              "certificado",
-            ]
-
             var hasEducationSection = educationKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -1990,37 +2204,6 @@
             }
 
             // check for degree
-            var degreeKeywords = [
-              // degrees (english)
-              "bachelor",
-              "master",
-              "phd",
-              "doctorate",
-              "associate",
-              "bs",
-              "ba",
-              "ms",
-              "ma",
-              "mba",
-              "certificate",
-              "certification",
-              "diploma",
-
-              // degrees (spanish)
-              "licenciatura",
-              "maestría",
-              "doctorado",
-              "doctorado",
-              "tecnicatura",
-              "lic.",
-              "mtr.",
-              "phd",
-              "mba",
-              "certificado",
-              "certificación",
-              "diploma",
-            ]
-
             var hasDegree = degreeKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -2042,49 +2225,6 @@
             }
 
             // check for field of study
-            var fieldKeywords = [
-              // fields (english)
-              "computer science",
-              "business",
-              "engineering",
-              "management",
-              "marketing",
-              "biology",
-              "chemistry",
-              "mathematics",
-              "physics",
-              "psychology",
-              "economics",
-              "finance",
-              "accounting",
-              "communications",
-              "liberal arts",
-              "major",
-
-              // fields (spanish)
-              "ciencia de la computación",
-              "informática",
-              "negocios",
-              "administración",
-              "ingeniería",
-              "gestión",
-              "marketing",
-              "biología",
-              "química",
-              "matemáticas",
-              "física",
-              "psicología",
-              "economía",
-              "finanzas",
-              "contabilidad",
-              "comunicaciones",
-              "comunicación social",
-              "humanidades",
-              "artes liberales",
-              "especialización",
-              "carrera",
-            ]
-
             var hasField = fieldKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -2125,22 +2265,6 @@
             }
 
             // check for institution name
-            var institutionKeywords = [
-              // institutions (english)
-              "university",
-              "college",
-              "institute",
-              "school",
-              "academy",
-
-              // institutions (spanish)
-              "universidad",
-              "facultad",
-              "instituto",
-              "escuela",
-              "academia",
-            ]
-
             var hasInstitution = institutionKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -2178,24 +2302,6 @@
             }
 
             // check for skills section
-            var skillsSectionKeywords = [
-              // skills (english)
-              "skills",
-              "competencies",
-              "proficiencies",
-              "expertise",
-              "qualifications",
-              "technical skills",
-
-              // skills (spanish)
-              "habilidades",
-              "competencias",
-              "aptitudes",
-              "experiencia",
-              "calificaciones",
-              "habilidades técnicas",
-            ]
-
             var hasSkillsSection = skillsSectionKeywords.some(function (keyword) {
               return text.includes(keyword)
             })
@@ -2217,33 +2323,6 @@
             }
 
             // check for technical skills
-            var technicalSkillsKeywords = [
-              // technical skills (english)
-              "programming",
-              "software",
-              "java",
-              "python",
-              "javascript",
-              "html",
-              "css",
-              "react",
-              "angular",
-              "node",
-              "sql",
-              "database",
-              "aws",
-              "cloud",
-              "git",
-              "php",
-              "docker",
-              "kubernetes",
-
-              // technical skills (spanish)
-              "programación",
-              "base de datos",
-              "bases de datos",
-            ]
-
             var hasTechnicalSkills = 0
             for (var j = 0; j < technicalSkillsKeywords.length; j++) {
               if (text.includes(technicalSkillsKeywords[j].toLowerCase())) {
@@ -2268,33 +2347,6 @@
             }
 
             // check for languages
-            var languagesKeywords = [
-              // languages (english)
-              "english",
-              "spanish",
-              "french",
-              "german",
-              "chinese",
-              "japanese",
-              "mandarin",
-              "bilingual",
-              "multilingual",
-              "fluent",
-
-              // languages (spanish)
-              "inglés",
-              "español",
-              "francés",
-              "alemán",
-              "chino",
-              "japonés",
-              "mandarín",
-              "bilingüe",
-              "multilingüe",
-              "fluido",
-              "fluente",
-            ]
-
             var hasLanguages = languagesKeywords.some(function (keyword) {
               return text.toLowerCase().includes(keyword)
             })
@@ -2315,32 +2367,7 @@
               })
             }
 
-            var certificationsKeywords = [
-              // certifications (english)
-              "certified",
-              "certification",
-              "certificate",
-              "license",
-              "licensed",
-              "pmp",
-              "cpa",
-              "cfa",
-              "aws certified",
-              "microsoft certified",
-              "google certified",
-
-              // certifications (spanish)
-              "certificado",
-              "certificación",
-              "certificación profesional",
-              "licencia",
-              "licenciado",
-              "certificado aws",
-              "certificado de amazon web services",
-              "certificado microsoft",
-              "certificado google",
-            ]
-
+            // check for certifications
             var hasCertifications = certificationsKeywords.some(function (keyword) {
               return text.toLowerCase().includes(keyword)
             })
@@ -2426,30 +2453,6 @@
             }
 
             // check for obvious sections with headings
-            var sectionKeywords = [
-              // sections (english)
-              "experience",
-              "education",
-              "skills",
-              "summary",
-              "objective",
-              "certifications",
-              "projects",
-              "publications",
-              "references",
-
-              // sections (spanish)
-              "experiencia",
-              "educación",
-              "habilidades",
-              "resumen",
-              "objetivo",
-              "certificaciones",
-              "proyectos",
-              "publicaciones",
-              "referencias",
-            ]
-
             var sectionRegex = new RegExp(
               "\\b(" + sectionKeywords.join("|") + ")\\b",
               "gi"
@@ -2580,27 +2583,6 @@
 
           // helper function to check for consistent date formats
           function checkConsistentDateFormats(text) {
-            // common date formats
-            var datePatterns = [
-              // date patterns (english)
-              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year
-              /\b\d{4}\s*-\s*\d{4}\b/, // year - year
-              /\b\d{4}\s*-\s*(present|current|now)\b/i, // year - present
-              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\s*-\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year - month year
-              /\b\d{1,2}\/\d{4}\s*-\s*\d{1,2}\/\d{4}\b/, // mm/yyyy - mm/yyyy
-              /\b\d{1,2}\/\d{4}\s*-\s*(present|current|now)\b/i, // mm/yyyy - present
-              /\bsince\s+\d{4}\b/i, // since year
-
-              // date patterns (spanish)
-              /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
-              /\b\d{4}\s*-\s*actualidad\b/i,
-              /\b\d{4}\s*-\s*(presente|actual|ahora)\b/i,
-              /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\s*-\s*(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
-              /\b\d{1,2}\/\d{4}\s*-\s*(\d{1,2}\/\d{4})\b/i,
-              /\b\d{1,2}\/\d{4}\s*-\s*(presente|actualidad|actual|ahora)\b/i,
-              /\bdesde\s+\d{4}\b/i,
-            ]
-
             // count occurrences of each format
             var counts = datePatterns.map(function (pattern) {
               var matches = text.match(pattern)
