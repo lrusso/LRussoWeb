@@ -324,6 +324,9 @@
           clear_sections: "Clear sections",
           clear_sections_not_found:
             "Few clearly defined sections. Use clear headings to separate resume sections.",
+          consistent_formatting: "Consistent formatting",
+          consistent_formatting_not_found:
+            "Date formats may be inconsistent or dates not found. Use the same date format throughout.",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -421,6 +424,9 @@
           clear_sections: "Secciones claras",
           clear_sections_not_found:
             "Pocas secciones claramente definidas. Usa encabezados claros para separar las secciones del currículum.",
+          consistent_formatting: "Formato consistente",
+          consistent_formatting_not_found:
+            "Los formatos de fecha parecen ser inconsistentes o las fechas no se encontraron. Usa el mismo formato de fecha en todo el documento.",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -2450,22 +2456,21 @@
             }
 
             // check for consistent formatting
-            var consistentDateFormats = checkConsistentDateFormats(text)
-            if (consistentDateFormats) {
+            var hasConsistentDateFormats = checkConsistentDateFormats(text)
+
+            if (hasConsistentDateFormats) {
               result.found.push("Consistent Date Formats")
               result.score = result.score + 3
               result.details.push({
-                item: "Consistent formatting",
+                item: t("consistent_formatting"),
                 status: "found",
-                message: "Date formats appear consistent.",
               })
             } else {
               result.missing.push("Consistent Date Formats")
               result.details.push({
-                item: "Consistent formatting",
-                status: "partial",
-                message:
-                  "Date formats may be inconsistent. Use the same date format throughout.",
+                item: t("consistent_formatting"),
+                status: "missing",
+                message: t("consistent_formatting_not_found"),
               })
             }
 
@@ -2555,28 +2560,46 @@
           function checkConsistentDateFormats(text) {
             // common date formats
             var datePatterns = [
-              /\b\d{2}\/\d{2}\/\d{4}\b/g, // mm/dd/yyyy
-              /\b\d{2}-\d{2}-\d{4}\b/g, // mm-dd-yyyy
-              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/gi, // month yyyy
-              /\b\d{4}\b/g, // yyyy
+              // date patterns (english)
+              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year
+              /\b\d{4}\s*-\s*\d{4}\b/, // year - year
+              /\b\d{4}\s*-\s*(present|current|now)\b/i, // year - present
+              /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\s*-\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]* \d{4}\b/i, // month year - month year
+              /\b\d{1,2}\/\d{4}\s*-\s*\d{1,2}\/\d{4}\b/, // mm/yyyy - mm/yyyy
+              /\b\d{1,2}\/\d{4}\s*-\s*(present|current|now)\b/i, // mm/yyyy - present
+              /\bsince\s+\d{4}\b/i, // since year
+
+              // date patterns (spanish)
+              /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
+              /\b\d{4}\s*-\s*actualidad\b/i,
+              /\b\d{4}\s*-\s*(presente|actual|ahora)\b/i,
+              /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\s*-\s*(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]* \d{4}\b/i,
+              /\b\d{1,2}\/\d{4}\s*-\s*(\d{1,2}\/\d{4})\b/i,
+              /\b\d{1,2}\/\d{4}\s*-\s*(presente|actualidad|actual|ahora)\b/i,
+              /\bdesde\s+\d{4}\b/i,
             ]
 
             // count occurrences of each format
             var counts = datePatterns.map(function (pattern) {
-              return (text.match(pattern) || []).length
+              var matches = text.match(pattern)
+              return matches ? matches.length : 0
             })
 
-            // check if one format is dominant (80% or more of all dates)
+            // total dates found
             var totalDates = counts.reduce(function (sum, count) {
-              return sum + count, 0
-            })
+              return sum + count
+            }, 0)
 
             if (totalDates > 0) {
               var maxCount = Math.max(...counts)
               return maxCount / totalDates >= 0.8
             }
 
-            // no dates found or only one format - consider consistent
+            if (totalDates === 0) {
+              return false
+            }
+
+            // only one format detected
             return true
           }
 
