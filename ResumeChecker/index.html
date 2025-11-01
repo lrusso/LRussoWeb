@@ -1980,8 +1980,8 @@
             }
 
             // check for linkedin profile
-            var hasLinkedinFull = text.includes("https://www.linkedin.com/in/")
-            var hasLinkedinIncomplete = text.includes("linkedin.com")
+            var hasLinkedinFull = /https:\/\/www\.linkedin\.com\/in\//.test(text)
+            var hasLinkedinIncomplete = /linkedin\.com/.test(text)
 
             if (hasLinkedinFull) {
               result.found.push("LinkedIn")
