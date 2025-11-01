@@ -301,6 +301,18 @@
           institution_name: "Institution name",
           institution_name_not_found:
             "Not found. Include the name of your college/university.",
+          skills_section: "Skills section",
+          skills_section_not_found:
+            "Not found. Add a clearly labeled skills section.",
+          technical_skills: "Technical Skills",
+          technical_skills_not_found:
+            "Not found or insufficient. Consider adding at least 5 relevant technical skills.",
+          languages: "Languages",
+          languages_not_found:
+            "Not Found. Consider adding at least 1 relevant language.",
+          certifications: "Certifications",
+          certifications_not_found:
+            "Not Found. Consider adding at least 1 relevant certification.",
           analyze_another_resume: "Analyze Another Resume",
         },
         es: {
@@ -375,6 +387,18 @@
           institution_name: "Nombre de la institución",
           institution_name_not_found:
             "No encontrado. Incluye el nombre de tu universidad o institución educativa.",
+          skills_section: "Sección de habilidades",
+          skills_section_not_found:
+            "No encontrada. Agrega una sección de habilidades claramente identificada.",
+          technical_skills: "Habilidades técnicas",
+          technical_skills_not_found:
+            "No encontradas o insuficientes. Considera agregar al menos 5 habilidades técnicas relevantes.",
+          languages: "Idiomas",
+          languages_not_found:
+            "No encontrados. Considera agregar al menos 1 idioma relevante.",
+          certifications: "Certificaciones",
+          certifications_not_found:
+            "No encontradas. Considera agregar al menos 1 certificación relevante.",
           analyze_another_resume: "Analizar otro currículum",
         },
       }
@@ -1864,6 +1888,8 @@
               details: [],
             }
 
+            text = text.toLowerCase()
+
             // check for education section
             var educationKeywords = [
               // education (english)
@@ -2092,12 +2118,21 @@
 
             // check for skills section
             var skillsSectionKeywords = [
+              // skills (english)
               "skills",
               "competencies",
               "proficiencies",
               "expertise",
               "qualifications",
               "technical skills",
+
+              // skills (spanish)
+              "habilidades",
+              "competencias",
+              "aptitudes",
+              "experiencia",
+              "calificaciones",
+              "habilidades técnicas",
             ]
 
             var hasSkillsSection = skillsSectionKeywords.some(function (keyword) {
@@ -2108,125 +2143,161 @@
               result.found.push("Skills Section")
               result.score += 5
               result.details.push({
-                item: "Skills section",
+                item: t("skills_section"),
                 status: "found",
               })
             } else {
               result.missing.push("Skills Section")
               result.details.push({
-                item: "Skills section",
+                item: t("skills_section"),
                 status: "missing",
-                message:
-                  "No dedicated skills section found. Add a clearly labeled skills section.",
+                message: t("skills_section_not_found"),
               })
             }
 
-            // common skill categories to check for
-            var skillCategories = [
-              {
-                name: "Technical Skills",
-                keywords: [
-                  "programming",
-                  "software",
-                  "java",
-                  "python",
-                  "javascript",
-                  "html",
-                  "css",
-                  "react",
-                  "angular",
-                  "node",
-                  "sql",
-                  "database",
-                  "aws",
-                  "cloud",
-                  "git",
-                  "docker",
-                  "kubernetes",
-                ],
-              },
-              {
-                name: "Languages",
-                keywords: [
-                  "english",
-                  "spanish",
-                  "french",
-                  "german",
-                  "chinese",
-                  "japanese",
-                  "mandarin",
-                  "bilingual",
-                  "multilingual",
-                  "fluent",
-                ],
-              },
-              {
-                name: "Certifications",
-                keywords: [
-                  "certified",
-                  "certification",
-                  "certificate",
-                  "license",
-                  "licensed",
-                  "pmp",
-                  "cpa",
-                  "cfa",
-                  "aws certified",
-                  "microsoft certified",
-                  "google certified",
-                ],
-              },
+            // check for technical skills
+            var technicalSkillsKeywords = [
+              // technical skills (english)
+              "programming",
+              "software",
+              "java",
+              "python",
+              "javascript",
+              "html",
+              "css",
+              "react",
+              "angular",
+              "node",
+              "sql",
+              "database",
+              "aws",
+              "cloud",
+              "git",
+              "php",
+              "docker",
+              "kubernetes",
+
+              // technical skills (spanish)
+              "programación",
+              "base de datos",
+              "bases de datos",
             ]
 
-            var skillTypeCount = 0
-            var totalSkillsFound = 0
-
-            // check for each skill category
-            for (var category of skillCategories) {
-              var foundKeywords = category.keywords.filter(function (keyword) {
-                return text.includes(keyword)
-              })
-              totalSkillsFound += foundKeywords.length
-
-              if (foundKeywords.length > 0) {
-                result.found.push(category.name)
-                skillTypeCount = skillTypeCount + 1
-                result.details.push({
-                  item: category.name,
-                  status: "found",
-                  message:
-                    category.name +
-                    " found (" +
-                    foundKeywords.slice(0, 3).join(", ") +
-                    (foundKeywords.length > 3 ? "..." : "") +
-                    ")",
-                })
-              } else {
-                result.missing.push(category.name)
-                result.details.push({
-                  item: category.name,
-                  status: "missing",
-                  message:
-                    "No " +
-                    category.name.toLowerCase() +
-                    " found. Consider adding relevant " +
-                    category.name.toLowerCase() +
-                    ".",
-                })
+            var hasTechnicalSkills = 0
+            for (var j = 0; j < technicalSkillsKeywords.length; j++) {
+              if (text.includes(technicalSkillsKeywords[j].toLowerCase())) {
+                hasTechnicalSkills = hasTechnicalSkills + 1
               }
             }
 
-            // calculate score based on number of skill types and total skills
-            if (skillTypeCount >= 3) {
-              result.score += 10
-            } else if (skillTypeCount >= 1) {
-              result.score += skillTypeCount * 3
+            if (hasTechnicalSkills >= 5) {
+              result.found.push("Technical Skills")
+              result.score += 5
+              result.details.push({
+                item: t("technical_skills"),
+                status: "found",
+              })
+            } else {
+              result.missing.push("Technical Skills")
+              result.details.push({
+                item: t("technical_skills"),
+                status: "missing",
+                message: t("technical_skills_not_found"),
+              })
             }
 
-            if (totalSkillsFound >= 10) {
-              result.score += 10
+            // check for languages
+            var languagesKeywords = [
+              // languages (english)
+              "english",
+              "spanish",
+              "french",
+              "german",
+              "chinese",
+              "japanese",
+              "mandarin",
+              "bilingual",
+              "multilingual",
+              "fluent",
+
+              // languages (spanish)
+              "inglés",
+              "español",
+              "francés",
+              "alemán",
+              "chino",
+              "japonés",
+              "mandarín",
+              "bilingüe",
+              "multilingüe",
+              "fluido",
+              "fluente",
+            ]
+
+            var hasLanguages = languagesKeywords.some(function (keyword) {
+              return text.toLowerCase().includes(keyword)
+            })
+
+            if (hasLanguages) {
+              result.found.push("Languages")
+              result.score += 5
+              result.details.push({
+                item: t("languages"),
+                status: "found",
+              })
             } else {
-              result.score += Math.min(Math.floor(totalSkillsFound / 2) * 2, 10)
+              result.missing.push("Languages")
+              result.details.push({
+                item: t("languages"),
+                status: "missing",
+                message: t("languages_not_found"),
+              })
+            }
+
+            var certificationsKeywords = [
+              // certifications (english)
+              "certified",
+              "certification",
+              "certificate",
+              "license",
+              "licensed",
+              "pmp",
+              "cpa",
+              "cfa",
+              "aws certified",
+              "microsoft certified",
+              "google certified",
+
+              // certifications (spanish)
+              "certificado",
+              "certificación",
+              "certificación profesional",
+              "licencia",
+              "licenciado",
+              "certificado aws",
+              "certificado de amazon web services",
+              "certificado microsoft",
+              "certificado google",
+            ]
+
+            var hasCertifications = certificationsKeywords.some(function (keyword) {
+              return text.toLowerCase().includes(keyword)
+            })
+
+            if (hasCertifications) {
+              result.found.push("Certifications")
+              result.score += 5
+              result.details.push({
+                item: t("certifications"),
+                status: "found",
+              })
+            } else {
+              result.missing.push("Certifications")
+              result.details.push({
+                item: t("certifications"),
+                status: "missing",
+                message: t("certifications_not_found"),
+              })
             }
 
             // ensure max score doesn't exceed 20
