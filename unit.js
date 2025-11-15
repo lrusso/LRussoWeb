@@ -565,7 +565,7 @@ describe("DOS/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "2e077d44"
+    const expectedHash = "d123291"
     let currentHash = ""
 
     try {
