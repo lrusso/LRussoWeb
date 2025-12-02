@@ -122,68 +122,66 @@ function isES6(code) {
 
     // define all pre-ecmascript 2015 (es1-es5) ast node types
     const es1Types = [
-      "File",
-      "Program",
+      "ArrayExpression",
+      "AssignmentExpression",
+      "BinaryExpression",
+      "BlockStatement",
+      "BooleanLiteral",
+      "BreakStatement",
+      "CallExpression",
+      "CatchClause",
+      "CommentBlock",
+      "CommentLine",
+      "ConditionalExpression",
+      "ContinueStatement",
+      "DebuggerStatement",
       "Directive",
       "DirectiveLiteral",
-      "InterpreterDirective",
-      "Identifier",
-      "Literal",
-      "StringLiteral",
-      "NumericLiteral",
-      "BooleanLiteral",
-      "NullLiteral",
-      "RegExpLiteral",
-      "ThisExpression",
-      "ArrayExpression",
-      "ObjectExpression",
-      "Property",
-      "ObjectProperty",
+      "DoWhileStatement",
+      "EmptyStatement",
+      "ExpressionStatement",
+      "File",
+      "ForInStatement",
+      "ForStatement",
+      "FunctionDeclaration",
       "FunctionExpression",
-      "UnaryExpression",
-      "UpdateExpression",
-      "BinaryExpression",
-      "AssignmentExpression",
+      "Identifier",
+      "IfStatement",
+      "InterpreterDirective",
+      "LabeledStatement",
+      "Literal",
       "LogicalExpression",
       "MemberExpression",
-      "ConditionalExpression",
-      "CallExpression",
       "NewExpression",
-      "SequenceExpression",
+      "NullLiteral",
+      "NumericLiteral",
+      "ObjectExpression",
+      "ObjectMethod", // babel helper
+      "ObjectProperty", // babel extension
       "ParenthesizedExpression",
-      "ExpressionStatement",
-      "BlockStatement",
-      "EmptyStatement",
-      "DebuggerStatement",
-      "WithStatement",
+      "Program",
+      "Property",
+      "RegExpLiteral",
       "ReturnStatement",
-      "LabeledStatement",
-      "BreakStatement",
-      "ContinueStatement",
-      "IfStatement",
-      "SwitchStatement",
+      "SequenceExpression",
+      "StringLiteral",
       "SwitchCase",
+      "SwitchStatement",
+      "ThisExpression",
       "ThrowStatement",
       "TryStatement",
-      "CatchClause",
-      "WhileStatement",
-      "DoWhileStatement",
-      "ForStatement",
-      "ForInStatement",
-      "FunctionDeclaration",
+      "UnaryExpression",
+      "UpdateExpression",
       "VariableDeclaration",
       "VariableDeclarator",
-      "CommentLine",
-      "CommentBlock",
+      "WhileStatement",
+      "WithStatement",
     ]
 
-    const es2Types = []
-
-    const es3Types = []
-
-    const es4Types = []
-
-    const es5Types = ["ObjectMethod"]
+    const es2Types = [] // no new syntax in estree terms
+    const es3Types = [] // try/catch/throw existed already
+    const es4Types = [] // es4 never shipped
+    const es5Types = [] // strict mode only; no ast changes
 
     // combine all pre-es6 types
     const preES6Types = [].concat(es1Types, es2Types, es3Types, es4Types, es5Types)
