@@ -1,4 +1,8 @@
-import fs from "fs"
+// eslint-disable-next-line
+import { join, extname, resolve } from "path"
+// eslint-disable-next-line
+import { statSync, readdirSync, readFileSync } from "fs"
+import { Buffer } from "buffer"
 
 // babel - https://unpkg.com/@babel/standalone@7.28.5/babel.min.js
 new Function(
@@ -7,6 +11,90 @@ new Function(
     "base64"
   ).toString("utf8")
 )()
+
+const startDir = resolve(process.cwd())
+
+function matchesIgnore(fullPath) {
+  if (!Array.isArray(babelConverter.ignorePatterns)) {
+    return false
+  }
+
+  for (const pattern of babelConverter.ignorePatterns) {
+    if (typeof pattern !== "string") {
+      return false
+    }
+
+    if (pattern.startsWith("**/")) {
+      const name = pattern.slice(3)
+      if (fullPath.endsWith(name)) {
+        return true
+      }
+    } else if (pattern.endsWith("/*")) {
+      const dir = pattern.slice(0, -2)
+      if (fullPath.includes("/" + dir + "/")) {
+        return true
+      }
+    } else if (fullPath.includes(pattern)) {
+      return true
+    }
+  }
+  return false
+}
+
+function findAllFilesRecursive(dir) {
+  const files = []
+
+  let stats
+  try {
+    stats = statSync(dir)
+    if (!stats.isDirectory()) {
+      return files
+    }
+  } catch {
+    return files
+  }
+
+  const entries = readdirSync(dir)
+
+  for (const entry of entries) {
+    const fullPath = join(dir, entry)
+
+    try {
+      stats = statSync(fullPath)
+
+      if (matchesIgnore(fullPath)) {
+        continue
+      }
+
+      if (stats.isDirectory()) {
+        files.push(...findAllFilesRecursive(fullPath))
+      } else if (stats.isFile()) {
+        files.push(fullPath)
+      }
+    } catch {
+      // ignore broken symlinks etc.
+    }
+  }
+
+  return files
+}
+
+function alphaNumericSort(a, b) {
+  const nameA = a.toLowerCase()
+  const nameB = b.toLowerCase()
+
+  const isDigitA = /^\d/.test(nameA)
+  const isDigitB = /^\d/.test(nameB)
+
+  if (isDigitA && !isDigitB) {
+    return -1
+  }
+  if (!isDigitA && isDigitB) {
+    return 1
+  }
+
+  return nameA.localeCompare(nameB)
+}
 
 function isES6(code) {
   try {
@@ -80,32 +168,8 @@ function isES6(code) {
   }
 }
 
-// get file path from command line argument
-const filePath = process.argv[2]
-const parameter = process.argv[3]
-
-if (!filePath) {
-  // eslint-disable-next-line
-  console.error(
-    "Error: Please provide a JavaScript or HTML file path as an argument."
-  )
-  process.exit(1)
-}
-
-if (!fs.existsSync(!filePath)) {
-  // eslint-disable-next-line
-  console.error("Error: The file doesn't exists.")
-  process.exit(1)
-}
-
-if (!fs.statSync(filePath).isFile()) {
-  // eslint-disable-next-line
-  console.error("Error: The input must be a file, not a folder.")
-  process.exit(1)
-}
-
-// read the input file
-const input = fs.readFileSync(filePath, "utf8")
+/*
+const parameter = process.argv[2]
 
 if (parameter === "fix") {
   // transform the code to pre-ecmascript 2015
@@ -116,7 +180,84 @@ if (parameter === "fix") {
 
   // write the output back to the same file
   fs.writeFileSync(filePath, output, "utf8")
-} else {
-  // eslint-disable-next-line
-  console.log(filePath, isES6(input))
 }
+*/
+
+function main() {
+  const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
+  const targetExts = [".js", ".htm", ".html"]
+  const filesToFormat = allFiles.filter(function (file) {
+    return targetExts.includes(extname(file))
+  })
+
+  let hasErrors = false
+
+  function extractScriptCode(htmlString) {
+    const lines = htmlString.split(/\r?\n/)
+    let insideScript = false
+    let scriptContent = []
+    let resultLines = []
+
+    lines.forEach(function (line) {
+      const trimmed = line.trim()
+
+      if (
+        trimmed.startsWith("<script>") ||
+        trimmed.startsWith('<script type="text/javascript")') ||
+        trimmed.startsWith("<script type='text/javascript')")
+      ) {
+        insideScript = true
+        resultLines.push("")
+        return
+      }
+
+      if (insideScript) {
+        if (trimmed.startsWith("</script>")) {
+          insideScript = false
+          resultLines.push("")
+          return
+        }
+        scriptContent.push(line)
+        resultLines.push(line)
+      } else {
+        // replace all non-script lines with a blank line
+        resultLines.push("")
+      }
+    })
+
+    return resultLines.join("\n")
+  }
+
+  for (const filePath of filesToFormat) {
+    let code = readFileSync(filePath, "utf8").replace(/import\.meta\.url/gm, '""')
+    const isHTML = filePath.endsWith(".htm") || filePath.endsWith(".html")
+
+    if (isHTML) {
+      code = extractScriptCode(code)
+    }
+
+    if (isES6(code)) {
+      // eslint-disable-next-line
+      console.log(filePath)
+    }
+  }
+
+  if (hasErrors) {
+    process.exit(1)
+  }
+}
+
+var babelConverter = {
+  ignorePatterns: [
+    "cronjob.js",
+    "babel.js",
+    "e2e.js",
+    "eslint.js",
+    "prettier.js",
+    "unit.js",
+    "w3c.js",
+  ],
+}
+
+// eslint-disable-next-line
+process.nextTick(main)
