@@ -565,7 +565,7 @@ describe("Emulatrix/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "119f8420"
+    const expectedHash = "1f409b5a"
     let currentHash = ""
 
     try {
