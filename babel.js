@@ -268,7 +268,7 @@ function main() {
   }
 
   for (const filePath of filesToFormat) {
-    let code = readFileSync(filePath, "utf8").replace(/import\.meta\.url/gm, '""')
+    let code = readFileSync(filePath, "utf8")
     const isHTML = filePath.endsWith(".htm") || filePath.endsWith(".html")
 
     if (isHTML) {
