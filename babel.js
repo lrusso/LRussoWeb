@@ -120,34 +120,88 @@ function isES6(code) {
       return ""
     }
 
+    // define all pre-ecmascript 2015 (es1-es5) ast node types
+    const es1Types = [
+      "File",
+      "Program",
+      "Directive",
+      "DirectiveLiteral",
+      "InterpreterDirective",
+      "Identifier",
+      "Literal",
+      "StringLiteral",
+      "NumericLiteral",
+      "BooleanLiteral",
+      "NullLiteral",
+      "RegExpLiteral",
+      "ThisExpression",
+      "ArrayExpression",
+      "ObjectExpression",
+      "Property",
+      "ObjectProperty",
+      "FunctionExpression",
+      "UnaryExpression",
+      "UpdateExpression",
+      "BinaryExpression",
+      "AssignmentExpression",
+      "LogicalExpression",
+      "MemberExpression",
+      "ConditionalExpression",
+      "CallExpression",
+      "NewExpression",
+      "SequenceExpression",
+      "ParenthesizedExpression",
+      "ExpressionStatement",
+      "BlockStatement",
+      "EmptyStatement",
+      "DebuggerStatement",
+      "WithStatement",
+      "ReturnStatement",
+      "LabeledStatement",
+      "BreakStatement",
+      "ContinueStatement",
+      "IfStatement",
+      "SwitchStatement",
+      "SwitchCase",
+      "ThrowStatement",
+      "TryStatement",
+      "CatchClause",
+      "WhileStatement",
+      "DoWhileStatement",
+      "ForStatement",
+      "ForInStatement",
+      "FunctionDeclaration",
+      "VariableDeclaration",
+      "VariableDeclarator",
+      "CommentLine",
+      "CommentBlock",
+    ]
+
+    const es2Types = []
+
+    const es3Types = []
+
+    const es4Types = []
+
+    const es5Types = ["ObjectMethod"]
+
+    // combine all pre-es6 types
+    const preES6Types = [].concat(es1Types, es2Types, es3Types, es4Types, es5Types)
+
     // recursively check the ast for es6+ nodes
     function hasES6Node(node) {
       if (!node || typeof node !== "object") {
         return false
       }
 
-      // check node type for es6+ features
-      const es6Types = [
-        "ArrowFunctionExpression",
-        "ClassDeclaration",
-        "ClassExpression",
-        "TemplateLiteral",
-        "TaggedTemplateExpression",
-        "ObjectPattern",
-        "ArrayPattern",
-        "SpreadElement",
-        "RestElement",
-        "ForOfStatement",
-        "ImportDeclaration",
-        "ExportNamedDeclaration",
-        "ExportDefaultDeclaration",
-        "ExportAllDeclaration",
-      ]
-
-      if (es6Types.includes(node.type)) {
+      // check for let/const in variabledeclaration (es6 feature)
+      if (
+        node.type === "VariableDeclaration" &&
+        (node.kind === "let" || node.kind === "const")
+      ) {
         const snippet = getCodeSnippet(node)
         const feature = {
-          type: node.type,
+          type: "VariableDeclaration (" + node.kind + ")",
           line: node.loc ? node.loc.start.line : 0,
           code: snippet,
         }
@@ -160,14 +214,11 @@ function isES6(code) {
         return true
       }
 
-      // check for let/const
-      if (
-        node.type === "VariableDeclaration" &&
-        (node.kind === "let" || node.kind === "const")
-      ) {
+      // check if node type is not in pre-es6 types (not pre-ecmascript 2015)
+      if (node.type && !preES6Types.includes(node.type)) {
         const snippet = getCodeSnippet(node)
         const feature = {
-          type: "VariableDeclaration (" + node.kind + ")",
+          type: node.type + " (not pre-ECMAScript 2015)",
           line: node.loc ? node.loc.start.line : 0,
           code: snippet,
         }
