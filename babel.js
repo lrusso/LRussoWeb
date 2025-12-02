@@ -82,26 +82,39 @@ function isES6(code) {
 
 // get file path from command line argument
 const filePath = process.argv[2]
+const parameter = process.argv[3]
 
 if (!filePath) {
   // eslint-disable-next-line
-  console.error("Error: Please provide a JavaScript file path as an argument")
+  console.error("Error: Please provide a JavaScript file path as an argument.")
+  process.exit(1)
+}
+
+if (!fs.existsSync(!filePath)) {
+  // eslint-disable-next-line
+  console.error("Error: The file doesn't exists.")
+  process.exit(1)
+}
+
+if (!fs.statSync(filePath).isFile()) {
+  // eslint-disable-next-line
+  console.error("Error: The input must be a file, not a folder.")
   process.exit(1)
 }
 
 // read the input file
 const input = fs.readFileSync(filePath, "utf8")
 
-// eslint-disable-next-line
-console.log(isES6(input))
+if (parameter === "fix") {
+  // transform the code to pre-ecmascript 2015
+  // eslint-disable-next-line
+  const output = Babel.transform(input, {
+    presets: [["env", { targets: { ie: "11" }, modules: false }]],
+  }).code
 
-/*
-// transform the code to pre-ecmascript 2015
-// eslint-disable-next-line
-const output = Babel.transform(input, {
-  presets: [["env", { targets: { ie: "11" }, modules: false }]],
-}).code
-
-// write the output back to the same file
-fs.writeFileSync(filePath, output, "utf8")
-*/
+  // write the output back to the same file
+  fs.writeFileSync(filePath, output, "utf8")
+} else {
+  // eslint-disable-next-line
+  console.log(isES6(input))
+}
