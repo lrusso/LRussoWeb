@@ -15,11 +15,11 @@ new Function(
 const startDir = resolve(process.cwd())
 
 function matchesIgnore(fullPath) {
-  if (!Array.isArray(babelConverter.ignorePatterns)) {
+  if (!Array.isArray(es6Checker.ignorePatterns)) {
     return false
   }
 
-  for (const pattern of babelConverter.ignorePatterns) {
+  for (const pattern of es6Checker.ignorePatterns) {
     if (typeof pattern !== "string") {
       return false
     }
@@ -293,7 +293,7 @@ function main() {
   }
 }
 
-var babelConverter = {
+const es6Checker = {
   ignorePatterns: [
     "cronjob.js",
     "babel.js",
