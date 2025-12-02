@@ -8,6 +8,78 @@ new Function(
   ).toString("utf8")
 )()
 
+function isES6(code) {
+  try {
+    // parse and get the ast
+    // eslint-disable-next-line
+    const result = Babel.transform(code, {
+      ast: true,
+      code: false,
+      presets: [],
+    })
+
+    // recursively check the ast for es6+ nodes
+    function hasES6Node(node) {
+      if (!node || typeof node !== "object") {
+        return false
+      }
+
+      // check node type for es6+ features
+      const es6Types = [
+        "ArrowFunctionExpression",
+        "ClassDeclaration",
+        "ClassExpression",
+        "TemplateLiteral",
+        "TaggedTemplateExpression",
+        "ObjectPattern",
+        "ArrayPattern",
+        "SpreadElement",
+        "RestElement",
+        "ForOfStatement",
+        "ImportDeclaration",
+        "ExportNamedDeclaration",
+        "ExportDefaultDeclaration",
+        "ExportAllDeclaration",
+      ]
+
+      if (es6Types.includes(node.type)) {
+        return true
+      }
+
+      // check for let/const
+      if (
+        node.type === "VariableDeclaration" &&
+        (node.kind === "let" || node.kind === "const")
+      ) {
+        return true
+      }
+
+      // recursively check all properties
+      for (const key in node) {
+        if (key === "loc" || key === "start" || key === "end") {
+          continue
+        }
+        const value = node[key]
+        if (Array.isArray(value)) {
+          for (const item of value) {
+            if (hasES6Node(item)) {
+              return true
+            }
+          }
+        } else if (hasES6Node(value)) {
+          return true
+        }
+      }
+
+      return false
+    }
+
+    return hasES6Node(result.ast)
+  } catch (error) {
+    return false
+  }
+}
+
 // get file path from command line argument
 const filePath = process.argv[2]
 
@@ -20,6 +92,10 @@ if (!filePath) {
 // read the input file
 const input = fs.readFileSync(filePath, "utf8")
 
+// eslint-disable-next-line
+console.log(isES6(input))
+
+/*
 // transform the code to pre-ecmascript 2015
 // eslint-disable-next-line
 const output = Babel.transform(input, {
@@ -28,3 +104,4 @@ const output = Babel.transform(input, {
 
 // write the output back to the same file
 fs.writeFileSync(filePath, output, "utf8")
+*/
