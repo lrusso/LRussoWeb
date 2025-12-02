@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import { join, extname, resolve } from "path"
 // eslint-disable-next-line
-import { statSync, readdirSync, readFileSync } from "fs"
+import { statSync, readdirSync, readFileSync, writeFileSync } from "fs"
 import { Buffer } from "buffer"
 
 // babel - https://unpkg.com/@babel/standalone@7.28.5/babel.min.js
@@ -174,12 +174,12 @@ const parameter = process.argv[2]
 if (parameter === "fix") {
   // transform the code to pre-ecmascript 2015
   // eslint-disable-next-line
-  const output = Babel.transform(input, {
+  const output = Babel.transform(code, {
     presets: [["env", { targets: { ie: "11" }, modules: false }]],
   }).code
 
   // write the output back to the same file
-  fs.writeFileSync(filePath, output, "utf8")
+  writeFileSync(filePath, output, "utf8")
 }
 */
 
