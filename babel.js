@@ -82,11 +82,10 @@ function isES6(code) {
 
 // get file path from command line argument
 const filePath = process.argv[2]
-const parameter = process.argv[3]
 
 if (!filePath) {
   // eslint-disable-next-line
-  console.error("Error: Please provide a JavaScript file path as an argument.")
+  console.error("Error: Please provide a JavaScript or HTML file path as an argument.")
   process.exit(1)
 }
 
@@ -105,7 +104,8 @@ if (!fs.statSync(filePath).isFile()) {
 // read the input file
 const input = fs.readFileSync(filePath, "utf8")
 
-if (parameter === "fix") {
+// check if the file is not pre-ecmascript 2015
+if (isES6(input)) {
   // transform the code to pre-ecmascript 2015
   // eslint-disable-next-line
   const output = Babel.transform(input, {
@@ -114,7 +114,4 @@ if (parameter === "fix") {
 
   // write the output back to the same file
   fs.writeFileSync(filePath, output, "utf8")
-} else {
-  // eslint-disable-next-line
-  console.log(isES6(input))
 }
