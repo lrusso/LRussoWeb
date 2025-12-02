@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import { join, extname, resolve } from "path"
 // eslint-disable-next-line
-import { statSync, readdirSync, readFileSync, writeFileSync } from "fs"
+import { statSync, readdirSync, existsSync, readFileSync, writeFileSync } from "fs"
 import { Buffer } from "buffer"
 
 // babel - https://unpkg.com/@babel/standalone@7.28.5/babel.min.js
@@ -207,21 +207,6 @@ function isES6(code) {
   }
 }
 
-/*
-const parameter = process.argv[2]
-
-if (parameter === "fix") {
-  // transform the code to pre-ecmascript 2015
-  // eslint-disable-next-line
-  const output = Babel.transform(code, {
-    presets: [["env", { targets: { ie: "11" }, modules: false }]],
-  }).code
-
-  // write the output back to the same file
-  writeFileSync(filePath, output, "utf8")
-}
-*/
-
 function main() {
   const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
   const targetExts = [".js", ".htm", ".html"]
@@ -293,6 +278,59 @@ function main() {
   }
 }
 
+const parameter = process.argv[2]
+const filePath = process.argv[3]
+
+if (parameter === "fix") {
+  if (!filePath) {
+    // eslint-disable-next-line
+    console.error("Error: Please provide a JavaScript file path as an argument.")
+    process.exit(1)
+  }
+
+  if (!existsSync(filePath)) {
+    // eslint-disable-next-line
+    console.error("Error: The file doesn't exists.")
+    process.exit(1)
+  }
+
+  if (!filePath.endsWith(".js")) {
+    // eslint-disable-next-line
+    console.error("Error: The file must be a JavaScript file.")
+    process.exit(1)
+  }
+
+  if (!statSync(filePath).isFile()) {
+    // eslint-disable-next-line
+    console.error("Error: The input must be a file, not a folder.")
+    process.exit(1)
+  }
+
+  // read the input file
+  const input = readFileSync(filePath, "utf8")
+
+  // transform the code to pre-ecmascript 2015
+  // eslint-disable-next-line
+  let output
+  try {
+    // eslint-disable-next-line
+    output = Babel.transform(input, {
+      presets: [["env", { targets: { ie: "11" }, modules: false }]],
+    }).code
+    // write the output back to the same file
+    writeFileSync(filePath, output, "utf8")
+  } catch (err) {
+    // eslint-disable-next-line
+    console.log(
+      err.reasonCode + " at line: " + err.loc.line + " column: " + err.loc.column
+    )
+    process.exit(1)
+  }
+} else {
+  // eslint-disable-next-line
+  process.nextTick(main)
+}
+
 const es6Checker = {
   ignorePatterns: [
     "cronjob.js",
@@ -304,6 +342,3 @@ const es6Checker = {
     "w3c.js",
   ],
 }
-
-// eslint-disable-next-line
-process.nextTick(main)
