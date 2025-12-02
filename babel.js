@@ -106,6 +106,20 @@ function isES6(code) {
       presets: [],
     })
 
+    const detectedFeatures = []
+    const codeLines = code.split("\n")
+
+    function getCodeSnippet(node) {
+      if (!node.loc) {
+        return ""
+      }
+      const line = node.loc.start.line
+      if (line > 0 && line <= codeLines.length) {
+        return codeLines[line - 1].trim()
+      }
+      return ""
+    }
+
     // recursively check the ast for es6+ nodes
     function hasES6Node(node) {
       if (!node || typeof node !== "object") {
@@ -131,6 +145,18 @@ function isES6(code) {
       ]
 
       if (es6Types.includes(node.type)) {
+        const snippet = getCodeSnippet(node)
+        const feature = {
+          type: node.type,
+          line: node.loc ? node.loc.start.line : 0,
+          code: snippet,
+        }
+        const exists = detectedFeatures.some(function (f) {
+          return f.type === feature.type && f.line === feature.line
+        })
+        if (!exists && snippet) {
+          detectedFeatures.push(feature)
+        }
         return true
       }
 
@@ -139,6 +165,18 @@ function isES6(code) {
         node.type === "VariableDeclaration" &&
         (node.kind === "let" || node.kind === "const")
       ) {
+        const snippet = getCodeSnippet(node)
+        const feature = {
+          type: "VariableDeclaration (" + node.kind + ")",
+          line: node.loc ? node.loc.start.line : 0,
+          code: snippet,
+        }
+        const exists = detectedFeatures.some(function (f) {
+          return f.type === feature.type && f.line === feature.line
+        })
+        if (!exists && snippet) {
+          detectedFeatures.push(feature)
+        }
         return true
       }
 
@@ -162,7 +200,8 @@ function isES6(code) {
       return false
     }
 
-    return hasES6Node(result.ast)
+    const hasES6 = hasES6Node(result.ast)
+    return hasES6 ? detectedFeatures : false
   } catch (error) {
     return false
   }
@@ -236,9 +275,16 @@ function main() {
       code = extractScriptCode(code)
     }
 
-    if (isES6(code)) {
+    const es6Features = isES6(code)
+    if (es6Features) {
       // eslint-disable-next-line
-      console.log(filePath)
+      console.log("\n" + filePath)
+      es6Features.forEach(function (feature) {
+        // eslint-disable-next-line
+        console.log(
+          "  Line " + feature.line + " [" + feature.type + "]: " + feature.code
+        )
+      })
     }
   }
 
