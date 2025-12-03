@@ -142,7 +142,7 @@ function main() {
   }
 
   // eslint-disable-next-line
-  console.log("Checking the ECMAScript 5 code...")
+  console.log("Scanning for ECMAScript 5 compliance...")
   for (const filePath of filesToFormat) {
     let code = readFileSync(filePath, "utf8")
     const isHTML = filePath.endsWith(".htm") || filePath.endsWith(".html")
@@ -178,11 +178,15 @@ function main() {
 
       const relativePath = filePath.substring(startDir.length + 1)
       // eslint-disable-next-line
-      console.log("[\x1b[33mwarn\x1b[0m] " + relativePath + " The code is not ES5.")
+      console.log("[\x1b[33mwarn\x1b[0m] " + relativePath)
     }
   }
 
   if (hasErrors) {
+    // eslint-disable-next-line
+    console.log(
+      '[\x1b[33mwarn\x1b[0m] ECMAScript 6 or later code was found. Run "node babel fix my_file.js" to fix.'
+    )
     process.exit(1)
   } else {
     // eslint-disable-next-line
