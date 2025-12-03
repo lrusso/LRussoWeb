@@ -127,7 +127,7 @@
           this.gamestate.update = this.update
           this.game.state.add("Gamestate", this.gamestate, false)
 
-          var resizeF = function () {
+          var resizeF = function resizeF() {
             var deviceWidth = window.outerWidth
             var deviceHeight = window.outerHeight
 
@@ -3503,7 +3503,7 @@
       var ButtonTextOnly = (function () {
         function ButtonTextOnly(parent, x, y, width, height, text, onClickFunction) {
           if (onClickFunction === void 0) {
-            onClickFunction = function () {}
+            onClickFunction = function onClickFunction() {}
           }
 
           this.disabled = false
@@ -3613,7 +3613,7 @@
           onClickFunction
         ) {
           if (onClickFunction === void 0) {
-            onClickFunction = function () {}
+            onClickFunction = function onClickFunction() {}
           }
 
           this.onClickExecuted = false
