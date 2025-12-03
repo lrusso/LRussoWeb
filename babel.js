@@ -141,6 +141,8 @@ function main() {
     return resultLines.join("\n")
   }
 
+  // eslint-disable-next-line
+  console.log("Checking the ECMAScript 5 code...")
   for (const filePath of filesToFormat) {
     let code = readFileSync(filePath, "utf8")
     const isHTML = filePath.endsWith(".htm") || filePath.endsWith(".html")
@@ -172,13 +174,19 @@ function main() {
     }).code
 
     if (output1 !== output2) {
+      hasErrors = true
+
+      const relativePath = filePath.substring(startDir.length + 1)
       // eslint-disable-next-line
-      console.log(filePath + " is not ES5.")
+      console.log("[\x1b[33mwarn\x1b[0m] " + relativePath + " The code is not ES5.")
     }
   }
 
   if (hasErrors) {
     process.exit(1)
+  } else {
+    // eslint-disable-next-line
+    console.log("All matched files are using ES5!")
   }
 }
 
