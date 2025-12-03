@@ -96,166 +96,6 @@ function alphaNumericSort(a, b) {
   return nameA.localeCompare(nameB)
 }
 
-function isES6(code) {
-  try {
-    // parse and get the ast
-    // eslint-disable-next-line
-    const result = Babel.transform(code, {
-      ast: true,
-      code: false,
-      presets: [],
-    })
-
-    const detectedFeatures = []
-    const codeLines = code.split("\n")
-
-    function getCodeSnippet(node) {
-      if (!node.loc) {
-        return ""
-      }
-      const line = node.loc.start.line
-      if (line > 0 && line <= codeLines.length) {
-        return codeLines[line - 1].trim()
-      }
-      return ""
-    }
-
-    // define all pre-ecmascript 2015 (es1-es5) ast node types
-    const es1Types = [
-      "ArrayExpression",
-      "AssignmentExpression",
-      "BinaryExpression",
-      "BlockStatement",
-      "BooleanLiteral",
-      "BreakStatement",
-      "CallExpression",
-      "CatchClause",
-      "CommentBlock",
-      "CommentLine",
-      "ConditionalExpression",
-      "ContinueStatement",
-      "DebuggerStatement",
-      "Directive",
-      "DirectiveLiteral",
-      "DoWhileStatement",
-      "EmptyStatement",
-      "ExpressionStatement",
-      "File",
-      "ForInStatement",
-      "ForStatement",
-      "FunctionDeclaration",
-      "FunctionExpression",
-      "Identifier",
-      "IfStatement",
-      "InterpreterDirective",
-      "LabeledStatement",
-      "Literal",
-      "LogicalExpression",
-      "MemberExpression",
-      "NewExpression",
-      "NullLiteral",
-      "NumericLiteral",
-      "ObjectExpression",
-      "ObjectMethod", // babel helper
-      "ObjectProperty", // babel extension
-      "ParenthesizedExpression",
-      "Program",
-      "Property",
-      "RegExpLiteral",
-      "ReturnStatement",
-      "SequenceExpression",
-      "StringLiteral",
-      "SwitchCase",
-      "SwitchStatement",
-      "ThisExpression",
-      "ThrowStatement",
-      "TryStatement",
-      "UnaryExpression",
-      "UpdateExpression",
-      "VariableDeclaration",
-      "VariableDeclarator",
-      "WhileStatement",
-      "WithStatement",
-    ]
-
-    const es2Types = [] // no new syntax in estree terms
-    const es3Types = [] // try/catch/throw existed already
-    const es4Types = [] // es4 never shipped
-    const es5Types = [] // strict mode only; no ast changes
-
-    // combine all pre-es6 types
-    const preES6Types = [].concat(es1Types, es2Types, es3Types, es4Types, es5Types)
-
-    // recursively check the ast for es6+ nodes
-    function hasES6Node(node) {
-      if (!node || typeof node !== "object") {
-        return false
-      }
-
-      // check for let/const in variabledeclaration (es6 feature)
-      if (
-        node.type === "VariableDeclaration" &&
-        (node.kind === "let" || node.kind === "const")
-      ) {
-        const snippet = getCodeSnippet(node)
-        const feature = {
-          type: "VariableDeclaration (" + node.kind + ")",
-          line: node.loc ? node.loc.start.line : 0,
-          code: snippet,
-        }
-        const exists = detectedFeatures.some(function (f) {
-          return f.type === feature.type && f.line === feature.line
-        })
-        if (!exists && snippet) {
-          detectedFeatures.push(feature)
-        }
-        return true
-      }
-
-      // check if node type is not in pre-es6 types (not pre-ecmascript 2015)
-      if (node.type && !preES6Types.includes(node.type)) {
-        const snippet = getCodeSnippet(node)
-        const feature = {
-          type: node.type + " (not pre-ECMAScript 2015)",
-          line: node.loc ? node.loc.start.line : 0,
-          code: snippet,
-        }
-        const exists = detectedFeatures.some(function (f) {
-          return f.type === feature.type && f.line === feature.line
-        })
-        if (!exists && snippet) {
-          detectedFeatures.push(feature)
-        }
-        return true
-      }
-
-      // recursively check all properties
-      for (const key in node) {
-        if (key === "loc" || key === "start" || key === "end") {
-          continue
-        }
-        const value = node[key]
-        if (Array.isArray(value)) {
-          for (const item of value) {
-            if (hasES6Node(item)) {
-              return true
-            }
-          }
-        } else if (hasES6Node(value)) {
-          return true
-        }
-      }
-
-      return false
-    }
-
-    const hasES6 = hasES6Node(result.ast)
-    return hasES6 ? detectedFeatures : false
-  } catch (error) {
-    return false
-  }
-}
-
 function main() {
   const allFiles = findAllFilesRecursive(startDir).sort(alphaNumericSort)
   const targetExts = [".js", ".htm", ".html"]
@@ -309,16 +149,31 @@ function main() {
       code = extractScriptCode(code)
     }
 
-    const es6Features = isES6(code)
-    if (es6Features) {
+    // normalizing code (es5, es6 or whatever)
+    // eslint-disable-next-line
+    const output1 = Babel.transform(code, {
+      presets: [],
+      compact: true,
+      retainLines: false,
+      generatorOpts: {
+        minified: true,
+      },
+    }).code
+
+    // transforming the normalized code to es5
+    // eslint-disable-next-line
+    const output2 = Babel.transform(output1, {
+      presets: [["env", { targets: { ie: "11" }, modules: false }]],
+      compact: true,
+      retainLines: false,
+      generatorOpts: {
+        minified: true,
+      },
+    }).code
+
+    if (output1 !== output2) {
       // eslint-disable-next-line
-      console.log("\n" + filePath)
-      es6Features.forEach(function (feature) {
-        // eslint-disable-next-line
-        console.log(
-          "  Line " + feature.line + " [" + feature.type + "]: " + feature.code
-        )
-      })
+      console.log(filePath + " is not ES5.")
     }
   }
 
