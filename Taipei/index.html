@@ -160,7 +160,7 @@
       Taipei.Preloader = function () {}
 
       Taipei.Preloader.prototype = {
-        init: function () {
+        init: function init() {
           // setting the maxpointers value
           this.input.maxPointers = 1
 
@@ -178,7 +178,7 @@
           this.scale.refresh()
         },
 
-        preload: function () {
+        preload: function preload() {
           // all the images that are going to be used are stored in base64 format
           var imageTile0 =
             "data:image/png;base64,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"
@@ -332,7 +332,7 @@
           )
         },
 
-        create: function () {
+        create: function create() {
           this.state.start("Taipei.Splash")
         },
       }
@@ -340,16 +340,16 @@
       Taipei.Splash = function () {}
 
       Taipei.Splash.prototype = {
-        init: function () {},
+        init: function init() {},
 
-        preload: function () {
+        preload: function preload() {
           this.imageLogoPart1 = null
           this.imageLogoPart1Handler = null
           this.imageLogoPart2 = null
           this.imageLogoPart2Handler = null
         },
 
-        create: function () {
+        create: function create() {
           // setting the logo offset
           var logoOffset = 20
 
@@ -451,9 +451,9 @@
       }
 
       Taipei.Game.prototype = {
-        init: function () {},
+        init: function init() {},
 
-        create: function () {
+        create: function create() {
           // setting the background color
           this.stage.backgroundColor = "#024f3e"
           document.getElementsByTagName("body")[0].className = "taipei_background"
@@ -491,7 +491,7 @@
           this.buttonHint.onInputUp.add(this.hintGame, this)
         },
 
-        restartGame: function () {
+        restartGame: function restartGame() {
           // restarting the state
           this.state.restart()
 
@@ -505,7 +505,7 @@
           this.hintRequested = false
         },
 
-        hintGame: function () {
+        hintGame: function hintGame() {
           // checking if the hint is not requested
           if (!this.hintRequested) {
             // setting that the hint was requested
@@ -583,7 +583,7 @@
           }
         },
 
-        generateTileList: function () {
+        generateTileList: function generateTileList() {
           // adding the hasvalue method to the array prototype
           Array.prototype.hasValue = function (value) {
             // looping the array
@@ -626,7 +626,7 @@
           }
         },
 
-        generateLayout: function () {
+        generateLayout: function generateLayout() {
           // clearing the tile layout
           this.tileLayout = []
 
@@ -785,7 +785,7 @@
           this.tileLayout.push({ x: 352, y: 187 })
         },
 
-        drawTiles: function () {
+        drawTiles: function drawTiles() {
           // setting the variable that will reference each tile
           var tileLayoutIndex = 0
 
@@ -833,7 +833,7 @@
           }
         },
 
-        shuffleTiles: function () {
+        shuffleTiles: function shuffleTiles() {
           // shuffle function
           function shuffle(array) {
             for (var i = array.length - 1; i > 0; i--) {
@@ -869,7 +869,7 @@
           }
         },
 
-        matching: function (tile) {
+        matching: function matching(tile) {
           // checking if the tile can be selected
           if (this.canBeSelected(tile)) {
             // selecting the tile
@@ -911,7 +911,7 @@
           }
         },
 
-        canBeSelected: function (tile) {
+        canBeSelected: function canBeSelected(tile) {
           // setting the default answer
           var finalAnswer = true
 
@@ -999,7 +999,7 @@
           return finalAnswer
         },
 
-        checkGameStatus: function () {
+        checkGameStatus: function checkGameStatus() {
           // checking if there are no more tiles
           if (this.tilesGroup.children.length / 2 === 0) {
             // getting a random number
@@ -1028,7 +1028,7 @@
           }
         },
 
-        isGameOver: function (myArray) {
+        isGameOver: function isGameOver(myArray) {
           // looping all the pending and free tiles
           for (var i = 0; i < myArray.length; i++) {
             // checking if the tile has a match
@@ -1039,13 +1039,13 @@
           return true
         },
 
-        update: function () {},
+        update: function update() {},
 
-        preRender: function () {},
+        preRender: function preRender() {},
 
-        render: function () {},
+        render: function render() {},
 
-        showToast: function (myText) {
+        showToast: function showToast(myText) {
           // creating the toast shadow
           this.toastShadow = game.add.graphics()
           this.toastShadow.beginFill(0x000000, 0.75)
