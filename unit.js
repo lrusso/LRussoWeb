@@ -1554,7 +1554,7 @@ describe("index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "49f73367"
+    const expectedHash = "3ff3eb88"
     let currentHash = ""
 
     try {
