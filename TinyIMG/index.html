@@ -1583,8 +1583,8 @@
 
         var effectiveHandleSize =
           HANDLE_SIZE / Math.min(displayScaleX, displayScaleY)
-
-        for (var h of handles) {
+        for (var i = 0; i < handles.length; i++) {
+          var h = handles[i]
           ctx.fillRect(
             h.x - effectiveHandleSize / 2,
             h.y - effectiveHandleSize / 2,
@@ -1597,7 +1597,8 @@
       function getHandleAt(x, y) {
         var effectiveHandleSize =
           HANDLE_SIZE / Math.min(displayScaleX, displayScaleY)
-        for (var h of handles) {
+        for (var i = 0; i < handles.length; i++) {
+          var h = handles[i]
           if (
             x >= h.x - effectiveHandleSize / 2 &&
             x <= h.x + effectiveHandleSize / 2 &&
@@ -2474,7 +2475,7 @@
               }
               drawSelectionRect()
             } else if (isResizing && currentSelection) {
-              var prev = { ...currentSelection } // safe copy before changes
+              var prev = Object.assign({}, currentSelection) // safe copy before changes
 
               switch (resizeHandle) {
                 case "nw":
