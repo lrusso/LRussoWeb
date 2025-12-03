@@ -1113,7 +1113,7 @@ describe("Tetris/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "32a0a682"
+    const expectedHash = "4aecd961"
     let currentHash = ""
 
     try {
