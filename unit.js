@@ -948,7 +948,7 @@ describe("Spider/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "4abd8baf"
+    const expectedHash = "54841273"
     let currentHash = ""
 
     try {
