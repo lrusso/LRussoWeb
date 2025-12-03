@@ -178,6 +178,36 @@
             // if success, updating ui for 1080p
             document.querySelector(".media-container").style.width = "1920px"
             document.querySelector(".media-container").style.height = "1080px"
+
+            try {
+              liveVideo.srcObject = mediaStream
+              liveVideo.play()
+
+              loadingScreen.style.display = "none"
+              mediaContainer.style.display = "block"
+              mediaControls.style.display = "flex"
+
+              recordedChunks = []
+
+              if (MediaRecorder.isTypeSupported("video/mp4")) {
+                videoFormat = "mp4"
+              }
+
+              mediaRecorder = new MediaRecorder(mediaStream, {
+                mimeType: "video/" + videoFormat,
+              })
+
+              mediaRecorder.ondataavailable = function (event) {
+                if (event.data.size > 0) {
+                  recordedChunks.push(event.data)
+                }
+              }
+              mediaRecorder.onstop = function () {
+                downloadVideo()
+              }
+            } catch (err) {
+              //
+            }
           })
           .catch(function (error) {
             if (error.name === "NotFoundError" || error.name === "NotAllowedError") {

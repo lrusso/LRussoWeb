@@ -1333,7 +1333,7 @@ describe("WebcamRecorder/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "66f41172"
+    const expectedHash = "5e4888ff"
     let currentHash = ""
 
     try {
