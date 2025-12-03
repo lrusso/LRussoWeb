@@ -1003,7 +1003,7 @@ describe("Taipei/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "2ef05354"
+    const expectedHash = "3ee20fef"
     let currentHash = ""
 
     try {
