@@ -498,7 +498,9 @@
           var subs = blocks.map(function (block) {
             var lines = block.split(/\r?\n/)
             var id = parseInt(lines[0], 10)
-            var [startTimeString, endTimeString] = lines[1].split(" --> ")
+            var timeParts = lines[1].split(" --> ")
+            var startTimeString = timeParts[0]
+            var endTimeString = timeParts[1]
             var text = lines.slice(2).join("<br>")
             var startTime = srtTimeToSeconds(startTimeString)
             var endTime = srtTimeToSeconds(endTimeString)
@@ -538,8 +540,13 @@
       }
 
       function srtTimeToSeconds(timeStr) {
-        var [hours, minutes, seconds] = timeStr.split(":")
-        var [secs, millis] = seconds.split(",")
+        var timeParts = timeStr.split(":")
+        var hours = timeParts[0]
+        var minutes = timeParts[1]
+        var seconds = timeParts[2]
+        var secParts = seconds.split(",")
+        var secs = secParts[0]
+        var millis = secParts[1]
         return (
           parseInt(hours) * 3600 +
           parseInt(minutes) * 60 +
