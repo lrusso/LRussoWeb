@@ -632,7 +632,7 @@ describe("Intranet/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "126bce47"
+    const expectedHash = "5806c83c"
     let currentHash = ""
 
     try {
@@ -653,6 +653,10 @@ describe("Intranet/index.html", function () {
   it("Should have equal i18n key counts across languages", function () {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const sameAmount = langsCheckAmountKeys(APP_STRINGS)
@@ -663,6 +667,10 @@ describe("Intranet/index.html", function () {
   it("Should have matching i18n keys across languages", function () {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
@@ -673,6 +681,10 @@ describe("Intranet/index.html", function () {
   it("Should have non-empty i18n keys across languages", function () {
     const APP_STRINGS = getVariable("Intranet/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
@@ -1566,7 +1578,7 @@ describe("index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "49f73367"
+    const expectedHash = "57e0b90d"
     let currentHash = ""
 
     try {
@@ -1587,6 +1599,10 @@ describe("index.html", function () {
   it("Should have equal i18n key counts across languages", function () {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const sameAmount = langsCheckAmountKeys(STR)
@@ -1597,6 +1613,10 @@ describe("index.html", function () {
   it("Should have matching i18n keys across languages", function () {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveSameKeys = langsCheckSameKeys(STR)
@@ -1607,6 +1627,10 @@ describe("index.html", function () {
   it("Should have non-empty i18n keys across languages", function () {
     const STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(STR)
@@ -1617,6 +1641,10 @@ describe("index.html", function () {
   it("Should show titles for latest projects", function () {
     let STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingLatestTitles = true
@@ -1718,6 +1746,10 @@ describe("index.html", function () {
   it("Should show descriptions for latest projects", function () {
     let STR = getVariable("index.html", "STR")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingLatestDescriptions = true
@@ -1817,6 +1849,10 @@ describe("index.html", function () {
   it("Should show titles for articles", function () {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingArticlesTitles = true
@@ -1845,6 +1881,10 @@ describe("index.html", function () {
   it("Should display images for articles", function () {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingArticlesImages = true
@@ -1873,6 +1913,10 @@ describe("index.html", function () {
   it("Should have existing images for articles", function () {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let articleImagesExists = true
@@ -1901,6 +1945,10 @@ describe("index.html", function () {
   it("Should have valid images for articles", function () {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let articleImagesValid = true
@@ -1932,6 +1980,10 @@ describe("index.html", function () {
   it("Should show descriptions for articles", function () {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingArticlesDescriptions = true
@@ -1962,6 +2014,10 @@ describe("index.html", function () {
   it("Should show buttons for articles", function () {
     let PRESS = getVariable("index.html", "PRESS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     let showingArticlesButtons = true
