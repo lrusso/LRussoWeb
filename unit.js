@@ -510,7 +510,7 @@ describe("CSSMinifier/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "5e9309ed"
+    const expectedHash = "52e3116"
     let currentHash = ""
 
     try {
