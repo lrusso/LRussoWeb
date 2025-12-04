@@ -228,11 +228,11 @@
       // smooth-scrolling
       // prettier-ignore
       // eslint-disable-next-line
-      ;(function (e, t) {"use strict";var n = 0,r = 500,i = 15,s = document.getElementsByTagName("a"),o;for (var u = 0; u < s.length; u++) {o = s[u].attributes.href === t ? null : s[u].attributes.href.nodeValue.toString();if (o !== null && o.length > 1 && o.indexOf("#") != -1) {s[u].onclick = function () {var n,s = this.attributes.href.nodeValue.toString(),o = s.substr(0, s.indexOf("#")),u = s.substr(s.indexOf("#") + 1);if (n = document.getElementById(u)) {var l = (r - r % i) / i,c = f(),h = (a(n) - c) / l;if (e.history && typeof e.history.pushState == "function") e.history.pushState({}, t, o + "#" + u);for (var p = 1; p <= l; p++) {(function () {var t = h * p;setTimeout(function () {e.scrollTo(0, t + c);}, i * p);})();}return false;}};}}var a = function a(e) {var r = n * -1;while (e.offsetParent != t && e.offsetParent != null) {r += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);e = e.offsetParent;}return r;};var f = function f() {return e.pageYOffset !== t ? e.pageYOffset : document.documentElement.scrollTop !== t ? document.documentElement.scrollTop : document.body.scrollTop;};})(window);
+      ;(function(e,t){"use strict";var n=0,r=500,i=15,s=document.getElementsByTagName("a"),o;for(var u=0;u<s.length;u++){o=s[u].attributes.href===t?null:s[u].attributes.href.nodeValue.toString();if(o!==null&&o.length>1&&o.indexOf("#")!=-1){s[u].onclick=function(){var n,s=this.attributes.href.nodeValue.toString(),o=s.substr(0,s.indexOf("#")),u=s.substr(s.indexOf("#")+1);if(n=document.getElementById(u)){var l=(r-r%i)/i,c=f(),h=(a(n)-c)/l;if(e.history&&typeof e.history.pushState=="function")e.history.pushState({},t,o+"#"+u);for(var p=1;p<=l;p++){(function(){var t=h*p;setTimeout(function(){e.scrollTo(0,t+c)},i*p)})()}return false}}}}var a=function(e){var r=n*-1;while(e.offsetParent!=t&&e.offsetParent!=null){r+=e.offsetTop+(e.clientTop!=null?e.clientTop:0);e=e.offsetParent}return r};var f=function(){return e.pageYOffset!==t?e.pageYOffset:document.documentElement.scrollTop!==t?document.documentElement.scrollTop:document.body.scrollTop}})(window)
 
       // prettier-ignore
       // eslint-disable-next-line
-      function _atob(r) {var a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",e = "",n = 0;for (r = r.replace(/[^A-Za-z0-9\+\/\=]/g, ""); n < r.length;) {var t = a.indexOf(r.charAt(n));n += 1;var f = a.indexOf(r.charAt(n));n += 1;var o = a.indexOf(r.charAt(n));n += 1;var h = a.indexOf(r.charAt(n));n += 1;var i = t << 2 | f >> 4,d = (15 & f) << 4 | o >> 2,c = (3 & o) << 6 | h;e += String.fromCharCode(i), 64 != o && (e += String.fromCharCode(d)), 64 != h && (e += String.fromCharCode(c));}return e;}
+      function _atob(r){var a="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",e="",n=0;for(r=r.replace(/[^A-Za-z0-9\+\/\=]/g,"");n<r.length;){var t=a.indexOf(r.charAt(n));n+=1;var f=a.indexOf(r.charAt(n));n+=1;var o=a.indexOf(r.charAt(n));n+=1;var h=a.indexOf(r.charAt(n));n+=1;var i=t<<2|f>>4,d=(15&f)<<4|o>>2,c=(3&o)<<6|h;e+=String.fromCharCode(i),64!=o&&(e+=String.fromCharCode(d)),64!=h&&(e+=String.fromCharCode(c))}return e}
 
       var STR = {
         en: {
@@ -273,34 +273,34 @@
           press1: "Prensa",
           press2: "Publicaciones destacadas",
           contact1: "Contacto",
-          contact2: "Informaci\xF3n de contacto",
+          contact2: "Informaci\u00F3n de contacto",
           custom: "Software a medida",
-          custom1: "Dise\xF1o de Apps h\xEDbridas en React Native.",
+          custom1: "Dise\u00F1o de Apps h\u00EDbridas en React Native.",
           custom2: "Desarrollo de Apps nativas en Android y iOS.",
           custom3: "Web Apps en React y videojuegos en Phaser.",
           custom4: "Hardware y software Arduino.",
-          latest: "\xDAltimos desarrollos",
+          latest: "\u00DAltimos desarrollos",
           latest1t: "3D Object Maker",
           latest1d:
-            "App gratuita y de c\xF3digo libre de dise\xF1o 3D para escuelas primarias.",
+            "App gratuita y de c\u00F3digo libre de dise\u00F1o 3D para escuelas primarias.",
           latest2t: "Arduino Simulator",
-          latest2d: "Web gratuita y de c\xF3digo libre para programar en Arduino.",
+          latest2d: "Web gratuita y de c\u00F3digo libre para programar en Arduino.",
           latest3t: "Emulatrix",
-          latest3d: "Web gratuita y de c\xF3digo libre para jugar juegos retro.",
+          latest3d: "Web gratuita y de c\u00F3digo libre para jugar juegos retro.",
           app: "Descargar App",
           website: "Visitar Web",
-          read: "Leer m\xE1s",
-          watch: "Ver v\xEDdeo",
-          blind1: "Art\xEDculo sobre Blind Communicator.",
-          blind2: "V\xEDdeo sobre Blind Communicator.",
-          blind3: "Art\xEDculo sobre Blind Web Reader.",
-          mobility: "Art\xEDculo sobre Mobility Launcher.",
-          taxi: "Art\xEDculo sobre TaxiCuentas.",
-          maker: "Art\xEDculo sobre 3D Object Maker.",
-          museum: "Art\xEDculo sobre 3D Art Museum.",
-          emulatrix: "Art\xEDculo sobre Emulatrix.",
-          virtualxp: "Art\xEDculo sobre VirtualXP.",
-          recognition: "Art\xEDculo de reconocimiento.",
+          read: "Leer m\u00E1s",
+          watch: "Ver v\u00EDdeo",
+          blind1: "Art\u00EDculo sobre Blind Communicator.",
+          blind2: "V\u00EDdeo sobre Blind Communicator.",
+          blind3: "Art\u00EDculo sobre Blind Web Reader.",
+          mobility: "Art\u00EDculo sobre Mobility Launcher.",
+          taxi: "Art\u00EDculo sobre TaxiCuentas.",
+          maker: "Art\u00EDculo sobre 3D Object Maker.",
+          museum: "Art\u00EDculo sobre 3D Art Museum.",
+          emulatrix: "Art\u00EDculo sobre Emulatrix.",
+          virtualxp: "Art\u00EDculo sobre VirtualXP.",
+          recognition: "Art\u00EDculo de reconocimiento.",
         },
       }
 
@@ -363,7 +363,7 @@
           l: "https://es.gizmodo.com/emulatrix-es-un-emulador-web-de-juegos-retro-de-codigo-1845558196",
         },
         {
-          t: "La Naci\xF3n",
+          t: "La Naci\u00F3n",
           i: "LN_04",
           d: "emulatrix",
           b: "read",
@@ -377,14 +377,14 @@
           l: "https://www.infobae.com/gaming/2019/12/27/que-es-emulatrix-la-plataforma-de-codigo-libre-para-jugar-juegos-retro-online/",
         },
         {
-          t: "Clar\xEDn",
+          t: "Clar\u00EDn",
           i: "Clarin_01",
           d: "blind1",
           b: "read",
           l: "https://www.clarin.com/sociedad/creo-aplicacion-facilitar-celular-ciegos_0_SkdLTQ2C.html",
         },
         {
-          t: "La Naci\xF3n",
+          t: "La Naci\u00F3n",
           i: "LN_01",
           d: "blind1",
           b: "read",
@@ -398,14 +398,14 @@
           l: "https://www.infobae.com/tecno/2016/07/12/como-funciona-blind-communicator-la-aplicacion-para-que-personas-no-videntes-puedan-usar-sus-telefonos-y-tablets/",
         },
         {
-          t: "Clar\xEDn",
+          t: "Clar\u00EDn",
           i: "Clarin_03",
           d: "mobility",
           b: "read",
           l: "https://www.clarin.com/tecnologia/nuevo-dispositivo-argentino-permite-discapacitados-motrices-usar-smartphone_0_HJKuWnjVb.amp.html",
         },
         {
-          t: "La Naci\xF3n",
+          t: "La Naci\u00F3n",
           i: "LN_02",
           d: "mobility",
           b: "read",
@@ -419,14 +419,14 @@
           l: "https://www.infobae.com/america/cultura-america/2018/09/08/arte-y-software-libre-viaje-virtual-al-interior-del-museo-total/",
         },
         {
-          t: "Clar\xEDn",
+          t: "Clar\u00EDn",
           i: "Clarin_04",
           d: "maker",
           b: "read",
           l: "https://www.clarin.com/tecnologia/crean-software-imprimir-3d-facil_0_pRfB2m-b-.html",
         },
         {
-          t: "La Naci\xF3n",
+          t: "La Naci\u00F3n",
           i: "LN_03",
           d: "maker",
           b: "read",
@@ -440,7 +440,7 @@
           l: "https://www.infobae.com/america/tecno/2021/06/15/la-app-gratuita-y-de-codigo-abierto-para-que-personas-con-discapacidad-visual-puedan-acceder-mas-facil-a-la-web/",
         },
         {
-          t: "Clar\xEDn",
+          t: "Clar\u00EDn",
           i: "Clarin_02",
           d: "taxi",
           b: "read",
@@ -574,7 +574,7 @@
         el("contactLabel")[0].innerText = _atob("RW1haWw=")
 
         el("m-0 text-center text-white")[0].innerText =
-          "\xA9 2005 - " + new Date().getFullYear() + " - LRusso.com"
+          "\u00A9 2005 - " + new Date().getFullYear() + " - LRusso.com"
 
         el("body")[0].style.opacity = 1
       })
