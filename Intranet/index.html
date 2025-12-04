@@ -196,10 +196,10 @@
           about_title: "Acerca de...",
           about_message: "Desarrollado por LRusso.com",
           dirty_title: "Mensaje",
-          dirty_message: "\u00BFPerder cualquier cambio\nque no haya sido guardado?",
-          dirty_yes: "S\u00ED",
+          dirty_message: "\xBFPerder cualquier cambio\nque no haya sido guardado?",
+          dirty_yes: "S\xED",
           dirty_no: "No",
-          days: ["Lun", "Mar", "Mi\u00E9", "Jue", "Vie", "S\u00E1b", "Dom"],
+          days: ["Lun", "Mar", "Mi\xE9", "Jue", "Vie", "S\xE1b", "Dom"],
           months: [
             "Enero",
             "Febrero",
@@ -1153,7 +1153,7 @@
             aboutWindow.style.margin = "30px"
             aboutWindow.style.textAlign = "center"
             aboutWindow.innerText =
-              t("about_message") + "\n\n\u00A9 2005 - " + new Date().getFullYear()
+              t("about_message") + "\n\n\xA9 2005 - " + new Date().getFullYear()
 
             createNewWindow(t("about_title"), aboutWindow)
           })
