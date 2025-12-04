@@ -155,22 +155,16 @@ function main() {
     // eslint-disable-next-line
     const output1 = Babel.transform(code, {
       presets: [],
-      compact: true,
-      retainLines: false,
-      generatorOpts: {
-        minified: true,
-      },
+      compact: false,
+      retainLines: true,
     }).code
 
     // transforming the normalized code to es5
     // eslint-disable-next-line
-    const output2 = Babel.transform(output1, {
-      presets: [["env", { targets: { ie: "11" }, modules: false }]],
-      compact: true,
-      retainLines: false,
-      generatorOpts: {
-        minified: true,
-      },
+    const output2 = Babel.transform(code, {
+      presets: [["env", { targets: { ie: "11" }, modules: false, loose: true }]],
+      compact: false,
+      retainLines: true,
     }).code
 
     if (output1 !== output2) {
@@ -231,7 +225,9 @@ if (parameter === "fix") {
   try {
     // eslint-disable-next-line
     output = Babel.transform(input, {
-      presets: [["env", { targets: { ie: "11" }, modules: false }]],
+      presets: [["env", { targets: { ie: "11" }, modules: false, loose: true }]],
+      compact: false,
+      retainLines: true,
     }).code
     // write the output back to the same file
     writeFileSync(filePath, output, "utf8")
