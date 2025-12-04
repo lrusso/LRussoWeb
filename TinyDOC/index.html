@@ -2525,7 +2525,7 @@
           }
 
           var tw = document.createTreeWalker(n, NodeFilter.SHOW_TEXT, {
-            acceptNode: function acceptNode(twNode) {
+            acceptNode: function (twNode) {
               return twNode.nodeValue && twNode.nodeValue.length
                 ? NodeFilter.FILTER_ACCEPT
                 : NodeFilter.FILTER_REJECT
@@ -2537,7 +2537,7 @@
 
         function nextTextNodeFrom(root, node) {
           var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-            acceptNode: function acceptNode(twNode) {
+            acceptNode: function (twNode) {
               return twNode.nodeValue && twNode.nodeValue.length
                 ? NodeFilter.FILTER_ACCEPT
                 : NodeFilter.FILTER_REJECT
@@ -2582,7 +2582,7 @@
               this.document,
               NodeFilter.SHOW_TEXT,
               {
-                acceptNode: function acceptNode(twNode) {
+                acceptNode: function (twNode) {
                   return twNode.nodeValue && twNode.nodeValue.length
                     ? NodeFilter.FILTER_ACCEPT
                     : NodeFilter.FILTER_REJECT
@@ -2753,7 +2753,7 @@
         // build a normalized text string and track position mappings
         var textNodes = []
         var walker = document.createTreeWalker(rootNode, NodeFilter.SHOW_TEXT, {
-          acceptNode: function acceptNode(n) {
+          acceptNode: function (n) {
             return n.nodeValue && n.nodeValue.length
               ? NodeFilter.FILTER_ACCEPT
               : NodeFilter.FILTER_REJECT
@@ -2970,7 +2970,7 @@
           myTinyDOC = new tinyDOC({
             container: document.getElementById("myContainer"),
             content: t("welcome"),
-            newCallback: function newCallback() {
+            newCallback: function () {
               function doNew() {
                 myFilename = null
                 myTinyDOC.setText("")
@@ -3000,7 +3000,7 @@
                 doNew()
               }
             },
-            openCallback: function openCallback() {
+            openCallback: function () {
               function doOpen() {
                 document.getElementById("myUploader").click()
                 document.getElementById("myUploader").onchange = function () {
@@ -3046,7 +3046,7 @@
                 doOpen()
               }
             },
-            saveCallback: function saveCallback(textContent) {
+            saveCallback: function (textContent) {
               var blob = new Blob([textContent], { type: "text/plain" })
               var url = URL.createObjectURL(blob)
               var link = document.createElement("a")
@@ -3057,7 +3057,7 @@
               window.isDirty = false
               window.onbeforeunload = null
             },
-            dirtyCallback: function dirtyCallback() {
+            dirtyCallback: function () {
               window.isDirty = true
               window.onbeforeunload = function () {
                 return "Dirty"

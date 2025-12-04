@@ -510,7 +510,7 @@ describe("CSSMinifier/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "52e3116"
+    const expectedHash = "5e9309ed"
     let currentHash = ""
 
     try {
@@ -734,7 +734,7 @@ describe("JavaScriptMinifier/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "366767eb"
+    const expectedHash = "48d197e"
     let currentHash = ""
 
     try {
@@ -792,7 +792,7 @@ describe("MediaPlayer/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "43d6895b"
+    const expectedHash = "3685ef2b"
     let currentHash = ""
 
     try {
@@ -948,7 +948,7 @@ describe("Spider/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "14e1314f"
+    const expectedHash = "4abd8baf"
     let currentHash = ""
 
     try {
@@ -1003,7 +1003,7 @@ describe("Taipei/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "8611879"
+    const expectedHash = "2ef05354"
     let currentHash = ""
 
     try {
@@ -1058,7 +1058,7 @@ describe("Tarot/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "45508d8d"
+    const expectedHash = "47bd783"
     let currentHash = ""
 
     try {
@@ -1113,7 +1113,7 @@ describe("Tetris/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "4aecd961"
+    const expectedHash = "121650b"
     let currentHash = ""
 
     try {
@@ -1168,7 +1168,7 @@ describe("TinyACE/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "75413f72"
+    const expectedHash = "54aae79b"
     let currentHash = ""
 
     try {
@@ -1223,7 +1223,7 @@ describe("TinyDOC/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "73ec7421"
+    const expectedHash = "3cb0f776"
     let currentHash = ""
 
     try {
@@ -1333,7 +1333,7 @@ describe("WebcamRecorder/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "5e4888ff"
+    const expectedHash = "4a0032fa"
     let currentHash = ""
 
     try {
@@ -1554,7 +1554,7 @@ describe("index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "3ff3eb88"
+    const expectedHash = "49f73367"
     let currentHash = ""
 
     try {

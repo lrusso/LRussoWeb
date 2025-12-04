@@ -145,131 +145,94 @@
         }
       }
 
-      function openCamera() {
-        // stop existing tracks
-        if (mediaStream) {
-          mediaStream.getTracks().forEach(function (track) {
-            track.stop()
-          })
-        }
-
-        mediaStream = null
-
-        var videoConstraints
-
-        // trying 1080p first
-        if (isUsingiOS()) {
-          videoConstraints = { width: 1920, height: 1080 }
-        } else {
-          videoConstraints = {
-            width: { ideal: 1920 },
-            height: { ideal: 1080 },
+      async function openCamera() {
+        try {
+          if (mediaStream) {
+            for (var track of mediaStream.getTracks()) {
+              track.stop()
+            }
           }
-        }
 
-        return navigator.mediaDevices
-          .getUserMedia({
+          mediaStream = null
+
+          var videoConstraints
+
+          // trying 1080p first
+          if (isUsingiOS()) {
+            videoConstraints = { width: 1920, height: 1080 }
+          } else {
+            videoConstraints = {
+              width: { ideal: 1920 },
+              height: { ideal: 1080 },
+            }
+          }
+
+          mediaStream = await navigator.mediaDevices.getUserMedia({
             video: videoConstraints,
             audio: true,
           })
 
-          .then(function (stream) {
-            mediaStream = stream
-            // if success, updating ui for 1080p
-            document.querySelector(".media-container").style.width = "1920px"
-            document.querySelector(".media-container").style.height = "1080px"
+          // if success, updating ui for 1080p
+          document.querySelector(".media-container").style.width = "1920px"
+          document.querySelector(".media-container").style.height = "1080px"
+        } catch (err) {
+          if (err.name === "NotFoundError" || err.name === "NotAllowedError") {
+            loadingScreen.style.display = "none"
+            mediaError.style.display = "flex"
+            return
+          }
 
-            try {
-              liveVideo.srcObject = mediaStream
-              liveVideo.play()
+          // fallback to 720p
+          var fallbackConstraints
 
-              loadingScreen.style.display = "none"
-              mediaContainer.style.display = "block"
-              mediaControls.style.display = "flex"
-
-              recordedChunks = []
-
-              if (MediaRecorder.isTypeSupported("video/mp4")) {
-                videoFormat = "mp4"
-              }
-
-              mediaRecorder = new MediaRecorder(mediaStream, {
-                mimeType: "video/" + videoFormat,
-              })
-
-              mediaRecorder.ondataavailable = function (event) {
-                if (event.data.size > 0) {
-                  recordedChunks.push(event.data)
-                }
-              }
-              mediaRecorder.onstop = function () {
-                downloadVideo()
-              }
-            } catch (err) {
-              //
+          if (isUsingiOS()) {
+            fallbackConstraints = { width: 1280, height: 720 }
+          } else {
+            fallbackConstraints = {
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
             }
+          }
+
+          mediaStream = await navigator.mediaDevices.getUserMedia({
+            video: fallbackConstraints,
+            audio: true,
           })
-          .catch(function (error) {
-            if (error.name === "NotFoundError" || error.name === "NotAllowedError") {
-              loadingScreen.style.display = "none"
-              mediaError.style.display = "flex"
-              return
-            }
 
-            // fallback to 720p
-            var fallbackConstraints
-            if (isUsingiOS()) {
-              fallbackConstraints = { width: 1280, height: 720 }
-            } else {
-              fallbackConstraints = {
-                width: { ideal: 1280 },
-                height: { ideal: 720 },
-              }
-            }
+          // updating ui for 720p
+          document.querySelector(".media-container").style.width = "1280px"
+          document.querySelector(".media-container").style.height = "720px"
+        }
 
-            return navigator.mediaDevices.getUserMedia({
-              video: fallbackConstraints,
-              audio: true,
-            })
+        try {
+          liveVideo.srcObject = mediaStream
+          liveVideo.play()
+
+          loadingScreen.style.display = "none"
+          mediaContainer.style.display = "block"
+          mediaControls.style.display = "flex"
+
+          recordedChunks = []
+
+          if (MediaRecorder.isTypeSupported("video/mp4")) {
+            videoFormat = "mp4"
+          }
+
+          mediaRecorder = new MediaRecorder(mediaStream, {
+            mimeType: "video/" + videoFormat,
           })
-          .then(function (stream) {
-            if (stream) {
-              mediaStream = stream
-              // updating ui for 720p
-              document.querySelector(".media-container").style.width = "1280px"
-              document.querySelector(".media-container").style.height = "720px"
 
-              try {
-                liveVideo.srcObject = mediaStream
-                liveVideo.play()
-
-                loadingScreen.style.display = "none"
-                mediaContainer.style.display = "block"
-                mediaControls.style.display = "flex"
-
-                recordedChunks = []
-
-                if (MediaRecorder.isTypeSupported("video/mp4")) {
-                  videoFormat = "mp4"
-                }
-
-                mediaRecorder = new MediaRecorder(mediaStream, {
-                  mimeType: "video/" + videoFormat,
-                })
-
-                mediaRecorder.ondataavailable = function (event) {
-                  if (event.data.size > 0) {
-                    recordedChunks.push(event.data)
-                  }
-                }
-                mediaRecorder.onstop = function () {
-                  downloadVideo()
-                }
-              } catch (err) {
-                //
-              }
+          mediaRecorder.ondataavailable = function (event) {
+            if (event.data.size > 0) {
+              recordedChunks.push(event.data)
             }
-          })
+          }
+          mediaRecorder.onstop = function () {
+            downloadVideo()
+          }
+        } catch (err) {
+          //
+        }
       }
 
       function handleStartButton() {
