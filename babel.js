@@ -184,7 +184,7 @@ function main() {
     process.exit(1)
   } else {
     // eslint-disable-next-line
-    console.log("All matched files are using ES5!")
+    console.log("All matched files are in compliance.")
   }
 }
 
