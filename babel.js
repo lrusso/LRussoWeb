@@ -15,11 +15,11 @@ new Function(
 const startDir = resolve(process.cwd())
 
 function matchesIgnore(fullPath) {
-  if (!Array.isArray(es6Checker.ignorePatterns)) {
+  if (!Array.isArray(ignorePatterns)) {
     return false
   }
 
-  for (const pattern of es6Checker.ignorePatterns) {
+  for (const pattern of ignorePatterns) {
     if (typeof pattern !== "string") {
       return false
     }
@@ -243,17 +243,15 @@ if (parameter === "fix") {
   process.nextTick(main)
 }
 
-const es6Checker = {
-  ignorePatterns: [
-    "cronjob.js",
-    "babel.js",
-    "e2e.js",
-    "eslint.js",
-    "prettier.js",
-    "unit.js",
-    "w3c.js",
-  ],
-}
+const ignorePatterns = [
+  "cronjob.js",
+  "babel.js",
+  "e2e.js",
+  "eslint.js",
+  "prettier.js",
+  "unit.js",
+  "w3c.js",
+]
 
 // ----------------------------------------------------------------------------
 // how to use this implementation?
