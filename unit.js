@@ -770,7 +770,7 @@ describe("JavaScriptMinifier/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "48d197e"
+    const expectedHash = "1167d3fb"
     let currentHash = ""
 
     try {
@@ -794,6 +794,10 @@ describe("JavaScriptMinifier/index.html", function () {
   it("Should have equal i18n key counts across languages", function () {
     const APP_STRINGS = getVariable("JavaScriptMinifier/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const sameAmount = langsCheckAmountKeys(APP_STRINGS)
@@ -804,6 +808,10 @@ describe("JavaScriptMinifier/index.html", function () {
   it("Should have matching i18n keys across languages", function () {
     const APP_STRINGS = getVariable("JavaScriptMinifier/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
@@ -814,6 +822,10 @@ describe("JavaScriptMinifier/index.html", function () {
   it("Should have non-empty i18n keys across languages", function () {
     const APP_STRINGS = getVariable("JavaScriptMinifier/index.html", "APP_STRINGS")
       .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
       .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
 
     const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
