@@ -1551,14 +1551,14 @@
                 var tabName = f.getAttribute("data-tab")
 
                 // update active button
-                for (var btn of tabButtons) {
-                  btn.classList.remove("active")
+                for (var j = 0; j < tabButtons.length; j++) {
+                  tabButtons[j].classList.remove("active")
                 }
                 f.classList.add("active")
 
                 // update active tab
-                for (var pane of tabPanes) {
-                  pane.classList.remove("active")
+                for (var k = 0; k < tabPanes.length; k++) {
+                  tabPanes[k].classList.remove("active")
                 }
                 document.getElementById(tabName).classList.add("active")
               })
@@ -1731,7 +1731,8 @@
                 // improved text extraction that preserves structure better
                 var lastY
                 var text = ""
-                for (var item of textContent.items) {
+                for (var k = 0; k < textContent.items.length; k++) {
+                  var item = textContent.items[k]
                   if (lastY === item.transform[5] || !lastY) {
                     text = text + item.str
                   } else {
@@ -2527,7 +2528,8 @@
             var repeatedWords = {}
             var lines = text.split("\n")
 
-            for (var line of lines) {
+            for (var j = 0; j < lines.length; j++) {
+              var line = lines[j]
               // remove leading non-alphabetic characters
               var trimmedLine = line.replace(/^[^a-zA-Z]*/, "")
 
@@ -2719,7 +2721,8 @@
               container.removeChild(container.firstChild)
             }
 
-            for (var detail of details) {
+            for (var j = 0; j < details.length; j++) {
+              var detail = details[j]
               var detailItem = document.createElement("div")
               detailItem.className = "detail-item " + detail.status
 
@@ -2784,7 +2787,8 @@
 
             // helper function to add items to the collections
             function collectItems(section, sectionName) {
-              for (var detail of section.details) {
+              for (var j = 0; j < section.details.length; j++) {
+                var detail = section.details[j]
                 if (detail.status === "missing") {
                   allMissing.push({
                     section: sectionName,
@@ -2814,7 +2818,8 @@
             var lowPriority = []
 
             // high priority: missing contact info, major experience/education issues
-            for (var item of allMissing) {
+            for (var j = 0; j < allMissing.length; j++) {
+              var item = allMissing[j]
               if (
                 item.section === t("contact_information") ||
                 (item.section === t("work_experience") &&
@@ -2843,7 +2848,8 @@
             }
 
             // medium priority: partial items and format issues
-            for (var item of allPartial) {
+            for (var j = 0; j < allPartial.length; j++) {
+              var item = allPartial[j]
               if (
                 item.section === t("format_and_readability") &&
                 [t("clear_sections"), t("consistent_formatting")].includes(item.item)
@@ -2883,7 +2889,8 @@
           function populateImprovementList(listId, items) {
             var list = document.getElementById(listId)
 
-            for (var item of items) {
+            for (var j = 0; j < items.length; j++) {
+              var item = items[j]
               var li = document.createElement("li")
               // clear existing content
               while (li.firstChild) {
@@ -2932,7 +2939,8 @@
           function addAnimatedScoreBorder(element, score) {
             // remove any existing animated borders
             var existingBorders = document.querySelectorAll(".score-border")
-            for (var border of existingBorders) {
+            for (var j = 0; j < existingBorders.length; j++) {
+              var border = existingBorders[j]
               border.remove()
             }
 
