@@ -840,7 +840,7 @@ describe("MediaPlayer/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "3685ef2b"
+    const expectedHash = "29bc5f0c"
     let currentHash = ""
 
     try {
