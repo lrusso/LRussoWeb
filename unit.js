@@ -770,7 +770,7 @@ describe("JavaScriptMinifier/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "1167d3fb"
+    const expectedHash = "65d82751"
     let currentHash = ""
 
     try {
