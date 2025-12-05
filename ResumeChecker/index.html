@@ -1716,114 +1716,126 @@
           }
 
           // function to parse pdf resume
-          async function parsePDF(file) {
-            try {
-              var arrayBuffer = await readFileAsArrayBuffer(file)
-              // eslint-disable-next-line
-              var pdf = await pdfjsLib.getDocument(arrayBuffer).promise
-              var fullText = ""
+          function parsePDF(file) {
+            readFileAsArrayBuffer(file)
+              .then(function (arrayBuffer) {
+                // eslint-disable-next-line
+                return pdfjsLib.getDocument(arrayBuffer).promise
+              })
+              .then(function (pdf) {
+                var pagePromises = []
 
-              // extract text from all pages
-              for (var j = 1; j <= pdf.numPages; j++) {
-                var page = await pdf.getPage(j)
-                var textContent = await page.getTextContent()
-
-                // improved text extraction that preserves structure better
-                var lastY
-                var text = ""
-                for (var k = 0; k < textContent.items.length; k++) {
-                  var item = textContent.items[k]
-                  if (lastY === item.transform[5] || !lastY) {
-                    text = text + item.str
-                  } else {
-                    text = text + "\n" + item.str
-                  }
-                  lastY = item.transform[5]
+                // extract text from all pages
+                for (var j = 1; j <= pdf.numPages; j++) {
+                  pagePromises.push(
+                    pdf.getPage(j).then(function (page) {
+                      return page.getTextContent().then(function (textContent) {
+                        // improved text extraction that preserves structure better
+                        var lastY
+                        var text = ""
+                        for (var k = 0; k < textContent.items.length; k++) {
+                          var item = textContent.items[k]
+                          if (lastY === item.transform[5] || !lastY) {
+                            text = text + item.str
+                          } else {
+                            text = text + "\n" + item.str
+                          }
+                          lastY = item.transform[5]
+                        }
+                        return text + "\n"
+                      })
+                    })
+                  )
                 }
 
-                fullText = fullText + text + "\n"
-              }
+                return Promise.all(pagePromises)
+              })
+              .then(function (pageTexts) {
+                var fullText = pageTexts.join("")
 
-              // add file type info to results
-              var headerContainer = document.querySelector(".results-header h2")
+                // add file type info to results
+                var headerContainer = document.querySelector(".results-header h2")
 
-              // clear previous content if necessary
-              while (headerContainer.firstChild) {
-                headerContainer.removeChild(headerContainer.firstChild)
-              }
+                // clear previous content if necessary
+                while (headerContainer.firstChild) {
+                  headerContainer.removeChild(headerContainer.firstChild)
+                }
 
-              // add main text
-              headerContainer.appendChild(
-                document.createTextNode(t("resume_results"))
-              )
+                // add main text
+                headerContainer.appendChild(
+                  document.createTextNode(t("resume_results"))
+                )
 
-              // create the span element
-              var span = document.createElement("span")
-              span.className = "file-type-indicator file-type-pdf"
-              span.appendChild(document.createTextNode("PDF"))
+                // create the span element
+                var span = document.createElement("span")
+                span.className = "file-type-indicator file-type-pdf"
+                span.appendChild(document.createTextNode("PDF"))
 
-              // append the span
-              headerContainer.appendChild(span)
+                // append the span
+                headerContainer.appendChild(span)
 
-              // analyze the resume text
-              document.getElementById("full-text").innerText = fullText
-              analyzeResume(fullText)
-            } catch (error) {
-              // eslint-disable-next-line
-              console.error("Error parsing PDF:", error)
-              resetUploadUI(true)
-            }
+                // analyze the resume text
+                document.getElementById("full-text").innerText = fullText
+                analyzeResume(fullText)
+              })
+              .catch(function (error) {
+                // eslint-disable-next-line
+                console.error("Error parsing PDF:", error)
+                resetUploadUI(true)
+              })
           }
 
           // function to parse docx resume
-          async function parseDOCX(file) {
-            try {
-              var arrayBuffer = await readFileAsArrayBuffer(file)
-
-              // use mammoth.js to extract text from docx
-              // eslint-disable-next-line
-              var result = await mammoth.convertToHtml({
-                arrayBuffer: arrayBuffer,
+          function parseDOCX(file) {
+            readFileAsArrayBuffer(file)
+              .then(function (arrayBuffer) {
+                // use mammoth.js to extract text from docx
+                // eslint-disable-next-line
+                return mammoth.convertToHtml({
+                  arrayBuffer: arrayBuffer,
+                })
               })
-              var fullText = result.value
-              fullText = fullText.replace(/<li>(.*?)<\/li>/g, "\u2022 $1\n")
-              fullText = fullText.replace(/<p>(.*?)<\/p>/g, "$1\n")
+              .then(function (result) {
+                var fullText = result.value
+                fullText = fullText.replace(/<li>(.*?)<\/li>/g, "\u2022 $1\n")
+                fullText = fullText.replace(/<p>(.*?)<\/p>/g, "$1\n")
 
-              var tempElement = document.createElement("div")
-              tempElement.innerHTML = fullText
-              var rawText = tempElement.textContent || tempElement.innerText || ""
+                var tempElement = document.createElement("div")
+                tempElement.innerHTML = fullText
+                var rawText = tempElement.textContent || tempElement.innerText || ""
 
-              fullText = rawText
+                fullText = rawText
 
-              // select the header element
-              var headerContainer = document.querySelector(".results-header h2")
+                // select the header element
+                var headerContainer = document.querySelector(".results-header h2")
 
-              // clear any existing child nodes
-              while (headerContainer.firstChild) {
-                headerContainer.removeChild(headerContainer.firstChild)
-              }
+                // clear any existing child nodes
+                while (headerContainer.firstChild) {
+                  headerContainer.removeChild(headerContainer.firstChild)
+                }
 
-              // add main text
-              headerContainer.appendChild(
-                document.createTextNode(t("resume_results"))
-              )
+                // add main text
+                headerContainer.appendChild(
+                  document.createTextNode(t("resume_results"))
+                )
 
-              // create span for the file type indicator
-              var span = document.createElement("span")
-              span.className = "file-type-indicator file-type-docx"
-              span.appendChild(document.createTextNode("DOCX"))
+                // create span for the file type indicator
+                var span = document.createElement("span")
+                span.className = "file-type-indicator file-type-docx"
+                span.appendChild(document.createTextNode("DOCX"))
 
-              // append the span to the header
-              headerContainer.appendChild(span)
+                // append the span to the header
+                headerContainer.appendChild(span)
 
-              // analyze the resume text
-              document.getElementById("full-text").innerText = fullText
-              analyzeResume(fullText)
-            } catch (error) {
-              // eslint-disable-next-line
-              console.error("Error parsing DOCX:", error)
-              resetUploadUI(true)
-            }
+                // analyze the resume text
+                document.getElementById("full-text").innerText = fullText
+                analyzeResume(fullText)
+              })
+              .catch(function (error) {
+                // eslint-disable-next-line
+                console.error("Error parsing DOCX:", error)
+                resetUploadUI(true)
+              })
           }
 
           // function to read file as arraybuffer
