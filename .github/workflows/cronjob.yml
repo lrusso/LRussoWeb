@@ -30,6 +30,8 @@ jobs:
         run: node e2e.js
       - name: Running the W3C Validator
         run: node w3c.js
+      - name: Running the ECMAScript 5 Validator
+        run: node babel.js
       - name: Running the cron job
         env:
           BOT_SETTINGS: ${{ vars.BOT_SETTINGS }}

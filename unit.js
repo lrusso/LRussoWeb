@@ -450,7 +450,7 @@ describe(".github/workflows/ci.yml", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "260cf6b4"
+    const expectedHash = "68c38f52"
     let currentHash = ""
 
     try {
@@ -490,7 +490,7 @@ describe(".github/workflows/cronjob.yml", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "119ab950"
+    const expectedHash = "5a520aee"
     let currentHash = ""
 
     try {
