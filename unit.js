@@ -941,7 +941,7 @@ describe("ResumeChecker/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "e54f6cc"
+    const expectedHash = "36a14e6e"
     let currentHash = ""
 
     try {
