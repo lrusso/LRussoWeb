@@ -577,7 +577,7 @@ describe("Emulatrix/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "3be72507"
+    const expectedHash = "42d6d226"
     let currentHash = ""
 
     try {
@@ -770,7 +770,7 @@ describe("JavaScriptMinifier/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "2fd0ee93"
+    const expectedHash = "4b22c2f9"
     let currentHash = ""
 
     try {
