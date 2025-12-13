@@ -1,0 +1,22 @@
+{
+  "name": "Emulatrix",
+  "short_name": "Emulatrix",
+  "lang": "en-US",
+  "start_url": "../Emulatrix/index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "theme_color": "#000",
+  "background_color": "#000",
+  "icons": [
+    {
+      "src": "../Emulatrix/EmulatrixFavIcon_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../Emulatrix/EmulatrixFavIcon_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
