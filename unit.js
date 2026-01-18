@@ -1384,7 +1384,7 @@ describe("TinyACE/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "242677ee"
+    const expectedHash = "62c0a3ae"
     let currentHash = ""
 
     try {
@@ -1451,7 +1451,7 @@ describe("TinyDOC/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "75240473"
+    const expectedHash = "8ce034d"
     let currentHash = ""
 
     try {

@@ -1738,7 +1738,7 @@
             newIframe.src = "about:blank"
             document.getElementsByTagName("body")[0].appendChild(newIframe)
             newIframe.contentWindow.document.write(
-              "<!DOCTYPE html><html><head><title>" +
+              "<!doctype html><html><head><title>" +
                 this.encodeText(window.location.href) +
                 "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:" +
                 this.editorConfig.linkColor +
@@ -1761,7 +1761,7 @@
           try {
             var printingWindow = window.open("about:blank", "_blank")
             printingWindow.document.write(
-              "<!DOCTYPE html><html><head><title>" +
+              "<!doctype html><html><head><title>" +
                 this.encodeText(window.location.href) +
                 "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:" +
                 this.editorConfig.linkColor +

@@ -201,7 +201,7 @@
           dirty_yes: "Yes",
           dirty_no: "No",
           welcome:
-            '<!DOCTYPE html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="UTF-8">\n\t\t<link rel="stylesheet" href="styles.css">\n\t\t<title>Welcome to TinyACE Editor (based on Ace Code Editor) by Leonardo Russo / www.lrusso.com</title>\n\t</head>\n\t<body>\n\t\t<form action="example.html" method="GET">\n\t\t\t<input type="text" value="TEST TEXT">\n\t\t\t<input type="submit" value="ENTER">\n\t\t</form>\n\t</body>\n</html>',
+            '<!doctype html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="UTF-8">\n\t\t<link rel="stylesheet" href="styles.css">\n\t\t<title>Welcome to TinyACE Editor (based on Ace Code Editor) by Leonardo Russo / www.lrusso.com</title>\n\t</head>\n\t<body>\n\t\t<form action="example.html" method="GET">\n\t\t\t<input type="text" value="TEST TEXT">\n\t\t\t<input type="submit" value="ENTER">\n\t\t</form>\n\t</body>\n</html>',
         },
         es: {
           filename: "Sin nombre.html",
@@ -210,7 +210,7 @@
           dirty_yes: "S\xED",
           dirty_no: "No",
           welcome:
-            '<!DOCTYPE html>\n<html lang="es">\n\t<head>\n\t\t<meta charset="UTF-8">\n\t\t<link rel="stylesheet" href="styles.css">\n\t\t<title>Bienvenido a TinyACE Editor (basado en Ace Code Editor) por Leonardo Russo / www.lrusso.com</title>\n\t</head>\n\t<body>\n\t\t<form action="example.html" method="GET">\n\t\t\t<input type="text" value="TEST TEXT">\n\t\t\t<input type="submit" value="ENTER">\n\t\t</form>\n\t</body>\n</html>',
+            '<!doctype html>\n<html lang="es">\n\t<head>\n\t\t<meta charset="UTF-8">\n\t\t<link rel="stylesheet" href="styles.css">\n\t\t<title>Bienvenido a TinyACE Editor (basado en Ace Code Editor) por Leonardo Russo / www.lrusso.com</title>\n\t</head>\n\t<body>\n\t\t<form action="example.html" method="GET">\n\t\t\t<input type="text" value="TEST TEXT">\n\t\t\t<input type="submit" value="ENTER">\n\t\t</form>\n\t</body>\n</html>',
         },
       }
 
@@ -700,7 +700,7 @@
             newIframe.src = "about:blank"
             document.getElementsByTagName("body")[0].appendChild(newIframe)
             newIframe.contentWindow.document.write(
-              "<!DOCTYPE html><html><head><title>" +
+              "<!doctype html><html><head><title>" +
                 encodeText(window.location.href) +
                 "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:#3A76B1}</style></head><body>" +
                 encodeText(editor.getValue()) +
@@ -721,7 +721,7 @@
           try {
             var printingWindow = window.open("about:blank", "_blank")
             printingWindow.document.write(
-              "<!DOCTYPE html><html><head><title>" +
+              "<!doctype html><html><head><title>" +
                 encodeText(window.location.href) +
                 "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:#3A76B1}</style></head><body>" +
                 encodeText(editor.getValue()) +
