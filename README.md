@@ -13,6 +13,7 @@ This project integrates several distinct features, each designed to highlight sp
   - [Intelligent Web Scraping Bot](#intelligent-web-scraping-bot)
   - [Intranet Virtual Desktop](#intranet-virtual-desktop)
   - [Media Player](#media-player)
+  - [MP3 Converter](#mp3-converter)
   - [MP3 Tag Editor](#mp3-tag-editor)
   - [ATS Resume Checker](#ats-resume-checker)
   - [Code Editor](#code-editor)
@@ -66,6 +67,10 @@ It's a customizable web template designed to provide a virtual desktop experienc
 ### Media Player
 
 A custom-built media player is integrated into the project. This player goes beyond basic video playback by offering full support for embedded or external subtitles (in SRT format) and also provides support for MP3 files. It provides a clean, user-friendly interface with standard playback controls, making it ideal for presenting video content with accessibility in mind.
+
+### MP3 Converter
+
+A high-performance MP3 Converter is integrated into the project, designed for fast and reliable audio extraction and transcoding. It allows users to convert various video and audio formats into high-quality MP3 files with customizable bitrate options to balance file size and sound fidelity. The converter features a streamlined, ensuring a stable and controlled conversion process. With its focus on speed and efficiency, it provides a seamless way to transform media files into a universal audio format compatible with any device.
 
 ### MP3 Tag Editor
 
