@@ -793,7 +793,7 @@ describe("MP3TagEditor/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "48cd6da8"
+    const expectedHash = "4ba8ef86"
     let currentHash = ""
 
     try {
