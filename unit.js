@@ -577,7 +577,7 @@ describe("Intranet/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "6bea4ab"
+    const expectedHash = "71a59b9"
     let currentHash = ""
 
     try {
@@ -787,6 +787,73 @@ describe("MediaPlayer/index.html", function () {
   })
 })
 
+describe("MP3Converter/index.html", function () {
+  it("Should exist", function () {
+    expect(fileExists("MP3Converter/index.html")).toBe(true)
+  })
+
+  it("Should not have changed", function () {
+    const expectedHash = "68977dc6"
+    let currentHash = ""
+
+    try {
+      const content = readFileSync("MP3Converter/index.html", "utf8")
+      currentHash = generateHash(content)
+    } catch (err) {
+      currentHash = ""
+    }
+
+    expect(currentHash).toBe(expectedHash)
+  })
+
+  it("Should define the i18n variable", function () {
+    const variableExists = getVariable("MP3Converter/index.html", "APP_STRINGS")
+    expect(variableExists).not.toBe("")
+  })
+
+  it("Should have equal i18n key counts across languages", function () {
+    const APP_STRINGS = getVariable("MP3Converter/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const sameAmount = langsCheckAmountKeys(APP_STRINGS)
+
+    expect(sameAmount).toBe(true)
+  })
+
+  it("Should have matching i18n keys across languages", function () {
+    const APP_STRINGS = getVariable("MP3Converter/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveSameKeys = langsCheckSameKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveSameKeys).toBe(true)
+  })
+
+  it("Should have non-empty i18n keys across languages", function () {
+    const APP_STRINGS = getVariable("MP3Converter/index.html", "APP_STRINGS")
+      .replace(/,\s*([}\]])/g, "$1")
+      // convert hex escapes
+      .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+      })
+      .replace(/([{\s,])([a-zA-Z0-9_]+)\s*:(?=(?:[^"]*"[^"]*")*[^"]*$)/g, '$1"$2":')
+
+    const allLanguagesHaveNoEmptyKeys = langsCheckEmptyKeys(APP_STRINGS)
+
+    expect(allLanguagesHaveNoEmptyKeys).toBe(true)
+  })
+})
+
 describe("MP3TagEditor/index.html", function () {
   it("Should exist", function () {
     expect(fileExists("MP3TagEditor/index.html")).toBe(true)
@@ -860,7 +927,7 @@ describe("Resources/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "6ea3c6b1"
+    const expectedHash = "3e6df654"
     let currentHash = ""
 
     try {
@@ -1538,7 +1605,7 @@ describe("404.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "7231582d"
+    const expectedHash = "475b200b"
     let currentHash = ""
 
     try {
