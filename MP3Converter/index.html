@@ -228,7 +228,7 @@
           title: "WAV/MP3 to MP3 Converter",
           input: "Select Audio Files (WAV or MP3)",
           output: "Output Bitrate",
-          convertToMP3: "Convert to MP3",
+          convert_to_mp3: "Convert to MP3",
           converting: "Converting...",
           converted: "Download the converted files",
         },
@@ -236,7 +236,7 @@
           title: "Conversor de WAV/MP3 a MP3",
           input: "Seleccione archivos de audio (WAV o MP3)",
           output: "Bitrate de salida",
-          convertToMP3: "Convertir a MP3",
+          convert_to_mp3: "Convertir a MP3",
           converting: "Convirtiendo...",
           converted: "Descargar archivos convertidos",
         },
@@ -290,7 +290,7 @@
           document.querySelector(".title").innerText = t("title")
           document.querySelector("#audioFileGroup label").innerText = t("input")
           document.querySelector("#bitrateGroup label").innerText = t("output")
-          convertBtn.innerText = t("convertToMP3")
+          convertBtn.innerText = t("convert_to_mp3")
           conversionStatus.innerText = t("converting")
 
           audioFile.addEventListener("change", function (e) {
@@ -383,7 +383,7 @@
                       var originalName = file.name.replace(/\.(wav|mp3)$/i, "")
 
                       convertedFiles.push({
-                        name: originalName + " (" + bitrate + "kbps).mp3",
+                        name: originalName + " (" + bitrate + " kbps).mp3",
                         url: url,
                         bitrate: bitrate,
                       })

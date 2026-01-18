@@ -793,7 +793,7 @@ describe("MP3Converter/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "68977dc6"
+    const expectedHash = "21813d3a"
     let currentHash = ""
 
     try {
