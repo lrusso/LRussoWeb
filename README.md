@@ -291,7 +291,8 @@ function doPost(e) {
 - Click on `New repository secret`.
 - There you can create the `GOOGLE_API_KEY` variable with your `Deployment ID` value.
 
-- **Optional - To trash all emails that match the subject:**
+**Optional - To trash all emails that match the subject:**
+
 - Add the following code to the top of the file: `GmailApp.search("test");`
 - Save the project.
 - Click the `Run` icon.
