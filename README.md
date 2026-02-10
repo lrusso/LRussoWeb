@@ -252,6 +252,14 @@ function doPost(e) {
   const message = e.parameter.message
 
   try {
+    // move to trash all emails that match the subject (optional)
+    var searchQuery = 'subject:"' + subject + '"'
+    var threads = GmailApp.search(searchQuery)
+    if (threads.length > 0) {
+      GmailApp.moveThreadsToTrash(threads)
+    }
+
+    // send the email
     MailApp.sendEmail({
       to: emailAddress,
       subject: subject,
@@ -282,6 +290,13 @@ function doPost(e) {
 - Click on `Actions`.
 - Click on `New repository secret`.
 - There you can create the `GOOGLE_API_KEY` variable with your `Deployment ID` value.
+
+- **Optional - To trash all emails that match the subject:**
+- Add the following code to the top of the file: `GmailApp.search("test");`
+- Save the project.
+- Click the `Run` icon.
+- Grant access permissions.
+- **Note:** If you don't need this feature, you **MUST** remove lines 7 to 12 from the code above.
 
 ### Intranet Virtual Desktop Settings
 
