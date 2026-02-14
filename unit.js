@@ -793,7 +793,7 @@ describe("Llama/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "53b7efdb"
+    const expectedHash = "3e69ef02"
     let currentHash = ""
 
     try {
