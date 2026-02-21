@@ -323,18 +323,34 @@
 
           container.style.display = "block"
 
-          if ("wakeLock" in navigator) {
-            navigator.wakeLock
-              .request("screen")
-              .then(function (wl) {
-                wakeLock = wl
-              })
-              .catch(function () {})
-          }
+          requestWakeLock()
+
+          document.addEventListener("visibilitychange", onVisibilityChange)
 
           window.scrollTo(0, 0)
 
           animate()
+        }
+
+        function requestWakeLock() {
+          if ("wakeLock" in navigator && enabled) {
+            navigator.wakeLock
+              .request("screen")
+              .then(function (wl) {
+                wakeLock = wl
+                wakeLock.addEventListener("release", function () {
+                  wakeLock = null
+                  requestWakeLock()
+                })
+              })
+              .catch(function () {})
+          }
+        }
+
+        function onVisibilityChange() {
+          if (document.visibilityState === "visible" && enabled) {
+            requestWakeLock()
+          }
         }
 
         function stop() {
@@ -348,6 +364,8 @@
 
           document.getElementsByTagName("body")[0].style.overflowY = "initial"
           container.style.display = "none"
+
+          document.removeEventListener("visibilitychange", onVisibilityChange)
 
           if (wakeLock) {
             wakeLock.release()
