@@ -1355,7 +1355,31 @@
           e.stopPropagation()
           fileInput.value = null
           window.mpFileDialogOpen = true
+          window.mpWasFullscreen =
+            document.fullscreenElement ||
+            document.mozFullScreenElement ||
+            document.webkitFullscreenElement ||
+            document.msFullscreenElement
           fileInput.click()
+        }
+
+        window.mpRestoreFullscreen = function () {
+          if (window.mpWasFullscreen) {
+            window.mpWasFullscreen = false
+            try {
+              var docEl = document.getElementsByTagName("body")[0]
+              var requestFull =
+                docEl.requestFullscreen ||
+                docEl.mozRequestFullScreen ||
+                docEl.webkitRequestFullscreen ||
+                docEl.msRequestFullscreen
+              if (requestFull) {
+                requestFull.call(docEl)
+              }
+            } catch (err) {
+              //
+            }
+          }
         }
 
         initialBtn.addEventListener("click", mpOpenFileDialog)
@@ -1368,6 +1392,7 @@
         fileInput.addEventListener("change", function (e) {
           e.stopPropagation()
           window.mpFileDialogOpen = false
+          window.mpRestoreFullscreen()
           var files = Array.prototype.slice.call(e.target.files)
           mpAudioFiles = files
             .filter(function (f) {

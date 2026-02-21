@@ -577,7 +577,7 @@ describe("Intranet/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "5493aa98"
+    const expectedHash = "44acc66f"
     let currentHash = ""
 
     try {
