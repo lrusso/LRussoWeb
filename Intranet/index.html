@@ -936,7 +936,6 @@
         var mpAudio = new Audio()
 
         // --- build ui ---
-
         var wrapper = document.createElement("div")
         wrapper.style.width = width + "px"
         wrapper.style.height = height + "px"
@@ -1087,6 +1086,48 @@
           "M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
         )
 
+        // volume controls wrapper
+        var volumeControls = document.createElement("div")
+        volumeControls.style.position = "relative"
+        volumeControls.style.display = "flex"
+        volumeControls.style.alignItems = "center"
+
+        var volumeSliderContainer = document.createElement("div")
+        volumeSliderContainer.style.position = "absolute"
+        volumeSliderContainer.style.bottom = "35px"
+        volumeSliderContainer.style.left = "50%"
+        volumeSliderContainer.style.transform = "translateX(-50%)"
+        volumeSliderContainer.style.backgroundColor = "rgba(0,0,0,0.6)"
+        volumeSliderContainer.style.padding = "12px 8px"
+        volumeSliderContainer.style.borderRadius = "8px"
+        volumeSliderContainer.style.opacity = "0"
+        volumeSliderContainer.style.visibility = "hidden"
+        volumeSliderContainer.style.transition =
+          "opacity 0.2s ease, visibility 0.2s ease"
+
+        var volumeSliderTrack = document.createElement("div")
+        volumeSliderTrack.style.position = "relative"
+        volumeSliderTrack.style.width = "6px"
+        volumeSliderTrack.style.height = "80px"
+        volumeSliderTrack.style.backgroundColor = "rgba(255,255,255,0.3)"
+        volumeSliderTrack.style.borderRadius = "3px"
+        volumeSliderTrack.style.cursor = "pointer"
+
+        var volumeSliderLevel = document.createElement("div")
+        volumeSliderLevel.style.position = "absolute"
+        volumeSliderLevel.style.bottom = "0"
+        volumeSliderLevel.style.width = "100%"
+        volumeSliderLevel.style.height = "100%"
+        volumeSliderLevel.style.backgroundColor = "#fff"
+        volumeSliderLevel.style.borderRadius = "3px"
+
+        volumeSliderTrack.appendChild(volumeSliderLevel)
+        volumeSliderContainer.appendChild(volumeSliderTrack)
+        volumeControls.appendChild(volumeBtn)
+        volumeControls.appendChild(volumeSliderContainer)
+
+        var mpIsDraggingVolume = false
+
         // file selector button
         var fileSelectorBtn = document.createElement("button")
         fileSelectorBtn.style.background = "none"
@@ -1119,7 +1160,7 @@
         controlsArea.appendChild(prevBtn)
         controlsArea.appendChild(playPauseBtn)
         controlsArea.appendChild(nextBtn)
-        controlsArea.appendChild(volumeBtn)
+        controlsArea.appendChild(volumeControls)
         controlsArea.appendChild(fileSelectorBtn)
         controlsArea.appendChild(fileInput)
 
@@ -1168,10 +1209,17 @@
         function mpUpdateVolumeIcon() {
           var vol = mpAudio.muted ? 0 : mpAudio.volume
           var svg = volumeBtn.querySelector("svg path")
+
+          volumeSliderLevel.style.height =
+            (mpAudio.muted ? 0 : mpAudio.volume * 100) + "%"
+
           if (vol === 0) {
             svg.setAttribute("d", "M7,9V15H11L16,20V4L11,9H7Z")
             svg.setAttribute("transform", "translate(-4, 0)")
-          } else if (vol < 0.5) {
+          } else if (vol < 0.33) {
+            svg.setAttribute("d", "M7,9V15H11L16,20V4L11,9H7Z")
+            svg.setAttribute("transform", "translate(-4, 0)")
+          } else if (vol < 0.66) {
             svg.setAttribute(
               "d",
               "M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
@@ -1319,6 +1367,51 @@
             mpAudio.muted = !mpAudio.muted
           }
           mpUpdateVolumeIcon()
+        })
+
+        volumeControls.addEventListener("mouseenter", function () {
+          volumeSliderContainer.style.opacity = "1"
+          volumeSliderContainer.style.visibility = "visible"
+        })
+
+        volumeControls.addEventListener("mouseleave", function () {
+          if (!mpIsDraggingVolume) {
+            volumeSliderContainer.style.opacity = "0"
+            volumeSliderContainer.style.visibility = "hidden"
+          }
+        })
+
+        function mpHandleVolumeDrag(event) {
+          var rect = volumeSliderTrack.getBoundingClientRect()
+          var y = event.clientY - rect.top
+          var percentage = Math.max(0, Math.min(1, 1 - y / rect.height))
+          mpAudio.volume = percentage
+          if (percentage > 0) {
+            mpAudio.muted = false
+          }
+          mpUpdateVolumeIcon()
+        }
+
+        volumeSliderTrack.addEventListener("mousedown", function (e) {
+          e.stopPropagation()
+          mpIsDraggingVolume = true
+          mpHandleVolumeDrag(e)
+        })
+
+        document.addEventListener("mousemove", function (e) {
+          if (mpIsDraggingVolume) {
+            mpHandleVolumeDrag(e)
+          }
+        })
+
+        document.addEventListener("mouseup", function () {
+          if (mpIsDraggingVolume) {
+            mpIsDraggingVolume = false
+            if (!volumeControls.matches(":hover")) {
+              volumeSliderContainer.style.opacity = "0"
+              volumeSliderContainer.style.visibility = "hidden"
+            }
+          }
         })
 
         mpAudio.addEventListener("play", mpUpdatePlayIcon)
