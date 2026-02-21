@@ -1170,7 +1170,7 @@
         initialScreen.style.alignItems = "center"
         initialScreen.style.justifyContent = "center"
         initialScreen.style.flex = "1"
-        initialScreen.style.cursor = "pointer"
+        initialScreen.style.cursor = "default"
 
         var initialBtn = document.createElement("button")
         initialBtn.style.background = "none"
@@ -1353,6 +1353,7 @@
 
         function mpOpenFileDialog(e) {
           e.stopPropagation()
+          fileInput.value = null
           window.mpFileDialogOpen = true
           fileInput.click()
         }
