@@ -252,6 +252,7 @@
 
       function createScreensaver(params) {
         var container = null
+        var wakeLock = null
         var imgX = 0
         var imgY = 0
         var imgWidth = 0
@@ -322,6 +323,15 @@
 
           container.style.display = "block"
 
+          if ("wakeLock" in navigator) {
+            navigator.wakeLock
+              .request("screen")
+              .then(function (wl) {
+                wakeLock = wl
+              })
+              .catch(function () {})
+          }
+
           window.scrollTo(0, 0)
 
           animate()
@@ -338,6 +348,11 @@
 
           document.getElementsByTagName("body")[0].style.overflowY = "initial"
           container.style.display = "none"
+
+          if (wakeLock) {
+            wakeLock.release()
+            wakeLock = null
+          }
         }
 
         function animate() {
