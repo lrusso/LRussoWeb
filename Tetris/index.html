@@ -651,7 +651,7 @@
         this.keyD = null
         this.keyW = null
         this.keyP = null
-        this.keySpace = null
+        this.keyEnter = null
         this.keyPauseLastKeyDown = null
         this.boardBorder = null
         this.audioPlayer = null
@@ -767,8 +767,8 @@
           this.keyD = null
           this.keyW = null
           this.keyP = null
-          this.keySpace = null
-          this.keyPauseLastKeyDown = 0
+          this.keyEnter = null
+          this.keyPauseLastKeyDown = this.getCurrentTime()
           this.boardBorder = null
           this.audioPlayer = null
         },
@@ -978,13 +978,13 @@
           // adding the cursor keys listener
           this.cursors = game.input.keyboard.createCursorKeys()
 
-          // registering the 'a', 's', 'd', 'w', 'p' and space keys
+          // registering the 'a', 's', 'd', 'w', 'p' and enter keys
           this.keyA = game.input.keyboard.addKey(Phaser.Keyboard.A)
           this.keyS = game.input.keyboard.addKey(Phaser.Keyboard.S)
           this.keyD = game.input.keyboard.addKey(Phaser.Keyboard.D)
           this.keyW = game.input.keyboard.addKey(Phaser.Keyboard.W)
           this.keyP = game.input.keyboard.addKey(Phaser.Keyboard.P)
-          this.keySpace = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+          this.keyEnter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
 
           // timer to make the the falling tetromino fall
           this.timer = game.time.events
@@ -1013,8 +1013,8 @@
         },
 
         update: function update() {
-          // checking if the user is pressing the 'p' or space key
-          if (this.keyP.isDown || this.keySpace.isDown) {
+          // checking if the user is pressing the 'p' or enter key
+          if (this.keyP.isDown || this.keyEnter.isDown) {
             // checking if the the enough amount of time passed in order to allow the movement
             if (
               this.getCurrentTime() - this.keyPauseLastKeyDown >
