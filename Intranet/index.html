@@ -1164,6 +1164,64 @@
         controlsArea.appendChild(fileSelectorBtn)
         controlsArea.appendChild(fileInput)
 
+        // initial file selector screen
+        var initialScreen = document.createElement("div")
+        initialScreen.style.display = "flex"
+        initialScreen.style.alignItems = "center"
+        initialScreen.style.justifyContent = "center"
+        initialScreen.style.flex = "1"
+        initialScreen.style.cursor = "pointer"
+
+        var initialBtn = document.createElement("button")
+        initialBtn.style.background = "none"
+        initialBtn.style.border = "0"
+        initialBtn.style.padding = "0"
+        initialBtn.style.cursor = "pointer"
+        initialBtn.style.outline = "0"
+        initialBtn.style.width = "40%"
+        initialBtn.style.height = "40%"
+        initialBtn.addEventListener("mouseenter", function () {
+          initialBtn.style.filter = "brightness(110%)"
+        })
+        initialBtn.addEventListener("mouseleave", function () {
+          initialBtn.style.filter = ""
+        })
+
+        var initialSvg = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        initialSvg.setAttribute("width", "100%")
+        initialSvg.setAttribute("height", "100%")
+        initialSvg.setAttribute("viewBox", "0 0 502 502")
+        var initialCircle = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        )
+        initialCircle.setAttribute("fill", "#FFF")
+        initialCircle.setAttribute("cx", "250")
+        initialCircle.setAttribute("cy", "250")
+        initialCircle.setAttribute("r", "200")
+        var initialPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        initialPath.setAttribute("fill", "#b9180b")
+        initialPath.setAttribute(
+          "d",
+          "M251,1C112.929,1,1,112.929,1,251s111.929,250,250,250s250-111.929,250-250S389.071,1,251,1z M164.75,366  V136l230,115L164.75,366z"
+        )
+        initialSvg.appendChild(initialCircle)
+        initialSvg.appendChild(initialPath)
+        initialBtn.appendChild(initialSvg)
+        initialScreen.appendChild(initialBtn)
+
+        // hide player ui initially
+        infoArea.style.display = "none"
+        progressArea.style.display = "none"
+        controlsArea.style.display = "none"
+
+        wrapper.appendChild(initialScreen)
         wrapper.appendChild(infoArea)
         wrapper.appendChild(progressArea)
         wrapper.appendChild(controlsArea)
@@ -1293,11 +1351,14 @@
 
         // --- events ---
 
-        fileSelectorBtn.addEventListener("click", function (e) {
+        function mpOpenFileDialog(e) {
           e.stopPropagation()
           window.mpFileDialogOpen = true
           fileInput.click()
-        })
+        }
+
+        initialBtn.addEventListener("click", mpOpenFileDialog)
+        fileSelectorBtn.addEventListener("click", mpOpenFileDialog)
 
         fileInput.addEventListener("click", function (e) {
           e.stopPropagation()
@@ -1318,8 +1379,11 @@
             return
           }
 
-          mpShowNavButtons(mpAudioFiles.length > 1)
+          initialScreen.style.display = "none"
+          infoArea.style.display = "flex"
+          controlsArea.style.display = "flex"
           progressArea.style.display = "block"
+          mpShowNavButtons(mpAudioFiles.length > 1)
           mpLoadTrack(0)
         })
 
