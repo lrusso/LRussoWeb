@@ -72,11 +72,56 @@
       // desktop content
       // ---------------------------------------------------------------------------------------------------
 
+      function toggleFullscreen() {
+        try {
+          var docEl = document.getElementsByTagName("body")[0]
+
+          var requestFull =
+            docEl.requestFullscreen ||
+            docEl.mozRequestFullScreen ||
+            docEl.webkitRequestFullscreen ||
+            docEl.msRequestFullscreen
+
+          var isFull =
+            document.fullscreenElement ||
+            document.mozFullScreenElement ||
+            document.webkitFullscreenElement ||
+            document.msFullscreenElement
+
+          if (!isFull) {
+            if (requestFull) {
+              requestFull.call(docEl)
+            }
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      function handleFullscreenKeydown(event) {
+        var KEY_CTRL = event.ctrlKey || event.metaKey
+        var KEY_SHIFT = event.shiftKey
+        var KEY_F = event.code === "KeyF"
+
+        if (KEY_CTRL && KEY_SHIFT && KEY_F) {
+          event.preventDefault()
+          toggleFullscreen()
+        }
+      }
+
       function createIframe(url) {
         var suffixContent = location.protocol === "file:" ? "/index.html" : ""
         var customIframe = document.createElement("iframe")
         customIframe.src = url + suffixContent
         customIframe.addEventListener("load", function () {
+          try {
+            customIframe.contentWindow.document.addEventListener(
+              "keydown",
+              handleFullscreenKeydown
+            )
+          } catch (err) {
+            //
+          }
           customIframe.titleCheckerInterval = setInterval(function () {
             try {
               var currentTitle =
@@ -2235,39 +2280,7 @@
             disabledWhenUsingIframes: true,
           })
 
-          document.addEventListener("keydown", function (event) {
-            var KEY_CTRL = event.ctrlKey || event.metaKey
-            var KEY_SHIFT = event.shiftKey
-            var KEY_F = event.code === "KeyF"
-
-            if (KEY_CTRL && KEY_SHIFT && KEY_F) {
-              event.preventDefault()
-
-              try {
-                var docEl = document.getElementsByTagName("body")[0]
-
-                var requestFull =
-                  docEl.requestFullscreen ||
-                  docEl.mozRequestFullScreen ||
-                  docEl.webkitRequestFullscreen ||
-                  docEl.msRequestFullscreen
-
-                var isFull =
-                  document.fullscreenElement ||
-                  document.mozFullScreenElement ||
-                  document.webkitFullscreenElement ||
-                  document.msFullscreenElement
-
-                if (!isFull) {
-                  if (requestFull) {
-                    requestFull.call(docEl)
-                  }
-                }
-              } catch (err) {
-                //
-              }
-            }
-          })
+          document.addEventListener("keydown", handleFullscreenKeydown)
         }
       })
     </script>
