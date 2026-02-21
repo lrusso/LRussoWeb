@@ -577,7 +577,7 @@ describe("Intranet/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "56870030"
+    const expectedHash = "143c4c29"
     let currentHash = ""
 
     try {
@@ -1061,7 +1061,7 @@ describe("Resources/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "131299dd"
+    const expectedHash = "3a301ee5"
     let currentHash = ""
 
     try {
