@@ -323,13 +323,13 @@
 
           container.style.display = "block"
 
-          requestWakeLock()
-
-          document.addEventListener("visibilitychange", onVisibilityChange)
-
           window.scrollTo(0, 0)
 
           animate()
+
+          requestWakeLock()
+
+          document.addEventListener("visibilitychange", onVisibilityChange)
         }
 
         function requestWakeLock() {
