@@ -2281,6 +2281,18 @@
           })
 
           document.addEventListener("keydown", handleFullscreenKeydown)
+
+          window.addEventListener("focus", function () {
+            try {
+              if (document.getElementsByTagName("iframe")[0]) {
+                setTimeout(function () {
+                  document.getElementsByTagName("iframe")[0].focus()
+                }, 25)
+              }
+            } catch (err) {
+              //
+            }
+          })
         }
       })
     </script>
