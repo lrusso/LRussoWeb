@@ -1010,27 +1010,6 @@
             // updating the game over status
             this.isGameOver = false
           }
-
-          // hiding the cursor when a key is pressed during gameplay
-          document.addEventListener("keydown", function () {
-            document.body.style.cursor = "none"
-          })
-
-          // showing the cursor when the mouse is moved
-          document.addEventListener("mousemove", function () {
-            document.body.style.cursor = "default"
-          })
-
-          // hiding the cursor when a key when going back to the game
-          window.addEventListener("focus", function () {
-            // thank you chrome
-            setTimeout(function () {
-              document.body.style.cursor = "default"
-            }, 25)
-            setTimeout(function () {
-              document.body.style.cursor = "none"
-            }, 50)
-          })
         },
 
         update: function update() {
@@ -1802,6 +1781,27 @@
 
         // starting the game preloader
         game.state.start("Tetris.Preloader")
+
+        // hiding the cursor when a key is pressed during gameplay
+        document.addEventListener("keydown", function () {
+          document.body.style.cursor = "none"
+        })
+
+        // showing the cursor when the mouse is moved
+        document.addEventListener("mousemove", function () {
+          document.body.style.cursor = "default"
+        })
+
+        // hiding the cursor when a key when going back to the game
+        window.addEventListener("focus", function () {
+          // thank you chrome
+          setTimeout(function () {
+            document.body.style.cursor = "default"
+          }, 25)
+          setTimeout(function () {
+            document.body.style.cursor = "none"
+          }, 50)
+        })
       }
 
       if ("serviceWorker" in navigator) {
