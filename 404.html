@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script>
+      var redirects = {
+        "/cssminifier": "/CSSMinifier",
+        "/intranet": "/Intranet",
+        "/javascriptminifier": "/JavaScriptMinifier",
+        "/llama": "/Llama",
+        "/mediaplayer": "/MediaPlayer",
+        "/mp3converter": "/MP3Converter",
+        "/mp3tageditor": "/MP3TagEditor",
+        "/pdfconverter": "/PDFConverter",
+        "/resources": "/Resources",
+        "/resumechecker": "/ResumeChecker",
+        "/spider": "/Spider",
+        "/taipei": "/Taipei",
+        "/tarot": "/Tarot",
+        "/tetris": "/Tetris",
+        "/tinyace": "/TinyACE",
+        "/tinydoc": "/TinyDOC",
+        "/tinyimg": "/TinyIMG",
+        "/webcamrecorder": "/WebcamRecorder",
+        "/webzip": "/WebZip",
+      }
+
+      var requestedURL = window.location.href.toLowerCase().trim()
+      var currentDomain = window.location.origin.toLowerCase().startsWith("file://")
+        ? "index.html"
+        : window.location.origin.toLowerCase()
+      var mustRedirectToHome = true
+
+      for (var path in redirects) {
+        if (
+          requestedURL.endsWith(currentDomain + path) ||
+          requestedURL.endsWith(currentDomain + path + "/")
+        ) {
+          mustRedirectToHome = false
+          if (redirects[path].startsWith("/")) {
+            window.location.href = currentDomain + redirects[path] + "/"
+          } else {
+            window.location.href = redirects[path]
+          }
+        }
+      }
+
+      if (mustRedirectToHome) {
+        window.location.href = currentDomain
+      }
+    </script>
+  </body>
+</html>

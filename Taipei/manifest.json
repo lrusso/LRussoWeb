@@ -1,0 +1,22 @@
+{
+  "name": "Taipei",
+  "short_name": "Taipei",
+  "lang": "en-US",
+  "start_url": "../Taipei/index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "theme_color": "#000",
+  "background_color": "#000",
+  "icons": [
+    {
+      "src": "../Taipei/TaipeiFavIcon_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../Taipei/TaipeiFavIcon_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

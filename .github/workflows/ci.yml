@@ -1,0 +1,36 @@
+name: "Continuous Integration"
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: "continuous-integration"
+  cancel-in-progress: true
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - name: Setting up the environment
+        uses: actions/setup-java@v3
+        with:
+          distribution: "zulu"
+          java-version: 17
+      - name: Running ESLint
+        run: node eslint.js
+      - name: Running Prettier
+        run: node prettier.js
+      - name: Running Unit Tests
+        run: node unit.js
+      - name: Running End-to-End Tests
+        run: node e2e.js
+      - name: Running the W3C Validator
+        run: node w3c.js
+      - name: Running the ECMAScript 5 Validator
+        run: node babel.js
