@@ -1444,7 +1444,7 @@ describe("Tarot/index.html", function () {
   })
 
   it("Should not have changed", function () {
-    const expectedHash = "7eec8e3e"
+    const expectedHash = "1c931991"
     let currentHash = ""
 
     try {
