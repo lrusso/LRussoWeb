@@ -1109,32 +1109,20 @@
           ctx.quadraticCurveTo(7, 7, 17, 7)
           ctx.stroke()
 
-          // numeral
+          // numeral (top)
           ctx.fillStyle = textColor
           ctx.font = "bold 16px serif"
           ctx.textAlign = "center"
           ctx.textBaseline = "middle"
           ctx.fillText(data.numeral, cardW / 2, 24)
 
-          // emoji symbol
-          ctx.font = "64px serif"
+          // emoji symbol (vertically centered)
+          ctx.font = "96px serif"
           ctx.textBaseline = "middle"
-          ctx.fillText(data.symbol, cardW / 2, 90)
+          ctx.fillText(data.symbol, cardW / 2, cardH / 2)
 
-          // decorative line 1
-          ctx.strokeStyle = lineColor
-          ctx.lineWidth = 1
-          ctx.globalAlpha = 0.6
-          ctx.beginPath()
-          ctx.moveTo(cardW * 0.2, 130)
-          ctx.lineTo(cardW * 0.8, 130)
-          ctx.stroke()
-          ctx.globalAlpha = 1.0
-
-          // card name (with word wrap)
-          ctx.fillStyle = nameColor
+          // pre-calculate name lines for bottom section
           ctx.font = "bold 12px serif"
-          ctx.textBaseline = "middle"
           var nameText = cardInfo.name
           var nameLines = []
           if (ctx.measureText(nameText).width > cardW - 20) {
@@ -1153,56 +1141,43 @@
           } else {
             nameLines.push(nameText)
           }
-          var nameY = 148
-          for (var nl = 0; nl < nameLines.length; nl++) {
-            ctx.fillText(nameLines[nl], cardW / 2, nameY + nl * 15)
-          }
-          var afterNameY = nameY + nameLines.length * 15 + 2
 
-          // suit badge
-          if (data.suit) {
-            ctx.fillStyle = meaningColor
-            ctx.font = "10px serif"
-            ctx.globalAlpha = 0.7
-            ctx.fillText(SUIT_LABELS[data.suit].toUpperCase(), cardW / 2, afterNameY)
-            ctx.globalAlpha = 1.0
-            afterNameY += 12
-          }
+          // bottom section: line1 + name + line2 drawn upward from bottom
+          var bottomMargin = 15
+          var line2Y = cardH - bottomMargin
+          var nameH = nameLines.length * 15
+          var gapAfterName = 4
+          var nameStartY = line2Y - gapAfterName - nameH
+          var gapAfterLine1 = 6
+          var line1Y = nameStartY - gapAfterLine1
 
-          // decorative line 2
+          // decorative line 1 (bottom)
           ctx.strokeStyle = lineColor
           ctx.lineWidth = 1
           ctx.globalAlpha = 0.6
           ctx.beginPath()
-          ctx.moveTo(cardW * 0.2, afterNameY)
-          ctx.lineTo(cardW * 0.8, afterNameY)
+          ctx.moveTo(cardW * 0.2, line1Y)
+          ctx.lineTo(cardW * 0.8, line1Y)
           ctx.stroke()
           ctx.globalAlpha = 1.0
 
-          // meaning text (first few words)
-          ctx.fillStyle = meaningColor
-          ctx.font = "italic 10px serif"
-          var meaningText = cardInfo.upright
-          meaningText = meaningText.replace(/\n/g, " ")
-          var mWords = meaningText.split(" ")
-          var mLine = ""
-          var mY = afterNameY + 12
-          var mMaxLines = 4
-          var mLineCount = 0
-          for (var mw = 0; mw < mWords.length && mLineCount < mMaxLines; mw++) {
-            var mTest = mLine + (mLine ? " " : "") + mWords[mw]
-            if (ctx.measureText(mTest).width > cardW - 24 && mLine) {
-              ctx.fillText(mLine, cardW / 2, mY)
-              mLine = mWords[mw]
-              mY += 12
-              mLineCount++
-            } else {
-              mLine = mTest
-            }
+          // card name (bottom)
+          ctx.fillStyle = nameColor
+          ctx.font = "bold 12px serif"
+          ctx.textBaseline = "middle"
+          for (var nl = 0; nl < nameLines.length; nl++) {
+            ctx.fillText(nameLines[nl], cardW / 2, nameStartY + nl * 15 + 7)
           }
-          if (mLine && mLineCount < mMaxLines) {
-            ctx.fillText(mLine, cardW / 2, mY)
-          }
+
+          // decorative line 2 (bottom)
+          ctx.strokeStyle = lineColor
+          ctx.lineWidth = 1
+          ctx.globalAlpha = 0.6
+          ctx.beginPath()
+          ctx.moveTo(cardW * 0.2, line2Y)
+          ctx.lineTo(cardW * 0.8, line2Y)
+          ctx.stroke()
+          ctx.globalAlpha = 1.0
 
           // store in bitmap data cache
           game.cache.addBitmapData("cardFront_" + i, bmd)
