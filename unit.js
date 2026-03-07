@@ -1464,6 +1464,7 @@ describe("Tarot/index.html", function () {
 
   it("Should have equal i18n key counts across languages", function () {
     const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
+      .replace(/\/\/.*$/gm, "")
       .replace(/,\s*([}\]])/g, "$1")
       // convert hex escapes
       .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
@@ -1478,6 +1479,7 @@ describe("Tarot/index.html", function () {
 
   it("Should have matching i18n keys across languages", function () {
     const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
+      .replace(/\/\/.*$/gm, "")
       .replace(/,\s*([}\]])/g, "$1")
       // convert hex escapes
       .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
@@ -1492,6 +1494,7 @@ describe("Tarot/index.html", function () {
 
   it("Should have non-empty i18n keys across languages", function () {
     const APP_STRINGS = getVariable("Tarot/index.html", "APP_STRINGS")
+      .replace(/\/\/.*$/gm, "")
       .replace(/,\s*([}\]])/g, "$1")
       // convert hex escapes
       .replace(/\\x([0-9A-Fa-f]{2})/g, function (_, hex) {
