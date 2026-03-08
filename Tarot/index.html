@@ -1065,10 +1065,11 @@
         ctx.stroke()
 
         // inner design box
-        var inX = cardW * 0.05
-        var inY = cardH * 0.05
-        var inW = cardW * 0.9
-        var inH = cardH * 0.9
+        var inMargin = 8
+        var inX = inMargin
+        var inY = inMargin
+        var inW = cardW - inMargin * 2
+        var inH = cardH - inMargin * 2
         ctx.strokeStyle = "#c9a84c"
         ctx.lineWidth = 1
         ctx.beginPath()
