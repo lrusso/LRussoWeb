@@ -1568,52 +1568,52 @@
           // adding the first card background text
           this.selectedCard1BackgroundText = game.add.graphics()
           this.selectedCard1BackgroundText.beginFill(0x000000, 0.75)
-          this.selectedCard1BackgroundText.drawRoundedRect(120, 25, 580, 135, 10)
+          this.selectedCard1BackgroundText.drawRoundedRect(15, 340, 230, 140, 10)
           this.selectedCard1BackgroundText.alpha = 0
 
           // adding the first card text
           this.selectedCard1Text = game.add.bitmapText(
-            130,
-            35,
+            25,
+            350,
             "ArialBlackShadow",
             "",
-            20.5
+            16
           )
-          this.selectedCard1Text.maxWidth = 560
+          this.selectedCard1Text.maxWidth = 210
           this.selectedCard1Text.alpha = 0
 
           // adding the second card background text
           this.selectedCard2BackgroundText = game.add.graphics()
           this.selectedCard2BackgroundText.beginFill(0x000000, 0.75)
-          this.selectedCard2BackgroundText.drawRoundedRect(120, 180, 580, 135, 10)
+          this.selectedCard2BackgroundText.drawRoundedRect(263, 340, 230, 140, 10)
           this.selectedCard2BackgroundText.alpha = 0
 
           // adding the second card text
           this.selectedCard2Text = game.add.bitmapText(
-            130,
-            190,
+            273,
+            350,
             "ArialBlackShadow",
             "",
-            20.5
+            16
           )
-          this.selectedCard2Text.maxWidth = 560
+          this.selectedCard2Text.maxWidth = 210
           this.selectedCard2Text.alpha = 0
 
           // adding the third card background text
           this.selectedCard3BackgroundText = game.add.graphics()
           this.selectedCard3BackgroundText.beginFill(0x000000, 0.75)
-          this.selectedCard3BackgroundText.drawRoundedRect(120, 335, 580, 135, 10)
+          this.selectedCard3BackgroundText.drawRoundedRect(511, 340, 230, 140, 10)
           this.selectedCard3BackgroundText.alpha = 0
 
           // adding the third card text
           this.selectedCard3Text = game.add.bitmapText(
-            130,
-            345,
+            521,
+            350,
             "ArialBlackShadow",
             "",
-            20.5
+            16
           )
-          this.selectedCard3Text.maxWidth = 560
+          this.selectedCard3Text.maxWidth = 210
           this.selectedCard3Text.alpha = 0
 
           // adding the restart button
@@ -1822,30 +1822,35 @@
         },
 
         relocateCards: function relocateCards() {
+          var cardScale = 1.20
+
           // relocating the first card
-          this.add.tween(this.selectedCard1Sprite).to({ x: 60 }, 300, "Linear", true)
-          this.add.tween(this.selectedCard1Sprite).to({ y: 92 }, 300, "Linear", true)
+          this.add.tween(this.selectedCard1Sprite).to({ x: 130 }, 300, "Linear", true)
+          this.add.tween(this.selectedCard1Sprite).to({ y: 169 }, 300, "Linear", true)
           this.add
             .tween(this.selectedCard1Sprite.scale)
-            .to({ x: 0.5, y: 0.5 }, 300, "Linear", true)
+            .to({ x: cardScale, y: cardScale }, 300, "Linear", true)
 
           // relocating the second card
-          this.add.tween(this.selectedCard2Sprite).to({ x: 60 }, 300, "Linear", true)
+          this.add.tween(this.selectedCard2Sprite).to({ x: 378 }, 300, "Linear", true)
           this.add
             .tween(this.selectedCard2Sprite)
-            .to({ y: 247 }, 300, "Linear", true)
+            .to({ y: 169 }, 300, "Linear", true)
           this.add
             .tween(this.selectedCard2Sprite.scale)
-            .to({ x: 0.5, y: 0.5 }, 300, "Linear", true)
+            .to({ x: cardScale, y: cardScale }, 300, "Linear", true)
 
           // relocating the third card
-          this.add.tween(this.selectedCard3Sprite).to({ x: 60 }, 300, "Linear", true)
+          this.add.tween(this.selectedCard3Sprite).to({ x: 626 }, 300, "Linear", true)
           this.add
             .tween(this.selectedCard3Sprite)
-            .to({ y: 402 }, 300, "Linear", true)
+            .to({ y: 169 }, 300, "Linear", true)
           this.add
             .tween(this.selectedCard3Sprite.scale)
-            .to({ x: 0.5, y: 0.5 }, 300, "Linear", true)
+            .to({ x: cardScale, y: cardScale }, 300, "Linear", true)
+
+          game.world.bringToTop(this.buttonRestartShadow)
+          game.world.bringToTop(this.buttonRestart)
 
           var self = this
           game.time.events.add(500, function () {
@@ -1872,7 +1877,7 @@
             },
           ]
 
-          var boxHeight = 135
+          var boxHeight = 140
           var textPadding = 10
           var maxTextHeight = boxHeight - textPadding * 2
 
