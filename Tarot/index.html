@@ -1987,22 +1987,26 @@
 
             // manually wrap text to avoid phaser word wrapping issues
             var maxLineWidth = 210
-            var wrappedText = cardInfo.name + ":\n"
-            var words = meaning.split(" ")
-            var line = ""
-            for (var wi = 0; wi < words.length; wi++) {
-              var testLine = line ? line + " " + words[wi] : words[wi]
-              cd.textObj.fontSize = 16
-              cd.textObj.setText(testLine)
-              if (cd.textObj.width > maxLineWidth && line) {
-                wrappedText = wrappedText + "\n" + line
-                line = words[wi]
-              } else {
-                line = testLine
+            var fullText = cardInfo.name + ":\n\n" + meaning
+            var paragraphs = fullText.split("\n")
+            var wrappedLines = []
+            for (var pi = 0; pi < paragraphs.length; pi++) {
+              var words = paragraphs[pi].split(" ")
+              var line = ""
+              for (var wi = 0; wi < words.length; wi++) {
+                var testLine = line ? line + " " + words[wi] : words[wi]
+                cd.textObj.fontSize = 16
+                cd.textObj.setText(testLine)
+                if (cd.textObj.width > maxLineWidth && line) {
+                  wrappedLines.push(line)
+                  line = words[wi]
+                } else {
+                  line = testLine
+                }
               }
+              wrappedLines.push(line)
             }
-            wrappedText = wrappedText + "\n" + line
-            cd.textObj.setText(wrappedText)
+            cd.textObj.setText(wrappedLines.join("\n"))
 
             // scale down text vertically if it overflows the background box height
             if (cd.textObj.height > maxTextHeight) {
