@@ -1090,25 +1090,6 @@
         ctx.quadraticCurveTo(inX, inY, inX + 6, inY)
         ctx.stroke()
 
-        // inner border
-        var ibX = inX + 8
-        var ibY = inY + 8
-        var ibW = inW - 16
-        var ibH = inH - 16
-        ctx.strokeStyle = "rgba(201, 168, 76, 0.3)"
-        ctx.lineWidth = 1
-        ctx.beginPath()
-        ctx.moveTo(ibX + 4, ibY)
-        ctx.lineTo(ibX + ibW - 4, ibY)
-        ctx.quadraticCurveTo(ibX + ibW, ibY, ibX + ibW, ibY + 4)
-        ctx.lineTo(ibX + ibW, ibY + ibH - 4)
-        ctx.quadraticCurveTo(ibX + ibW, ibY + ibH, ibX + ibW - 4, ibY + ibH)
-        ctx.lineTo(ibX + 4, ibY + ibH)
-        ctx.quadraticCurveTo(ibX, ibY + ibH, ibX, ibY + ibH - 4)
-        ctx.lineTo(ibX, ibY + 4)
-        ctx.quadraticCurveTo(ibX, ibY, ibX + 4, ibY)
-        ctx.stroke()
-
         // radial gradient overlay
         var rg = ctx.createRadialGradient(
           cardW / 2,
