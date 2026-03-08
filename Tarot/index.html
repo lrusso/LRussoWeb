@@ -1670,7 +1670,7 @@
             "",
             16
           )
-          this.selectedCard1Text.maxWidth = 210
+          this.selectedCard1Text.maxWidth = 0
           this.selectedCard1Text.alpha = 0
 
           // adding the second card background text
@@ -1687,7 +1687,7 @@
             "",
             16
           )
-          this.selectedCard2Text.maxWidth = 210
+          this.selectedCard2Text.maxWidth = 0
           this.selectedCard2Text.alpha = 0
 
           // adding the third card background text
@@ -1704,7 +1704,7 @@
             "",
             16
           )
-          this.selectedCard3Text.maxWidth = 210
+          this.selectedCard3Text.maxWidth = 0
           this.selectedCard3Text.alpha = 0
 
           // adding the restart button
@@ -1983,16 +1983,31 @@
           for (var mi = 0; mi < cardsData.length; mi++) {
             var cd = cardsData[mi]
             var cardInfo = t("cards")[cd.cardValue]
-            if (cd.reversed) {
-              cd.textObj.setText(cardInfo.name + ":\n\n" + cardInfo.reversed)
-            } else {
-              cd.textObj.setText(cardInfo.name + ":\n\n" + cardInfo.upright)
-            }
+            var meaning = cd.reversed ? cardInfo.reversed : cardInfo.upright
 
-            // scale down text if it overflows the background box height
+            // manually wrap text to avoid phaser word wrapping issues
+            var maxLineWidth = 210
+            var wrappedText = cardInfo.name + ":\n"
+            var words = meaning.split(" ")
+            var line = ""
+            for (var wi = 0; wi < words.length; wi++) {
+              var testLine = line ? line + " " + words[wi] : words[wi]
+              cd.textObj.fontSize = 16
+              cd.textObj.setText(testLine)
+              if (cd.textObj.width > maxLineWidth && line) {
+                wrappedText = wrappedText + "\n" + line
+                line = words[wi]
+              } else {
+                line = testLine
+              }
+            }
+            wrappedText = wrappedText + "\n" + line
+            cd.textObj.setText(wrappedText)
+
+            // scale down text vertically if it overflows the background box height
             if (cd.textObj.height > maxTextHeight) {
               var scaleFactor = maxTextHeight / cd.textObj.height
-              cd.textObj.scale.set(scaleFactor)
+              cd.textObj.scale.set(1, scaleFactor)
             } else {
               cd.textObj.scale.set(1)
             }
