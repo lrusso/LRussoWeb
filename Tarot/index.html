@@ -1749,6 +1749,8 @@
             })(cardSprite)
             this.cardSprites.push(cardSprite)
           }
+
+          this.accent = game.add.bitmapText(-100, -100, "ArialBlackWhite", "~", 16)
         },
 
         createCard: function createCard(x, y) {
@@ -2010,15 +2012,8 @@
 
             // fix for the spanish language (missing accent)
             if (cardInfo.name === "EL ERMITA\xD1O") {
-              this.accent = game.add.bitmapText(
-                0,
-                cd.textObj.position.y - 12,
-                "ArialBlackWhite",
-                "~",
-                20
-              )
-              this.accent.height = 24
-              this.accent.position.x = cd.textObj.position.x + 97
+              this.accent.position.x = cd.textObj.position.x + 98
+              this.accent.position.y = cd.textObj.position.y - 8
             }
 
             // scale down text vertically if it overflows the background box height
