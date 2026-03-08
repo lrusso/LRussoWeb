@@ -1576,6 +1576,7 @@
         this.selectedCard3BackgroundText = null
         this.selectedCard3Text = null
         this.accent = null
+        this.accentVisible = false
 
         // scaling the canvas size for the game
         function resizeF() {
@@ -1624,6 +1625,7 @@
           this.selectedCard3BackgroundText = null
           this.selectedCard3Text = null
           this.accent = null
+          this.accentVisible = false
         },
 
         create: function create() {
@@ -1751,6 +1753,7 @@
           }
 
           this.accent = game.add.bitmapText(-100, -100, "ArialBlackWhite", "~", 16)
+          this.accent.alpha = 0
         },
 
         createCard: function createCard(x, y) {
@@ -2014,6 +2017,7 @@
             if (cardInfo.name === "EL ERMITA\xD1O") {
               this.accent.position.x = cd.textObj.position.x + 98
               this.accent.position.y = cd.textObj.position.y - 8
+              this.accentVisible = true
             }
 
             // scale down text vertically if it overflows the background box height
@@ -2061,6 +2065,9 @@
           this.add
             .tween(this.selectedCard3Text)
             .to({ alpha: 1 }, 300, "Linear", true)
+          if (this.accentVisible) {
+            this.add.tween(this.accent).to({ alpha: 1 }, 300, "Linear", true)
+          }
         },
       }
 
