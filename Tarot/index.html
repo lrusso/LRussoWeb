@@ -1128,14 +1128,14 @@
         ctx.shadowBlur = 0
 
         // corner ornaments
+        var cornerOffset = 8
         ctx.font = "10px serif"
         ctx.globalAlpha = 0.7
-        ctx.textBaseline = "top"
-        ctx.fillText("\u2726", inX + 12, inY + 4)
-        ctx.fillText("\u2726", inX + inW - 12, inY + 4)
-        ctx.textBaseline = "bottom"
-        ctx.fillText("\u2726", inX + 12, inY + inH - 4)
-        ctx.fillText("\u2726", inX + inW - 12, inY + inH - 4)
+        ctx.textBaseline = "middle"
+        ctx.fillText("\u2726", inX + cornerOffset, inY + cornerOffset)
+        ctx.fillText("\u2726", inX + inW - cornerOffset, inY + cornerOffset)
+        ctx.fillText("\u2726", inX + cornerOffset, inY + inH - cornerOffset)
+        ctx.fillText("\u2726", inX + inW - cornerOffset, inY + inH - cornerOffset)
         ctx.globalAlpha = 1
 
         game.cache.addBitmapData("cardBack", bmd)
