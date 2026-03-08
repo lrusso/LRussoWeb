@@ -73,126 +73,6 @@
       // prettier-ignore
       function isMobileDevice() {return !!(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i));}
 
-      var CARD_DATA = [
-        // major arcana
-        { numeral: "0", symbol: "\uD83C\uDCCF", suit: null },
-        { numeral: "I", symbol: "\uD83E\uDE84", suit: null },
-        { numeral: "II", symbol: "\uD83C\uDF19", suit: null },
-        { numeral: "III", symbol: "\uD83D\uDC51", suit: null },
-        { numeral: "IV", symbol: "\u2694\uFE0F", suit: null },
-        { numeral: "V", symbol: "\uD83D\uDD11", suit: null },
-        { numeral: "VI", symbol: "\u2764\uFE0F", suit: null },
-        { numeral: "VII", symbol: "\uD83C\uDFC7", suit: null },
-        { numeral: "VIII", symbol: "\uD83E\uDD81", suit: null },
-        { numeral: "IX", symbol: "\uD83C\uDFEE", suit: null },
-        { numeral: "X", symbol: "\u2638\uFE0F", suit: null },
-        { numeral: "XI", symbol: "\u2696\uFE0F", suit: null },
-        { numeral: "XII", symbol: "\uD83D\uDD2E", suit: null },
-        { numeral: "XIII", symbol: "\uD83D\uDC80", suit: null },
-        { numeral: "XIV", symbol: "\uD83C\uDFFA", suit: null },
-        { numeral: "XV", symbol: "\uD83D\uDE08", suit: null },
-        { numeral: "XVI", symbol: "\uD83D\uDDFC", suit: null },
-        { numeral: "XVII", symbol: "\u2B50", suit: null },
-        { numeral: "XVIII", symbol: "\uD83C\uDF15", suit: null },
-        { numeral: "XIX", symbol: "\u2600\uFE0F", suit: null },
-        { numeral: "XX", symbol: "\uD83D\uDCEF", suit: null },
-        { numeral: "XXI", symbol: "\uD83C\uDF0D", suit: null },
-        // minor arcana: cups
-        { numeral: "As", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "II", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "III", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "IV", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "V", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "VI", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "VII", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "VIII", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "IX", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "X", symbol: "\uD83C\uDFC6", suit: "cups" },
-        { numeral: "Sota", symbol: "\uD83E\uDDD1", suit: "cups" },
-        { numeral: "Cab.", symbol: "\uD83D\uDC34", suit: "cups" },
-        { numeral: "Reina", symbol: "\uD83D\uDC78", suit: "cups" },
-        { numeral: "Rey", symbol: "\uD83E\uDD34", suit: "cups" },
-        // minor arcana: pentacles
-        { numeral: "As", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "II", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "III", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "IV", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "V", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "VI", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "VII", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "VIII", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "IX", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "X", symbol: "\uD83E\uDE99", suit: "pentacles" },
-        { numeral: "Sota", symbol: "\uD83E\uDDD1", suit: "pentacles" },
-        { numeral: "Cab.", symbol: "\uD83D\uDC34", suit: "pentacles" },
-        { numeral: "Reina", symbol: "\uD83D\uDC78", suit: "pentacles" },
-        { numeral: "Rey", symbol: "\uD83E\uDD34", suit: "pentacles" },
-        // minor arcana: swords
-        { numeral: "As", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "II", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "III", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "IV", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "V", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "VI", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "VII", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "VIII", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "IX", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "X", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
-        { numeral: "Sota", symbol: "\uD83E\uDDD1", suit: "swords" },
-        { numeral: "Cab.", symbol: "\uD83D\uDC34", suit: "swords" },
-        { numeral: "Reina", symbol: "\uD83D\uDC78", suit: "swords" },
-        { numeral: "Rey", symbol: "\uD83E\uDD34", suit: "swords" },
-        // minor arcana: wands
-        { numeral: "As", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "II", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "III", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "IV", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "V", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "VI", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "VII", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "VIII", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "IX", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "X", symbol: "\uD83E\uDEB5", suit: "wands" },
-        { numeral: "Sota", symbol: "\uD83E\uDDD1", suit: "wands" },
-        { numeral: "Cab.", symbol: "\uD83D\uDC34", suit: "wands" },
-        { numeral: "Reina", symbol: "\uD83D\uDC78", suit: "wands" },
-        { numeral: "Rey", symbol: "\uD83E\uDD34", suit: "wands" },
-      ]
-
-      var SUIT_COLORS = {
-        cups: {
-          text: "#2a6cb8",
-          meaning: "#5a8abf",
-          line: "#4a90d9",
-          innerBorder: "rgba(74, 144, 217, 0.4)",
-        },
-        pentacles: {
-          text: "#b8860b",
-          meaning: "#c9a84c",
-          line: "#d4a017",
-          innerBorder: "rgba(212, 160, 23, 0.4)",
-        },
-        swords: {
-          text: "#555555",
-          meaning: "#777777",
-          line: "#8a8a8a",
-          innerBorder: "rgba(138, 138, 138, 0.4)",
-        },
-        wands: {
-          text: "#6b3410",
-          meaning: "#8b6040",
-          line: "#8b4513",
-          innerBorder: "rgba(139, 69, 19, 0.4)",
-        },
-      }
-
-      var SUIT_LABELS = {
-        cups: "Cups",
-        pentacles: "Pentacles",
-        swords: "Swords",
-        wands: "Wands",
-      }
-
       var APP_STRINGS = {
         en: {
           disclaimer1: "DISCLAIMER",
@@ -1031,9 +911,129 @@
         return GET_APP_STRING[stringName] || ""
       }
 
+      var Tarot = {}
+
       var TOTAL_CARDS = 78
 
-      var Tarot = {}
+      var CARD_DATA = [
+        // major arcana
+        { numeral: "0", symbol: "\uD83C\uDCCF", suit: null },
+        { numeral: "I", symbol: "\uD83E\uDE84", suit: null },
+        { numeral: "II", symbol: "\uD83C\uDF19", suit: null },
+        { numeral: "III", symbol: "\uD83D\uDC51", suit: null },
+        { numeral: "IV", symbol: "\u2694\uFE0F", suit: null },
+        { numeral: "V", symbol: "\uD83D\uDD11", suit: null },
+        { numeral: "VI", symbol: "\u2764\uFE0F", suit: null },
+        { numeral: "VII", symbol: "\uD83C\uDFC7", suit: null },
+        { numeral: "VIII", symbol: "\uD83E\uDD81", suit: null },
+        { numeral: "IX", symbol: "\uD83C\uDFEE", suit: null },
+        { numeral: "X", symbol: "\u2638\uFE0F", suit: null },
+        { numeral: "XI", symbol: "\u2696\uFE0F", suit: null },
+        { numeral: "XII", symbol: "\uD83D\uDD2E", suit: null },
+        { numeral: "XIII", symbol: "\uD83D\uDC80", suit: null },
+        { numeral: "XIV", symbol: "\uD83C\uDFFA", suit: null },
+        { numeral: "XV", symbol: "\uD83D\uDE08", suit: null },
+        { numeral: "XVI", symbol: "\uD83D\uDDFC", suit: null },
+        { numeral: "XVII", symbol: "\u2B50", suit: null },
+        { numeral: "XVIII", symbol: "\uD83C\uDF15", suit: null },
+        { numeral: "XIX", symbol: "\u2600\uFE0F", suit: null },
+        { numeral: "XX", symbol: "\uD83D\uDCEF", suit: null },
+        { numeral: "XXI", symbol: "\uD83C\uDF0D", suit: null },
+        // minor arcana: cups
+        { numeral: "As", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "II", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "III", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "IV", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "V", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "VI", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "VII", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "VIII", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "IX", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "X", symbol: "\uD83C\uDFC6", suit: "cups" },
+        { numeral: "Sota", symbol: "\uD83E\uDDD1", suit: "cups" },
+        { numeral: "Cab.", symbol: "\uD83D\uDC34", suit: "cups" },
+        { numeral: "Reina", symbol: "\uD83D\uDC78", suit: "cups" },
+        { numeral: "Rey", symbol: "\uD83E\uDD34", suit: "cups" },
+        // minor arcana: pentacles
+        { numeral: "As", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "II", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "III", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "IV", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "V", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "VI", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "VII", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "VIII", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "IX", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "X", symbol: "\uD83E\uDE99", suit: "pentacles" },
+        { numeral: "Sota", symbol: "\uD83E\uDDD1", suit: "pentacles" },
+        { numeral: "Cab.", symbol: "\uD83D\uDC34", suit: "pentacles" },
+        { numeral: "Reina", symbol: "\uD83D\uDC78", suit: "pentacles" },
+        { numeral: "Rey", symbol: "\uD83E\uDD34", suit: "pentacles" },
+        // minor arcana: swords
+        { numeral: "As", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "II", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "III", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "IV", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "V", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "VI", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "VII", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "VIII", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "IX", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "X", symbol: "\uD83D\uDDE1\uFE0F", suit: "swords" },
+        { numeral: "Sota", symbol: "\uD83E\uDDD1", suit: "swords" },
+        { numeral: "Cab.", symbol: "\uD83D\uDC34", suit: "swords" },
+        { numeral: "Reina", symbol: "\uD83D\uDC78", suit: "swords" },
+        { numeral: "Rey", symbol: "\uD83E\uDD34", suit: "swords" },
+        // minor arcana: wands
+        { numeral: "As", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "II", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "III", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "IV", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "V", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "VI", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "VII", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "VIII", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "IX", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "X", symbol: "\uD83E\uDEB5", suit: "wands" },
+        { numeral: "Sota", symbol: "\uD83E\uDDD1", suit: "wands" },
+        { numeral: "Cab.", symbol: "\uD83D\uDC34", suit: "wands" },
+        { numeral: "Reina", symbol: "\uD83D\uDC78", suit: "wands" },
+        { numeral: "Rey", symbol: "\uD83E\uDD34", suit: "wands" },
+      ]
+
+      var SUIT_COLORS = {
+        cups: {
+          text: "#2a6cb8",
+          meaning: "#5a8abf",
+          line: "#4a90d9",
+          innerBorder: "rgba(74, 144, 217, 0.4)",
+        },
+        pentacles: {
+          text: "#b8860b",
+          meaning: "#c9a84c",
+          line: "#d4a017",
+          innerBorder: "rgba(212, 160, 23, 0.4)",
+        },
+        swords: {
+          text: "#555555",
+          meaning: "#777777",
+          line: "#8a8a8a",
+          innerBorder: "rgba(138, 138, 138, 0.4)",
+        },
+        wands: {
+          text: "#6b3410",
+          meaning: "#8b6040",
+          line: "#8b4513",
+          innerBorder: "rgba(139, 69, 19, 0.4)",
+        },
+      }
+
+      var SUIT_LABELS = {
+        cups: "Cups",
+        pentacles: "Pentacles",
+        swords: "Swords",
+        wands: "Wands",
+      }
 
       // function to generate card front textures dynamically
       function generateCardBackTexture(game) {
