@@ -2008,6 +2008,19 @@
             }
             cd.textObj.setText(wrappedLines.join("\n"))
 
+            // fix for the spanish language (missing accent)
+            if (cardInfo.name === "EL ERMITA\xD1O") {
+              this.accent = game.add.bitmapText(
+                0,
+                cd.textObj.position.y - 12,
+                "ArialBlackWhite",
+                "~",
+                20
+              )
+              this.accent.height = 24
+              this.accent.position.x = cd.textObj.position.x + 97
+            }
+
             // scale down text vertically if it overflows the background box height
             if (cd.textObj.height > maxTextHeight) {
               var scaleFactor = maxTextHeight / cd.textObj.height
