@@ -1880,9 +1880,9 @@
             var cd = cardsData[mi]
             var cardInfo = t("cards")[cd.cardValue]
             if (cd.reversed) {
-              cd.textObj.setText(cardInfo.name + ": " + cardInfo.reversed)
+              cd.textObj.setText(cardInfo.name + ":\n\n" + cardInfo.reversed)
             } else {
-              cd.textObj.setText(cardInfo.name + ": " + cardInfo.upright)
+              cd.textObj.setText(cardInfo.name + ":\n\n" + cardInfo.upright)
             }
 
             // scale down text if it overflows the background box height
