@@ -161,28 +161,24 @@
 
       var SUIT_COLORS = {
         cups: {
-          border: "#4a90d9",
           text: "#2a6cb8",
           meaning: "#5a8abf",
           line: "#4a90d9",
           innerBorder: "rgba(74, 144, 217, 0.4)",
         },
         pentacles: {
-          border: "#d4a017",
           text: "#b8860b",
           meaning: "#c9a84c",
           line: "#d4a017",
           innerBorder: "rgba(212, 160, 23, 0.4)",
         },
         swords: {
-          border: "#8a8a8a",
           text: "#555555",
           meaning: "#777777",
           line: "#8a8a8a",
           innerBorder: "rgba(138, 138, 138, 0.4)",
         },
         wands: {
-          border: "#8b4513",
           text: "#6b3410",
           meaning: "#8b6040",
           line: "#8b4513",
@@ -1051,7 +1047,6 @@
           var ctx = bmd.ctx
 
           // suit colors
-          var borderColor = "#c9a84c"
           var textColor = "#6b4c8a"
           var nameColor = "#4a2d6b"
           var meaningColor = "#7a5a9a"
@@ -1060,7 +1055,6 @@
 
           if (data.suit && SUIT_COLORS[data.suit]) {
             var sc = SUIT_COLORS[data.suit]
-            borderColor = sc.border
             textColor = sc.text
             nameColor = sc.text
             meaningColor = sc.meaning
@@ -1088,11 +1082,6 @@
           grd.addColorStop(1, "rgba(245, 230, 200, 0.5)")
           ctx.fillStyle = grd
           ctx.fill()
-
-          // border
-          ctx.strokeStyle = borderColor
-          ctx.lineWidth = 3
-          ctx.stroke()
 
           // inner border
           ctx.strokeStyle = innerBorderColor
@@ -1822,17 +1811,23 @@
         },
 
         relocateCards: function relocateCards() {
-          var cardScale = 1.20
+          var cardScale = 1.2
 
           // relocating the first card
-          this.add.tween(this.selectedCard1Sprite).to({ x: 130 }, 300, "Linear", true)
-          this.add.tween(this.selectedCard1Sprite).to({ y: 169 }, 300, "Linear", true)
+          this.add
+            .tween(this.selectedCard1Sprite)
+            .to({ x: 130 }, 300, "Linear", true)
+          this.add
+            .tween(this.selectedCard1Sprite)
+            .to({ y: 169 }, 300, "Linear", true)
           this.add
             .tween(this.selectedCard1Sprite.scale)
             .to({ x: cardScale, y: cardScale }, 300, "Linear", true)
 
           // relocating the second card
-          this.add.tween(this.selectedCard2Sprite).to({ x: 378 }, 300, "Linear", true)
+          this.add
+            .tween(this.selectedCard2Sprite)
+            .to({ x: 378 }, 300, "Linear", true)
           this.add
             .tween(this.selectedCard2Sprite)
             .to({ y: 169 }, 300, "Linear", true)
@@ -1841,7 +1836,9 @@
             .to({ x: cardScale, y: cardScale }, 300, "Linear", true)
 
           // relocating the third card
-          this.add.tween(this.selectedCard3Sprite).to({ x: 626 }, 300, "Linear", true)
+          this.add
+            .tween(this.selectedCard3Sprite)
+            .to({ x: 626 }, 300, "Linear", true)
           this.add
             .tween(this.selectedCard3Sprite)
             .to({ y: 169 }, 300, "Linear", true)
