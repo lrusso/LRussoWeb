@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>GitHub Read</title>
+    <link
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IB2cksfwAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAfNJREFUOMuNk71v01AUxc+5NokoA4ipylNs1wYJgmCJxMCCCnQoC39EkYCRgYmlExILH0IqROKPQF1YUMTCwgRRYUAmOFGahQ/RoUCT+l2GPIc0KkrvZPvdc9/9XZ9LTIUxC2fVl+uAXiYQAYACGcBXkuvzXq+9MZnP4iGKovLQeg9B3AAg2D8sVJ8dLsntNE0H4wJRFJUHVl6SXMQBQhXNuRKX0zQdCAAMrPeI5CJU34F6UxUt1/oPQL872UeF3lLFWxKXfg/sgzGzCZPchIlWwrjhLvGCIDg2gXcUqPsAUAmTxyZM1ITJbrUan/HVlxU6Zip9p8m73e7PokCWZVtA5oam4si9nFgRQpfGbJLfn8k/5L8cckmgqLqj7X6WfZpVoN//3IPq11HHGgpIz52Va7XaoQP8BAF5xPGIQNF1/fhb23+uzFKbML4IYM69dgTQ5pgPeDIfnDj9P3GlsnASyrWJT02B2AYAq6r3oHzv0bZMGK+bKDpfZM1X47oJ4hfw+QHEqcKVzNHwN7OsZYKkAeCOWHvBevxGMNkV+TK+ZygdlPUa99rxaa/X3thjZYDHAXuX5K/NTvv1iKpgT/JiR1TRLEl+NcuyHXFG2SmJXSb0DSnrAJtA3ZsaAd0yrRXi/ac8svbq5Ka6DlZNFJ2bzv8LCVa/08lgVXUAAAAASUVORK5CYII="
+    >
+    <meta name="theme-color" content="#000">
+    <meta name="keywords" content="github, notifications, read">
+    <meta name="description" content="GitHub Read.">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    >
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:Arial;background:#000;color:#e6edf3;display:flex;justify-content:center;align-items:center;min-height:100vh}
+      .container{display:none}
+      .card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:36px;width:100%;max-width:440px}
+      h1{font-size:1.25rem;font-weight:600;margin-bottom:24px;color:#f0f6fc}
+      label{display:block;font-size:.875rem;color:#8b949e;margin-bottom:6px}
+      input{width:100%;padding:10px 14px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;font-size:.9rem;margin-bottom:20px;outline:0;transition:border-color .2s}
+      input:focus{border-color:#388bfd}
+      button{width:100%;padding:10px;background:#238636;border:1px solid #2ea043;border-radius:6px;color:#fff;font-size:.95rem;font-weight:600;cursor:pointer}
+      button:hover{background:#2ea043}
+      button:disabled{background:#21262d;border-color:#30363d;color:#8b949e;cursor:not-allowed}
+      button:focus{outline:1px solid #388bfd}
+      .result{margin-top:20px;padding:12px 14px;border-radius:6px;font-size:.875rem;display:none}
+      .result.success{background:#0f2a1a;border:1px solid #2ea043;color:#3fb950}
+      .result.error{background:#2a0f0f;border:1px solid #f85149;color:#f85149}
+      .info{background:#0d1f38;border:1px solid #388bfd;border-radius:6px;padding:12px 14px;font-size:.8rem;color:#79c0ff;margin-bottom:24px;line-height:1.6}
+      .info a{color:#58a6ff}
+      .info a:focus{outline:1px solid #388bfd}
+      .info ol{margin:6px 0 0 16px;color:#8b949e}
+      .info ol li{margin-bottom:2px}
+      .info strong{color:#79c0ff}
+      .pleasewait{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto auto;border:0}.lds-spinner{color:#fff;display:inline-block;position:relative;width:64px;height:64px}.lds-spinner div{transform-origin:32px 32px;animation:lds-spinner 1.2s linear infinite}.lds-spinner div:after{content:" ";display:block;position:absolute;top:3px;left:29px;width:5px;height:14px;border-radius:20%;background:#fff}.lds-spinner div:nth-child(1){transform:rotate(0deg);animation-delay:-1.1s}.lds-spinner div:nth-child(2){transform:rotate(30deg);animation-delay:-1s}.lds-spinner div:nth-child(3){transform:rotate(60deg);animation-delay:-.9s}.lds-spinner div:nth-child(4){transform:rotate(90deg);animation-delay:-.8s}.lds-spinner div:nth-child(5){transform:rotate(120deg);animation-delay:-.7s}.lds-spinner div:nth-child(6){transform:rotate(150deg);animation-delay:-.6s}.lds-spinner div:nth-child(7){transform:rotate(180deg);animation-delay:-.5s}.lds-spinner div:nth-child(8){transform:rotate(210deg);animation-delay:-.4s}.lds-spinner div:nth-child(9){transform:rotate(240deg);animation-delay:-.3s}.lds-spinner div:nth-child(10){transform:rotate(270deg);animation-delay:-.2s}.lds-spinner div:nth-child(11){transform:rotate(300deg);animation-delay:-.1s}.lds-spinner div:nth-child(12){transform:rotate(330deg);animation-delay:0s}@keyframes lds-spinner{0%{opacity:1}to{opacity:0}}
+    </style>
+  </head>
+  <body>
+    <div class="pleasewait">
+      <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card">
+        <h1>&nbsp;</h1>
+        <div class="info">
+          <strong>&nbsp;</strong>
+          <ol>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+          </ol>
+        </div>
+        <label for="token">GitHub Personal Access Token</label>
+        <input
+          type="password"
+          id="token"
+          placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+          autocomplete="off"
+        >
+        <button id="button">&nbsp;</button>
+        <div class="result" id="result"></div>
+      </div>
+    </div>
+    <script>
+      var APP_STRINGS = {
+        en: {
+          title: "Mark All Notifications as Read",
+          subtitle: "How to create a token:",
+          step1:
+            'Go to <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a>',
+          step2: "Click <em>Generate new token (classic)</em>",
+          step3: "Enable only the <strong>notifications</strong> scope",
+          step4: "Copy and paste the token below",
+          input_token: "Please enter a GitHub token.",
+          notifications_read: "All notifications marked as read.",
+          notifications_no_unread: "No unread notifications to mark.",
+          please_wait: "Please wait...",
+          button: "Mark All as Read",
+        },
+        es: {
+          title: "Marcar las notificaciones como le\xeddas",
+          subtitle: "C\xf3mo crear un token:",
+          step1:
+            'Ve a <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a>',
+          step2: "Haz clic en <em>Generate new token (classic)</em>",
+          step3: "Habilita solo el scope de <strong>notificaciones</strong>",
+          step4: "Copia y pega el token el cuadro de texto debajo",
+          input_token: "Por favor, ingrese un token de GitHub.",
+          notifications_read: "Notificaciones marcadas como le\xeddas.",
+          notifications_no_unread: "No hay notificaciones sin leer.",
+          please_wait: "Por favor, espere...",
+          button: "Marcar todo como le\xeddo",
+        },
+      }
+
+      var USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      var GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
+
+      function t(stringName) {
+        return GET_APP_STRING[stringName] || ""
+      }
+
+      var container = null
+      var pleaseWait = null
+      var token = null
+      var button = null
+      var result = null
+
+      function showResult(msg, success) {
+        result.textContent = msg
+        result.className = "result " + (success ? "success" : "error")
+        result.style.display = "block"
+      }
+
+      function done() {
+        button.disabled = false
+        button.textContent = t("button")
+      }
+
+      function markRead() {
+        if (!token.value.trim()) {
+          showResult(t("input_token"), false)
+          return
+        }
+
+        button.disabled = true
+        button.textContent = t("please_wait")
+
+        result.style.display = "none"
+
+        fetch("https://api.github.com/notifications", {
+          method: "PUT",
+          headers: {
+            Accept: "application/vnd.github.v3+json",
+            Authorization: "token " + token.value.trim(),
+            "Content-Length": "0",
+          },
+        })
+          .then(function (res) {
+            // 205 = reset content (success, all marked read)
+            // 304 = not modified (nothing to mark)
+            if (res.status === 205) {
+              showResult(t("notifications_read"), true)
+              done()
+            } else if (res.status === 304) {
+              showResult(t("notifications_no_unread"), true)
+              done()
+            } else {
+              res
+                .json()
+                .then(function (body) {
+                  showResult(
+                    "Error " + res.status + ": " + (body.message || res.statusText),
+                    false
+                  )
+                  done()
+                })
+                .catch(function () {
+                  showResult("Error " + res.status + ": " + res.statusText, false)
+                  done()
+                })
+            }
+          })
+          .catch(function (err) {
+            showResult("Request failed: " + err.message, false)
+            done()
+          })
+      }
+
+      window.addEventListener("load", function () {
+        // checking if the app is loaded properly
+        var secSameDomain = false
+        var secNotIframe = window.top === window.self
+        var secLocalFile = window.self.location.protocol === "file:"
+        try {
+          secSameDomain =
+            window.top !== window.self &&
+            window.top.location.hostname === window.self.location.hostname
+        } catch (err) {
+          //
+        }
+        if (secNotIframe || secSameDomain || secLocalFile) {
+          container = document.querySelector(".container")
+          pleaseWait = document.querySelector(".pleasewait")
+          token = document.getElementById("token")
+          button = document.getElementById("button")
+          result = document.getElementById("result")
+
+          document.getElementsByTagName("body")[0].style.backgroundColor = "#0d1117"
+          document.getElementsByTagName("h1")[0].innerText = t("title")
+          document.getElementsByTagName("strong")[0].innerText = t("subtitle")
+          document.getElementsByTagName("li")[0].innerHTML = t("step1")
+          document.getElementsByTagName("li")[1].innerHTML = t("step2")
+          document.getElementsByTagName("li")[2].innerHTML = t("step3")
+          document.getElementsByTagName("li")[3].innerHTML = t("step4")
+          button.innerText = t("button")
+
+          pleaseWait.style.display = "none"
+          container.style.display = "block"
+
+          button.addEventListener("click", function () {
+            markRead()
+          })
+        }
+      })
+    </script>
+  </body>
+</html>
