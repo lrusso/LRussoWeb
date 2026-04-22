@@ -1798,30 +1798,34 @@
         switch (activeTool) {
           case "square":
           case "squareOutline": {
-            var size = Math.min(Math.abs(diffX), Math.abs(diffY))
-            if (size < 1) {
+            var w = Math.abs(diffX)
+            var h = Math.abs(diffY)
+            if (w < 1 || h < 1) {
               return null
             }
             return {
               kind: activeTool === "square" ? "rectFill" : "rectStroke",
-              x: diffX >= 0 ? startX : startX - size,
-              y: diffY >= 0 ? startY : startY - size,
-              size: size,
+              x: diffX >= 0 ? startX : startX - w,
+              y: diffY >= 0 ? startY : startY - h,
+              w: w,
+              h: h,
             }
           }
           case "circle":
           case "circleOutline": {
-            var diameter = Math.min(Math.abs(diffX), Math.abs(diffY))
-            if (diameter < 2) {
+            var w = Math.abs(diffX)
+            var h = Math.abs(diffY)
+            if (w < 2 || h < 2) {
               return null
             }
-            var originX = diffX >= 0 ? startX : startX - diameter
-            var originY = diffY >= 0 ? startY : startY - diameter
+            var originX = diffX >= 0 ? startX : startX - w
+            var originY = diffY >= 0 ? startY : startY - h
             return {
               kind: activeTool === "circle" ? "circleFill" : "circleStroke",
-              cx: originX + diameter / 2,
-              cy: originY + diameter / 2,
-              radius: diameter / 2,
+              cx: originX + w / 2,
+              cy: originY + h / 2,
+              rx: w / 2,
+              ry: h / 2,
             }
           }
           case "line": {
@@ -1864,17 +1868,17 @@
         switch (info.kind) {
           case "rectFill":
             ctx.fillStyle = color
-            ctx.fillRect(info.x, info.y, info.size, info.size)
+            ctx.fillRect(info.x, info.y, info.w, info.h)
             break
           case "rectStroke":
             ctx.strokeStyle = color
             ctx.lineWidth = 3
-            ctx.strokeRect(info.x, info.y, info.size, info.size)
+            ctx.strokeRect(info.x, info.y, info.w, info.h)
             break
           case "circleFill":
             ctx.beginPath()
             ctx.fillStyle = color
-            ctx.arc(info.cx, info.cy, info.radius, 0, Math.PI * 2)
+            ctx.ellipse(info.cx, info.cy, info.rx, info.ry, 0, 0, Math.PI * 2)
             ctx.fill()
             ctx.closePath()
             break
@@ -1882,7 +1886,7 @@
             ctx.beginPath()
             ctx.strokeStyle = color
             ctx.lineWidth = 3
-            ctx.arc(info.cx, info.cy, info.radius, 0, Math.PI * 2)
+            ctx.ellipse(info.cx, info.cy, info.rx, info.ry, 0, 0, Math.PI * 2)
             ctx.stroke()
             ctx.closePath()
             break
