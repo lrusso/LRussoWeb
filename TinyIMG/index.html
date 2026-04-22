@@ -3191,7 +3191,12 @@
               }
               drawSelectionRect()
             } else if (isResizing && currentSelection) {
-              var prev = Object.assign({}, currentSelection) // safe copy before changes
+              var prev = {
+                x: currentSelection.x,
+                y: currentSelection.y,
+                width: currentSelection.width,
+                height: currentSelection.height,
+              } // safe copy before changes
 
               switch (resizeHandle) {
                 case "nw":
