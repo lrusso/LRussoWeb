@@ -187,23 +187,8 @@
               mediaContainer.style.display = "block"
               mediaControls.style.display = "flex"
 
-              recordedChunks = []
-
               if (MediaRecorder.isTypeSupported("video/mp4")) {
                 videoFormat = "mp4"
-              }
-
-              mediaRecorder = new MediaRecorder(mediaStream, {
-                mimeType: "video/" + videoFormat,
-              })
-
-              mediaRecorder.ondataavailable = function (event) {
-                if (event.data.size > 0) {
-                  recordedChunks.push(event.data)
-                }
-              }
-              mediaRecorder.onstop = function () {
-                downloadVideo()
               }
             } catch (err) {
               //
@@ -248,23 +233,8 @@
                   mediaContainer.style.display = "block"
                   mediaControls.style.display = "flex"
 
-                  recordedChunks = []
-
                   if (MediaRecorder.isTypeSupported("video/mp4")) {
                     videoFormat = "mp4"
-                  }
-
-                  mediaRecorder = new MediaRecorder(mediaStream, {
-                    mimeType: "video/" + videoFormat,
-                  })
-
-                  mediaRecorder.ondataavailable = function (event) {
-                    if (event.data.size > 0) {
-                      recordedChunks.push(event.data)
-                    }
-                  }
-                  mediaRecorder.onstop = function () {
-                    downloadVideo()
                   }
                 } catch (err2) {
                   //
@@ -293,6 +263,21 @@
       function startRecording() {
         if (!mediaStream) {
           return
+        }
+
+        recordedChunks = []
+
+        mediaRecorder = new MediaRecorder(mediaStream, {
+          mimeType: "video/" + videoFormat,
+        })
+
+        mediaRecorder.ondataavailable = function (event) {
+          if (event.data.size > 0) {
+            recordedChunks.push(event.data)
+          }
+        }
+        mediaRecorder.onstop = function () {
+          downloadVideo()
         }
 
         mediaRecorder.start()
