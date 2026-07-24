@@ -297,6 +297,8 @@
       var isDragging = false
       var throttleTimeout = null
       var throttleDelay = 200
+      var lastMouseX = null
+      var lastMouseY = null
 
       var fileLoaderContainer = document.getElementById("fileloader-container")
       var fileSelector = document.getElementById("file-selector")
@@ -985,6 +987,17 @@
             if (!document.hasFocus()) {
               return
             }
+
+            // the browser dispatches synthetic mousemove events when the layout
+            // changes under a stationary pointer (subtitles, progress bar, the
+            // controls fading out), and those arrive with the same coordinates
+            // as the last real movement, so they must not wake up the cursor.
+            if (e.clientX === lastMouseX && e.clientY === lastMouseY) {
+              return
+            }
+
+            lastMouseX = e.clientX
+            lastMouseY = e.clientY
 
             showControls()
 
