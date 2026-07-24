@@ -315,6 +315,8 @@
         var idleCounter = 0
         var movingDown = true
         var enabled = false
+        var lastMouseX = null
+        var lastMouseY = null
 
         var tmpImg = document.createElement("img")
         tmpImg.src = params.logo
@@ -345,7 +347,7 @@
           window.addEventListener("click", stop)
           window.addEventListener("dblclick", stop)
           window.addEventListener("mouseup", stop)
-          window.addEventListener("mousemove", stop)
+          window.addEventListener("mousemove", stopOnMouseMove)
           window.addEventListener("wheel", stop)
           window.addEventListener("keypress", stop)
           window.addEventListener("keydown", stop)
@@ -427,6 +429,20 @@
           if (document.visibilityState === "visible" && enabled) {
             requestWakeLock()
           }
+        }
+
+        function stopOnMouseMove(event) {
+          // chrome dispatches synthetic mousemove events when the layout
+          // changes under a stationary pointer, and they repeat the last real
+          // coordinates, so they must not wake up the screensaver.
+          if (event.clientX === lastMouseX && event.clientY === lastMouseY) {
+            return
+          }
+
+          lastMouseX = event.clientX
+          lastMouseY = event.clientY
+
+          stop()
         }
 
         function stop() {
