@@ -1,0 +1,3087 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>TinyDOC Editor</title>
+    <link
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABZ0lEQVR4AYySu0sDQRDGl7MQ0UZ8YJMmFkGri3YXsFKwS2Njq0X+AyWgJEFQUMsUabQSLBREbQTFRwordYMImuJSiqAphCCIJpf5JsllSfYuOe63M8zj29m7NdYPHrKbR1L6MRM/3xAej/H7V/6JL5imF/NTAfO/XFmzVk6TOg1DF/SIJRZ3rjOtuY4C4eCQSMcijDUxGm0I0EROZPXshgVkoSj2r/KeyMIX902Pj5TgUDMfx3GcOxZAMBwcFn6gBtSbE/Dvt6NJFsCY3YAmhRR8FpB0hE6g+NH+HCDr7k6+YAE4fmA65A+z9hgswbuTrQmgwA8U4iPDEimcnSy/PAHGR4EOrqJl7zJPa/vLAu3hZgTiYHkuJCYDgyV1d1SxAMZfmg0JHchJugdPdhH5DzSpsICkv6AbHzHkIJyOWWqf67MAdkGRDuTcao1j9PX29O+ePL+BzMXrt46t41wO3L6881VWdaoAAAD//zq/vagAAAAGSURBVAMApy/rfLH2XD8AAAAASUVORK5CYII="
+    >
+    <meta name="theme-color" content="#000">
+    <meta name="keywords" content="document, editor, tiny">
+    <meta name="description" content="Tiny DOC Editor.">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    >
+    <style>
+      html,body{background-color:#000;height:100%;padding:0;margin:0;overflow:hidden;touch-action:none;user-select:none;-ms-user-select:none;-moz-user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}#content{position:fixed;height:100%;width:100%;margin:0;padding:0;z-index:99}.pleasewait{position:fixed;width:64px;height:64px;left:0;right:0;top:0;bottom:0;margin:auto auto;border:0;z-index:9}.lds-spinner{color:#fff;display:inline-block;position:relative;width:64px;height:64px}.lds-spinner div{transform-origin:32px 32px;animation:lds-spinner 1.2s linear infinite}.lds-spinner div:after{content:" ";display:block;position:absolute;top:3px;left:29px;width:5px;height:14px;border-radius:20%;background:#fff}.lds-spinner div:nth-child(1){transform:rotate(0deg);animation-delay:-1.1s}.lds-spinner div:nth-child(2){transform:rotate(30deg);animation-delay:-1s}.lds-spinner div:nth-child(3){transform:rotate(60deg);animation-delay:-.9s}.lds-spinner div:nth-child(4){transform:rotate(90deg);animation-delay:-.8s}.lds-spinner div:nth-child(5){transform:rotate(120deg);animation-delay:-.7s}.lds-spinner div:nth-child(6){transform:rotate(150deg);animation-delay:-.6s}.lds-spinner div:nth-child(7){transform:rotate(180deg);animation-delay:-.5s}.lds-spinner div:nth-child(8){transform:rotate(210deg);animation-delay:-.4s}.lds-spinner div:nth-child(9){transform:rotate(240deg);animation-delay:-.3s}.lds-spinner div:nth-child(10){transform:rotate(270deg);animation-delay:-.2s}.lds-spinner div:nth-child(11){transform:rotate(300deg);animation-delay:-.1s}.lds-spinner div:nth-child(12){transform:rotate(330deg);animation-delay:0s}@keyframes lds-spinner{0%{opacity:1}to{opacity:0}}#myContainer{position:fixed;left:0;top:0;right:0;bottom:0}input[type=file]{display:none}
+    </style>
+  </head>
+  <body>
+    <div class="pleasewait">
+      <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div id="myContainer"></div>
+    <input type="file" id="myUploader">
+
+    <script>
+      var APP_STRINGS = {
+        en: {
+          dirty_title: "Message",
+          dirty_message: "Lose any unsaved changes?",
+          dirty_yes: "Yes",
+          dirty_no: "No",
+          welcome:
+            "Welcome to <b>TinyDOC Editor</b> by Leonardo Russo / <a href='https://www.lrusso.com'>https://www.lrusso.com</a><br><br>This is a WYSIWYG (<span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>What You See Is What You Get</span>) editor developed in <b>HTML5</b> with functions like:<br><br>\u2022 Save &amp; Print.<br>\u2022 Undo &amp; Redo.<br>\u2022 Templates feature.<br>\u2022 Formatting tools.<br><br>The idea of this project is to provide a lightweight text editor with simple and easy-to-use features.<br><br>1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>2. Sed in pellentesque eros, id luctus purus.<br>3. Curabitur gravida posuere lorem, eget finibus odio vehicula at.<br>4. Phasellus nisi diam, laoreet non enim at, lacinia egestas justo.<br><br>Pellentesque bibendum metus vel interdum dignissim. Sed tempor augue eu felis elementum tincidunt. Cras ac ante id elit viverra hendrerit in vitae quam. Ut varius, ligula in volutpat tempus, enim nunc volutpat dolor, nec ultrices arcu lorem quis metus. Nulla pharetra dignissim vestibulum. Aliquam auctor tortor sodales, vehicula purus vel, tristique nibh. Aenean in mi purus. Phasellus consectetur leo enim, id rutrum leo egestas nec. <span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>Praesent fermentum, eros quis vehicula semper, nisi quam aliquam elit</span>, in consequat nulla ante quis tellus. Mauris ultrices dui et turpis semper, ac viverra lacus interdum. In aliquam est eu leo placerat vulputate. Praesent imperdiet sit amet libero eget ullamcorper.",
+          wordCount: "{WORD_COUNT} words and {CHARACTER_COUNT} characters",
+          find: "Find in the document...",
+          findCounter: "{FIND_INDEX} of {FIND_MATCHES}",
+          replace: "Replace with...",
+          replaceOne: "Replace",
+          replaceAll: "Replace All",
+          templates: [
+            "<b>[project name]</b><br><br><b><u>To Mr. XXXX:</u></b><br><br>My name is [full name], and I am writing to you regarding a project I am currently working on and its potential for dissemination.<br><br>The project is called [project name], a [Website/App] that allows [project description].<br><br>To make this possible, [detailed description of the project].<br><br>Additionally, the project is free and open-source, allowing any developer to make corrections, suggest improvements, or even create their own version.<br><br>Finally, to reach a wider audience, the [Website/App] includes a promotional video and is available on [Play/App Store or through any modern web browser].<br><br>Website:<br>App:<br>Promotional video:<br>Source code:<br><br>Best regards, and please feel free to contact me with any questions or inquiries.<br><br>",
+          ],
+        },
+        es: {
+          dirty_title: "Mensaje",
+          dirty_message: "\xBFPerder cualquier cambio\nque no haya sido guardado?",
+          dirty_yes: "S\xED",
+          dirty_no: "No",
+          welcome:
+            "Bienvenido a <b>TinyDOC Editor</b> por Leonardo Russo / <a href='https://www.lrusso.com'>https://www.lrusso.com</a><br><br>Este es un editor WYSIWYG (<span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>What You See Is What You Get</span>) desarrollado en <b>HTML5</b> con funciones, tales como:<br><br>\u2022 Guardar e Imprimir.<br>\u2022 Deshacer y Rehacer.<br>\u2022 Funci\xF3n para plantillas.<br>\u2022 Herramientas de formato.<br><br>La idea de este proyecto es la de brindar un editor de textos liviano con funciones sencillas e intuitivas.<br><br>1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>2. Sed in pellentesque eros, id luctus purus.<br>3. Curabitur gravida posuere lorem, eget finibus odio vehicula at.<br>4. Phasellus nisi diam, laoreet non enim at, lacinia egestas justo.<br><br>Pellentesque bibendum metus vel interdum dignissim. Sed tempor augue eu felis elementum tincidunt. Cras ac ante id elit viverra hendrerit in vitae quam. Ut varius, ligula in volutpat tempus, enim nunc volutpat dolor, nec ultrices arcu lorem quis metus. Nulla pharetra dignissim vestibulum. Aliquam auctor tortor sodales, vehicula purus vel, tristique nibh. Aenean in mi purus. Phasellus consectetur leo enim, id rutrum leo egestas nec. <span style='background-color: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 0px 1000px inset;'>Praesent fermentum, eros quis vehicula semper, nisi quam aliquam elit</span>, in consequat nulla ante quis tellus. Mauris ultrices dui et turpis semper, ac viverra lacus interdum. In aliquam est eu leo placerat vulputate. Praesent imperdiet sit amet libero eget ullamcorper.",
+          wordCount: "{WORD_COUNT} palabras y {CHARACTER_COUNT} caracteres",
+          find: "Buscar en el documento...",
+          findCounter: "{FIND_INDEX} de {FIND_MATCHES}",
+          replace: "Reemplazar con...",
+          replaceOne: "Reemplazar",
+          replaceAll: "Reemplazar Todo",
+          templates: [
+            "<b>[nombre del proyecto]</b><br><br><b><u>Al Sr. XXXX:</u></b><br><br>Mi nombre es [nombre completo] y le escribo en esta ocasi\xF3n por un proyecto en el cual estoy trabajando y sus posibilidades de difusi\xF3n.<br><br>Se trata de [nombre del proyecto], una [Web/App] que permite [descripci\xF3n del proyecto].<br><br>Para que esto sea posible, [descripci\xF3n detallada del proyecto].<br><br>Por otro lado, el proyecto es gratuito y de c\xF3digo libre, lo que permite que cualquier desarrollador pueda realizar correcciones, sugerir mejoras e incluso hacer su propia versi\xF3n.<br><br>Por \xFAltimo y a los efectos de alcanzar un mayor p\xFAblico, la [Web/App] cuenta con un v\xEDdeo publicitario y se encuentra disponible en [Play/App Store o a trav\xE9s de cualquier navegador Web moderno].<br><br>Web:<br>App:<br>V\xEDdeo publicitario:<br>C\xF3digo fuente:<br><br>Saludos y ante cualquier duda o consulta, me encuentro a su disposici\xF3n.<br><br>",
+          ],
+        },
+      }
+
+      var USER_LANG = window.navigator.language.substring(0, 2).toLowerCase()
+      var GET_APP_STRING = APP_STRINGS[USER_LANG] || APP_STRINGS["en"]
+
+      function t(stringName) {
+        return GET_APP_STRING[stringName] || ""
+      }
+
+      window.isDirty = false
+
+      // -----------------------------------------------------
+      // starts tinydoc.js
+      // -----------------------------------------------------
+
+      function tinyDOC(editorConfig) {
+        var self = this
+        self.editorConfig = editorConfig || {}
+
+        if (self.editorConfig.useCtrlSForSaving === undefined) {
+          self.editorConfig.useCtrlSForSaving = true
+        }
+        if (self.editorConfig.useCtrlPForPrinting === undefined) {
+          self.editorConfig.useCtrlPForPrinting = true
+        }
+        if (self.editorConfig.replaceTabWithSpaces === undefined) {
+          self.editorConfig.replaceTabWithSpaces = true
+        }
+        if (self.editorConfig.linkColor === undefined) {
+          self.editorConfig.linkColor = "#3A76B1"
+        }
+        if (self.editorConfig.wordCount === undefined) {
+          self.editorConfig.wordCount =
+            "{WORD_COUNT} words and {CHARACTER_COUNT} characters"
+        }
+        if (self.editorConfig.find === undefined) {
+          self.editorConfig.find = "Find in the document..."
+        }
+        if (self.editorConfig.findCounter === undefined) {
+          self.editorConfig.findCounter = "{FIND_INDEX} of {FIND_MATCHES}"
+        }
+        if (self.editorConfig.replace === undefined) {
+          self.editorConfig.replace = "Replace with..."
+        }
+        if (self.editorConfig.replaceOne === undefined) {
+          self.editorConfig.replaceOne = "Replace"
+        }
+        if (self.editorConfig.replaceAll === undefined) {
+          self.editorConfig.replaceAll = "Replace All"
+        }
+
+        if (!editorConfig.container) {
+          // eslint-disable-next-line
+          console.error("TinyDOC: The container doesn't exists.")
+          return
+        }
+
+        self.styleSheet = document.createElement("style")
+        self.styleSheet.appendChild(
+          document.createTextNode(
+            ".tinydoc_wrapper{display:flex;flex-direction:column;width:100%;height:100%;overflow-hidden}" +
+              ".tinydoc_menu_container{height:40px;background-color:#F2F2F2;border-bottom:thin solid #D3D3D3;overflow-y:hidden}" +
+              ".tinydoc_menu{background-color:#F2F2F2;left:0;right:0;padding-top:0;padding-bottom:0;height:80px;margin-left:3px;overflow-x:scroll;overflow-y:hidden;outline:none;text-align:center;font-family:Arial;font-size:13px}" +
+              ".tinydoc_menu::-webkit-scrollbar{display:none}" +
+              ".tinydoc_menu_size{float:left;width:800px}" +
+              ".tinydoc_holder{float:left;padding-top:3px;padding-bottom:3px;padding-right:3px;margin:0}" +
+              ".tinydoc_separator{float:left;border-left:thin solid #D3D3D3;margin-left:1px;margin-right:3px;height:100px;width:1px}" +
+              ".tinydoc_button{display:block;font-family:Arial;font-size:15px;line-height:28px;height:28px;width:32px;padding-top:4px;background-color:#F2F2F2;border:thin solid #F2F2F2;cursor:default;-webkit-user-select:none;-moz-user-select:none;user-select:none}" +
+              ".tinydoc_button:hover{background-color:#E3E3E3;border:thin solid #D3D3D3}" +
+              ".tinydoc_button_selected{display:block;font-family:Arial;font-size:15px;line-height:28px;height:28px;width:32px;padding-top:4px;background-color:#E3E3E3;border:thin solid #D3D3D3;cursor:default;-webkit-user-select:none;-moz-user-select:none;user-select:none}" +
+              ".tinydoc_find_bar{display:none}" +
+              ".tinydoc_find_content{display:flex;width:100%;align-items:center;gap:10px;padding:8px;border-top:thin solid #D3D3D3;background:#F2F2F2;border-top:1px solid #ccc;overflow-y:hidden;overflow-x:scroll}" +
+              ".tinydoc_find_content::-webkit-scrollbar{display:none}" +
+              ".tinydoc_find_input{font-family:Arial;font-size:13px;width:250px;height:25px;background-color:#FFF;border:thin solid #B2B2B2;outline:0;border-radius:8px;overflow-hidden;padding-left:5px;padding-right:5px}" +
+              ".tinydoc_find_button{font-family:Arial;font-size:13px;height:100%;width:30px;background-color:#D2D2D2;border:thin solid #B2B2B2;border-radius:8px;overflow:visible;white-space:nowrap}" +
+              ".tinydoc_find_counter{display:none;font-family:Arial;font-size:13px;overflow:visible;white-space:nowrap}" +
+              ".tinydoc_document{flex:1;padding:8px;outline:none;color:black;background-color:white;font-family:Arial;font-size:16px;line-height:1.3;overflow:auto;white-space:pre-wrap;word-break:break-word;-webkit-text-size-adjust:none;-webkit-user-select:text;user-select:text}" +
+              ".tinydoc_document a{text-decoration:underline;color:" +
+              self.editorConfig.linkColor +
+              "}" +
+              ".tinydoc_contentviewer{display:inline-block;font-family:Arial;font-size:13px;line-height:2.6;margin-left:11px;cursor:default;-webkit-user-select:none;-moz-user-select:none;user-select:none;width:1px;white-space:nowrap}" +
+              ".tinydoc_contentviewer a{text-decoration:none;color:" +
+              self.editorConfig.linkColor +
+              ";margin-right:11px}" +
+              "@media (pointer: coarse){.tinydoc_button:hover{background-color:#F2F2F2;border:thin solid #F2F2F2}}" +
+              "@media screen and (min-width: 1281px){" +
+              "svg{width:22px;height:22px}" +
+              ".tinydoc_menu_container{height:53px}" +
+              ".tinydoc_menu_size{width:1500px}" +
+              ".tinydoc_button{padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:7px}" +
+              ".tinydoc_button_selected{padding-left:10px;padding-top:10px;padding-right:10px;padding-bottom:7px}" +
+              ".tinydoc_find_content{height:30px}" +
+              ".tinydoc_find_input{width:300px;font-size:18px;height:28px;padding-left:7px;padding-right:7px}" +
+              ".tinydoc_find_button{font-size:18px}" +
+              ".tinydoc_find_counter{font-size:18px}" +
+              ".tinydoc_document{font-size:20px}" +
+              ".tinydoc_contentviewer{font-size:20px;line-height:2.3}" +
+              "}"
+          )
+        )
+
+        document.getElementsByTagName("head")[0].appendChild(self.styleSheet)
+        self.myContainer = editorConfig.container
+        self.myContainerID = editorConfig.container.id
+          ? editorConfig.container
+          : Date.now()
+
+        self.wrapper = document.createElement("div")
+        self.wrapper.className = "tinydoc_wrapper"
+        self.myContainer.appendChild(self.wrapper)
+
+        self.menuContainer = document.createElement("div")
+        self.menuContainer.className = "tinydoc_menu_container"
+        self.menuWrapper = document.createElement("div")
+        self.menuWrapper.className = "tinydoc_menu"
+        self.menuContainer.appendChild(self.menuWrapper)
+        self.menu = document.createElement("div")
+        self.menu.className = "tinydoc_menu_size"
+        self.menuWrapper.appendChild(self.menu)
+        self.wrapper.appendChild(self.menuContainer)
+
+        function addMenuItem(svgIcon, callback) {
+          var holder = document.createElement("div")
+          holder.className = "tinydoc_holder"
+          self.menu.appendChild(holder)
+          var button = document.createElement("div")
+          button.className = "tinydoc_button"
+          button.appendChild(svgIcon)
+          button.addEventListener("mousedown", callback)
+          holder.appendChild(button)
+        }
+
+        function addMenuSeparator() {
+          var separator = document.createElement("div")
+          separator.className = "tinydoc_separator"
+          self.menu.appendChild(separator)
+        }
+
+        self.svgNew = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgNew.setAttribute("width", "16")
+        self.svgNew.setAttribute("height", "16")
+        self.svgNew.setAttribute("viewBox", "0 0 512 512")
+        self.svgNew.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+        self.svgNewPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgNewPath.setAttribute(
+          "d",
+          "M298.699,42.5h-213.5v427h341.602V170.61L298.699,42.5z M309.375,83.369l76.543,76.556h-76.543V83.369z M405.449,448.15   H106.551V63.85h181.475v117.426h117.424V448.15z"
+        )
+        self.svgNew.appendChild(self.svgNewPath)
+        if (typeof self.editorConfig.newCallback === "function") {
+          addMenuItem(self.svgNew, function (event) {
+            if (!self.documentEnabled) {
+              return
+            }
+
+            self.editorConfig.newCallback()
+            event.preventDefault()
+          })
+        }
+
+        self.svgOpen = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgOpen.setAttribute("width", "16")
+        self.svgOpen.setAttribute("height", "16")
+        self.svgOpen.setAttribute("viewBox", "0 0 576 512")
+        self.svgOpen.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+        self.svgOpenPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgOpenPath.setAttribute(
+          "d",
+          "M147.8 192H480V144C480 117.5 458.5 96 432 96h-160l-64-64h-160C21.49 32 0 53.49 0 80v328.4l90.54-181.1C101.4 205.6 123.4 192 147.8 192zM543.1 224H147.8C135.7 224 124.6 230.8 119.2 241.7L0 480h447.1c12.12 0 23.2-6.852 28.62-17.69l96-192C583.2 249 567.7 224 543.1 224z"
+        )
+        self.svgOpen.appendChild(self.svgOpenPath)
+        if (typeof self.editorConfig.openCallback === "function") {
+          addMenuItem(self.svgOpen, function (event) {
+            if (!self.documentEnabled) {
+              return
+            }
+
+            self.editorConfig.openCallback()
+            event.preventDefault()
+          })
+        }
+
+        self.svgSave = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgSave.setAttribute("width", "16")
+        self.svgSave.setAttribute("height", "16")
+        self.svgSave.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgSavePath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgSavePath.setAttribute(
+          "d",
+          "M896 960h-896v-1024h1024v896zM512 832h128v-256h-128v256zM896 64h-768v768h64v-320h576v320h75l53 -53v-715z"
+        )
+        self.svgSavePath.setAttribute(
+          "transform",
+          "translate(-10 930) scale(-1,1) rotate(180)"
+        )
+        self.svgSave.appendChild(self.svgSavePath)
+        if (typeof self.editorConfig.saveCallback === "function") {
+          addMenuItem(self.svgSave, function (event) {
+            if (!self.documentEnabled) {
+              return
+            }
+
+            self.save()
+            event.preventDefault()
+          })
+        }
+
+        if (
+          self.editorConfig.newCallback ||
+          self.editorConfig.openCallback ||
+          self.editorConfig.saveCallback
+        ) {
+          addMenuSeparator()
+        }
+
+        self.svgPrint = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgPrint.setAttribute("width", "16")
+        self.svgPrint.setAttribute("height", "16")
+        self.svgPrint.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgPrintPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgPrintPath.setAttribute(
+          "d",
+          "M256 896h512v-128h-512v128zM960 704h-896q-26 0 -45 -19t-19 -45v-320q0 -26 19 -45t45 -19h192v-256h512v256h192q26 0 45 19t19 45v320q0 26 -19 45t-45 19zM704 64h-384v320h384v-320zM974 608q0 -19 -13.5 -32.5t-32.5 -13.5t-32.5 13.5t-13.5 32.5t13.5 32.5 t32.5 13.5t32.5 -13.5t13.5 -32.5z"
+        )
+        self.svgPrintPath.setAttribute(
+          "transform",
+          "translate(0 930) scale(-0.97,0.97) rotate(180)"
+        )
+        self.svgPrint.appendChild(self.svgPrintPath)
+        addMenuItem(self.svgPrint, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.print()
+          event.preventDefault()
+        })
+
+        addMenuSeparator()
+
+        self.svgUndo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgUndo.setAttribute("id", self.myContainerID + "-undo")
+        self.svgUndo.setAttribute("width", "16")
+        self.svgUndo.setAttribute("height", "16")
+        self.svgUndo.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgUndoPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgUndoPath.setAttribute(
+          "d",
+          "M762 -64q43 77 62 168t-9 168t-113.5 127.5t-253.5 46.5v-254l-384 384l384 384v-248q201 5 314.5 -73t148.5 -196t-4.5 -255.5t-144.5 -251.5z"
+        )
+        self.svgUndoPath.setAttribute(
+          "transform",
+          "translate(0 960) scale(-1,1) rotate(180)"
+        )
+        self.svgUndo.appendChild(self.svgUndoPath)
+        addMenuItem(self.svgUndo, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("undo")
+          event.preventDefault()
+        })
+
+        self.svgRedo = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgRedo.setAttribute("id", self.myContainerID + "-redo")
+        self.svgRedo.setAttribute("width", "16")
+        self.svgRedo.setAttribute("height", "16")
+        self.svgRedo.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgRedoPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgRedoPath.setAttribute(
+          "d",
+          "M576 712v248l384 -384l-384 -384v254q-168 4 -253.5 -46.5t-113.5 -127.5t-9 -168t62 -168q-105 114 -144.5 251.5t-4.5 255.5t148.5 196t314.5 73v0z"
+        )
+        self.svgRedoPath.setAttribute(
+          "transform",
+          "translate(0 960) scale(-1,1) rotate(180)"
+        )
+        self.svgRedo.appendChild(self.svgRedoPath)
+        addMenuItem(self.svgRedo, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("redo")
+          event.preventDefault()
+        })
+
+        addMenuSeparator()
+
+        self.svgFind = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgFind.setAttribute("width", "16")
+        self.svgFind.setAttribute("height", "16")
+        self.svgFind.setAttribute("viewBox", "0 0 92.96 92.961")
+        self.svgFindPath1 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgFindPath1.setAttribute(
+          "d",
+          "M88.696,88.697L88.696,88.697c-3.97,3.97-10.058,3.654-13.6-0.701L50.607,59.508l8.9-8.898l28.488,24.488   C92.352,78.639,92.667,84.727,88.696,88.697z"
+        )
+        self.svgFindPath2 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgFindPath2.setAttribute(
+          "d",
+          "M35.271,69.061c-18.632,0-33.791-15.158-33.79-33.791C1.479,16.638,16.639,1.48,35.271,1.48    s33.79,15.158,33.79,33.79C69.06,53.902,53.903,69.061,35.271,69.061z M35.27,9.225C20.909,9.226,9.225,20.91,9.225,35.27    c0,14.362,11.684,26.044,26.045,26.044c14.36,0,26.045-11.684,26.045-26.044C61.315,20.91,49.63,9.226,35.27,9.225z"
+        )
+        self.svgFind.appendChild(self.svgFindPath1)
+        self.svgFind.appendChild(self.svgFindPath2)
+        addMenuItem(self.svgFind, function (e) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.showFindBar(true)
+          e.preventDefault()
+        })
+
+        addMenuSeparator()
+
+        self.svgBold = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgBold.setAttribute("width", "16")
+        self.svgBold.setAttribute("height", "16")
+        self.svgBold.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgBoldPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgBoldPath.setAttribute(
+          "d",
+          "M708 475q28 34 44 76t16 89q0 53 -20 99.5t-55 81.5t-81.5 55t-99.5 20h-320v-896h384q53 0 99.5 20t81.5 55t55 81.5t20 99.5q0 70 -34 128t-90 91zM384 768h101q42 0 72 -37.5t30 -90.5t-30 -90.5t-71 -37.5h-102v256zM543 128h-159v256h159q44 0 75 -37.5t31 -90.5 t-31 -90.5t-75 -37.5z"
+        )
+        self.svgBoldPath.setAttribute(
+          "transform",
+          "translate(0 960) scale(-1,1) rotate(180)"
+        )
+        self.svgBold.appendChild(self.svgBoldPath)
+        addMenuItem(self.svgBold, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("bold")
+          event.preventDefault()
+        })
+
+        self.svgItalic = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        self.svgItalic.setAttribute("width", "16")
+        self.svgItalic.setAttribute("height", "16")
+        self.svgItalic.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgItalicPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgItalicPath.setAttribute(
+          "d",
+          "M896 896v-64h-128l-320 -768h128v-64h-448v64h128l320 768h-128v64h448z"
+        )
+        self.svgItalicPath.setAttribute(
+          "transform",
+          "translate(0 955) scale(-1,1) rotate(180)"
+        )
+        self.svgItalic.appendChild(self.svgItalicPath)
+        addMenuItem(self.svgItalic, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("italic")
+          event.preventDefault()
+        })
+
+        self.svgUnderline = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        self.svgUnderline.setAttribute("width", "16")
+        self.svgUnderline.setAttribute("height", "16")
+        self.svgUnderline.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgUnderlinePath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgUnderlinePath.setAttribute(
+          "d",
+          "M704 896h128v-416q0 -60 -25 -112.5t-68.5 -91.5t-102 -61.5t-124.5 -22.5t-124.5 22.5t-102 61.5t-68.5 91.5t-25 112.5v416h128v-416q0 -30 13.5 -58t37.5 -51q28 -24 64.5 -37.5t76.5 -13.5t76.5 13.5t64.5 37.5q24 23 37.5 51t13.5 58v416zM192 128h640v-128h-640 v128z"
+        )
+        self.svgUnderlinePath.setAttribute(
+          "transform",
+          "translate(0 975) scale(-1,1) rotate(180)"
+        )
+        self.svgUnderline.appendChild(self.svgUnderlinePath)
+        addMenuItem(self.svgUnderline, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("underline")
+          event.preventDefault()
+        })
+
+        self.svgStrikethrough = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        self.svgStrikethrough.setAttribute("width", "16")
+        self.svgStrikethrough.setAttribute("height", "16")
+        self.svgStrikethrough.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgStrikethroughPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgStrikethroughPath.setAttribute(
+          "d",
+          "M731 443q48 -36 74.5 -85t26.5 -102t-26.5 -102t-74.5 -85q-44 -33 -100.5 -51t-118.5 -18t-118.5 18t-100.5 51q-48 36 -74.5 85t-26.5 102h128q0 -52 57 -90t135 -38t135 38t57 90t-57 90t-135 38q-62 0 -118.5 18t-100.5 51q-48 36 -74.5 85t-26.5 102t26.5 102 t74.5 85q44 33 100.5 51t118.5 18t118.5 -18t100.5 -51q48 -36 74.5 -85t26.5 -102h-128q0 52 -57 90t-135 38t-135 -38t-57 -90t57 -90t135 -38q62 0 118.5 -18t100.5 -51v0zM0 448h1024v-64h-1024v64z"
+        )
+        self.svgStrikethroughPath.setAttribute(
+          "transform",
+          "translate(0 960) scale(-1,1) rotate(180)"
+        )
+        self.svgStrikethrough.appendChild(self.svgStrikethroughPath)
+        addMenuItem(self.svgStrikethrough, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("strikethrough")
+          event.preventDefault()
+        })
+
+        addMenuSeparator()
+
+        self.svgDotted = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        self.svgDotted.setAttribute("width", "16")
+        self.svgDotted.setAttribute("height", "16")
+        self.svgDotted.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgDottedPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgDottedPath.setAttribute(
+          "d",
+          "M384 896h640v-128h-640v128zM384 512h640v-128h-640v128zM384 128h640v-128h-640v128zM0 832q0 53 37.5 90.5t90.5 37.5t90.5 -37.5t37.5 -90.5t-37.5 -90.5t-90.5 -37.5t-90.5 37.5t-37.5 90.5zM0 448q0 53 37.5 90.5t90.5 37.5t90.5 -37.5t37.5 -90.5t-37.5 -90.5 t-90.5 -37.5t-90.5 37.5t-37.5 90.5zM0 64q0 53 37.5 90.5t90.5 37.5t90.5 -37.5t37.5 -90.5t-37.5 -90.5t-90.5 -37.5t-90.5 37.5t-37.5 90.5z"
+        )
+        self.svgDottedPath.setAttribute(
+          "transform",
+          "translate(0 940) scale(-0.97,0.97) rotate(180)"
+        )
+        self.svgDotted.appendChild(self.svgDottedPath)
+        addMenuItem(self.svgDotted, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("insertunorderedlist")
+          event.preventDefault()
+        })
+
+        self.svgNumbered = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        self.svgNumbered.setAttribute("width", "16")
+        self.svgNumbered.setAttribute("height", "16")
+        self.svgNumbered.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgNumberedPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgNumberedPath.setAttribute(
+          "d",
+          "M384 128h640v-128h-640v128zM384 512h640v-128h-640v128zM384 896h640v-128h-640v128zM192 960v-256h-64v192h-64v64h128zM128 434v-50h128v-64h-192v146l128 60v50h-128v64h192v-146zM256 256v-320h-192v64h128v64h-128v64h128v64h-128v64h192z"
+        )
+        self.svgNumberedPath.setAttribute(
+          "transform",
+          "translate(-50 940) scale(-0.97,0.97) rotate(180)"
+        )
+        self.svgNumbered.appendChild(self.svgNumberedPath)
+        addMenuItem(self.svgNumbered, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("insertorderedlist")
+          event.preventDefault()
+        })
+
+        self.svgHighlight = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        self.svgHighlight.setAttribute("width", "16")
+        self.svgHighlight.setAttribute("height", "16")
+        self.svgHighlight.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgHighlightPath1 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgHighlightPath1.setAttribute(
+          "d",
+          "M739 627l-502 -502h-186v185l503 503l185 -186v0zM803 688l-185 186l67 67q17 17 38.5 17t38.5 -17l108 -109q17 -17 17 -38.5t-17 -38.5l-67 -67v0zM42 0"
+        )
+        self.svgHighlightPath1.setAttribute(
+          "transform",
+          "translate(0 950) scale(-0.97,0.97) rotate(180)"
+        )
+        self.svgHighlightPath2 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgHighlightPath2.setAttribute("fill", "#FFFF00")
+        self.svgHighlightPath2.setAttribute(
+          "d",
+          "M-739 627l-502 -17 17 -38.5t-17 -38.5l-67 -67v0zM42 48h940v-112h-940v112v0z"
+        )
+        self.svgHighlightPath2.setAttribute(
+          "transform",
+          "translate(0 950) scale(-0.97,0.97) rotate(180)"
+        )
+        self.svgHighlight.appendChild(self.svgHighlightPath1)
+        self.svgHighlight.appendChild(self.svgHighlightPath2)
+        addMenuItem(self.svgHighlight, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("BackColor", "#FFFF00")
+          event.preventDefault()
+        })
+
+        self.svgLink = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgLink.setAttribute("width", "16")
+        self.svgLink.setAttribute("height", "16")
+        self.svgLink.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgLinkPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgLinkPath.setAttribute(
+          "d",
+          "M320 256q13 -13 32.5 -12.5t33.5 14.5l316 316q14 14 14.5 33.5t-12.5 32.5t-32.5 12.5t-33.5 -14.5l-316 -316q-14 -14 -14.5 -33.5t12.5 -32.5zM477 285q3 -7 5 -14.5t2 -15.5q0 -13 -5 -25t-14 -21l-163 -163q-10 -10 -22 -14.5t-25 -4.5t-25 4.5t-21 14.5l-99 99 q-10 9 -14.5 21t-4.5 25t4.5 25t14.5 21l163 164q9 9 21 14t25 5q8 0 15.5 -2t14.5 -5l65 65q-21 16 -45.5 24t-49.5 8q-30 0 -58.5 -11t-51.5 -34l-163 -163q-46 -46 -46 -111t46 -110l99 -99q23 -23 51.5 -34.5t58.5 -11.5t59 11.5t52 34.5l163 163q42 42 45 100.5 t-32 104.5l-65 -65v0zM978 815l-99 99q-23 23 -51.5 34.5t-58.5 11.5t-59 -11.5t-51 -34.5l-164 -163q-42 -42 -45 -100.5t32 -104.5l65 65q-3 7 -5 14.5t-2 15.5q0 13 5 25t14 21l163 163q10 10 22 14.5t25 4.5t25 -4.5t21 -14.5l99 -99q10 -9 14.5 -21t4.5 -25t-4.5 -25 t-14.5 -21l-163 -164q-9 -9 -21 -14t-25 -5q-8 0 -15.5 2t-14.5 5l-65 -65q21 -16 45.5 -24t49.5 -8q30 0 58.5 11t51.5 34l163 164q46 45 46 110t-46 110z"
+        )
+        self.svgLinkPath.setAttribute(
+          "transform",
+          "translate(0 930) scale(-0.97,0.97) rotate(180)"
+        )
+        self.svgLink.appendChild(self.svgLinkPath)
+        addMenuItem(self.svgLink, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.insertLink()
+          event.preventDefault()
+        })
+
+        addMenuSeparator()
+
+        self.svgTemplate = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        self.svgTemplate.setAttribute("width", "16")
+        self.svgTemplate.setAttribute("height", "16")
+        self.svgTemplate.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgTemplatePath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgTemplatePath.setAttribute(
+          "d",
+          "M384 768h128v-64h-128v64zM576 768h128v-64h-128v64zM896 768v-256h-192v64h128v128h-64v64h128zM320 576h128v-64h-128v64zM512 576h128v-64h-128v64zM192 704v-128h64v-64h-128v256h192v-64h-128zM384 384h128v-64h-128v64zM576 384h128v-64h-128v64zM896 384v-256 h-192v64h128v128h-64v64h128zM320 192h128v-64h-128v64zM512 192h128v-64h-128v64zM192 320v-128h64v-64h-128v256h192v-64h-128zM960 896h-896v-896h896v896zM1024 960v0v-1024h-1024v1024h1024z"
+        )
+        self.svgTemplatePath.setAttribute(
+          "transform",
+          "translate(0 940) scale(-0.97,0.97) rotate(180)"
+        )
+        self.svgTemplate.appendChild(self.svgTemplatePath)
+
+        if (Array.isArray(self.editorConfig.templates)) {
+          for (var i = 0; i < self.editorConfig.templates.length; i++) {
+            var templateContent = self.editorConfig.templates[i]
+
+            ;(function (data) {
+              var tempSvg = self.svgTemplate.cloneNode(true)
+              addMenuItem(tempSvg, function (event) {
+                if (!self.documentEnabled) {
+                  return
+                }
+                self.insertHtmlAtCaret(data, false)
+                event.preventDefault()
+              })
+            })(templateContent)
+          }
+        }
+
+        self.svgCalc = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+        self.svgCalc.setAttribute("width", "16")
+        self.svgCalc.setAttribute("height", "16")
+        self.svgCalc.setAttribute("viewBox", "0 0 512.001 512.001")
+        self.svgCalcPath1 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath1.setAttribute(
+          "d",
+          "M403.432,0H108.57C86.583,0,68.695,17.887,68.695,39.874v432.253c0,21.987,17.887,39.874,39.874,39.874h294.862 c21.987,0,39.874-17.887,39.874-39.874V39.874C443.305,17.887,425.417,0,403.432,0z M424.297,472.127h-0.001 c0,11.505-9.36,20.865-20.865,20.865H108.57c-11.505,0-20.865-9.36-20.865-20.865V39.874c0-11.505,9.36-20.865,20.865-20.865 h294.862c11.505,0,20.865,9.36,20.865,20.865V472.127z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath1)
+        self.svgCalcPath2 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath2.setAttribute(
+          "d",
+          "M382.1,51.081H129.901c-5.25,0-9.504,4.255-9.504,9.504v82.322c0,5.249,4.254,9.504,9.504,9.504H382.1 c5.25,0,9.504-4.255,9.504-9.504V60.585C391.604,55.336,387.349,51.081,382.1,51.081z M372.596,133.403h-233.19V70.089h233.19 V133.403z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath2)
+        self.svgCalcPath3 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath3.setAttribute(
+          "d",
+          "M185.115,181.553h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C194.62,185.809,190.366,181.553,185.115,181.553z M175.611,240.889h-36.205v-40.327 h36.205V240.889z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath3)
+        self.svgCalcPath4 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath4.setAttribute(
+          "d",
+          "M185.115,283.696h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C194.62,287.952,190.366,283.696,185.115,283.696z M175.611,343.032h-36.205v-40.327 h36.205V343.032z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath4)
+        self.svgCalcPath5 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath5.setAttribute(
+          "d",
+          "M185.115,385.84h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C194.62,390.095,190.366,385.84,185.115,385.84z M175.611,445.175h-36.205v-40.327h36.205 V445.175z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath5)
+        self.svgCalcPath6 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath6.setAttribute(
+          "d",
+          "M283.608,181.553h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C293.112,185.809,288.857,181.553,283.608,181.553z M274.103,240.889h-36.205v-40.327 h36.205V240.889z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath6)
+        self.svgCalcPath7 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath7.setAttribute(
+          "d",
+          "M283.608,283.696h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C293.112,287.952,288.857,283.696,283.608,283.696z M274.103,343.032h-36.205v-40.327 h36.205V343.032z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath7)
+        self.svgCalcPath8 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath8.setAttribute(
+          "d",
+          "M283.608,385.84h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504h55.214 c5.25,0,9.504-4.255,9.504-9.504v-59.335C293.112,390.095,288.857,385.84,283.608,385.84z M274.103,445.175h-36.205v-40.327 h36.205V445.175z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath8)
+        self.svgCalcPath9 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath9.setAttribute(
+          "d",
+          "M382.1,181.553h-55.214c-5.25,0-9.504,4.255-9.504,9.504v59.335c0,5.249,4.254,9.504,9.504,9.504H382.1 c5.25,0,9.504-4.255,9.504-9.504v-59.335C391.604,185.809,387.349,181.553,382.1,181.553z M372.596,240.889H336.39v-40.327h36.205 V240.889z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath9)
+        self.svgCalcPath10 = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgCalcPath10.setAttribute(
+          "d",
+          "M382.1,283.696h-55.214c-5.25,0-9.504,4.255-9.504,9.504V454.68c0,5.249,4.254,9.504,9.504,9.504H382.1 c5.25,0,9.504-4.255,9.504-9.504V293.201C391.604,287.952,387.349,283.696,382.1,283.696z M372.596,445.175H336.39v-142.47h36.205 V445.175z"
+        )
+        self.svgCalc.appendChild(self.svgCalcPath10)
+        if (self.editorConfig.calcEnabled === true) {
+          addMenuItem(self.svgCalc, function (event) {
+            if (!self.documentEnabled) {
+              return
+            }
+
+            self.insertCalc()
+            event.preventDefault()
+          })
+        }
+
+        self.svgWordCount = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        self.svgWordCount.setAttribute("width", "16")
+        self.svgWordCount.setAttribute("height", "16")
+        self.svgWordCount.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgWordCountPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgWordCountPath.setAttribute(
+          "d",
+          "M0 480h1024v-64h-1024v64zM304 912v-339h-67v272h-67v67h134zM445 694v-54h134v-67h-201v153l134 64v55h-134v67h201v-154zM854 912v-339h-204v67h137v67h-137v71h137v67h-137v67h204zM115 166q3 44 29.5 64t79.5 20q29 0 50.5 -7t35.5 -19q15 -12 20.5 -28t5.5 -42v-112 q0 -20 1 -26t9 -16h-74q-2 7 -3 9.5t-3 9.5q-17 -14 -33 -19.5t-38 -5.5q-41 0 -65 21.5t-24 54.5q0 34 23 53.5t76 26.5l38 7q12 2 17.5 5.5t5.5 10.5q0 9 -10 15.5t-29 6.5t-30.5 -7t-14.5 -22h-67v0zM262 115q-4 -2 -10 -4t-15 -2l-26 -7q-19 -4 -28.5 -11.5t-9.5 -16.5 q0 -12 9 -19t26 -7t31 7.5t23 24.5v35v0zM390 336h74v-112q17 12 32.5 17t34.5 5q48 0 77 -34.5t29 -89.5q0 -58 -30.5 -96.5t-78.5 -38.5q-24 0 -38.5 8t-28.5 27v-28h-71v342v0zM461 122q0 -32 14.5 -51.5t36.5 -19.5t36.5 19.5t14.5 51.5q0 33 -13.5 51.5t-37.5 18.5 q-22 0 -36.5 -19.5t-14.5 -50.5zM851 154q-2 16 -13.5 25.5t-31.5 9.5q-24 0 -37.5 -18.5t-13.5 -52.5q0 -36 13.5 -54.5t37.5 -18.5q20 0 31.5 10t13.5 31l71 -3q-8 -45 -39.5 -70.5t-79.5 -25.5q-55 0 -88 35.5t-33 92.5q0 60 33.5 95.5t90.5 35.5q48 0 79 -25t33 -71h-67 v4z"
+        )
+        self.svgWordCountPath.setAttribute(
+          "transform",
+          "translate(-10 930) scale(-1,1) rotate(180)"
+        )
+        self.svgWordCount.appendChild(self.svgWordCountPath)
+        addMenuItem(self.svgWordCount, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.wordCount()
+          event.preventDefault()
+        })
+
+        addMenuSeparator()
+
+        self.svgRemoveFormat = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        )
+        self.svgRemoveFormat.setAttribute("width", "16")
+        self.svgRemoveFormat.setAttribute("height", "16")
+        self.svgRemoveFormat.setAttribute("viewBox", "0 0 1000 1000")
+        self.svgRemoveFormatPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        )
+        self.svgRemoveFormatPath.setAttribute(
+          "d",
+          "M0 64h576v-128h-576v128zM192 960h704v-128h-704v128zM277 128l205 784l124 -32l-196 -752h-133zM930 -64l-130 130l-130 -130l-62 62l130 130l-130 130l62 62l130 -130l130 130l62 -62l-130 -130l130 -130z"
+        )
+        self.svgRemoveFormatPath.setAttribute(
+          "transform",
+          "translate(0 915) scale(-0.97,0.97) rotate(180)"
+        )
+        self.svgRemoveFormat.appendChild(self.svgRemoveFormatPath)
+        addMenuItem(self.svgRemoveFormat, function (event) {
+          if (!self.documentEnabled) {
+            return
+          }
+
+          self.formatDoc("removeFormat")
+          event.preventDefault()
+        })
+
+        addMenuSeparator()
+
+        self.holder19 = document.createElement("div")
+        self.holder19.className = "tinydoc_holder"
+        self.menu.appendChild(self.holder19)
+        self.contentViewer = document.createElement("div")
+        self.contentViewer.className = "tinydoc_contentviewer"
+        self.holder19.appendChild(self.contentViewer)
+
+        self.document = document.createElement("div")
+        self.document.className = "tinydoc_document"
+        self.document.contentEditable = true
+        self.wrapper.appendChild(self.document)
+
+        self.findBar = document.createElement("div")
+        self.findBar.className = "tinydoc_find_bar"
+        self.findContent = document.createElement("div")
+        self.findContent.className = "tinydoc_find_content"
+        self.findInput = document.createElement("input")
+        self.findInput.className = "tinydoc_find_input"
+        self.findInput.name = "tinydoc_find_input"
+        self.findInput.placeholder = self.editorConfig.find
+        self.findPrev = document.createElement("button")
+        self.findPrev.className = "tinydoc_find_button"
+        self.findPrev.appendChild(document.createTextNode("<"))
+        self.findNext = document.createElement("button")
+        self.findNext.className = "tinydoc_find_button"
+        self.findNext.appendChild(document.createTextNode(">"))
+        self.findCounter = document.createElement("span")
+        self.findCounter.className = "tinydoc_find_counter"
+        self.replaceInput = document.createElement("input")
+        self.replaceInput.className = "tinydoc_find_input"
+        self.replaceInput.name = "tinydoc_replace_input"
+        self.replaceInput.placeholder = self.editorConfig.replace
+        self.replaceOneButton = document.createElement("button")
+        self.replaceOneButton.className = "tinydoc_find_button"
+        self.replaceOneButton.style.width = "auto"
+        self.replaceOneButton.appendChild(
+          document.createTextNode(self.editorConfig.replaceOne)
+        )
+        self.replaceAllButton = document.createElement("button")
+        self.replaceAllButton.className = "tinydoc_find_button"
+        self.replaceAllButton.style.width = "auto"
+        self.replaceAllButton.appendChild(
+          document.createTextNode(self.editorConfig.replaceAll)
+        )
+        self.findContent.appendChild(self.findInput)
+        self.findContent.appendChild(self.findPrev)
+        self.findContent.appendChild(self.findNext)
+        self.findContent.appendChild(self.findCounter)
+        self.findContent.appendChild(self.replaceInput)
+        self.findContent.appendChild(self.replaceOneButton)
+        self.findContent.appendChild(self.replaceAllButton)
+        self.findBar.appendChild(self.findContent)
+        self.wrapper.appendChild(self.findBar)
+
+        self.findMatches = []
+        self.findIndex = 0
+        self.findInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault()
+            self.runFind()
+          }
+        })
+        self.findPrev.addEventListener("click", function () {
+          if (self.findMatches.length === 0) {
+            self.runFind()
+          } else {
+            self.goToFindMatch(self.findIndex - 1)
+          }
+        })
+        self.findNext.addEventListener("click", function () {
+          if (self.findMatches.length === 0) {
+            self.runFind()
+          } else {
+            self.goToFindMatch(self.findIndex + 1)
+          }
+        })
+        self.replaceOneButton.addEventListener("click", function () {
+          if (self.findInput.value !== "" && self.findMatches.length === 0) {
+            self.runFind()
+          }
+          self.goToFindMatch(self.findIndex)
+          self.replaceOne()
+        })
+        self.replaceAllButton.addEventListener("click", function () {
+          if (self.findInput.value !== "" && self.findMatches.length === 0) {
+            self.runFind()
+          }
+          self.replaceAll()
+        })
+
+        if (editorConfig.content) {
+          self.document.innerHTML = editorConfig.content
+        } else {
+          var emptyContent = document.createElement("div")
+          self.document.appendChild(emptyContent)
+        }
+
+        self.documentEnabled = true
+        self.canUndoRedo = true
+        self.undoSaveTimeout = null
+        self.keyEnterPressed = false
+        self.settingNewText = false
+        self.isUsingSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        )
+        self.isUsingChrome = /.*chrome/i.test(navigator.userAgent)
+        self.isMobileDevice = !!(
+          window.navigator.userAgent.match(/Android/i) ||
+          window.navigator.userAgent.match(/webOS/i) ||
+          window.navigator.userAgent.match(/iPhone/i) ||
+          window.navigator.userAgent.match(/iPad/i) ||
+          window.navigator.userAgent.match(/iPod/i) ||
+          window.navigator.userAgent.match(/BlackBerry/i) ||
+          window.navigator.userAgent.match(/Windows Phone/i)
+        )
+
+        document.addEventListener("keydown", function (event) {
+          var KEY_ESCAPE = event.key === "Escape"
+          var KEY_CTRL_F = (event.ctrlKey || event.metaKey) && event.key === "f"
+          var KEY_CTRL_H = (event.ctrlKey || event.metaKey) && event.key === "h"
+          if (KEY_ESCAPE) {
+            self.showFindBar(false)
+          } else if (KEY_CTRL_F) {
+            event.preventDefault()
+            self.showFindBar(true)
+          } else if (KEY_CTRL_H) {
+            event.preventDefault()
+            self.showFindBar(true)
+          }
+        })
+
+        self.document.addEventListener("input", function () {
+          if (self.editorConfig.dirtyCallback) {
+            self.editorConfig.dirtyCallback()
+          }
+        })
+
+        self.document.addEventListener("mousedown", function (event) {
+          try {
+            if (!self.documentEnabled) {
+              event.preventDefault()
+            }
+          } catch (err) {
+            //
+          }
+        })
+
+        self.document.addEventListener("keydown", function (event) {
+          try {
+            if (!self.documentEnabled) {
+              event.preventDefault()
+            } else {
+              var KEY_TAB = event.key === "Tab"
+              var KEY_ENTER = event.key === "Enter"
+              var KEY_CTRL_S = (event.ctrlKey || event.metaKey) && event.key === "s"
+              var KEY_CTRL_P = (event.ctrlKey || event.metaKey) && event.key === "p"
+              var KEY_UNDO_MAC = event.ctrlKey && event.shiftKey && event.key === "z"
+              var KEY_UNDO_WINDOWS =
+                (event.ctrlKey || event.metaKey) &&
+                !event.shiftKey &&
+                event.key === "z"
+              var KEY_REDO_MAC = event.shiftKey && event.metaKey && event.key === "z"
+              var KEY_REDO_WINDOWS = event.ctrlKey && event.key === "y"
+
+              if (KEY_TAB) {
+                event.preventDefault()
+
+                if (self.editorConfig.replaceTabWithSpaces) {
+                  self.insertHtmlAtCaret(
+                    "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+                    false
+                  )
+                } else {
+                  self.insertHtmlAtCaret("&#009", false)
+                }
+
+                setTimeout(function () {
+                  self.document.focus()
+                }, 100)
+              } else if (KEY_ENTER) {
+                self.handleBreakline(event)
+              } else if (KEY_CTRL_S) {
+                if (
+                  self.editorConfig.saveCallback &&
+                  self.editorConfig.useCtrlSForSaving
+                ) {
+                  event.preventDefault()
+                  self.save()
+                }
+              } else if (KEY_CTRL_P) {
+                if (self.editorConfig.useCtrlPForPrinting) {
+                  event.preventDefault()
+                  self.print()
+                }
+              } else if (KEY_UNDO_MAC || KEY_UNDO_WINDOWS) {
+                event.preventDefault()
+                self.undo(true)
+              } else if (KEY_REDO_MAC || KEY_REDO_WINDOWS) {
+                event.preventDefault()
+                self.redo(true)
+              }
+            }
+          } catch (err) {
+            //
+          }
+        })
+
+        self.document.addEventListener("keyup", function (event) {
+          if (!self.documentEnabled) {
+            event.preventDefault()
+          } else {
+            self.checkForURL()
+
+            if (self.undoSaveTimeout !== null) {
+              clearTimeout(self.undoSaveTimeout)
+            }
+
+            self.undoSaveTimeout = setTimeout(function () {
+              self.saveUndo()
+            }, 100)
+          }
+        })
+
+        self.document.addEventListener("click", function (event) {
+          if (!self.documentEnabled) {
+            event.preventDefault()
+          } else {
+            self.checkForURL()
+          }
+        })
+
+        self.document.addEventListener("contextmenu", function (event) {
+          if (!self.documentEnabled) {
+            event.preventDefault()
+          } else {
+            self.checkForURL()
+          }
+        })
+
+        self.document.addEventListener("paste", function (event) {
+          try {
+            event.preventDefault()
+
+            var text = (event.originalEvent || event).clipboardData.getData(
+              "text/plain"
+            )
+
+            text = text.replace(/&/gm, "&amp;")
+            text = text.replace(/</gm, "&lt;")
+            text = text.replace(/>/gm, "&gt;")
+            text = text.replace(/ {2}/gm, "&nbsp;&nbsp;")
+            text = text.replace(/\n/gm, "<br />")
+
+            self.document.focus()
+
+            self.insertHtmlAtCaret(text, false)
+          } catch (err) {
+            //
+          }
+        })
+
+        self.clearUndoRedo()
+        self.scrollToTop()
+      }
+
+      tinyDOC.prototype.new = function () {
+        try {
+          try {
+            while (this.document.firstChild) {
+              this.document.removeChild(this.document.firstChild)
+            }
+          } catch (err) {
+            //
+          }
+
+          this.clearUndoRedo()
+          this.setCaretPosition(this.document, 0)
+          this.scrollToTop()
+          this.focus()
+          this.updateUndoRedoIcons()
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.save = function () {
+        try {
+          if (this.documentEnabled) {
+            if (this.editorConfig.saveCallback) {
+              this.editorConfig.saveCallback(this.document.innerHTML.toString())
+            }
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.scrollToTop = function () {
+        try {
+          this.document.scrollTop = 0
+        } catch (err) {
+          //
+        }
+      }
+
+      // https://stackoverflow.com/questions/47361276/javascript-scroll-to-cursor-post-a-paste-in-contenteditable-div
+      tinyDOC.prototype.scrollToCaret = function () {
+        try {
+          var currentSelection = this.saveSelection(this.document)
+          var caretPositionY = this.getCaretY() - this.document.offsetTop + 16
+
+          if (caretPositionY < 0 || caretPositionY > this.document.offsetHeight) {
+            var selection = window.getSelection()
+
+            if (!selection.rangeCount) {
+              return
+            }
+
+            var firstRange = selection.getRangeAt(0)
+
+            if (firstRange.commonAncestorContainer === document) {
+              return
+            }
+
+            var tempAnchorEl = document.createElement("br")
+
+            firstRange.insertNode(tempAnchorEl)
+
+            if (caretPositionY < 0) {
+              tempAnchorEl.scrollIntoView({ block: "start" })
+            } else {
+              tempAnchorEl.scrollIntoView({ block: "end" })
+            }
+
+            tempAnchorEl.remove()
+          }
+
+          if (currentSelection.start !== currentSelection.end) {
+            this.restoreSelection(this.document, currentSelection)
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      // https://stackoverflow.com/questions/6846230/coordinates-of-selected-text-in-browser-page
+      tinyDOC.prototype.getCaretY = function () {
+        try {
+          var sel = document.selection
+          var range
+          var rect
+          var x = 0
+          var y = 0
+
+          if (sel) {
+            if (sel.type !== "Control") {
+              range = sel.createRange()
+              range.collapse(true)
+              x = range.boundingLeft
+              y = range.boundingTop
+            }
+          } else if (window.getSelection) {
+            sel = window.getSelection()
+
+            if (sel.rangeCount) {
+              range = sel.getRangeAt(0).cloneRange()
+
+              if (range.getClientRects) {
+                range.collapse(true)
+
+                if (range.getClientRects().length > 0) {
+                  rect = range.getClientRects()[0]
+                  x = rect.left
+                  y = rect.top
+                }
+              }
+
+              if (x === 0 && y === 0) {
+                var span = document.createElement("span")
+                if (span.getClientRects) {
+                  span.appendChild(document.createTextNode("\u200B"))
+                  range.insertNode(span)
+                  rect = span.getClientRects()[0]
+                  x = rect.left
+                  y = rect.top
+
+                  var spanParent = span.parentNode
+                  spanParent.removeChild(span)
+
+                  spanParent.normalize()
+                }
+              }
+            }
+          }
+          return y
+        } catch (err) {
+          //
+        }
+        return 0
+      }
+
+      tinyDOC.prototype.setText = function (myText) {
+        try {
+          var _this = this
+          this.new()
+          this.settingNewText = true
+          this.insertHtmlAtCaret(myText, false)
+          this.clearUndoRedo()
+
+          setTimeout(function () {
+            _this.setCaretPosition(_this.document, 0)
+          }, 25)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.encodeText = function (str) {
+        var i = str.length
+        var aRet = []
+        while (i > 0) {
+          i -= 1
+          var tempChar = str[i].charCodeAt()
+          if (
+            tempChar > 126 ||
+            tempChar === 34 ||
+            tempChar === 39 ||
+            tempChar === 60 ||
+            tempChar === 62
+          ) {
+            aRet[i] = "&#" + tempChar + ";"
+          } else {
+            aRet[i] = str[i]
+          }
+        }
+        return aRet.join("")
+      }
+
+      tinyDOC.prototype.enable = function () {
+        this.documentEnabled = true
+        this.document.style.caretColor = "black"
+      }
+
+      tinyDOC.prototype.disable = function () {
+        this.documentEnabled = false
+        this.document.style.caretColor = "transparent"
+      }
+
+      tinyDOC.prototype.focus = function () {
+        try {
+          var _this = this
+          this.document.focus()
+
+          setTimeout(function () {
+            _this.document.focus()
+          }, 100)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.formatDoc = function (myCommand, myParameter) {
+        try {
+          if (!this.documentEnabled) {
+            return
+          }
+
+          this.document.focus()
+          var _this = this
+
+          if (myCommand === "bold") {
+            this.formatStyle("b", myParameter)
+          } else if (myCommand === "italic") {
+            this.formatStyle("i", myParameter)
+          } else if (myCommand === "underline") {
+            this.formatStyle("u", myParameter)
+          } else if (myCommand === "strikethrough") {
+            this.formatStyle("strike", myParameter)
+          } else if (myCommand === "BackColor") {
+            this.formatStyle("span", myParameter)
+          } else if (myCommand === "insertunorderedlist") {
+            this.formatList("ul")
+          } else if (myCommand === "insertorderedlist") {
+            this.formatList("ol")
+          } else if (myCommand === "removeFormat") {
+            this.removeFormat()
+          } else if (myCommand === "undo") {
+            this.undo(false)
+          } else if (myCommand === "redo") {
+            this.redo(false)
+          }
+
+          setTimeout(function () {
+            _this.document.focus()
+          }, 100)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.formatStyle = function (myTag, myParameter) {
+        try {
+          this.saveUndo()
+          var _this = this
+
+          var selection = window.getSelection()
+          var range = selection.getRangeAt(0)
+
+          var selectedContent = range.extractContents()
+          var newTag = document.createElement(myTag)
+
+          newTag.appendChild(selectedContent)
+
+          if (myTag === "span") {
+            newTag.style.backgroundColor = myParameter
+            newTag.style.boxShadow = "inset 0 0 0 1000px " + myParameter
+          }
+
+          range.deleteContents()
+          range.insertNode(newTag)
+
+          setTimeout(function () {
+            range = range.cloneRange()
+            range.setStartBefore(newTag)
+            selection.removeAllRanges()
+            selection.addRange(range)
+
+            _this.saveUndo()
+
+            if (_this.editorConfig.dirtyCallback) {
+              _this.editorConfig.dirtyCallback()
+            }
+          }, 25)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.formatList = function (tag1) {
+        try {
+          if (!this.isDocumentSelected()) {
+            return
+          }
+
+          var selectedText = window.getSelection().toString()
+
+          if (selectedText === "") {
+            selectedText = "<br />"
+          }
+
+          // cleaning text
+          selectedText = selectedText.replace(
+            /[\u00A0\u200B-\u200F\u202A-\u202E\u2060\u3000]/g,
+            ""
+          )
+
+          var result = ""
+
+          if (tag1 === "ul") {
+            var bullet = "\u2022 "
+            result = selectedText.replace(
+              /(^|\n)([^\n]*)/g,
+              function (_m, sep, line, offset, full) {
+                // check if this is the last line in the text
+                var isLast = offset + sep.length + line.length === full.length
+
+                // skip only the last empty line
+                if (!line.trim() && isLast) {
+                  return sep + line
+                }
+
+                // skipping lines already starting with a bullet
+                if (/^\u2022\s/.test(line)) {
+                  return sep + line
+                }
+
+                // adding bullet before line
+                return sep + bullet + line
+              }
+            )
+          } else {
+            var i = 1
+            result = selectedText.replace(
+              /(^|\n)([^\n]*)/g,
+              function (_m, sep, line, offset, full) {
+                // check if this is the last line in the text
+                var isLast = offset + sep.length + line.length === full.length
+
+                // skip only the last empty line
+                if (!line.trim() && isLast) {
+                  return sep + line
+                }
+
+                // removing any existing numeric prefix like "12. " at start of line
+                line = line.replace(/^\s*\d+\.\s*/, "")
+
+                // adding corrected counter
+                var prefix = i + ". "
+                i = i + 1
+
+                return sep + prefix + line
+              }
+            )
+          }
+
+          this.insertHtmlAtCaret(result, false)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.getParentTag = function (tagToFind) {
+        try {
+          var range = window.getSelection().getRangeAt(0)
+
+          var upperNode = range.startContainer
+
+          while (upperNode.parentNode !== this.document) {
+            upperNode = upperNode.parentNode
+
+            if (upperNode.nodeName === tagToFind) {
+              return upperNode
+            }
+          }
+        } catch (err) {
+          //
+        }
+        return null
+      }
+
+      tinyDOC.prototype.getCurrentTag = function () {
+        var currentNode = null
+
+        try {
+          var range = window.getSelection().getRangeAt(0)
+          currentNode = range.startContainer
+        } catch (err) {
+          //
+        }
+
+        return currentNode
+      }
+
+      // https://stackoverflow.com/questions/16736680/get-caret-index-in-contenteditable-div-including-tags
+      tinyDOC.prototype.getCaretCharacterOffsetWithin = function (element) {
+        var caretOffset = 0
+        try {
+          var range = window.getSelection().getRangeAt(0)
+          var preCaretRange = range.cloneRange()
+          preCaretRange.selectNodeContents(element)
+          preCaretRange.setEnd(range.endContainer, range.endOffset)
+          caretOffset = preCaretRange.toString().length
+        } catch (err) {
+          //
+        }
+        return caretOffset
+      }
+
+      tinyDOC.prototype.handleBreakline = function (event) {
+        try {
+          event.preventDefault()
+
+          if (!this.handleBreaklineInLink()) {
+            this.keyEnterPressed = true
+
+            var bullet = "\u2022 "
+
+            // get caret position node + offset
+            var sel = window.getSelection
+              ? window.getSelection()
+              : document.selection
+            if (!sel.rangeCount) {
+              this.insertHtmlAtCaret("<br>")
+              return
+            }
+
+            var range = sel.getRangeAt(0)
+            var container = range.startContainer
+            var textUpToCaret = container.textContent
+              ? container.textContent.slice(0, range.startOffset)
+              : ""
+
+            // find the beginning of the current line
+            var lastBreak = textUpToCaret.lastIndexOf("\n")
+            if (lastBreak === -1) {
+              lastBreak = textUpToCaret.lastIndexOf("<br>")
+            }
+            if (lastBreak < 0) {
+              lastBreak = 0
+            }
+
+            var currentLine = textUpToCaret.slice(lastBreak).replace(/^\s+/, "")
+
+            // --- detect numbered list start like "1. " or "23. "
+            var numMatch = currentLine.match(/^(\d+)\.\s/)
+            if (numMatch) {
+              // next number
+              var nextNum = parseInt(numMatch[1], 10) + 1
+              // insert next number
+              this.insertHtmlAtCaret("<br>" + nextNum + ". ", false)
+            } else if (currentLine.indexOf("\u2022") === 0) {
+              // if the current line starts with bullet, add bullet on new line
+              this.insertHtmlAtCaret("<br>" + bullet, false)
+            } else {
+              // regular newline
+              this.insertHtmlAtCaret("<br>", false)
+            }
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.handleBreaklineInLink = function () {
+        try {
+          var linkTag = this.getParentTag("A")
+
+          if (linkTag !== null) {
+            if (
+              this.getCaretCharacterOffsetWithin(linkTag) === linkTag.text.length
+            ) {
+              this.addBreakLineAfter(linkTag)
+              return true
+            }
+          }
+        } catch (err) {
+          //
+        }
+        return false
+      }
+
+      tinyDOC.prototype.addBreakLineAfter = function (currentNode) {
+        try {
+          this.saveUndo()
+          var _this = this
+
+          var tempAnchorEl = document.createElement("br")
+          currentNode.parentNode.insertBefore(tempAnchorEl, currentNode.nextSibling)
+
+          setTimeout(function () {
+            var range = document.createRange()
+            range.selectNodeContents(tempAnchorEl)
+            range.setStartAfter(tempAnchorEl)
+            range.collapse(true)
+            var sel = window.getSelection()
+            sel.removeAllRanges()
+            sel.addRange(range)
+
+            _this.saveUndo()
+          }, 25)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.isDocumentSelected = function () {
+        try {
+          var docFound = false
+          var upperNode = window.getSelection().focusNode
+
+          if (upperNode === this.document) {
+            docFound = true
+          }
+
+          while (upperNode.parentNode) {
+            upperNode = upperNode.parentNode
+            if (upperNode === this.document) {
+              docFound = true
+            }
+          }
+
+          return docFound
+        } catch (err) {
+          return false
+        }
+      }
+
+      tinyDOC.prototype.wordCount = function () {
+        if (!this.documentEnabled) {
+          return
+        }
+
+        try {
+          var _this = this
+          var textPlain = this.document.innerText
+          var wordCounter = textPlain.split(" ").filter(function (n) {
+            return n !== ""
+          }).length
+          var charCount = textPlain.length
+          var finalWordCountText = this.editorConfig.wordCount
+          finalWordCountText = finalWordCountText.replace(
+            /\{WORD\_COUNT\}/gm,
+            wordCounter
+          )
+          finalWordCountText = finalWordCountText.replace(
+            /\{CHARACTER\_COUNT\}/gm,
+            charCount
+          )
+          this.insertHtmlAtCaret(finalWordCountText + "<br />")
+          setTimeout(function () {
+            _this.document.focus()
+          }, 25)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.removeFormat = function () {
+        try {
+          if (window.getSelection().toString()) {
+            var plainText = window.getSelection().toString()
+
+            plainText = plainText.replace(/&/gm, "&amp;")
+            plainText = plainText.replace(/</gm, "&lt;")
+            plainText = plainText.replace(/>/gm, "&gt;")
+            plainText = plainText.replace(/ {2}/gm, "&nbsp;&nbsp;")
+            plainText = plainText.replace(/\n/gm, "<br />")
+
+            try {
+              var range = window.getSelection().getRangeAt(0)
+
+              if (
+                range.startOffset === 0 &&
+                (range.endOffset === 0 ||
+                  range.endOffset === window.getSelection().toString().length)
+              ) {
+                var upperNode = range.startContainer
+
+                while (
+                  upperNode.parentNode !== this.document &&
+                  upperNode.parentNode.nodeName !== "LI"
+                ) {
+                  upperNode = upperNode.parentNode
+                }
+
+                var lowerNode = upperNode
+                var foundListItem = false
+
+                while (lowerNode.firstChild) {
+                  lowerNode = lowerNode.firstChild
+                  if (lowerNode.nodeName === "LI") {
+                    foundListItem = true
+                  }
+                }
+
+                if (!foundListItem) {
+                  if (upperNode.innerText.length === range.endOffset) {
+                    upperNode.parentNode.removeChild(upperNode)
+                  }
+                }
+              }
+            } catch (err) {
+              //
+            }
+
+            this.insertHtmlAtCaret(plainText, true)
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.print = function () {
+        if (!this.isMobileDevice) {
+          try {
+            var _this = this
+            var newIframe = document.createElement("iframe")
+            newIframe.width = "0"
+            newIframe.height = "0"
+            newIframe.src = "about:blank"
+            document.getElementsByTagName("body")[0].appendChild(newIframe)
+            newIframe.contentWindow.document.write(
+              "<!doctype html><html><head><title>" +
+                this.encodeText(window.location.href) +
+                "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:" +
+                this.editorConfig.linkColor +
+                "}</style></head><body>" +
+                this.document.innerHTML +
+                "</body></html>"
+            )
+            newIframe.contentWindow.document.close()
+            newIframe.contentWindow.focus()
+            newIframe.contentWindow.print()
+            document.getElementsByTagName("body")[0].removeChild(newIframe)
+
+            setTimeout(function () {
+              _this.document.focus()
+            }, 25)
+          } catch (err) {
+            //
+          }
+        } else {
+          try {
+            var printingWindow = window.open("about:blank", "_blank")
+            printingWindow.document.write(
+              "<!doctype html><html><head><title>" +
+                this.encodeText(window.location.href) +
+                "</title><style>body{font-family:Arial;font-size:16px;white-space:pre-wrap;word-break:break-word}a{text-decoration:underline;color:" +
+                this.editorConfig.linkColor +
+                "}</style></head><body>" +
+                this.document.innerHTML +
+                "</body></html>"
+            )
+            printingWindow.document.close()
+            printingWindow.focus()
+            setTimeout(function () {
+              printingWindow.print()
+            }, 500)
+          } catch (err) {
+            //
+          }
+        }
+      }
+
+      tinyDOC.prototype.undo = function (keyboardRequest) {
+        var _this = this
+
+        try {
+          if (!this.canUndoRedo) {
+            return
+          }
+
+          if (!this.isDocumentSelected() && !keyboardRequest) {
+            return
+          }
+
+          this.document.style.caretColor = "transparent"
+          this.canUndoRedo = false
+          this.document_history_lastCaret = this.getCaretPosition(this.document)
+
+          if (this.document_history_index > 0) {
+            while (this.document.firstChild) {
+              this.document.removeChild(this.document.firstChild)
+            }
+
+            this.insertHtmlAtCaret(
+              this.document_history[this.document_history_index - 1],
+              false
+            )
+
+            setTimeout(function () {
+              _this.setCaretPosition(
+                _this.document,
+                _this.document_history_caret[_this.document_history_index - 1]
+              )
+
+              _this.document_history_index = _this.document_history_index - 1
+              _this.scrollToCaret()
+              _this.document.style.caretColor = "black"
+              _this.canUndoRedo = true
+              _this.updateUndoRedoIcons()
+            }, 25)
+          } else {
+            setTimeout(function () {
+              _this.setCaretPosition(
+                _this.document,
+                _this.document_history_lastCaret
+              )
+              _this.document.style.caretColor = "black"
+              _this.canUndoRedo = true
+              _this.updateUndoRedoIcons()
+            }, 25)
+          }
+        } catch (err) {
+          setTimeout(function () {
+            _this.setCaretPosition(_this.document, 0)
+            _this.document.style.caretColor = "black"
+            _this.canUndoRedo = true
+            _this.updateUndoRedoIcons()
+          }, 25)
+        }
+      }
+
+      tinyDOC.prototype.redo = function (keyboardRequest) {
+        var _this = this
+
+        try {
+          if (!this.canUndoRedo) {
+            return
+          }
+
+          if (!this.isDocumentSelected() && !keyboardRequest) {
+            return
+          }
+
+          this.document.style.caretColor = "transparent"
+          this.canUndoRedo = false
+          this.document_history_lastCaret = this.getCaretPosition(this.document)
+
+          if (this.document_history[this.document_history_index + 1]) {
+            while (this.document.firstChild) {
+              this.document.removeChild(this.document.firstChild)
+            }
+
+            this.insertHtmlAtCaret(
+              this.document_history[this.document_history_index + 1],
+              false
+            )
+
+            setTimeout(function () {
+              _this.setCaretPosition(
+                _this.document,
+                _this.document_history_caret[_this.document_history_index + 1]
+              )
+
+              _this.document_history_index = _this.document_history_index + 1
+              _this.scrollToCaret()
+              _this.document.style.caretColor = "black"
+              _this.canUndoRedo = true
+              _this.updateUndoRedoIcons()
+            }, 25)
+          } else {
+            setTimeout(function () {
+              _this.setCaretPosition(
+                _this.document,
+                _this.document_history_lastCaret
+              )
+              _this.document.style.caretColor = "black"
+              _this.canUndoRedo = true
+              _this.updateUndoRedoIcons()
+            }, 25)
+          }
+        } catch (err) {
+          setTimeout(function () {
+            _this.setCaretPosition(_this.document, 0)
+            _this.document.style.caretColor = "black"
+            _this.canUndoRedo = true
+            _this.updateUndoRedoIcons()
+          }, 25)
+        }
+      }
+
+      tinyDOC.prototype.updateUndoRedoIcons = function () {
+        var canUndo = false
+        var canRedo = false
+
+        if (this.document_history_index > 0) {
+          canUndo = true
+        }
+
+        if (this.document_history[this.document_history_index + 1]) {
+          canRedo = true
+        }
+
+        if (canUndo) {
+          document.getElementById(this.myContainerID + "-undo").style.opacity = 1
+        } else {
+          document.getElementById(this.myContainerID + "-undo").style.opacity = 0.2
+        }
+
+        if (canRedo) {
+          document.getElementById(this.myContainerID + "-redo").style.opacity = 1
+        } else {
+          document.getElementById(this.myContainerID + "-redo").style.opacity = 0.2
+        }
+
+        if (this.findBar.style.display === "flex") {
+          if (this.findInput.value !== "" && this.findCounter.textContent !== "") {
+            this.runFind(true)
+          }
+        }
+      }
+
+      tinyDOC.prototype.saveUndo = function () {
+        try {
+          var current_state = this.document.innerHTML
+
+          if (current_state !== this.document_history[this.document_history_index]) {
+            if (this.document_history_index <= this.document_history.length - 1) {
+              this.document_history = this.document_history.slice(
+                0,
+                this.document_history_index + 1
+              )
+              this.document_history_caret = this.document_history_caret.slice(
+                0,
+                this.document_history_index + 1
+              )
+
+              this.document_history_index = this.document_history_index + 1
+            }
+
+            this.document_history.push(current_state)
+            this.document_history_caret.push(this.getCaretPosition(this.document))
+            this.document_history_index = this.document_history.length - 1
+
+            if (this.findBar.style.display === "flex") {
+              if (
+                this.findInput.value !== "" &&
+                this.findCounter.textContent !== ""
+              ) {
+                this.runFind(true)
+              }
+            }
+          }
+        } catch (err) {
+          //
+        }
+        this.updateUndoRedoIcons()
+      }
+
+      tinyDOC.prototype.clearUndoRedo = function () {
+        this.document_history = []
+        this.document_history_caret = []
+        this.document_history_index = 0
+        this.document_history_lastCaret = 0
+
+        this.saveUndo()
+        this.updateUndoRedoIcons()
+      }
+
+      tinyDOC.prototype.setCaretPosition = function (container, position) {
+        try {
+          if (!container || position < 0) {
+            return
+          }
+
+          var remaining = position
+          var sel = window.getSelection()
+          var range = document.createRange()
+
+          // helper: count visible length
+          function getNodeLength(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+              return node.textContent.replace(/\n+/g, "").length
+            } else if (node.tagName === "BR") {
+              return 1
+            }
+            return 0
+          }
+
+          // walk through nodes in dom order
+          var walker = document.createTreeWalker(
+            container,
+            NodeFilter.SHOW_ALL,
+            null
+          )
+
+          var found = false
+          var node
+
+          while ((node = walker.nextNode())) {
+            var len = getNodeLength(node)
+            if (node.nodeType === Node.TEXT_NODE) {
+              if (remaining <= len) {
+                range.setStart(node, remaining)
+                found = true
+                break
+              }
+              remaining = remaining - len
+            } else if (len > 0) {
+              if (remaining <= len) {
+                // put caret just after this element
+                range.setStartAfter(node)
+                found = true
+                break
+              }
+              remaining = remaining - len
+            }
+          }
+
+          // fallback: end of element
+          if (!found) {
+            range.selectNodeContents(container)
+            range.collapse(false)
+          }
+
+          sel.removeAllRanges()
+          sel.addRange(range)
+          container.focus()
+        } catch (err) {
+          //
+        }
+      }
+
+      // https://stackoverflow.com/questions/3972014/get-contenteditable-caret-position
+      tinyDOC.prototype.getCaretPosition = function (element) {
+        try {
+          if (!this.isDocumentSelected()) {
+            return 0
+          }
+
+          var caretOffset = 0
+
+          var range = window.getSelection().getRangeAt(0)
+          var preCaretRange = range.cloneRange()
+          preCaretRange.selectNodeContents(element)
+          preCaretRange.setEnd(range.endContainer, range.endOffset)
+
+          var tempDiv = document.createElement("div")
+          tempDiv.appendChild(preCaretRange.cloneContents())
+          caretOffset = tempDiv.textContent.replace(/\n/gm, "").length
+          caretOffset = caretOffset + tempDiv.getElementsByTagName("br").length
+
+          return caretOffset
+        } catch (err) {
+          return 0
+        }
+      }
+
+      tinyDOC.prototype.insertLink = function () {
+        try {
+          function checkForEmail(email) {
+            var re =
+              /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return re.test(String(email).toLowerCase())
+          }
+
+          var _this = this
+
+          var selectedText = window.getSelection().toString()
+
+          if (selectedText !== null) {
+            if (selectedText.length > 0) {
+              var selectedTextURLChecker1 = selectedText.toLowerCase().indexOf(" ")
+              var selectedTextURLChecker2 = selectedText
+                .toLowerCase()
+                .indexOf("http://")
+              var selectedTextURLChecker3 = selectedText
+                .toLowerCase()
+                .indexOf("https://")
+              var selectedTextURLChecker4 = checkForEmail(selectedText)
+
+              if (
+                selectedTextURLChecker1 === -1 &&
+                (selectedTextURLChecker2 === 0 ||
+                  selectedTextURLChecker3 === 0 ||
+                  selectedTextURLChecker4)
+              ) {
+                if (selectedTextURLChecker4) {
+                  this.insertHtmlAtCaret(
+                    "<a href='mailto:" +
+                      selectedText.toLowerCase() +
+                      "' target='_blank'>" +
+                      selectedText +
+                      "</a>",
+                    false
+                  )
+                } else {
+                  this.insertHtmlAtCaret(
+                    "<a href='" +
+                      selectedText +
+                      "' target='_blank'>" +
+                      selectedText +
+                      "</a>",
+                    false
+                  )
+                }
+              }
+            }
+          }
+
+          setTimeout(function () {
+            _this.document.focus()
+          }, 100)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.insertCalc = function () {
+        var _this = this
+
+        try {
+          if (!this.documentEnabled) {
+            return
+          }
+
+          var selectedText = window.getSelection().toString()
+
+          if (selectedText !== null) {
+            if (selectedText.length > 0) {
+              try {
+                document.getSelection().collapseToEnd()
+              } catch (err) {
+                //
+              }
+
+              var splitted = selectedText.split("\n")
+
+              var finalResult
+
+              if (splitted.length === 1) {
+                selectedText = selectedText.replace(/[^0-9.*/()+-]/g, "")
+
+                try {
+                  // eslint-disable-next-line
+                  finalResult = eval(selectedText)
+
+                  if (isNaN(finalResult)) {
+                    this.insertHtmlAtCaret(" = ERROR", false)
+                  } else {
+                    finalResult = parseFloat(finalResult).toFixed(2)
+
+                    if (finalResult.indexOf(".00") > -1) {
+                      finalResult = parseFloat(finalResult).toFixed(0)
+                    }
+
+                    this.insertHtmlAtCaret(" = " + finalResult, false)
+                  }
+                } catch (err) {
+                  this.insertHtmlAtCaret(" = ERROR", false)
+                }
+              } else {
+                finalResult = 0
+
+                var lastLineBR = ""
+
+                for (var i = 0; i < splitted.length; i++) {
+                  try {
+                    var currentLine = splitted[i]
+
+                    if (currentLine.length > 0) {
+                      currentLine = currentLine.trim()
+
+                      if (currentLine.lastIndexOf(" ") > -1) {
+                        currentLine = currentLine.substr(
+                          currentLine.lastIndexOf(" ") + 1,
+                          currentLine.length
+                        )
+                      }
+
+                      currentLine = currentLine.replace(/[^0-9.]/g, "")
+
+                      finalResult = parseFloat(finalResult) + parseFloat(currentLine)
+                    }
+
+                    if (currentLine !== "" && i === splitted.length - 1) {
+                      lastLineBR = "<br>"
+                    }
+                  } catch (err) {
+                    //
+                  }
+                }
+
+                try {
+                  if (isNaN(finalResult)) {
+                    this.insertHtmlAtCaret(
+                      lastLineBR + "----------<br />ERROR",
+                      false
+                    )
+                  } else {
+                    finalResult = parseFloat(finalResult).toFixed(2)
+
+                    if (finalResult.indexOf(".00") > -1) {
+                      finalResult = parseFloat(finalResult).toFixed(0)
+                    }
+
+                    this.insertHtmlAtCaret(
+                      lastLineBR + "----------<br />" + finalResult,
+                      false
+                    )
+                  }
+                } catch (err) {
+                  this.insertHtmlAtCaret(lastLineBR + "----------<br />ERROR", false)
+                }
+              }
+            }
+          }
+        } catch (err) {
+          //
+        }
+
+        setTimeout(function () {
+          _this.document.focus()
+        }, 100)
+      }
+
+      tinyDOC.prototype.checkForURL = function () {
+        try {
+          var linkTag = this.getParentTag("A")
+
+          if (linkTag === null) {
+            linkTag = this.getCurrentTag()
+          }
+
+          while (this.contentViewer.firstChild) {
+            this.contentViewer.removeChild(this.contentViewer.firstChild)
+          }
+
+          if (linkTag.nodeName === "A") {
+            var finalURL = linkTag.href
+            var newLink = document.createElement("a")
+            newLink.href = finalURL
+            newLink.target = "_blank"
+            newLink.textContent = finalURL
+            this.contentViewer.appendChild(newLink)
+            return true
+          }
+        } catch (err) {
+          //
+        }
+        return false
+      }
+
+      // https://stackoverflow.com/questions/6690752/insert-html-at-caret-in-a-contenteditable-div
+      tinyDOC.prototype.insertHtmlAtCaret = function (html, selectPastedContent) {
+        var _this = this
+
+        try {
+          if (!this.isDocumentSelected()) {
+            return
+          }
+
+          if (this.canUndoRedo) {
+            this.saveUndo()
+          }
+
+          var selection = window.getSelection()
+
+          if (selection.getRangeAt && selection.rangeCount) {
+            var range = selection.getRangeAt(0)
+            range.deleteContents()
+
+            var fragment = document.createDocumentFragment()
+
+            var el = document.createElement("div")
+            el.innerHTML = html
+
+            var frag = document.createDocumentFragment()
+            var node
+            var lastNode
+
+            while ((node = el.firstChild)) {
+              lastNode = frag.appendChild(node)
+            }
+
+            var firstNode = frag.firstChild
+            range.insertNode(frag)
+
+            var insertedRange = range.cloneRange()
+            insertedRange.insertNode(fragment)
+
+            var newRange = document.createRange()
+
+            function isJustBR() {
+              return (
+                html.trim().toLowerCase() === "<br>" ||
+                html.trim().toLowerCase() === "<br/>" ||
+                html.trim().toLowerCase() === "<br />" ||
+                (firstNode && firstNode.nodeName === "BR" && !firstNode.nextSibling)
+              )
+            }
+
+            if (isJustBR() && lastNode && !this.isUsingSafari) {
+              var zwsp = document.createTextNode("\u200B") // zero-width space
+              lastNode.parentNode.insertBefore(zwsp, lastNode.nextSibling)
+              newRange.setStartBefore(zwsp)
+            } else if (selectPastedContent && firstNode && lastNode) {
+              newRange.setStartBefore(firstNode)
+              newRange.setEndAfter(lastNode)
+            } else if (lastNode) {
+              newRange.setStartAfter(lastNode)
+              newRange.collapse(true)
+            }
+
+            selection.removeAllRanges()
+            selection.addRange(newRange)
+
+            if (this.settingNewText) {
+              this.settingNewText = false
+
+              this.setCaretPosition(this.document, 0)
+            } else if (this.keyEnterPressed) {
+              this.keyEnterPressed = false
+
+              this.scrollToCaret()
+
+              if (this.editorConfig.dirtyCallback) {
+                this.editorConfig.dirtyCallback()
+              }
+            } else {
+              setTimeout(function () {
+                if (lastNode) {
+                  range = range.cloneRange()
+                  range.setStartAfter(lastNode)
+                  if (selectPastedContent) {
+                    range.setStartBefore(firstNode)
+                  } else {
+                    range.collapse(true)
+                  }
+                  selection.removeAllRanges()
+                  selection.addRange(range)
+                }
+
+                if (_this.canUndoRedo) {
+                  _this.scrollToCaret()
+
+                  _this.saveUndo()
+                }
+
+                if (_this.editorConfig.dirtyCallback) {
+                  _this.editorConfig.dirtyCallback()
+                }
+              }, 25)
+            }
+          }
+        } catch (err) {
+          //
+        }
+      }
+
+      // https://stackoverflow.com/questions/17678843/cant-restore-selection-after-html-modify-even-if-its-the-same-html
+      tinyDOC.prototype.saveSelection = function (containerEl) {
+        try {
+          var doc = containerEl.ownerDocument
+          var win = doc.defaultView
+          var range = win.getSelection().getRangeAt(0)
+          var preSelectionRange = range.cloneRange()
+          preSelectionRange.selectNodeContents(containerEl)
+          preSelectionRange.setEnd(range.startContainer, range.startOffset)
+          var start = preSelectionRange.toString().length
+          return { start: start, end: start + range.toString().length }
+        } catch (err) {
+          return { start: 0, end: 0 }
+        }
+      }
+
+      // https://stackoverflow.com/questions/17678843/cant-restore-selection-after-html-modify-even-if-its-the-same-html
+      tinyDOC.prototype.restoreSelection = function (containerEl, savedSel) {
+        try {
+          var doc = containerEl.ownerDocument
+          var win = doc.defaultView
+          var charIndex = 0
+          var range = doc.createRange()
+          range.setStart(containerEl, 0)
+          range.collapse(true)
+          var nodeStack = [containerEl]
+          var node
+          var foundStart = false
+          var stop = false
+
+          while (!stop && (node = nodeStack.pop())) {
+            if (node.nodeType === 3) {
+              var nextCharIndex = charIndex + node.length
+              if (
+                !foundStart &&
+                savedSel.start >= charIndex &&
+                savedSel.start < nextCharIndex
+              ) {
+                range.setStart(node, savedSel.start - charIndex)
+                foundStart = true
+              }
+              if (
+                foundStart &&
+                savedSel.end >= charIndex &&
+                savedSel.end <= nextCharIndex
+              ) {
+                range.setEnd(node, savedSel.end - charIndex)
+                stop = true
+              }
+              charIndex = nextCharIndex
+            } else {
+              for (var i = node.childNodes.length - 1; i >= 0; i -= 1) {
+                nodeStack.push(node.childNodes[i])
+              }
+            }
+          }
+
+          var sel = win.getSelection()
+          sel.removeAllRanges()
+          sel.addRange(range)
+        } catch (err) {
+          //
+        }
+      }
+
+      tinyDOC.prototype.showFindBar = function (mustBeVisible) {
+        if (mustBeVisible) {
+          this.findBar.style.display = "flex"
+          if (this.findCounter.textContent !== "") {
+            this.findCounter.style.display = "block"
+          } else {
+            this.findCounter.style.display = "none"
+          }
+          this.svgFind.parentNode.className = "tinydoc_button_selected"
+
+          while (this.contentViewer.firstChild) {
+            this.contentViewer.removeChild(this.contentViewer.firstChild)
+          }
+          this.findInput.focus()
+        } else {
+          this.findBar.style.display = "none"
+          this.findCounter.style.display = "none"
+          this.svgFind.parentNode.className = "tinydoc_button"
+          this.findInput.value = ""
+          this.findCounter.textContent = ""
+          this.findMatches = []
+          this.findIndex = 0
+          if (!this.isMobileDevice) {
+            this.document.focus()
+            this.checkForURL()
+          }
+        }
+      }
+
+      tinyDOC.prototype.runFind = function (ignoreFirstMatch) {
+        var text = this.document.innerText
+        var query = this.findInput.value
+        this.findMatches = []
+        this.findIndex = 0
+
+        if (!query) {
+          this.findCounter.textContent = ""
+          return
+        }
+
+        this.findCounter.style.display = "block"
+
+        var pos = text.toLowerCase().indexOf(query.toLowerCase())
+        while (pos !== -1) {
+          this.findMatches.push(pos)
+          pos = text.toLowerCase().indexOf(query.toLowerCase(), pos + query.length)
+        }
+
+        if (!this.findMatches.length) {
+          var counterString = this.editorConfig.findCounter
+          counterString = counterString.replace(/\{FIND_INDEX\}/gm, "0")
+          counterString = counterString.replace(/\{FIND_MATCHES\}/gm, "0")
+          this.findCounter.innerText = counterString
+          return
+        }
+
+        this.goToFindMatch(0, ignoreFirstMatch)
+      }
+
+      tinyDOC.prototype.goToFindMatch = function (i, ignoreFirstMatch) {
+        if (!this.findMatches.length) {
+          return
+        }
+
+        if (ignoreFirstMatch) {
+          this.updateCounter()
+          return
+        }
+
+        this.findIndex = (i + this.findMatches.length) % this.findMatches.length
+        var pos = this.findMatches[this.findIndex]
+        var len = this.findInput.value.length
+
+        // collapse caret at the start of the match (mapped from innertext index)
+        this.setCaretPosition(this.document, pos)
+
+        var sel = window.getSelection()
+        if (!sel.rangeCount) {
+          return
+        }
+        var baseRange = sel.getRangeAt(0)
+
+        // ---- helpers -----------------------------------------------------------
+        function isText(n) {
+          return n && n.nodeType === 3
+        }
+
+        function firstTextDescendant(n) {
+          if (isText(n)) {
+            return n
+          }
+
+          var tw = document.createTreeWalker(n, NodeFilter.SHOW_TEXT, {
+            acceptNode: function acceptNode(twNode) {
+              return twNode.nodeValue && twNode.nodeValue.length
+                ? NodeFilter.FILTER_ACCEPT
+                : NodeFilter.FILTER_REJECT
+            },
+          })
+
+          return tw.nextNode()
+        }
+
+        function nextTextNodeFrom(root, node) {
+          var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+            acceptNode: function acceptNode(twNode) {
+              return twNode.nodeValue && twNode.nodeValue.length
+                ? NodeFilter.FILTER_ACCEPT
+                : NodeFilter.FILTER_REJECT
+            },
+          })
+
+          // position walker on current node
+          tw.currentNode = node
+
+          return tw.nextNode()
+        }
+
+        // given an element + child offset, find the first text node at/after that child
+        function textAtElementOffset(el, offset) {
+          var child = el.childNodes[offset] || null
+          var start = child || el
+          var twNode = firstTextDescendant(start)
+          if (twNode) {
+            return { node: twNode, offset: 0 }
+          }
+          // best-effort: move walker to el then advance until we leave el subtree
+          // fallback: global walker from the editable root
+          // (below we’ll fall back to global walk anyway.)
+          return null
+        }
+        // -----------------------------------------------------------------------
+
+        var startNode = baseRange.startContainer
+        var startOffset = baseRange.startOffset
+
+        // normalize the start so it is a valid text position at/after the boundary
+        if (!isText(startNode)) {
+          // if the caret is on an element (common at boundaries), try to get the
+          // first text inside the child at startoffset; if not, the next text node.
+          var ta = textAtElementOffset(startNode, startOffset)
+          if (ta) {
+            startNode = ta.node
+            startOffset = ta.offset
+          } else {
+            // global fallback: find next text node after the element boundary
+            var twG = document.createTreeWalker(
+              this.document,
+              NodeFilter.SHOW_TEXT,
+              {
+                acceptNode: function acceptNode(twNode) {
+                  return twNode.nodeValue && twNode.nodeValue.length
+                    ? NodeFilter.FILTER_ACCEPT
+                    : NodeFilter.FILTER_REJECT
+                },
+              }
+            )
+
+            // seed walker near the boundary by setting currentnode to startnode if allowed
+            try {
+              twG.currentNode = startNode
+            } catch (err) {
+              //
+            }
+
+            var n = twG.nextNode()
+            if (!n) {
+              return
+            }
+
+            startNode = n
+            startOffset = 0
+          }
+        } else {
+          // if caret is at the end of a text node and the match actually starts in the next node,
+          // hop forward to the next non-empty text node.
+          if (startOffset >= startNode.nodeValue.length) {
+            var nxt = nextTextNodeFrom(this.document, startNode)
+            if (nxt) {
+              startNode = nxt
+              startOffset = 0
+            }
+          }
+        }
+
+        // build a range that spans 'len' characters across text nodes
+        var range = document.createRange()
+        range.setStart(startNode, Math.min(startOffset, startNode.nodeValue.length))
+
+        var remaining = len
+        var cur = startNode
+        var curStartOffset = startOffset
+
+        while (cur) {
+          var available =
+            cur.nodeValue.length - (cur === startNode ? curStartOffset : 0)
+          if (remaining <= available) {
+            var endOffset = (cur === startNode ? curStartOffset : 0) + remaining
+            range.setEnd(cur, endOffset)
+            break
+          } else {
+            remaining = remaining - available
+            var next = nextTextNodeFrom(this.document, cur)
+            if (!next) {
+              // no more text nodes; end at the end of the current one
+              range.setEnd(cur, cur.nodeValue.length)
+              break
+            }
+            cur = next
+          }
+        }
+
+        sel.removeAllRanges()
+        sel.addRange(range)
+
+        this.updateCounter()
+      }
+
+      tinyDOC.prototype.updateCounter = function () {
+        // counter update
+        var counterString = this.editorConfig.findCounter
+        counterString = counterString.replace(/\{FIND_INDEX\}/gm, this.findIndex + 1)
+        counterString = counterString.replace(
+          /\{FIND_MATCHES\}/gm,
+          this.findMatches.length
+        )
+        this.findCounter.innerText = counterString
+
+        var _this = this
+        setTimeout(function () {
+          _this.scrollToCaret()
+        }, 25)
+      }
+
+      tinyDOC.prototype.replaceOne = function () {
+        if (!this.findMatches.length) {
+          return
+        }
+
+        var sel = window.getSelection()
+        if (!sel.rangeCount) {
+          return
+        }
+
+        if (!this.isDocumentSelected()) {
+          return
+        }
+
+        var replaceText = this.replaceInput.value
+        var range = sel.getRangeAt(0)
+
+        // delete the selected range
+        range.deleteContents()
+
+        // insert the replacement text
+        var textNode = document.createTextNode(replaceText)
+        range.insertNode(textNode)
+
+        // move the cursor after the inserted text
+        range.setStartAfter(textNode)
+        range.setEndAfter(textNode)
+        sel.removeAllRanges()
+        sel.addRange(range)
+
+        // trigger undo save
+        this.saveUndo()
+
+        if (this.editorConfig.dirtyCallback) {
+          this.editorConfig.dirtyCallback()
+        }
+
+        // re-run the find to update matches
+        this.runFind()
+      }
+
+      tinyDOC.prototype.replaceAll = function () {
+        var query = this.findInput.value
+        var replaceText = this.replaceInput.value
+
+        if (!query) {
+          return
+        }
+
+        if (this.findMatches.length === 0) {
+          return
+        }
+
+        // save current state for undo
+        this.saveUndo()
+
+        // replace all occurrences using cross-node aware approach
+        this.replaceCrossNodeTextAll(this.document, query, replaceText)
+
+        // clear matches and update
+        this.findMatches = []
+        this.findIndex = 0
+        this.findCounter.textContent = ""
+
+        // trigger undo save
+        this.saveUndo()
+
+        if (this.editorConfig.dirtyCallback) {
+          this.editorConfig.dirtyCallback()
+        }
+
+        // re-run the find to update matches
+        this.runFind()
+      }
+
+      tinyDOC.prototype.escapeRegExp = function (string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+      }
+
+      tinyDOC.prototype.replaceCrossNodeTextAll = function (
+        rootNode,
+        searchText,
+        replaceText
+      ) {
+        // build a normalized text string and track position mappings
+        var textNodes = []
+        var walker = document.createTreeWalker(rootNode, NodeFilter.SHOW_TEXT, {
+          acceptNode: function acceptNode(n) {
+            return n.nodeValue && n.nodeValue.length
+              ? NodeFilter.FILTER_ACCEPT
+              : NodeFilter.FILTER_REJECT
+          },
+        })
+
+        var currentNode
+        var fullText = ""
+        var positionMap = [] // maps each character in fulltext to {node, offset}
+
+        while ((currentNode = walker.nextNode())) {
+          textNodes.push(currentNode)
+          var nodeText = currentNode.nodeValue
+          for (var i = 0; i < nodeText.length; i++) {
+            positionMap.push({ node: currentNode, offset: i })
+            fullText = fullText + nodeText[i]
+          }
+        }
+
+        // find all matches in the combined text (case insensitive)
+        var searchLower = searchText.toLowerCase()
+        var matches = []
+        var pos = 0
+
+        while ((pos = fullText.toLowerCase().indexOf(searchLower, pos)) !== -1) {
+          matches.push({ start: pos, end: pos + searchText.length })
+          pos = pos + searchText.length
+        }
+
+        // process matches in reverse order to maintain position indices
+        for (var m = matches.length - 1; m >= 0; m--) {
+          var match = matches[m]
+          var startPos = positionMap[match.start]
+          var endPos = positionMap[match.end - 1]
+
+          // delete the matched text across nodes
+          var range = document.createRange()
+          range.setStart(startPos.node, startPos.offset)
+          range.setEnd(endPos.node, endPos.offset + 1)
+          range.deleteContents()
+
+          // insert replacement text
+          var newNode = document.createTextNode(replaceText)
+          range.insertNode(newNode)
+        }
+      }
+
+      // -----------------------------------------------------
+      // ends tinydoc.js
+      // -----------------------------------------------------
+
+      function confirmCustom(title, message, yes, no, cbYes, cbNo) {
+        try {
+          function blockKeyboard(e) {
+            e.stopPropagation()
+            e.preventDefault()
+          }
+
+          // blocking the keyboard
+          document.addEventListener("keydown", blockKeyboard, true)
+
+          // creating the confirm container
+          var confirmContainer = document.createElement("div")
+          confirmContainer.style.position = "fixed"
+          confirmContainer.style.top = 0
+          confirmContainer.style.bottom = 0
+          confirmContainer.style.left = 0
+          confirmContainer.style.right = 0
+          confirmContainer.style.zIndex = 9999
+          confirmContainer.style.backgroundColor = "rgba(0,0,0,0.5)"
+
+          // creating the confirm form
+          var confirmForm = document.createElement("div")
+          confirmForm.style.position = "relative"
+          confirmForm.style.top = "50%"
+          confirmForm.style.left = 0
+          confirmForm.style.right = 0
+          confirmForm.style.marginLeft = "auto"
+          confirmForm.style.marginRight = "auto"
+          confirmForm.style.transform = "translateY(-50%)"
+          confirmForm.style.borderRadius = "8px"
+          confirmForm.style.overflow = "hidden"
+          confirmForm.style.width = "300px"
+          confirmForm.style.backgroundColor = "#f2f2f2"
+          confirmForm.style.textAlign = "center"
+
+          // creating the confirm title
+          var confirmTitle = document.createElement("div")
+          confirmTitle.style.textAlign = "left"
+          confirmTitle.style.paddingLeft = "10px"
+          confirmTitle.style.backgroundColor = "#3a76b1"
+          confirmTitle.style.fontFamily = "Arial"
+          confirmTitle.style.fontSize = "16px"
+          confirmTitle.style.fontWeight = "bold"
+          confirmTitle.style.color = "white"
+          confirmTitle.style.lineHeight = 2.5
+          confirmTitle.innerText = title
+
+          // creating the confirm message
+          var confirmMessage = document.createElement("div")
+          confirmMessage.style.padding = "20px"
+          confirmMessage.style.fontFamily = "Arial"
+          confirmMessage.style.fontSize = "16px"
+          confirmMessage.style.color = "black"
+          confirmMessage.style.textAlign = "center"
+          confirmMessage.style.lineHeight = 2
+          confirmMessage.innerText = message
+
+          // creating the confirm yes button
+          var confirmButtonYes = document.createElement("button")
+          confirmButtonYes.style.padding = "10px"
+          confirmButtonYes.style.backgroundColor = "#d2d2d2"
+          confirmButtonYes.style.border = "1px solid #b2b2b2"
+          confirmButtonYes.style.fontFamily = "Arial"
+          confirmButtonYes.style.fontSize = "16px"
+          confirmButtonYes.style.color = "black"
+          confirmButtonYes.style.textAlign = "center"
+          confirmButtonYes.style.lineHeight = 1.5
+          confirmButtonYes.style.display = "inline-block"
+          confirmButtonYes.style.borderRadius = "8px"
+          confirmButtonYes.style.overflow = "hidden"
+          confirmButtonYes.style.marginBottom = "10px"
+          confirmButtonYes.style.paddingLeft = "40px"
+          confirmButtonYes.style.paddingRight = "40px"
+          confirmButtonYes.style.cursor = "pointer"
+          confirmButtonYes.addEventListener("click", function () {
+            // unblocking the keyboard
+            document.removeEventListener("keydown", blockKeyboard, true)
+
+            // removing the confirm container
+            document.getElementsByTagName("body")[0].removeChild(confirmContainer)
+
+            // executing the callback function
+            if (typeof cbYes === "function") {
+              cbYes()
+            }
+          })
+          confirmButtonYes.innerText = yes
+
+          // creating the confirm no button
+          var confirmButtonNo = document.createElement("button")
+          confirmButtonNo.style.padding = "10px"
+          confirmButtonNo.style.backgroundColor = "#d2d2d2"
+          confirmButtonNo.style.border = "1px solid #b2b2b2"
+          confirmButtonNo.style.fontFamily = "Arial"
+          confirmButtonNo.style.fontSize = "16px"
+          confirmButtonNo.style.color = "black"
+          confirmButtonNo.style.textAlign = "center"
+          confirmButtonNo.style.lineHeight = 1.5
+          confirmButtonNo.style.display = "inline-block"
+          confirmButtonNo.style.borderRadius = "8px"
+          confirmButtonNo.style.overflow = "hidden"
+          confirmButtonNo.style.marginLeft = "20px"
+          confirmButtonNo.style.marginBottom = "10px"
+          confirmButtonNo.style.paddingLeft = "40px"
+          confirmButtonNo.style.paddingRight = "40px"
+          confirmButtonNo.style.cursor = "pointer"
+          confirmButtonNo.addEventListener("click", function () {
+            // unblocking the keyboard
+            document.removeEventListener("keydown", blockKeyboard, true)
+
+            // removing the confirm container
+            document.getElementsByTagName("body")[0].removeChild(confirmContainer)
+
+            // executing the callback function
+            if (typeof cbNo === "function") {
+              cbNo()
+            }
+          })
+          confirmButtonNo.innerText = no
+
+          // adding all the elements to the confirm container
+          confirmForm.appendChild(confirmTitle)
+          confirmForm.appendChild(confirmMessage)
+          confirmForm.appendChild(confirmButtonYes)
+          confirmForm.appendChild(confirmButtonNo)
+          confirmContainer.appendChild(confirmForm)
+
+          // adding the confirm container to the document
+          document.getElementsByTagName("body")[0].appendChild(confirmContainer)
+        } catch (err) {
+          //
+        }
+      }
+
+      var myTinyDOC
+      var myFilename = null
+
+      window.addEventListener("focus", function () {
+        try {
+          myTinyDOC.document.focus()
+        } catch (err) {
+          //
+        }
+      })
+
+      window.addEventListener("load", function () {
+        // checking if the app is loaded properly
+        var secSameDomain = false
+        var secNotIframe = window.top === window.self
+        var secLocalFile = window.self.location.protocol === "file:"
+        try {
+          secSameDomain =
+            window.top !== window.self &&
+            window.top.location.hostname === window.self.location.hostname
+        } catch (err) {
+          //
+        }
+        if (secNotIframe || secSameDomain || secLocalFile) {
+          // hiding the spinner
+          document.querySelector(".pleasewait").style.display = "none"
+          document.getElementsByTagName("body")[0].style.backgroundColor = "#fff"
+
+          myTinyDOC = new tinyDOC({
+            container: document.getElementById("myContainer"),
+            content: t("welcome"),
+            newCallback: function newCallback() {
+              function doNew() {
+                myFilename = null
+                myTinyDOC.setText("")
+                window.isDirty = false
+                window.onbeforeunload = null
+              }
+
+              if (window.isDirty) {
+                myTinyDOC.disable()
+                confirmCustom(
+                  t("dirty_title"),
+                  t("dirty_message"),
+                  t("dirty_yes"),
+                  t("dirty_no"),
+                  function () {
+                    myTinyDOC.enable()
+                    doNew()
+                  },
+                  function () {
+                    myTinyDOC.enable()
+                    setTimeout(function () {
+                      myTinyDOC.focus()
+                    }, 25)
+                  }
+                )
+              } else {
+                doNew()
+              }
+            },
+            openCallback: function openCallback() {
+              function doOpen() {
+                document.getElementById("myUploader").click()
+                document
+                  .getElementById("myUploader")
+                  .addEventListener("change", function () {
+                    var file = document.getElementById("myUploader").files[0]
+                    if (!file) {
+                      return
+                    }
+
+                    var reader = new FileReader()
+                    reader.addEventListener("load", function (event) {
+                      var textContent = event.target.result
+                      myFilename = file.name
+                      myTinyDOC.setText(textContent)
+
+                      window.isDirty = false
+                      window.onbeforeunload = null
+                      document.getElementById("myUploader").value = null
+                    })
+
+                    reader.readAsText(file)
+                  })
+              }
+
+              if (window.isDirty) {
+                myTinyDOC.disable()
+                confirmCustom(
+                  t("dirty_title"),
+                  t("dirty_message"),
+                  t("dirty_yes"),
+                  t("dirty_no"),
+                  function () {
+                    myTinyDOC.enable()
+                    doOpen()
+                  },
+                  function () {
+                    myTinyDOC.enable()
+                    setTimeout(function () {
+                      myTinyDOC.focus()
+                    }, 25)
+                  }
+                )
+              } else {
+                doOpen()
+              }
+            },
+            saveCallback: function saveCallback(textContent) {
+              var blob = new Blob([textContent], { type: "text/plain" })
+              var url = URL.createObjectURL(blob)
+              var link = document.createElement("a")
+              link.href = url
+              link.download = myFilename ? myFilename : "Document.lr"
+              link.click()
+              URL.revokeObjectURL(url)
+              window.isDirty = false
+              window.onbeforeunload = null
+            },
+            dirtyCallback: function dirtyCallback() {
+              window.isDirty = true
+              window.onbeforeunload = function () {
+                return "Dirty"
+              }
+            },
+            templates: t("templates"),
+            calcEnabled: true,
+            useCtrlSForSaving: true,
+            useCtrlPForPrinting: true,
+            replaceTabWithSpaces: true,
+            linkColor: "#3A76B1",
+            wordCount: t("wordCount"),
+            find: t("find"),
+            findCounter: t("findCounter"),
+            replace: t("replace"),
+            replaceOne: t("replaceOne"),
+            replaceAll: t("replaceAll"),
+          })
+
+          myTinyDOC.focus()
+        }
+      })
+    </script>
+  </body>
+</html>

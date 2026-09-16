@@ -1,0 +1,22 @@
+{
+  "name": "Puzzle Bobble",
+  "short_name": "Puzzle Bobble",
+  "lang": "en-US",
+  "start_url": "../PuzzleBobble/index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#000",
+  "background_color": "#000",
+  "icons": [
+    {
+      "src": "../PuzzleBobble/PuzzleBobbleFavIcon_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../PuzzleBobble/PuzzleBobbleFavIcon_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
